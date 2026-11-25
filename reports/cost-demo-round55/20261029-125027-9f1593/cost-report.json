@@ -1,0 +1,179 @@
+{
+  "ok": true,
+  "state": "PASS",
+  "run_dir": "reports\\cost-demo-round55\\20261029-125027-9f1593",
+  "cost": {
+    "llm_calls": 0,
+    "llm_calls_baseline": 0,
+    "llm_providers": [],
+    "tokens_reported_calls": 0,
+    "tokens_status": "not_used",
+    "resume_count": 0,
+    "wall_sec": 17.109,
+    "minutes_used": 0.285,
+    "tokens": 0,
+    "rounds_used": 9,
+    "dynamic_used": 1,
+    "steps": [
+      {
+        "step": "step0",
+        "rounds_used": 0,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.0
+      },
+      {
+        "step": "step1",
+        "rounds_used": 0,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.094
+      },
+      {
+        "step": "step2",
+        "rounds_used": 0,
+        "dynamic_used": 0,
+        "elapsed_sec": 11.937
+      },
+      {
+        "step": "step3",
+        "rounds_used": 0,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.235
+      },
+      {
+        "step": "step4",
+        "rounds_used": 7,
+        "dynamic_used": 0,
+        "elapsed_sec": 2.89
+      },
+      {
+        "step": "step5",
+        "rounds_used": 7,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.157
+      },
+      {
+        "step": "step6",
+        "rounds_used": 9,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.187
+      },
+      {
+        "step": "step7",
+        "rounds_used": 9,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.109
+      },
+      {
+        "step": "step8",
+        "rounds_used": 9,
+        "dynamic_used": 1,
+        "elapsed_sec": 0.704
+      },
+      {
+        "step": "step9",
+        "rounds_used": 9,
+        "dynamic_used": 1,
+        "elapsed_sec": 0.125
+      },
+      {
+        "step": "step10",
+        "rounds_used": 9,
+        "dynamic_used": 1,
+        "elapsed_sec": 0.468
+      }
+    ],
+    "budget": [
+      {
+        "item": "minutes",
+        "used": 0.285,
+        "cap": 120.0,
+        "status": "OK"
+      },
+      {
+        "item": "rounds",
+        "used": 9.0,
+        "cap": 32,
+        "status": "OK"
+      },
+      {
+        "item": "dynamic_dispatches",
+        "used": 1.0,
+        "cap": 2,
+        "status": "OK"
+      },
+      {
+        "item": "tokens",
+        "used": 0,
+        "cap": null,
+        "status": "N/A"
+      }
+    ],
+    "scope": "current_process（--resume 各段另行起算）",
+    "source": "totals.cost"
+  },
+  "ledger": {
+    "present": true,
+    "file": "reports\\cost-demo-round55\\20261029-125027-9f1593\\ledger.jsonl",
+    "records": 31,
+    "by_kind": {
+      "script": 20,
+      "decision": 10,
+      "note": 1
+    },
+    "llm_calls": 0,
+    "chain_ok": true,
+    "first_bad": null
+  },
+  "checks": [
+    {
+      "id": "C1",
+      "name": "caps 存在",
+      "status": "pass",
+      "evidence": "caps={\"max_review_minutes\": 120.0, \"max_total_rounds\": 32, \"max_verification_rounds\": 3, \"max_dynamic_dispatches\": 2}"
+    },
+    {
+      "id": "C2",
+      "name": "ledger 哈希链",
+      "status": "pass",
+      "evidence": "31 条记录链完好"
+    },
+    {
+      "id": "C3",
+      "name": "llm_calls 对账",
+      "status": "pass",
+      "evidence": "cost.llm_calls=0 == ledger kind=llm 0 - baseline 0"
+    },
+    {
+      "id": "C4",
+      "name": "rounds 对账",
+      "status": "pass",
+      "evidence": "cost.rounds_used=9 == len(rounds)=9"
+    },
+    {
+      "id": "C5",
+      "name": "checkpoint.rounds_used 对账",
+      "status": "pass",
+      "evidence": "checkpoint=9 == len(rounds)=9"
+    },
+    {
+      "id": "C6",
+      "name": "checkpoint 步骤对账",
+      "status": "pass",
+      "evidence": "last_step=step10 == checkpoint"
+    },
+    {
+      "id": "C7",
+      "name": "tokens 来源",
+      "status": "pass",
+      "evidence": "status=not_used providers=[]"
+    },
+    {
+      "id": "C8",
+      "name": "预算对账",
+      "status": "pass",
+      "evidence": "minutes 0.285/120.0 OK；rounds 9.0/32 OK；dynamic_dispatches 1.0/2 OK；tokens 0/None N/A"
+    }
+  ],
+  "problems": [],
+  "note": "report 是只读视图；判定与退出码以 check 为准"
+}

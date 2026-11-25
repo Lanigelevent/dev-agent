@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "test",
+      "title": "round-126：workspace.py 远程/容器档公式化分支契约 +12（两批共 +14）",
+      "description": "tests/test_agent.py::TestWorkspaceFakeBackends：RemoteWorkspace（prepare happy 检测 python3 / prepare 失败 WorkspaceError / detect fallback / read 失败 / write 失败 / exists True|False / _git 默认 at_repo=False 走 worktree / 锚点规避 prepare 的 ssh 脚本误匹配）+ ContainerWorkspace（容器运行短路 / run -d→exec→detect / run 失败 WorkspaceError / exec 失败 finally rm -f 容器再抛 / detect fallback）；本轮两批契约合计 +14（首批 12，发现容器读/写/exists/run_in 缺口后第二批 +2），fake 子进程驱动、零真 docker/ssh；与 test_dual_reviewer FakeRemote 同型",
+      "outcome": "done"
+    },
+    {
+      "type": "test",
+      "title": "round-126：freshness F5 拦红再次生效——711→713 全仓校准",
+      "description": "新增 2 契约后 discover 713 vs 文档 711，全仓校准 711→713 + bump v2.28.0；本轮一个 round 两个版本锚（2.27.0→2.28.0）——不为省事折中偷减测试数，按实校准",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-126：覆盖率常态 watch 第三周连跑——基线不回退",
+      "description": "workspace.py 64.54→70.36（首批）→ 第二批后以 measure/check 结算；runner.py / doc-freshness.py / precision-report.py / review_gate.py / report-adapter.py 全维持原位（r120-122 入账裁定）；本轮不以基线重切掩盖文件级回退（regressions=0、missing=0）",
+      "outcome": "done"
+    }
+  ]
+}

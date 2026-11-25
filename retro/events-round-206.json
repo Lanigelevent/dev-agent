@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-21 SKILL.md 渐进披露规范对齐审计——已对齐零缺口（round-206，路线图阶段二⑤）",
+    "description": "13 个 SKILL.md 全量扫描对照 anthropics/skills 开放规范：6/7 要素已对齐（frontmatter/渐进披露/脚本化/文件夹装/口语触发=超出/结构性脚本化），2 项有意排除（allowed-tools/版本字段）。与 AB-07/12/13/15/17 审计同类：已对齐零缺口。SKILL.md 规范对齐从路线图移除（终局结论）。",
+    "countermeasure": "审计产物 reports/ab21-skillmd-audit-r206.md；trigger-audit.py 口语说法管控为超出 anthropics/skills 的独有设计。",
+    "source": "round-206"
+  }
+]

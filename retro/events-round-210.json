@@ -1,0 +1,9 @@
+[
+  {
+    "type": "correction",
+    "title": "r173 第十一跑台账宣称失实：ast-grep-py 升级仅落 venv，lock 面从未落地（round-210 发现）",
+    "description": "第十五跑逐包 dry-run 探测时发现 uv.lock 仍钉 0.51.2、venv 已装 0.51.3——r173 收官行写「升 ast-grep-py 0.51.2→0.51.3」但 git log 证明 lock 面从未变更（git log -S 无 0.51.3 提交）。根因：当轮只跑了 venv 安装未跑 lock 定向刷新，双面（lock+venv）一致口径未落实。连带发现 venv 累积 112 孤儿包（历史 ad-hoc 安装未清）；另裸 uv sync 会剥 dev extra（pytest 被列入移除）——必须 --extra dev。",
+    "countermeasure": "本轮落地：uv lock --upgrade-package ast-grep-py（0.51.2→0.51.3 落 lock）+ uv sync --extra dev（孤儿清零、双面对齐）+ requirements-lock 重导出；纪律：依赖刷新轮必须双面核验（lock grep + uv pip list 比对），dry-run 输出须经 stderr 校验（本次 11 项 no-change 全是 No module named uv 假阴性——探针必须先自证工具可用）。",
+    "source": "round-210"
+  }
+]

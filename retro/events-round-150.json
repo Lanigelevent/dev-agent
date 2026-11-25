@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "CII Best Practices 预填自查（round-150）",
+    "description": "13 判据逐条映射仓内证据（reports/cii-bestpractices-precheck.md）；唯一 gap=内网 Gitea 无 https（外网发布补）；操作员照单注册。",
+    "outcome": "done"
+  }
+]

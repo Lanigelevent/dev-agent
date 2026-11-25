@@ -1,0 +1,9 @@
+[
+  {
+    "type": "feature",
+    "title": "round-220 依赖刷新第十六跑",
+    "description": "清华镜像 11 个直接依赖逐包 dry-run 全部 rc=0；采纳 tree-sitter 0.26.1→0.27.0、coverage 7.17.4→7.17.5，拒绝 pyyaml/packaging 非跟踪传递升级；semgrep/pynguin 仅记录镜像可解析版本不安装。uv.lock/requirements-lock/venv 11 包逐包一致，项目版本同步 2.99.0；三引擎矩阵零漂移。",
+    "countermeasure": "定向 test_agent 136 项、test_engines 24 项通过；顺序首跑 803.734s 超护栏，tree-sitter 0.26.1/0.27.0 对照 289.18s/264.42s 无回归；改用批准 xdist，有效双跑 845 passed+3 skipped，470.29/463.80s，发布闸六项 PASS。",
+    "source": "round-220"
+  }
+]

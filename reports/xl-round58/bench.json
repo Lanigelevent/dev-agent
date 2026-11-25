@@ -1,0 +1,102 @@
+{
+  "schema": "xl-bench/1",
+  "round": 58,
+  "date": "2026-10-29",
+  "scope": "4.1 子代理分解（locate/fix/verify）——XL 多文件任务单例实跑",
+  "fixture": {
+    "name": "xlib-amount-pipeline",
+    "builder": "reports/xl-round58/fixture.py（可重建；git 提交初始态）",
+    "source_modules": 6,
+    "files_total": 8,
+    "files_requiring_edits": 5,
+    "tests": {
+      "total": 12,
+      "initial_failed": 7,
+      "initial_passed": 5
+    },
+    "task_statement_chars": 275,
+    "task_statement": "xlib 发票金额管线与业务口径不一致，需要修好：\n1) 会计括号负数金额（如 \"(1,234.50)\"）解析失败，应按负号解析；\n2) validate_amount 拒绝退款负金额，且不拦三位小数；\n3) total 把退款（kind=refund）当收入累加；\n4) render 对负金额没有按会计格式加括号，应输出 \"(1,234.50)\"；\n5) 包级 parse_and_validate 直接抛 TypeError。\n期望口径以 tests/test_xlib.py 为准（当前 7 failed / 5 passed），把它跑绿。"
+  },
+  "arms": [
+    {
+      "name": "single",
+      "args": [
+        "--rounds",
+        "12"
+      ],
+      "state": "DONE",
+      "tests": "pass",
+      "rounds": 2,
+      "rounds_budget": 12,
+      "edits_applied": 6,
+      "files_changed": 5,
+      "added_lines": 18,
+      "removed_lines": 8,
+      "elapsed_sec": 3.124,
+      "patch_sha256": "a2ed125f824356c5eddedefdf69da9ec2babffdf3b0e1b78ec7b00dcca76d1da",
+      "resolved_contract": "tests=pass（单循环无阶段裁决；DONE 即收束）"
+    },
+    {
+      "name": "phases",
+      "args": [
+        "--rounds",
+        "12",
+        "--phases",
+        "--locate-rounds",
+        "2",
+        "--rework-max",
+        "2"
+      ],
+      "state": "DONE",
+      "tests": "pass",
+      "rounds": 4,
+      "rounds_budget": 12,
+      "edits_applied": 6,
+      "files_changed": 5,
+      "added_lines": 18,
+      "removed_lines": 8,
+      "elapsed_sec": 3.563,
+      "patch_sha256": "a2ed125f824356c5eddedefdf69da9ec2babffdf3b0e1b78ec7b00dcca76d1da",
+      "resolved": true,
+      "decision_counts": {
+        "accept": 3
+      },
+      "locate_rounds_used": 2,
+      "rework_count": 0,
+      "decisions": [
+        [
+          "locate",
+          "accept"
+        ],
+        [
+          "fix",
+          "accept"
+        ],
+        [
+          "verify",
+          "accept"
+        ]
+      ]
+    }
+  ],
+  "verification": {
+    "patches_identical": true,
+    "independent_replay": "两臂补丁各打到全新检出，pytest 均 12 passed",
+    "artifact": "reports/xl-round58/fix.patch"
+  },
+  "findings": [
+    "两臂产出补丁字节一致（sha256 相同）；三角色比单循环多 2 轮（定位轮 + 验证轮），换到可审计裁决台账与机械测试优先仲裁",
+    "轮数受控：2/12 与 4/12；locate 2/2 未降级、rework 0/2、无升级",
+    "n=1、夹具自产、同一宿主会话模型：只证明机制可用与轮数不失控，不构成「XL resolved 提升」的证据（不宣称）"
+  ],
+  "pitfalls_found": [
+    "build_map/rank_candidates 用绝对路径父段判定 SKIP_DIRS：仓库位于 reports/、runs/ 等同名目录下时整仓静默为空（7 文件 → 0 文件）",
+    "补丁即时校验未过只 continue 不回滚工作树：被拒改动留在工作区，下一轮按基线文本出的 SEARCH 必然未命中；系统提示「每轮从基线重建」与实现不符"
+  ],
+  "environment": {
+    "python": "3.12.13",
+    "pytest": "8.4.2",
+    "provider": "host（宿主会话模型）",
+    "tokens": "N/A（host 文件协议不回报 usage）"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-135：D-052 B+C 已批准并落地（release-gate 600s 挂死护栏判红化）",
+      "description": "总监 2026-11-10 会话批注 D-052=B+C。落地：①REDLINE_SEC 300→600 且升格为判红项（任一跑 >600s → suite_double_run FAIL 阻断发布，errors 新增「第 N 跑 xs > 600s 挂死护栏」）②release-gate redline_note 改写「600s 挂死护栏（D-052，2026-11-10 批准落地）：超时判红阻断发布；300s 观测线已废」③CI nightly ubuntu 以 `timeout 600 python -m pytest tests -n 2 -q` 执行，windows 以 job timeout-minutes: 45 兜底 ④DECISIONS D-052 状态已批准+落地+ADR 表行；ROADMAP G13 addendum；450s→540s 为「连续 3 轮」升级触发口径（批注生效，不改 D-041 批准文意）。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-135：D-052 反向验证（注入慢测 → 必须判红）",
+      "description": "fixture ok.json（r133 双跑同款，双跑均 <600s）→ suite_double_run PASS；hang.json（run1 替换为 601.313s）→ suite_double_run FAIL（第 1 跑 601.313 秒 > 600s 挂死护栏，D-052，超时判红疑似挂死）。证据 reports/release-gate/fixtures-r135/{ok,hang}.json。不新增契约计数（713 不变）。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-135：开局 key 轮换检查重跑",
+      "description": "git ls-files 全量 grep（sk-/AKIA/ghp_/hf_/私钥头/xox）→ 5 命中全为误报/已知夹具（swebench 报告路径形态 ×2，tests/test_agent.py 带 secret-scan: allow ×3）；无真实凭据；无需轮换。session-probe all_green。",
+      "outcome": "done"
+    }
+  ]
+}

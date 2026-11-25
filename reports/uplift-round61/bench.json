@@ -1,0 +1,79 @@
+{
+ "version": 1,
+ "created": "2026-10-29T20:32:22",
+ "corpus": "公开上游真实提交（click 831c8f09 / tomlkit 0561e5d），测试补丁开跑前种入，pytest 机械判分",
+ "model_axis": "两臂同一宿主模型（本会话）；不构成跨模型结论",
+ "n_note": "n=2 只证机制与判定口径，不外推",
+ "arms": {
+  "single": {
+   "tasks": 2,
+   "resolved": 2,
+   "elapsed_sec": [
+    5.438,
+    9.14
+   ],
+   "patch_bytes": [
+    5856,
+    6866
+   ]
+  },
+  "phases": {
+   "tasks": 2,
+   "resolved": 2,
+   "elapsed_sec": [
+    6.36,
+    7.749
+   ],
+   "patch_bytes": [
+    5856,
+    6866
+   ]
+  }
+ },
+ "rows": [
+  {
+   "task": "click-nosuchcommand",
+   "arm": "single",
+   "resolved": true,
+   "state": null,
+   "f2p_rc": 0,
+   "p2p_rc": 0,
+   "patch_bytes": 5856,
+   "elapsed_sec": 5.438,
+   "rounds": 2
+  },
+  {
+   "task": "click-nosuchcommand",
+   "arm": "phases",
+   "resolved": true,
+   "state": null,
+   "f2p_rc": 0,
+   "p2p_rc": 0,
+   "patch_bytes": 5856,
+   "elapsed_sec": 6.36,
+   "rounds": 4
+  },
+  {
+   "task": "tomlkit-dotted-key",
+   "arm": "single",
+   "resolved": true,
+   "state": null,
+   "f2p_rc": 0,
+   "p2p_rc": 0,
+   "patch_bytes": 6866,
+   "elapsed_sec": 9.14,
+   "rounds": 2
+  },
+  {
+   "task": "tomlkit-dotted-key",
+   "arm": "phases",
+   "resolved": true,
+   "state": null,
+   "f2p_rc": 0,
+   "p2p_rc": 0,
+   "patch_bytes": 6866,
+   "elapsed_sec": 7.749,
+   "rounds": 4
+  }
+ ]
+}

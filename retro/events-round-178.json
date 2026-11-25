@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-178：jobs 资源扩面提案写案（cancel 摘要 + ledger 重放对账，待裁决）",
+      "description": "产物 reports/proposal-jobs-resource-r178.md：基于 r170–r177 异步链，列三个缺口（cancel 账本摘要不可经 MCP 读 / event-ledger verify 仅 CLI / 资源形态不统一）；候选 A 扩展 resources/read payload（+3 契约，工具数不变，建议先批）/ B 新增 review://jobs/<id>/ledger 子资源（+2 契约）/ C code_review_replay 工具（超出范围另案）；含 64KB 上限、30s 超时、路径守卫、硬约束 5 脱敏与 4 条验收判据。状态=提案，不构成批准；零代码。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-178：开局与附带观测",
+      "description": "round-gate open --round 178 全 PASS；阶段 C（purge）仍未批准不实现；依赖锚点 r173 后第 5 轮未到；D-052 双跑中位粒度已落地无新触线；版本保持 v2.76.0 不增，light 收官。",
+      "outcome": "done"
+    }
+  ]
+}

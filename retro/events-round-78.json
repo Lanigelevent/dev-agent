@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "title": "协议附录产品化：code-task --protocol-notes + 样例模板入仓（r77 胶水转正）",
+    "description": "_apply_protocol_notes（缺文件 code=2、空文件不追加、随 state 持久化）+ agent/protocol-notes-example.md（预算压力+探索上限 N/3+先编辑指引+失败测试即完成标准）；契约 TestProtocolNotes ×4。"
+  },
+  {
+    "type": "feature",
+    "title": "适配层契约文档：DEVELOPMENT §6「openai 兼容端点适配契约」四条",
+    "description": "JSON 模式门控 / 空内容重试 / 多对象解析 / 协议附录，逐条挂契约名，r77/r78 沉淀入文档。"
+  },
+  {
+    "type": "feature",
+    "title": "tomlkit 地板效应实验立项（PENDING 指针）",
+    "description": "设计发现：探索瘫痪与「无失败测试指针」强相关；协议 v4 = v3 + 附录模板 + 测试指针行；真连验证待端点 key（≤6 跑），协议见 reports/_work/uplift-r78/PENDING.md。"
+  }
+]

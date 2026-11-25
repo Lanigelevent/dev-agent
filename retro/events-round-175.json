@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-175：评测口径复核——0.42% 复算成立、对外口径无勘误需要",
+      "description": "v2.74.0 环境重跑 swrenbench-import.py score --limit 1000：point_recall=0.0042（3/713）、clean_zero_noise=0.974，与 README 唯一对外数字逐位一致；宿主臂 n=1000 recall=0 与 D-053 归因（执行质量而非协议缺陷）在 README/DECISIONS/PROGRESS 一致；778 契约均为工具层/治理层，不外推评审能力。原始 swr-full-1000/judge.json 已随 _work 清理不存在，结论以入仓轮次记录为准，如实标注。产物 reports/eval-caliber-audit-r175.md；零口径改动。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-175：D-052 触发线附带观测——判定粒度歧义登记，窗口已解除",
+      "description": "r166–r168 按「任一一跑 >540s」口径构成三连（576.84/573.4+583.12/541.53）且当时零 writeup；按「双跑中位 >540s」则不成立（r168 中位 531.0）。D-041/D-052 原文未明确粒度，不擅自裁定，两种结果均登记；r169–r174 全部回落线内，600s 护栏从未越（最大 583.12）。按 r162 先例不补处置，建议后续维护轮明确粒度。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-175：开局与自主方向裁定",
+      "description": "用户授权自主推进：选 item 136② 评测口径复核（扩面提案不能自审自批，需用户裁定；③ 作为附带观测不单开任务）。round-gate open --round 175 全 PASS；版本保持 v2.74.0 不增，light 收官。",
+      "outcome": "done"
+    }
+  ]
+}

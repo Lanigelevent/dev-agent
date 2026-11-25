@@ -1,0 +1,9 @@
+{
+  "intent_level": "B",
+  "object": "范围",
+  "object_ref": "80a6af9^..80a6af9",
+  "depth": "standard",
+  "rationale": [
+    "未提供请求或解析失败，默认评审指定范围"
+  ]
+}

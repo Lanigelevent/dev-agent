@@ -1,0 +1,46 @@
+{
+  "engine": "agent",
+  "repo": "<repo>\\reports\\_work\\multilang-bench\\go-stack-1793266420",
+  "task": "Stack.Size() in stack/stack.go returns one more than the number of items, so `go test ./...` fails. Fix it so all tests pass.",
+  "rounds": 1,
+  "edits": 1,
+  "tests": "pass",
+  "test_scope": "引擎 go（go.mod → go test ./...）",
+  "test_engine": "go",
+  "elapsed_sec": 0.922,
+  "patch": "edits.patch",
+  "patch_validation": {
+    "ok": true,
+    "issues": []
+  },
+  "selected_source": "last_edit",
+  "rank": "refs",
+  "candidates": [
+    {
+      "round": 0,
+      "tests": "pass",
+      "test_detail": [
+        "引擎 go（go.mod → go test ./...）",
+        "ok  \tdemo/stack\t(cached)"
+      ],
+      "edits_applied": 1,
+      "patch_validation": {
+        "ok": true,
+        "issues": []
+      },
+      "selfcheck_broken": [],
+      "files": [
+        "stack/stack.go"
+      ],
+      "patch_chars": 249,
+      "has_patch": true,
+      "rank": 0,
+      "rank_reason": {
+        "tier": 0,
+        "tier_name": "pass",
+        "validation_ok": true,
+        "patch_chars": 249
+      }
+    }
+  ]
+}

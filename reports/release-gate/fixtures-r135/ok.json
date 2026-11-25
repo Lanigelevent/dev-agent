@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "check": "release-gate",
+  "partial": true,
+  "selected": [
+    "suite_double_run"
+  ],
+  "release": {
+    "version": "2.36.0",
+    "tag": "v2.37.0",
+    "branch": "main",
+    "tag_checked": true
+  },
+  "root": "<repo>",
+  "checks": [
+    {
+      "id": "suite_double_run",
+      "status": "PASS",
+      "mode": "reuse",
+      "expected_tests": 713,
+      "runs": [
+        {
+          "mode": "reuse",
+          "log": "<user-home>\\AppData\\Local\\Temp\\opencode\\r135-fixtures\\ok-1.log",
+          "bytes": 14533,
+          "sha256": "5d347473f82ee0ac",
+          "ran": 713,
+          "duration_sec": 426.089,
+          "skipped": 1,
+          "green": true
+        },
+        {
+          "mode": "reuse",
+          "log": "<user-home>\\AppData\\Local\\Temp\\opencode\\r135-fixtures\\ok-2.log",
+          "bytes": 14540,
+          "sha256": "567a99bc8129cd2e",
+          "ran": 713,
+          "duration_sec": 409.668,
+          "skipped": 1,
+          "green": true
+        }
+      ],
+      "errors": [],
+      "redline_sec": 600,
+      "redline_exceeded": [],
+      "redline_note": "600s 挂死护栏（D-052，2026-11-10 批准落地）：超时判红阻断发布；300s 观测线已废"
+    }
+  ],
+  "failed": [],
+  "generated_at": "2026-11-10T16:09:45+08:00"
+}

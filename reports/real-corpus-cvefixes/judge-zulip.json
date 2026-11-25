@@ -1,0 +1,88 @@
+{
+  "ok": true,
+  "mode": "judge",
+  "recall": 0.0,
+  "precision": null,
+  "claimed": 0,
+  "grounded": 0,
+  "grounded_but_not_claimed": 0,
+  "claimed_but_not_grounded": 0,
+  "hits": 0,
+  "valid_samples": 10,
+  "weak_samples": 0,
+  "weak": [],
+  "per_sample": [
+    {
+      "sample_id": "7ecda1ac8e26d8fb3725e954b2dc4723dda2255f",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "1f48fa27672170bba3b9a97384905bb04c18761b",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "0c2cc41d2e40807baa5ee2c72987ebfb64ea2eb6",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "a014ef75a3a0ed7f24ebb157632ba58751e732c6",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "d5db254ca8167995a1654d1c45ffc74b2fade39a",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "88917019f03860609114082cdc0f31a561503f9e",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "62ba8e455d8f460001d9fb486a6dabfd1ed67717",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "751b2a03e565e9eb02ffe923b7c24ac73d604034",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "04cf68b45ebb5c03247a0d6453e35ffc175d55da",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "2f6c5a883e106aa82a570d3d1f243993284b70f3",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    }
+  ],
+  "threshold": 2,
+  "note": "recall=hits/valid_samples；precision=grounded/claimed；分母只用非 weak 样本；汇总必须同时输出两个指标（易错点 4）"
+}

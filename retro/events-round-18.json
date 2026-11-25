@@ -1,0 +1,44 @@
+[
+  {
+    "category": "手工",
+    "description": "code-task.py 产出补丁混入 git stderr：早期 _git() 把 stdout 与 stderr 拼接返回，core.autocrlf 的 CRLF 警告（走 stderr）被写进 edits.patch 末行，补丁不再是纯净 unified diff",
+    "root_cause": "补丁内容与诊断信息共用一条通道，且未验证「diff 内容只应来自 stdout」这一前提",
+    "countermeasure": "_git 改三路分离 (rc, stdout, stderr)，补丁只取 stdout；新增契约测试 tests/test_agent.py::TestCodeTaskPatchHygiene（前置条件断言 stderr 必含 warning + 反向验证断言旧拼接口径必产出被污染补丁 + git apply --check 预检）",
+    "source": "retro/events-round-18.json"
+  },
+  {
+    "category": "补丁返工",
+    "description": "agent 侧 sympy-13437（bell limit）补丁连判三次 F2P 失败：v1 只让 bell(oo)=oo（bell(oo,x) 未抛 ValueError）、v2 补多项式抛错但 bell(-1) 未抛、v3 补负整数抛错但 bell(1/2) 未抛，v4 补齐「数值型非整数入参一律抛错」才 resolved",
+    "root_cause": "issue 文本只说 limit 结果应为 oo，未蕴含上游对非法入参（负整数/非整数数值/无穷处多项式）的语义；agent 无本地运行环境可验证，正确性只能等 harness 反馈逐条暴露",
+    "countermeasure": "为被审仓库准备兼容垫片（collections ABC 别名 + inspect.getargspec）在本机复现与迭代，补丁语义先本地断言（bell(oo)=oo / 三类非法入参抛 ValueError / limit=oo / 既有取值不变）再送 harness；agent-runner 支持 -vN 版本目录保留历史补丁便于对比",
+    "source": "retro/events-round-18.json"
+  },
+  {
+    "category": "手工",
+    "description": "编码循环的测试探测只查仓库根（test_*.py 与 tests/ 目录），sympy/astropy/scikit-learn 的测试在包内（sympy/**/tests/），三个实例的仓库测试一律被判「无测试」而 skip，验收闸整体失效",
+    "root_cause": "测试探测是单层路径假设，未考虑包内布局；且探测与执行共用「整个 worktree」一个粗粒度入口",
+    "countermeasure": "_discover_test_paths 递归发现包内 tests/ 目录（有界 40 个）并按发现结果执行 pytest；新增契约测试 tests/test_agent.py::TestCodeTaskDiscoveryAndResume（包内布局必须被发现 + 仓库根优先）",
+    "source": "retro/events-round-18.json"
+  },
+  {
+    "category": "手工",
+    "description": "code-task.py 的 --resume 在任务已收束（已产出 task-manifest.json）后不幂等：再次续跑会重建 worktree 并继续循环，可能改写已产出的补丁",
+    "root_cause": "续跑入口只读 task-meta.json 判断轮次，没有「已收束」短路分支",
+    "countermeasure": "--resume 先查 task-manifest.json：存在则幂等回放结果（不再进循环、不重建 worktree）；契约测试 tests/test_agent.py::TestCodeTaskDiscoveryAndResume 断言二次续跑状态仍为 DONE 且补丁字节不变",
+    "source": "retro/events-round-18.json"
+  },
+  {
+    "category": "手工",
+    "description": "被审仓库 sympy 1.1 要求 Python ≤3.9（from collections import Mapping），本机只有 3.12/3.14，直接导入失败，无法本地跑该仓库；清华 PyPI 镜像无 mpmath 匹配版本（from versions: none）",
+    "root_cause": "被审仓库运行时约束与宿主解释器版本不匹配；国内主镜像对该包无索引",
+    "countermeasure": "用兼容垫片（collections ABC 别名 + inspect.getargspec 回落）在本机复现 sympy 1.1 的求值路径用于迭代（datasets/swe-out/sympy-run.py），最终判定仍以 harness 容器为准；依赖下载降级阿里云源并记录原因",
+    "source": "retro/events-round-18.json"
+  },
+  {
+    "category": "手工",
+    "description": "agent 侧口径打通（成功案例）：7 个 SWE-bench 实例由编码循环（code-task 宿主协议）产出补丁，经官方 harness 判定——首跑 6/7 resolved，按 harness 反馈迭代补一轮后 7/7（n=7 非代表性）；评测链从「只验 gold 补丁」推进到「验 agent 产出」",
+    "root_cause": "（成功案例，非坑）gold-sample 驱动器可直接吃 agent 预测文件，评测与台账机制零改动复用",
+    "countermeasure": "新增入库脚本 skills/eval-harness/scripts/agent-sample.py（补丁收集→预测装配→委托评测→台账，含契约测试）；口径按「严格首跑」与「迭代后」两档如实记录，不混为一谈",
+    "source": "retro/events-round-18.json"
+  }
+]

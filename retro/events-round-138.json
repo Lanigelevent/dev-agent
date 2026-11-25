@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "review-quality-gate.py 落地（D-053 对策，第 84 脚本）",
+    "description": "run/check 双动词四项检查（empty_batch_note / evidence_coverage / unparsed_rate / batch_shape）；swrenbench judge 前置硬校验 rc=1 empty_batch_no_evidence；review --batch-note 两写盘点落盘。r114 真批 PASS（evidence 1.0），judge 真数据回归 F1 逐位一致。",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "质量门禁 +10 契约（含两条反向验证）",
+    "description": "tests/test_scripts_review_quality_gate.py：全空无依据抓得住（红线 6）、evidence 覆盖阈值、unparsed 率、形状、run 落报告、judge 前置拦截/放行。",
+    "outcome": "done"
+  },
+  {
+    "type": "pitfall",
+    "title": "semantic 前置校验首插误扩判卷范围（当场纠正）",
+    "description": "前置校验首次插入把零 findings 的 change PR 卷进判卷集——违反 r115/r116 既定口径（只判有预测的 PR）。纠正：前置校验扫全量 change 集仅判空，判卷 order 保持原过滤。教训：给既有机制插门禁时，门禁逻辑不得改变被门禁机制的样本范围。",
+    "outcome": "pitfall"
+  }
+]

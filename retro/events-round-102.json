@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "django-10880 f2p_passed + runtests 判分口径落地",
+    "description": "live-sample test_runner=django-runtests 口径落地（原标签直喂 runtests.py 自带引导；unittest -v 2 输出判分：全点分名含括号子串匹配）；django-10880 循环 1 跳收敛（DISTINCT 后缺空格，+1/−1 单空格修），runtests 判分 f2p_passed。verified 首批终态：3 判 + 2 blocked（折损 40%）。口径：零反馈 3/7 不变 + gold-assisted 3 + 纯自研 host 2。"
+  }
+]

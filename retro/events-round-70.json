@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "description": "round-70 gold 先行验证拦下两条坏判分链：reflex-4087 与 keras-20389 的 gold 模式 f2p-only 判分双双 unresolved（keras F2P missing——保存类测试缺后端依赖；reflex gold 后 F2P 仍 fail）——判分链不可信，按 D-045 记 blocked_env，不在坏链上浪费冷启动预算；可信判分链从 3/9 收窄为 1/9（conan），冷启动本机语料基本见底",
+    "evidence": "datasets/swebench/live-runs-r70/live-sample-ledger.json、reports/swebench/live-coldstart-r70-2026-10-31.md"
+  },
+  {
+    "type": "feature",
+    "description": "round-70 冷启动第 3 数据点（conan-17092，C++26 旗标表扩展，修复面 2 文件/9 hunks/41 行）：failed（0/6 F2P，判分 31.0 s）——编码循环 7 轮 / 4 编辑（全部已见文本：gcc ≥14 与 clang ≥17 的 v26 赋值 + gcc 映射字典，补丁 1 951 B）；失败形状：settings_test::test_possible_values 证实 settings.yml 需加 cppstd=26 枚举（预算内未读）、gold 对旗标表另有测试对齐重构（gcc 8 c++2a→期望 c++20 门位变化）；符号锚定取窗（#_cppstd_gcc/#_cppstd_clang）两次直取完整函数体——read 能力改造价值二次实证",
+    "evidence": "datasets/swebench/live-runs-r70/coldstart-conan-17092/（7 轮/4 编辑/edits.patch 1 951 B）、live-judge-conan/live-sample-ledger.json、reports/swebench/live-coldstart-r70-2026-10-31.md"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-70 边界与未结项：①冷启动累计 n=3 实例 / 4 次尝试全 failed，三次失败形态=传输语义不可推导（llama_deploy）/ 多文件 API 面（pdm、conan），材料可达性已修、归因稳定在修复面设计；②blocked_env 判定依据是 gold 判分失败（链不可信），测试依赖适配后可复验（instructlab/reflex/keras 同类）；③conan 部分修复（gcc/clang 旗标赋值）未验证正确性、不宣称已修好；④gold patch 全程未读、归因基于测试断言形状与 difficulty 字段；⑤D-046 4.1 复验、merge-audit 人工复核、Pro 单发口径、DeepSWE 余 19 条仍在账上",
+    "source": "reports/swebench/live-coldstart-r70-2026-10-31.md §2/§4、retro/next-round.md 第 30 条"
+  }
+]

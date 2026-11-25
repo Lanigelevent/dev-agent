@@ -1,0 +1,14 @@
+[
+  {
+    "type": "confirmation",
+    "title": "依赖刷新第四跑：零升级 + 引擎矩阵口径不变",
+    "description": "11 跟踪项清华镜像 --upgrade --dry-run 全 no changes；ruff/pytest/hypothesis 加 --refresh 绕 uv 缓存真联网复验（321ms 实际索引解析）仍零变化。三引擎矩阵全新生成对比入仓 JSON：ruff 970/480/250、libcst 2/2/2、astgrep 逐字段 identical。主镜像一次命中，无降级。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "引擎适配器 --out 语义实踩：目录而非文件",
+    "description": "ruff/astgrep adapter 的 matrix --out 会创建同名目录并在其中写 <name>-matrix.json（首次误当文件读 PermissionError 实为 IsADirectoryError 伪装）；libcst matrix 无 --out 走 stdout 且包 {ok, matrix} 壳。一次性探查，无需改码。",
+    "outcome": "done"
+  }
+]

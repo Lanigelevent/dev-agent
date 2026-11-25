@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "title": "P1 剩余项：round-gate.py 轮次工作流闸（脚本 77→78）",
+    "description": "会话工作流沉淀（评审结论 r85）：open 开局门（干净树+session-probe+doc-freshness+next-round 可读+收官行台账对账）、close 收官门（复盘产物+三方对账+下一轮指针+编号条目+ROADMAP §5+双跑日志双格式均绿且计数一致）；探针子进程环境净化（剥离 PYTHONUTF8/PYTHONIOENCODING，坑 8cfbcaf7d227 代码化）；与 release-gate 互补不重复。"
+  },
+  {
+    "type": "feature",
+    "title": "契约 +26（tests/test_round_gate.py）",
+    "description": "open 9 例（全过/脏树/对账失配/缺文件 rc2/探针信号/检查器故障/env 净化断言/stdout 单 JSON/close 缺 --round rc2）、close 12 例（全过/缺产物/坏 JSON/头部失配/收官行轮次/缺指针/缺条目/缺 ROADMAP/缺日志/计数不齐/pytest 格式/未知格式）、_parse_suite_log 单测 5 例。dogfood 揪出两处真缺陷：收官行软换行的块引用标记未剥离（计数正则失配）、main() 丢掉 env_error 分支（rc 语义回归）——均当轮修复。"
+  },
+  {
+    "type": "feature",
+    "title": "dogfood：本轮 1.88.0 提升与文档登记",
+    "description": "bump-version 单命令完成版本+计数传播（559→585 项 / 77→78 个脚本 / 六处版本）；AGENTS 脚本清单表+行数基线+SKILL.md 闸表+DEVELOPMENT 自迭代探针段登记；doc-drift 15 问全绿、doc-freshness 零漂移。"
+  }
+]

@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "event-ledger 哈希链接入轮流程 + 覆盖重测（round-153，F4/F6）",
+    "description": "轮收官后向 runs/rounds-ledger/ledger.jsonl 追加 round-summary（append-only + sha256 哈希链；AGENTS 复盘第 4 步 + ops 文档登记）；r141..153 批次摘要 3 条已录 verify 链完好。覆盖重测 76.09% 持平（r138 基线 76.1%），check 门 rc=0，基线换入。ollama 复探仍 DOWN 如实记录。",
+    "outcome": "done"
+  }
+]

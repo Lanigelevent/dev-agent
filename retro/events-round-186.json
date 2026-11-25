@@ -1,0 +1,11 @@
+[
+  {
+    "type": "correction",
+    "title": "close 门账本追加无幂等守卫——close 重跑同轮双记（r154 历史双记机制确证并修复）",
+    "description": "r185 账本对账发现 r154 双记（11 秒间隔双 append）；代码确证 _append_ledger_record 无同轮去重——close 重跑（如 roadmap_section 补项后重过闸）会双记同轮 round-summary。r185 自身 close 首跑 FAIL 后重过闸未双记仅因首跑未达 append 条件，属侥幸不属守卫。",
+    "root_cause": "追加无条件执行，无同轮去重扫描。",
+    "countermeasure": "幂等守卫落地（round-gate.py _ledger_has_round_summary + _append_ledger_record 前置扫描，容坏行、读失败保守放行）；+3 契约（同轮双记拦截 / 异轮不受阻反向验证 / 坏行容错）；r154 双记为历史账本既有记录，不追改。开局门 F6b 另拦 README open 计数漏更（r185 结案后 README 三处未同步——红线 7 引用面遗漏，开局前修正提交）。",
+    "source": "round-186",
+    "confidence": "observed"
+  }
+]

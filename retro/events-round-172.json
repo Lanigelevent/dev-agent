@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-172：D-055 step 进度帧缺口修复——runner stderr PROGRESS 帧 + worker 解析 + 终局补扫",
+      "description": "r171 真作业冒烟发现 status.step 终态=0。根因双向：runner.py 从未输出 step 进度帧；job worker 只轮询期间扫日志且 regex 不匹配真格式。修复：runner.py 每步向 stderr 输出 PROGRESS step=N/10（不污染 stdout JSON）；review_mcp.py 用 PROGRESS\\s+step=(\\d+)/(\\d+) 解析并终局前补扫全量日志；无帧时不伪造 step（诚实口径）。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-172：+3 契约与真作业复冒烟（断连重连 step=10）",
+      "description": "tests/test_mcp_async.py +3（running 阶段 step 单调递进 / 快作业终局补扫得 10 / 无帧不伪造 step=0）；9 条全绿。真作业复冒烟 job_id=78b7848a7c8a42fdb20d488b4dca0574：poll 0 state=running step=6 progress=0.6，断连重连后终态 done step=10 exit_code=0，resource 可读；reports/mcp-async-smoke-r172.md。findings=[] 依旧不作能力宣称。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-172：开局与版本",
+      "description": "round-gate open --round 172 全 PASS；bump-version 2.73.0 --sync-counts（778/86/14/13）；doc-freshness 漂移 0；key 轮换无新命中；按裁定 gate 绿后打 v2.73.0 tag 并推送。",
+      "outcome": "done"
+    }
+  ]
+}

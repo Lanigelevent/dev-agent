@@ -1,0 +1,52 @@
+{
+  "ok": true,
+  "summary": {
+    "map_real": {
+      "n": 11,
+      "refs_hit8": 9,
+      "graph_hit8": 9,
+      "graph_hit12": 9,
+      "reserved_hit8": 9,
+      "graph_added_files": 66
+    },
+    "map_verdict": "default_off_only",
+    "map_best_policy": "refs",
+    "search": {
+      "n": 21,
+      "old_hit": 13,
+      "new_hit": 17,
+      "verdict": "keep"
+    },
+    "subset": {
+      "n": 11,
+      "covered": 7,
+      "verdict": "keep",
+      "timing": {
+        "ran": true,
+        "full_sec": 1.62,
+        "subset_sec": 1.05,
+        "full_status": "pass",
+        "subset_status": "pass",
+        "subset_detail": "子集 1 项（原范围 1 项）：.                                                                        [100%]; 1 passed in 0.19s（未抽检）",
+        "speedup": 1.54
+      },
+      "audit": {
+        "ran": true,
+        "audit_seed": "0|mod/core.py|6",
+        "audited_status": "fail",
+        "audited_note": "子集 1 项（原范围 1 项） 通过但全量抽检未过（隐藏回归，按 fail 处理）",
+        "unaudited_status": "pass",
+        "unaudited_note": "子集 1 项（原范围 1 项）：.                                                                        [100%]; 1 passed in 0.19s（未抽检）",
+        "detects_hidden_regression": true,
+        "labels_unaudited": true
+      }
+    },
+    "syntax": {
+      "broken_n": 10,
+      "caught_n": 10,
+      "false_positive_n": 0,
+      "verdict": "keep"
+    }
+  },
+  "out": "reports/aci-round53-bench.json"
+}

@@ -1,0 +1,160 @@
+{
+  "cases": [
+    {
+      "id": "ea52d73470a7",
+      "title": "污点引擎汇点表用裸名 system，实际调用全路径是 os.system，导致漏报",
+      "category": "手工",
+      "takeaway": "新检测引擎先写正反双向用例再实现（红线 6 顺序化）；键名口径必须与全路径产物一致",
+      "verification": "tests/test_taint.py 三条流正反用例",
+      "url": "",
+      "sources": [],
+      "local_ref": "tests/test_taint.py",
+      "status": "verified",
+      "kind": "success"
+    },
+    {
+      "id": "9d79effaac9d",
+      "title": "审核人批准书闸定义了校验函数但没插进 fix-apply 调用链，REJECTED 批准书仍 APPLIED",
+      "category": "行为回归",
+      "takeaway": "安全闸门三件套：定义 + 调用 + 负路径测试（篡改/缺批准书/REJECTED 三态）齐全才算完成",
+      "verification": "tests/test_repair.py::test_apply_requires_approval 覆盖三态拒绝",
+      "url": "",
+      "sources": [],
+      "local_ref": "tests/test_repair.py::test_apply_requires_approval",
+      "status": "verified",
+      "kind": "success"
+    },
+    {
+      "id": "ed5c32b6187d",
+      "title": "跨文件污点分析：stdlib 内可行的业界方案是两遍分析（import 图 + 过程间污点摘要）",
+      "category": "跨文件污点",
+      "takeaway": "已实现：taint-cross.py（pass1 顶层函数摘要 + pass2 调用方追踪，v1.8.0 引擎/v1.10.0 接入评审主线/SEC_RE 扩展联动）；实测覆盖直接流/链式流/from-import 别名",
+      "verification": "tests/test_taint.py::TestTaintCross + TestRunnerTaintCross；接入后 synth 精度基线保持 1.0/1.0/0",
+      "url": "https://actuallyexploitable.com/posts/sast-tools-with-cross-file-taint-analysis-capabilities",
+      "sources": [
+        "https://github.com/h3lium4u/TaintFlow",
+        "https://stackoverflow.com/questions/51955029"
+      ],
+      "local_ref": "skills/multi-agent-review/scripts/taint-cross.py",
+      "status": "verified",
+      "kind": "success"
+    },
+    {
+      "id": "4e96f46c9381",
+      "title": "试用方案X修复跨文件污点导致精度回归",
+      "category": "手工",
+      "takeaway": "行为级优化必须先在分支跑精度基线再合并；宁可先入案例待研究。",
+      "verification": "synth 1.0/1.0/0 保持",
+      "url": "",
+      "sources": [],
+      "local_ref": "retro/pitfalls.json",
+      "status": "verified",
+      "kind": "failure",
+      "detail_ref": "archive/4e96f46c9381.md"
+    },
+    {
+      "id": "647dda69645c",
+      "title": "jinja2 的 Gitee 镜像路径不存在导致克隆失败；collect-samples --limit 0 立即返回空",
+      "category": "真实语料",
+      "takeaway": "批量脚本必须先核对哨兵值语义（0 不是无限）；外部镜像可用性要在策展阶段逐一验证。",
+      "verification": "jinja2 重试其余镜像路径；collect-samples --limit 语义有测试锁定",
+      "url": "",
+      "sources": [],
+      "local_ref": "retro/pitfalls.json",
+      "status": "verified",
+      "kind": "failure",
+      "detail_ref": "archive/647dda69645c.md"
+    },
+    {
+      "id": "8b26199b0a71",
+      "title": "评测链跑分器扫了修复后代码而非缺陷引入态（方向反了两个版本）",
+      "category": "评测方法论",
+      "takeaway": "测量工具必须先有『测量对象是什么』的方向契约测试（构造缺陷态带已知形态、修复态干净的样本，红→绿）；发布任何指标前先自证方向；新脚本接入链路时逐参数核对既有环节的方法论（prepare 用 -R 我却用了正向）。",
+      "verification": "tests/test_taint.py::TestRealCorpusChain 方向契约（红→绿）；61 样本修正口径复跑",
+      "url": "",
+      "sources": [],
+      "local_ref": "skills/eval-harness/scripts/run-samples.py",
+      "status": "verified",
+      "kind": "failure",
+      "detail_ref": "archive/8b26199b0a71.md"
+    },
+    {
+      "id": "ebee9570de23",
+      "title": "多仓库真实语料覆盖测量法：Gitee 镜像浅克隆 + 既有评测链（collect→prepare→run-samples→judge）",
+      "category": "真实语料",
+      "takeaway": "两种口径互补：合成基线证 precision 下限，真实语料测规则类边界；真实结论是确定性规则面对逻辑类缺陷（95%）几乎无覆盖——这是能力边界而非测量问题，需双意见评审器或新规则族。",
+      "verification": "reports/precision-report-<date>.md 修正口径；方向契约测试锁定",
+      "url": "",
+      "sources": [],
+      "local_ref": "reports/real-corpus-urllib3",
+      "status": "verified",
+      "kind": "success",
+      "detail_ref": "archive/ebee9570de23.md"
+    },
+    {
+      "id": "689bf1ddc512",
+      "title": "Ruff 引擎接入修复链：subprocess+JSON + 能力矩阵分诊 + 五道闸不降级",
+      "category": "引擎复用",
+      "takeaway": "引擎能力必须经治理框架编排而非旁路；clean-fp 实测（默认集 120 文件 84 命中）证实 lint 类发现进修复链不进评审管线的分层决策。",
+      "verification": "tests/test_engines.py 全链 e2e；矩阵 engines/ruff-matrix.json 入仓",
+      "url": "",
+      "sources": [],
+      "local_ref": "engines/ruff_adapter.py",
+      "status": "verified",
+      "kind": "success",
+      "detail_ref": "archive/689bf1ddc512.md"
+    },
+    {
+      "id": "19e6227acb73",
+      "title": "sb-cli 远端官方评测通路（SWE-bench resolved 口径零 docker）",
+      "category": "评测证据",
+      "takeaway": "证据口径差距的解法是接官方通路而非自建对齐；predictions 字段天然对齐使导出成本低。",
+      "verification": "来源 swebench.com/sb-cli 与 SWE-bench FAQ（2026-11 检索）；接入后在 live-sample 台账留 --export-sbcli 产物与官方 report 双证。",
+      "url": "https://github.com/SWE-bench/sb-cli",
+      "sources": [],
+      "local_ref": "",
+      "status": "verified",
+      "kind": "success",
+      "detail_ref": "archive/19e6227acb73.md"
+    },
+    {
+      "id": "94d10ac27315",
+      "title": "SWRBench/Code Review Bench：评审中立基准接入路径",
+      "category": "评测证据",
+      "takeaway": "中立基准的价值在消除厂商自评嫌疑；双轨（自建+中立）比替换更稳。",
+      "verification": "来源 arXiv:2509.01494 与 withmartian/code-review-benchmark（2026-11 检索）；接入后双轨数据并列入 reports/。",
+      "url": "https://github.com/ZZR0/SWRench",
+      "sources": [],
+      "local_ref": "",
+      "status": "verified",
+      "kind": "success",
+      "detail_ref": "archive/94d10ac27315.md"
+    },
+    {
+      "id": "542cf8d43709",
+      "title": "PR-Agent GitHub Action 模式：最低成本评审闭环",
+      "category": "交付面",
+      "takeaway": "不自建 GitHub App；Action 模式 + REST 行内评论即可达行业标准交付形态。",
+      "verification": "来源 qodo-merge-docs 与 docs.github.com/rest/pulls/comments（2026-11 检索）；落地后 pr-kit 产物可端到端发到真实 PR。",
+      "url": "https://github.com/The-PR-Agent/pr-agent",
+      "sources": [],
+      "local_ref": "",
+      "status": "verified",
+      "kind": "success",
+      "detail_ref": "archive/542cf8d43709.md"
+    },
+    {
+      "id": "22428e898fd5",
+      "title": "Semgrep JSON/SARIF 集成惯例：第 4 引擎维度接线法",
+      "category": "引擎层",
+      "takeaway": "引擎接入形态已在仓内三引身上验证，第 4 引擎是纯复制模式工作。",
+      "verification": "来源 docs.semgrep.dev/deployment/oss-deployment（2026-11 检索）；接入后引擎矩阵重测计入 semgrep 维度。",
+      "url": "https://docs.semgrep.dev/deployment/oss-deployment",
+      "sources": [],
+      "local_ref": "",
+      "status": "verified",
+      "kind": "success",
+      "detail_ref": "archive/22428e898fd5.md"
+    }
+  ]
+}

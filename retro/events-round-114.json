@@ -1,0 +1,38 @@
+[
+  {
+    "type": "feature",
+    "title": "SWRBench 宿主评审臂：review/judge 子命令（round-114 P0 延伸）",
+    "description": "swrenbench-import.py 新增 review（host 文件协议跑批；all-pending 一次写全部 prompt、宿主批量填响应、幂等 id 缓存续跑）与 judge（PR 级 micro 二分类 F1 + point 级论文口径变更点命中 F1，机械 span 匹配；micro 主口径 + per-PR macro 参考并行）。",
+    "outcome": "done"
+  },
+  {
+    "type": "feature",
+    "title": "首批 stride-10 宿主评阅 n=100（50/50）",
+    "description": "宿主模型逐例评阅 100 份 prompt；PR 级 F1 0.5789（P 0.8462/R 0.44）；point 级 F1 0.3656（P 0.68/R 0.25）；macro 0.2546；clean 零噪声 46/50=92%；与 r112 登记对标值量级吻合，n=100 不外推。",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "swrenbench +6 契约全绿（11/11）",
+    "description": "review pending/缓存命中/unparseable + judge 数学/跳过未评/loc 解析；findings.json 的 unparsed 为列表（含样本 id）如实计数。",
+    "outcome": "done"
+  },
+  {
+    "type": "pitfall",
+    "title": "宿主自己写的评审响应也会写坏 JSON",
+    "description": "sympy-755 响应的 evidence 里有裸反斜杠跟小写 L 的序列（LaTeX 命令），不是合法 JSON 转义，_parse_host_response 解析失败计 unparsed。教训：判定链路的 unparsed/errors 路径必须存在且如实计数——包括宿主自己写的响应；轮内写 events 文件时同型错误当场复现一次。",
+    "outcome": "pitfall"
+  },
+  {
+    "type": "pitfall",
+    "title": "宿主生成大段中文时连续产出损坏文本",
+    "description": "轮内 docstring、补丁脚本、测试块多次生成损坏行（写错函数名、占位残留、乱序行），分小块+逐块验证+锚点补丁纪律才收敛；与台账 daf1a5fc2f9f（宿主 Edit 大段中文静默失效）同族，本侧证据是模型生成侧损坏而非工具不落盘。",
+    "outcome": "pitfall"
+  },
+  {
+    "type": "confirmation",
+    "title": "SWR-Bench 论文口径核实（arXiv 2509.01494）",
+    "description": "论文用 LLM judge 语义命中判定（TP=gt 点被命中、FP=预测点未命中、FN=gt 未命中，per-PR 聚合）；本仓机械 span 口径为其保守镜像，两套数字不可直接互比；论文最高 Overall-F1 19.38%，CodeRabbit 59.4%/36.2% 是 r112 仓内登记值而非论文数字。口径先写死再看数字。",
+    "outcome": "done"
+  }
+]

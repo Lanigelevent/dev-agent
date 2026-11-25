@@ -1,0 +1,14 @@
+# round-139 供应链锁定：依赖与 CI Action 的自动升级 PR（每周）
+# 生态：pip（pyproject.toml + requirements-lock.txt）+ github-actions
+# 注意：dependabot 对 pip 生态升级 pyproject 的 >= 下界，不直接改 uv.lock；
+# uv.lock/requirements-lock.txt 由本地 uv lock/export 重新生成后提交。
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

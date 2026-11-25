@@ -1,0 +1,86 @@
+{
+  "schema": "review-gate-bench/1",
+  "totals": {
+    "cases": 2,
+    "as_expected": 2
+  },
+  "cases": [
+    {
+      "id": "gate-pass",
+      "rc": 0,
+      "state": "DONE",
+      "tests": "pass",
+      "review_decision": "PASS",
+      "diff_rate": 0.0,
+      "reasons": null,
+      "reasons_list": null,
+      "manifest_written": true,
+      "manifest_review": {
+        "decision": "PASS",
+        "threshold": 0.5,
+        "metrics": {
+          "matched": 0,
+          "union": 0,
+          "diff_rate": 0.0
+        },
+        "external_status": [
+          {
+            "name": "ruff",
+            "status": "ok",
+            "note": "ruff rc=0，0 条"
+          },
+          {
+            "name": "astgrep",
+            "status": "ok",
+            "note": "扫描 1 文件，0 条"
+          }
+        ],
+        "coverage": null,
+        "reasons": [],
+        "file": "review.json"
+      },
+      "patch": true,
+      "review_json": true,
+      "report": true,
+      "stderr_tail": [
+        "{\"round\": 0, \"event\": \"llm_call_start\", \"material_chars\": 300, \"history_entries\": 0}",
+        "{\"round\": 0, \"event\": \"parsed\", \"action\": \"edit\", \"raw_len\": 275, \"parse_ok\": true}",
+        "{\"round\": 0, \"event\": \"test_done\", \"status\": \"pass\", \"detail\": \"引擎 cmd（<repo>\\\\.venv\\\\Scripts\\\\python.exe -m pytest -q）; .                                                                        [100%]; 1 passed in 0.50s\", \"tests_count\": \"pass\"}",
+        "{\"round\": 0, \"event\": \"edit_applied\", \"files\": [\"pkg/agg.py\"], \"edits_count\": 1, \"test_status\": \"pass\"}"
+      ],
+      "expect_state": "DONE",
+      "expect_decision": "PASS",
+      "match": true
+    },
+    {
+      "id": "gate-human",
+      "rc": 1,
+      "state": "NEED_HUMAN",
+      "tests": "pass",
+      "review_decision": "NEED_HUMAN",
+      "diff_rate": 1.0,
+      "reasons": [
+        "自评/他评差异率 1.00 > 阈值 0.50"
+      ],
+      "reasons_list": [
+        [
+          "自评/他评差异率 1.00 > 阈值 0.50"
+        ]
+      ],
+      "manifest_written": false,
+      "manifest_review": null,
+      "patch": true,
+      "review_json": true,
+      "report": true,
+      "stderr_tail": [
+        "{\"round\": 0, \"event\": \"llm_call_start\", \"material_chars\": 305, \"history_entries\": 0}",
+        "{\"round\": 0, \"event\": \"parsed\", \"action\": \"edit\", \"raw_len\": 311, \"parse_ok\": true}",
+        "{\"round\": 0, \"event\": \"test_done\", \"status\": \"pass\", \"detail\": \"引擎 cmd（<repo>\\\\.venv\\\\Scripts\\\\python.exe -m pytest -q）; .                                                                        [100%]; 1 passed in 0.34s\", \"tests_count\": \"pass\"}",
+        "{\"round\": 0, \"event\": \"edit_applied\", \"files\": [\"pkg/agg.py\"], \"edits_count\": 1, \"test_status\": \"pass\"}"
+      ],
+      "expect_state": "NEED_HUMAN",
+      "expect_decision": "NEED_HUMAN",
+      "match": true
+    }
+  ]
+}

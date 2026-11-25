@@ -1,0 +1,16 @@
+[
+  {
+    "category": "手工",
+    "description": "matplotlib-22835（scalar mappable 的 format_cursor_data 在 BoundaryNorm 下崩溃）：norm.inverse 对不可逆的 norm 抛 ValueError，光标读数直接崩掉交互",
+    "root_cause": "Artist.format_cursor_data 无条件调用 self.norm.inverse 求相邻色阶中点，遇到不可逆的 norm（BoundaryNorm）时异常向上冒泡，没有任何兜底",
+    "countermeasure": "改为 try/except：inverse 抛错时回退到默认有效位数（3），正常路径的取值逻辑完全不变；验证交由 harness 容器（本地缺 matplotlib 依赖）",
+    "source": "retro/events-round-25.json"
+  },
+  {
+    "category": "手工",
+    "description": "扩样链路收官：13 个扩展镜像全部就位（12/13 经共享缓存 + 最后 1 个经**进程私有缓存**下载，绕开并发会话的文件锁），扩样样本累计 19 例",
+    "root_cause": "两个会话共用同一 imagecache → docker-image-fetch.py 的固定名工作文件在 Windows 上被拒（WinError 32）；并发安全只在 POSIX 上「恰好成立」",
+    "countermeasure": "本轮取最后一个镜像改用进程私有缓存目录（不动并行会话正在用的下载器）；正式修法（工作文件改进程唯一名）留在下一轮检查单，须先确认并行会话已停手",
+    "source": "retro/events-round-25.json"
+  }
+]

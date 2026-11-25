@@ -1,0 +1,14 @@
+[
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段三 3.2 落地：统一成本账本。runner.py 的 totals.json 新增 cost 块（wall_sec/minutes_used/tokens 及来源 tokens_status/tokens_reported_calls/llm_calls/llm_providers/rounds_used/dynamic_used/每步 elapsed_sec/budget 对账行/scope），checkpoint 记录每步耗时，LLM 调用经 _track_llm 记来源（host → n/a_host、未配置 → no_provider、有 usage → provider_usage），--resume 以 ledger 基线 llm_calls_baseline 保证本段计数与账本对得上；llm/provider.py 只在响应带 usage 时回调 token（无 usage 不按 0 冒充）。新增 cost-ledger.py（report/check 两动词，C1–C8 八项对账：caps/链/llm_calls 基线/rounds/checkpoint 交叉/tokens 来源/预算），状态 PASS|DRIFT|EXCEEDED。演示 reports/cost-demo-round55（评审 5b6adf0，9 轮 1 次动态增派 17.109 秒）check 8/8 PASS；续跑段复验同样 8/8 PASS",
+    "evidence": "skills/production-guardrails/scripts/cost-ledger.py；skills/orchestrator/scripts/runner.py（_write_totals/_budget_rows/_track_llm/checkpoint）；llm/provider.py；tests/test_scripts.py::TestCostLedger（4 条）+ test_runner_e2e 成本断言 + tests/test_dual_reviewer.py provider_usage 断言；reports/cost-demo-round55//cost-check.json"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】新脚本 cost-ledger.py 的 docstring 在 C3 条里直接写了 runner 的续跑旗标字面量，doc-drift 参数漂移问当场判「未定义参数」（首跑 Q10 fail）；同一形态见 round-35 已关条目 453dd8ec2fae——对策「docstring 提及其他脚本只提名字不引旗标」隔了二十轮再次被违反",
+    "root_cause": "写成本口径时把别的脚本的动作当成术语直接引旗标；doc-drift 的判据是「本文档出现的旗标必须属于本脚本」，不区分引用与自述，作者侧没有前置自检、只等收官门禁",
+    "countermeasure": "该条改为文字「断点续跑前段」；把「新脚本 docstring 只含本脚本 argparse 旗标」前移到写完即跑 doc-drift 参数漂移问，不等收官；同类复发说明单靠记忆的对策无效，列入结构改造候选（docstring 旗标自检前移）",
+    "source": "reports/_work/drift55.json Q10；skills/production-guardrails/scripts/cost-ledger.py docstring"
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "name": "dev-agent",
+  "description": "全能代码智能体（治理先行）：评审/修复/重构/测试生成与编码循环，复用成熟开源引擎，一切写操作经五道闸",
+  "includes": {
+    "plugins": [],
+    "connectors": []
+  },
+  "args": {
+    "max_review_minutes": 120,
+    "max_total_rounds": 32,
+    "max_verification_rounds": 3,
+    "max_dynamic_dispatches": 2,
+    "data_collection_timeout_seconds": 600,
+    "subagent_timeout_seconds": 900,
+    "retry_max_attempts": 3,
+    "retry_backoff_base_seconds": 2,
+    "oversized_diff_lines": 10000,
+    "max_eval_samples": 100,
+    "eval_initial_sample_size": 30,
+    "eval_regression_sample_size": 5,
+    "eval_regression_budget_minutes": 10,
+    "eval_scan_window_months": 36,
+    "eval_scan_max_commits": 5000,
+    "eval_window_pad": 25,
+    "eval_window_max_lines": 120
+  }
+}

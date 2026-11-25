@@ -1,0 +1,8 @@
+{
+  "schema": "report-style/1",
+  "detail_level": "executive",
+  "audience": "management",
+  "industry": "generic",
+  "max_findings": 10,
+  "min_severity": "高"
+}

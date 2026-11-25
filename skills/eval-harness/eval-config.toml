@@ -1,0 +1,16 @@
+# 评测口径单一事实源（round-141，第 102 条 DoD）
+# 改口径只动本文件一处；消费方缺省回退内置默认（配置缺失不阻断）。
+schema = "eval-config/1"
+
+[review_quality_gate]
+# D-053 对策门禁阈值：非空 finding 的 evidence 覆盖率下限 / unparsed 率上限
+min_evidence = 0.8
+max_unparsed = 0.1
+
+[review]
+# 宿主评审材料截断（字符数）；超限记录 truncated
+max_chars = 20000
+
+[canonical]
+# 对外口径锚（唯一对外数字的指针；改口径先改这里再同步 README）
+anchor = "README 评测能力表：38 条硬规则臂 point_recall 0.42%（v2.34.0）；宿主臂 unavailable（归因修正见 D-053）"

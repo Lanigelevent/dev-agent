@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "P1-6 依赖刷新首跑：盘点 11 依赖 + 总监批准补丁四件升级",
+    "description": "round-86 立宪后的正式首跑（专属轮）。盘点：运行时 7（ruff/libcst/tree-sitter×4/ast-grep-py）+ dev 3（pytest/coverage/hypothesis）+ isolated 2（pynguin 已最新 / semgrep 未装属预期）；清华索引 uv 解析器核对（tuna /pypi/*/json 快照过期不可信——元数据判死按铁约束 8 记录）：ruff 0.17.4 / ast-grep-py 0.51.1 / coverage 7.17.2 / hypothesis 6.170.14 可更新（均 patch）+ pytest 9.2.0 大版本；总监批准仅补丁四件（pytest 9 维持）。"
+  },
+  {
+    "type": "feature",
+    "title": "升级验证链：三矩阵口径一致 + 许可证对照 + 双跑全绿",
+    "description": "条款②全执行：ruff-matrix 970/480/250、astgrep-matrix 29/2/2、libcst-matrix 2/2/2 重测均与库内口径一致（零漂移零回滚），ruff-matrix version 字段随实跑更新至 0.17.4；license-check 全绿（MIT×2 / Apache / MPL test-only 档位不变）；升级环境全量双跑 586 项全绿（427.602/368.375 秒）。维持 7 件如实入轮报。"
+  }
+]

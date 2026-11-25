@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-03 提示变更回归门——阶段一七项全清（round-198，路线图阶段一⑥）",
+    "description": "promptfoo 复用评估：其 YAML 矩阵（providers×prompts×assertions）需 live provider——REVIEW_LLM unset + CI 无端点，不可行；采用其「声明式变更即红」概念，确定性形态落地（JSON 声明，治理壳 stdlib 无 YAML 依赖——硬约束 1）；live 矩阵随 AB-02 judge 集成再评估。落地：precision-gate 第五项检查 prompt_regression（声明面 sha256 指纹 vs 基线，PROMPT_DRIFT 判红并指路 record-baseline）+ record-baseline 子命令（固化指纹+judge 指标）+ prompt-watch.json（judge 语义臂/编码循环两提示载体）；契约 +3（record→PASS→改文件→必抓反向验证）；真仓实弹五检查全 PASS（judge=round65 产物）。",
+    "countermeasure": "阶段一（AB-07/08/09/12/15/17/03）七项全清；阶段二起 AB-01 trace 评分回挂。过程注记：首次 close 被 retro_artifacts 拦截（events 漏写）——补齐重过（同 r195 教训：收官链先写 events 再 close）。",
+    "source": "round-198"
+  }
+]

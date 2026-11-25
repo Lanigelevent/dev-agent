@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "feature",
+      "title": "round-127：README 按参考仓标准重构（自动化报告生成系统 风格）",
+      "description": "以本地 `$env:USERPROFILE/Desktop/自动化报告生成系统/README.md` 为结构基准，把 dev-agent README 重构为：一句话 hero（治理先行）+ 能力边界（先读）+ 关键事实表 + 术语速查 details + 目录锚点 + 按角色选读 + 当前状态（v2.29.0 只留常青真值，逐版本指 PROGRESS/BASELINE-HISTORY）+ 它解决的具体问题 + 功能一览表 + 使用者/开发者双路径 + 架构调用链 + ADR 表 + 配置单一事实源 + 数据与安全（五道闸/RACI/SSRF/secret-scan/license-check）+ 门禁与边界（四类未验证项与单独验证法）+ 已知限制（n=20 不外推/精度 0.6667 如实/host 宿主模型无 token 口径）+ CI（smoke 探针/self-check 单格/release-gate 只读不打 tag）+ 排障速查（8 条真实踩坑）+ 三层文档导航 + 许可证章节",
+      "outcome": "done"
+    },
+    {
+      "type": "test",
+      "title": "round-127：门禁全绿（doc-structure/doc-freshness/doc-drift）",
+      "description": "meta 块补全八字段并移入首 16 行扫描面；doc-drift 问数表述误报修复（7 条规则 → 多条规则，不再撞 CANON 38 条硬规则期望）；doc-structure 19 文件全 PASS；freshness 漂移 0；double suite 全绿（TIMES 以 logs/suite-r127-run1/2.log 为准）",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-127：单一事实源纪律（不维护轮次流水流水）",
+      "description": "README 不复读任何 round-by-round 数字；版本行 2.28.0→2.29.0；数据与安全章节 verbatim 如实复制仓内真值（not as marketing）；未验证项逐条列单独核验方法（宿主评阅预算/容器真机/SSH 远程/浮动镜像）；never claim beyond evidence",
+      "outcome": "done"
+    }
+  ]
+}

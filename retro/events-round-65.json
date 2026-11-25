@@ -1,0 +1,56 @@
+[
+  {
+    "type": "feature",
+    "description": "round-65 D-047 precision 护栏语料 pin 化：precision-baseline.json 升 schema precision-baseline/2，新增 corpus 块钉 revision 36cc8a8（语料 git HEAD）+ 26 个输入文件逐文件 sha256（samples-py.json / corpus/manifest.json / 12 diff / 12 golden）；precision-gate.py 的 run 与 check --corpus 先验 pin 再判分，revision 或任一 sha256 不符 code=2 不进判分；不带 --corpus 的 check 保持旧行为（只对账 judge↔基线）。真语料实跑 PASS 26/26（precision 0.6667 / recall 0.3636 / valid 11 + weak 1 与基线一致），反向三例（改 sha 字节 / 换 revision / 缺文件）均 rc=2",
+    "evidence": "skills/eval-harness/scripts/precision-gate.py、skills/eval-harness/precision-baseline.json、reports/precision-gate-round65/（report.md + run.json + judge.json + 三份反向样例）"
+  },
+  {
+    "type": "test",
+    "description": "round-65 契约测试 +2：TestPrecisionGate 新增 test_check_with_corpus_verifies_pin（合成 git 语料按 pin 通过）与 test_pin_mismatch_is_code2（改字节 / 换 revision / run 前置拦截三反向），shipped_baseline_shape 升 schema /2 并断言 26 pin 与 upstream；524→526",
+    "evidence": "tests/test_scripts.py::TestPrecisionGate"
+  },
+  {
+    "type": "feature",
+    "description": "round-65 live-sample.py 判分点前置体检：node_id_problems 在开跑前查 F2P/P2P 的 node id 括号是否闭合（上游 lite.parquet 把含空格的参数化 id 截断成 test_sorted[Different），命中即 state=malformed_node_ids、不建环境不跑套件、detail 带条数与样例；failed_states 与退出码文档同步，dry_run 计划输出 node_id_problems 计数",
+    "evidence": "skills/eval-harness/scripts/live-sample.py、datasets/swebench/live-runs-r65/live-sample-ledger.json"
+  },
+  {
+    "type": "test",
+    "description": "round-65 契约测试 +1：test_truncated_node_ids_fail_fast 钉住坏 P2P 立即 rc1（counts.malformed_node_ids==1、不落 blocked_source、detail 含括号不闭合），干净样本 dry_run 的 node_id_problems==0；526→527",
+    "evidence": "tests/test_live_sample.py"
+  },
+  {
+    "type": "feature",
+    "description": "round-65 Live 补源（D-045 九条候选按 gitee→GitHub 降级，单仓 150s 上限）：5/7 就位——llama_deploy GitHub 58s/2043KB（gitee 10s rc=128 无此仓）、pdm GitHub 85s/2979KB（gitee 150s 超时）、conan GitHub 37s/1487KB（gitee 150s 超时）、keras gitee 2s/1595KB（镜像命中）、cfn-lint 已于上一段就位；2 阻塞——instructlab（gitee 27s 无此仓 + GitHub 150s 超时）、pvlib-python（gitee 150s + GitHub 151s 双超时）；haystack/reflex 未尝试（全量克隆 429/211MB，待单独评估单 sha 取法）",
+    "evidence": "logs/seed-live-sources.sh、logs/seed-live-sources.log、datasets/swe-repos/（不入库）"
+  },
+  {
+    "type": "pitfall",
+    "category": "评测",
+    "description": "【坑】SWE-bench Live lite 上游 parquet 把含空格的参数化 node id 截断：cfn-lint-3749 的 PASS_TO_PASS 1223 条里 329 条形如 test_sorted[Different（原表 0 条含空格），exact-match 判分必判 missing——适配层先花约 3 分钟建环境跑完整套件，才拿到一个迟到的 baseline_unexpected（P2P 894/1223），错误信息完全指向测试失败而非数据缺陷",
+    "root_cause": "上游数据集生成时按空格切分 node id 字段，括号未闭合的截断值原样下发；适配层判分前没有任何数据体检，把数据缺陷当环境/测试问题处理",
+    "countermeasure": "live-sample.py 开跑前 node_id_problems 体检查括号闭合，命中即 state=malformed_node_ids 秒级返回（不建 venv 不跑套件）；failed_states 与退出码文档同步；契约 test_truncated_node_ids_fail_fast 钉住；cfn-lint 复跑 rc1 0.0s / 329 条如实入台账",
+    "source": "datasets/swebench/live-runs-r65/live-sample-ledger.json（malformed_node_ids 行）、logs/live-cfnlint-baseline.json/.err（修前 153.68s 跑完才判红的对照）、tests/test_live_sample.py",
+    "closure": "契约 test_truncated_node_ids_fail_fast 绿 + 复跑 rc=1 0.0s 命中 329 条（logs/live-cfnlint-nodecheck.json）"
+  },
+  {
+    "type": "confirmation",
+    "description": "cfn-lint-3749 基线判定如实记录：上游声明 F2P 3 / P2P 1223，实测坏 node id 329 条（如 test/unit/module/context/conditions/test_equals_sort.py::test_sorted[Different），state=malformed_node_ids 不可判，不计 blocked_source、不折算 resolved；修前那次完整跑套件本身 153.68s / 1666 passed / 6 failed（另装 defusedxml 与 sarif 可选依赖后复跑），失败均与截断 id 无关，真值不可得",
+    "evidence": "datasets/swebench/live-runs-r65/live-sample-ledger.json、logs/live-cfnlint-baseline2.json、logs/live-cfnlint-nodecheck.json"
+  },
+  {
+    "type": "feature",
+    "description": "round-65 llama_deploy-330 Live 基线 v2 = baseline_ok：v1 因 aiokafka/aio_pika 未装、3 条 skipif 用例整体跳过（判分点 missing 3）判 baseline_unexpected（194.625 s）；setup_cmds 补装 aio-pika/aiokafka 后 --force 重跑，P2P 117/117 passed、0 missing、F2P 2/2 FAILED（基线预期），台账 state=baseline_ok、81.828 s（pytest 66.42 s）；3 条失败为 2 条 F2P 与 1 条不在上游判分清单内的 HITL e2e（tests/services/test_workflow_service.py::test_hitl_workflow_service），不影响判定——九条候选里当前「源就位且基线可判」1 条",
+    "evidence": "logs/live-llamadeploy-baseline2.json、datasets/swebench/live-runs-r65/live-sample-ledger.json、datasets/swebench/live-runs-r65/work/d3c94e6f310f/test.log、reports/swebench/live-backfill-2026-10-29.md"
+  },
+  {
+    "type": "doc",
+    "description": "round-65 决策与文档：SWE-bench Live 补源与基线报告 reports/swebench/live-backfill-2026-10-29.md/.json（补源表 + cfn-lint 截断 + llama_deploy baseline_ok）；DECISIONS 追加 D-045（冷启动评测协议：九条候选、冻结、零反馈任务文本、预算与四态判据）、D-046（4.1 uplift 复验判据：跨模型 2×5 或同模型 n≥10 + paired 对照 + 成本比 ≤1.5×，4.1 维持 ◐）、D-047（precision 语料不入库不进 CI，基线钉 revision+sha256）；ROADMAP §5.23 + README 状态块 + BASELINE + PROGRESS + next-round 第 26 条回填；版本 1.66.0，测试 524→527、脚本 74 不变",
+    "source": "docs/DECISIONS.md、docs/ROADMAP.md、README.md、BASELINE.md、docs/PROGRESS.md、retro/next-round.md"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-65 边界与未结项如实保留：①D-041 300s 红线仍待总监批准，双跑超线继续按纪律升级处置、红线未改；②D-045 冷启动执行仍阻塞（无未曝光镜像 + 国内 docker 镜像源 usable_rank=[]，round-64 实测），本轮不产生任何冷启动 resolved 主张；③4.1 uplift 维持「机制可用、未观测到 uplift」◐，D-046 判据已定但跨模型端点与 n≥10 语料预算未获批；④merge-audit 人工复核与 DeepSWE 余 19 条（ECR <0.14MB/s 判死）仍挂账；⑤instructlab/pvlib 补源阻塞、haystack/reflex 未尝试，按 D-045 blocked 原样保留不补位",
+    "source": "retro/next-round.md 第 25/26 条、docs/DECISIONS.md D-041/D-045/D-046、reports/swebench/merge-audit-r48.json"
+  }
+]

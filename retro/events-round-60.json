@@ -1,0 +1,62 @@
+[
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段四 4.3 工作区抽象：新增 agent/workspace.py（stdlib-only）——Workspace 基类统一 prepare/run/run_in/read_text/write_text/exists/apply_blocks/diff/describe/close。LocalWorkspace 落 out/wt worktree；ContainerWorkspace 以 docker run -d --rm 起容器（worktree 挂 /wt、原仓只读挂 /repo），命令与文件 IO 全部 docker exec -i；RemoteWorkspace 走 ssh BatchMode + 远端 git worktree（幂等建立），无真实远端时只由契约测试用本地 ssh 假壳验证接线。open_workspace(spec) 规格：\"\"/local、container:<image>、remote:<target>，未知规格抛 WorkspaceError(code=2) 不静默退回 local。",
+    "evidence": "agent/workspace.py；agent/edit_formats.py（抽出 apply_edits_io 供三档共用）；tests/test_agent.py::TestWorkspaceBackends"
+  },
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段四 4.3 验收实跑：code-task 增 --workspace 规格并贯通测试/探针/补丁/自检，同一任务同一宿主响应分别跑本地与容器两档——两档 state=DONE、tests=pass、edits.patch 字节级一致（232 B，sha256 820b56a2e804b2b8…，本地 2.281s / 容器 3.890s）；环境差异如实记录（本地 CPython 3.12.13 Windows / 容器 python 3.12.16 Linux，镜像 cra-pytest:3.12 sha256 ce76ca15…）。remote 档仅接口与假壳契约，code-task 显式拒绝（exit 2），不以假跑冒充真机。",
+    "evidence": "reports/workspace-round60/tasks/bench.json（schema=workspace-bench/1）；reports/workspace-round60/run-workspace-bench.py；reports/workspace-round60/report.md"
+  },
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段四 4.4 评审闭环：新增 agent/review_loop.py（stdlib-only，schema review-loop/1）——自评臂（补丁结构/语法树/测试状态）+ 他评臂（ruff 只计补丁新增行、ast-grep 内置规则集、OCR delegate 只作文件覆盖、任意 --reviewer-cmd 命令评审器）；按「同文件 + 行号 ±2」贪心配对，diff_rate=(external_only+self_only)/union；超过阈值、出现高严重度发现、覆盖缺口或外部臂全不可用时判 NEED_HUMAN（fail-closed），不静默放行。code-task --review 接入：评审工作树独立 checkout+apply，NEED_HUMAN 不写 manifest、rc1，PASS 才把 review 块写进 manifest。",
+    "evidence": "agent/review_loop.py；agent/code-task.py（_review_gate / --review / --review-threshold / --review-cmd / --review-ocr）；tests/test_agent.py::TestReviewLoop、TestReviewGateWiring"
+  },
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段四 4.4 验收实跑：评审样例集 8 例（干净 TS/Go/Python + 植入缺陷 Python/TS + 语法错误 + 阈值探针 + 命令评审器）判定 8/8 符合预期——干净例 diff 0.0 PASS；植入例 diff 1.0 转人工；语法错误例两臂一致命中（union 1、diff 0.0）但高严重度仍阻断；同缺陷补丁抬阈值 1.01 → PASS，证明判定由差异率数字驱动；OCR delegate 只覆盖文件不产出发现（coverage missing 0）。code-task 端到端门禁 2/2（PASS 写 manifest / NEED_HUMAN 不写、rc1）。",
+    "evidence": "reports/review-round60/review-bench.json（schema=review-bench/1）；reports/review-round60/gate-bench.json（schema=review-gate-bench/1）；reports/review-round60/report.md；reports/review-round60/run-review-bench.py、run-gate-bench.py"
+  },
+  {
+    "type": "test",
+    "description": "round-60 契约测试 11 项（500→511）：TestWorkspaceBackends 4 项（本地往返/未知规格 code=2/远端命令构造/容器真跑受镜像可用性门控）、TestReviewLoop 6 项（补丁解析、配对容差与差异率、干净 PASS 与植入阻断、外部臂全不可用转人工、语法高严重度阻断、命令评审器协议）、TestReviewGateWiring 1 项（评审工作树 checkout/清理与 review.json 落盘）。",
+    "evidence": "tests/test_agent.py"
+  },
+  {
+    "category": "行为回归",
+    "description": "【坑】评审闸首次端到端（gate-pass）在 git apply 交付补丁时报 `cannot apply binary patch to 'pkg/__pycache__/agg.cpython-312.pyc'` 整臂失败：cmd 测试引擎子进程没带 PYTHONDONTWRITEBYTECODE，跑测试生成的字节码目录被 `git add -A -N` 收进 `git diff`，交付补丁里混入二进制段——测试全绿、补丁却无法应用",
+    "root_cause": "pytest 分支有 _no_bytecode_env 兜底，新增的 --test-cmd 引擎分支（round-59）直接 subprocess.run 未复用同一环境；「补丁干净」此前只靠 3 档基准里恰好没有 cmd 引擎路径，没有单测钉住",
+    "countermeasure": "_engine_run 本地分支统一走 _no_bytecode_env(worktree)；py-calc 夹具补 .gitignore 排除 __pycache__；gate-pass 重跑复验交付补丁只含 pkg/agg.py（registry 里 patch 文件清单可查）",
+    "source": "agent/code-task.py（_engine_run）；reports/review-round60/gate-bench.json（gate-pass patch 清单）"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】syntax-py 案例首跑 union=2、diff_rate=0.5：ruff 对同一处语法错误报了两条 invalid-syntax（同一行同一规则），自评臂 1 条、他评臂 2 条，未配对的外部发现把差异率算虚——低配对数场景下重复发现会直接翻转阈值判定",
+    "root_cause": "差异度量直接消费两端原始发现列表，没有先按 (file,line,rule) 去重；ruff 的 JSON 输出对复合语法错误会重复报同一 code，属工具行为不是偶发",
+    "countermeasure": "两臂发现一律先 _dedupe（file,line,rule）再配对；syntax-py 复核为 union 1、matched 1、diff 0.0，阈值判定回归由高严重度阻断而非重复计数",
+    "source": "agent/review_loop.py（_dedupe）；reports/review-round60/review-bench.json（syntax-py 案例：union 1 / matched 1 / diff_rate 0.0 / high_findings 1）"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】Windows 上 `shlex.split(posix=True)` 把 `C:\\...\\.venv\\Scripts\\python.exe` 的反斜杠当转义吃掉，评审命令评审器与 code-task `--test-cmd` 引擎识别先后各撞一次 WinError 2；同一根因两处实现各抄一份解析，直到端到端门禁才暴露",
+    "root_cause": "POSIX 词法规则不适用于 Windows 路径；命令串解析被写成两处各自实现，没有共享的「按平台选词法」入口",
+    "countermeasure": "review_loop 的 _split_command 与 code-task 的 _split_cmdline 统一为 Windows 用 posix=False + 剥外壳引号；两个入口各配契约（命令评审器协议、--test-cmd 覆盖用例），gate-bench 2/2 复验带绝对路径的 --test-cmd 可跑",
+    "source": "agent/review_loop.py（_split_command）；agent/code-task.py（_split_cmdline）；reports/review-round60/gate-bench.json"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】OCR `delegate preview` 的文件清单行是 `  - \\`lib/calc.ts\\` [modified] +2/-2`，初版正则把行首列表破折号连同反引号并进路径，clean-ts 案例 coverage 全部判 missing——评审器明明列出了文件，闭环却报「未覆盖补丁文件」并强制转人工",
+    "root_cause": "解析器照猜输出格式而没有先记录真实输出样本；coverage missing 是阻断条件，解析错位的方向恰好是「误报违规」而不是静默放过",
+    "countermeasure": "正则改为 `^\\s*-\\s+`?([^`\\s]+)`?\\s+\\[(modified|added|deleted|renamed)\\]`；clean-ts 案例 coverage.missing=[] 入基准确认；OCR 仍只作文件覆盖信号，不冒充完整评审",
+    "source": "agent/review_loop.py（reviewer_ocr）；reports/review-round60/review-bench.json（clean-ts coverage）"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】评审样例集首版补丁是手写 unified diff，hunk 头的新旧行数按目测填写且缺末行换行，`git apply` 全部报 corrupt patch——样例集本身造错了，「缺陷是否被检出」的基准无从谈起",
+    "root_cause": "手工数 hunk 行数在上下行数变化时极易错位；补丁文本的末尾换行是 apply 的硬要求但不可见",
+    "countermeasure": "run-review-bench.py 内置 _patch(body_lines) 按正文自动计算 @@ 头并补尾换行；8 例补丁全部由该函数生成，git apply 逐例通过后才进入评审",
+    "source": "reports/review-round60/run-review-bench.py（_patch）；reports/review-round60/patches/"
+  }
+]

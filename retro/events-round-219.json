@@ -1,0 +1,9 @@
+[
+  {
+    "type": "feature",
+    "title": "round-219 维护轮——脚本 UTF-8 自防御判据 + 污点测试临时副本隔离",
+    "description": "doc-structure 新增 S10：按声明静态契约检查主 guard.body、可达 main/_emit 中真实的 sys.stdout UTF-8 reconfigure，拒绝注释/字符串、不可达分支、循环改绑、局部 sys 遮蔽与 guard else；真仓 110/110。13 个主入口补自防御。test_director 坏污点配置回退改在临时脚本副本注入，真仓 taint-config.json 字节不变。",
+    "countermeasure": "定向结构契约 32/32、污点配置 32/32；独立审查按声明边界 PASS；全量双跑 848 项全绿（557.198/586.742s，各 3 skip）；发布闸六项 PASS，git_state 因用户要求不提交而留待提交后执行。",
+    "source": "round-219"
+  }
+]

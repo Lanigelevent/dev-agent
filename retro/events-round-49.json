@@ -1,0 +1,50 @@
+[
+  {
+    "type": "feature",
+    "description": "SWE-bench Pro 单条 harness 验证（gold 口径）：ansible-0ea40e09 经国内镜像 ghcr.nju.edu.cn 拉取（711.2MB/35.025s，8MB blob 18.93MB/s），容器内 before_repo_set_cmd 重置 + test_patch + selected_test_files_to_run 复现；对照组仅 test_patch 得 1 failed/15 passed，gold 组 16 passed；F2P/P2P 逐 node 对账通过。status 仍 not_run（gold≠agent），不折算通过率",
+    "evidence": "reports/swebench/pro-harness-validation-2026-10-28.md；reports/swebench/pro-baseline-v1.49.0.json harness_validation 块；决策 D-026"
+  },
+  {
+    "type": "feature",
+    "description": "SWE-bench Live 环境可行性探针：基线首仓 cfn-lint 源在 gitee/GitHub/四代理全不可用（10.5–60KB/s 判死），改用本地 gitee 缓存 urllib3 建 worktree + 清华 PyPI 建 Python 3.12 venv，选非基线样本 urllib3-3527 验证「clone→装依赖→test_cmds」链路：基线 3 F2P failed（10.61s）→ gold 3 passed（0.30s）；依赖来源偏差与未跑 1816 P2P 如实记录；基线 10 条仍 not_run",
+    "evidence": "reports/swebench/live-harness-validation-2026-10-28.md；reports/swebench/live-baseline-v1.49.0.json harness_feasibility 块；决策 D-027"
+  },
+  {
+    "type": "feature",
+    "description": "DeepSWE 余 19 条网络可达性实测与阻塞记录：ECR public 拉取 8MB blob 60s 超时（<0.14MB/s），国内镜像无该 ECR 仓库缓存，GitHub 直连 reset；按硬约束 8 慢即判死，不傻等不伪造数字，余 19 条维持「需 GitHub/ECR 可达或本地镜像逐任务就位」",
+    "evidence": "reports/swebench/pro-live-feasibility-2026-10-28.md 网络段；本轮 ECR 实测记录（docker pull 超时日志）"
+  },
+  {
+    "type": "doc",
+    "description": "版本 v1.50.0 三处同步（plugin/pyproject/MCP）+ DECISIONS D-026（Pro gold 口径验证不算 agent resolved）/ D-027（Live 非基线探针不折算基线通过率）；ROADMAP §5.7 与阶段一收口回填",
+    "evidence": ".zcode-plugin/plugin.json；pyproject.toml；mcp/review_mcp.py；docs/DECISIONS.md；docs/ROADMAP.md §5.7"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】MSYS/Git Bash 把 docker 的 -v <win路径>/tests:/tests 参数做了路径转换，容器挂载点变成 C:/Program Files/Git/tests，首次 docker run 直接失败",
+    "root_cause": "Git Bash 对形似 Unix 路径的参数自动做 MSYS→Windows 转换，Docker desktop 收到的 source/destination 已被改写；命令行表面看不出",
+    "countermeasure": "传挂载参数一律 MSYS_NO_PATHCONV=1 + Windows 风格路径；docker exec 的容器内路径同样处理；以 docker inspect 的 Mounts.Destination 是否为 /tests 作为判据",
+    "source": "reports/swebench/pro-harness-validation-2026-10-28.md §5"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】git -C <repo> worktree add <相对路径> 把 worktree 建进了缓存仓内部（相对路径按 -C 的仓库解析，不是当前目录），导致随后 pip install -e ./repo 报 not a valid editable requirement",
+    "root_cause": "git 相对路径以 -C 指定的仓库为基准解析；把「工作目录」和「仓库目录」混为一谈",
+    "countermeasure": "worktree 目标路径一律用绝对路径；建错的先 worktree remove --force + prune 再重加；安装失败时先确认 pyproject.toml 在预期路径",
+    "source": "reports/swebench/live-harness-validation-2026-10-28.md §5"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】Live 建环境只按 test_cmds 装依赖，conftest 导入 httpx 失败才发现清单缺项，人工补装 httpx==0.25.2 才恢复",
+    "root_cause": "test_cmds 只列测试命令不列依赖；conftest 的隐性导入不在声明清单里，缺项要到 collection 阶段才暴露",
+    "countermeasure": "Live 适配层把 conftest 导入失败转成显式环境步骤（解析报错 → 补依赖 → 重试一次并记录）；环境清单固化到报告，正式评测用锁定文件",
+    "source": "reports/swebench/live-harness-validation-2026-10-28.md §5"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】外部源取数先动工后测速：Live 首仓 cfn-lint 在 gitee/GitHub/四个代理间逐个试到判死，ECR 又直接 docker pull 到 8MB blob 60s 超时才判死，累计浪费十余分钟",
+    "root_cause": "没有先跑统一的「源可达性 + 分段测速」探针再选样本；按计划样本直接开工，慢源才被逐个排除",
+    "countermeasure": "取数前先测速选源（硬约束 8：慢即判死，缺省 2 分钟纪律）；本机已有 gitee 缓存仓时优先 worktree 复用；ECR 等私有注册表先做 blob 段测速再决定是否拉取，不可达的任务标 blocked_source 不静默丢",
+    "source": "reports/swebench/live-harness-validation-2026-10-28.md §1；本轮 ECR 实测记录"
+  }
+]

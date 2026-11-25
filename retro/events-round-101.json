@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "django-runner 节点格式转换落地（live-sample）+ 四层推进验证 + 契约 +3",
+    "description": "verified django 系解锁钥匙落地：_normalize_django_nodes（django-runner 格式 test_x (module.Class) → pytest 节点，依 repo 文件存在性机械解析 tests/<app>/tests.py 布局，非格式/不可解析原样保留）；run_one 前端统一归一化（下游注入/判分零改动复用）。django-10880 四层推进实证：转换 ✓→收集 ✓→era 依赖（distutils shim/pytz/sqlparse）✓→settings 注入 ✓→最终阻在 django 2.2 自有测试基建需 runtests.py 引导（django.setup()）→ blocked_env 如实入档（解锁路径=runtests 引导判分设计，提案级）。契约 +3（候选解析/文件存在性转换/不可解析保留）。"
+  }
+]

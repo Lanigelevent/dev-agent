@@ -1,0 +1,9 @@
+[
+  {
+    "category": "行为回归",
+    "description": "并行分段首版两处静默 bug：① 分段边界随 have0 重算——断点续传后 seg 文件与新高边界错位（旧 seg3 内容被当新段「已完成」，拼接出缺尾文件）；② 拼接写 final 后被 os.replace(part, final) 覆盖（final 只剩段 0）——两处都靠逐字节比对断言才暴露，sha 校验的「失败」反而掩盖了真因",
+    "root_cause": "边界参数依赖运行态（have0）而非稳定量（total）；落盘顺序把验证产物当最终产物",
+    "countermeasure": "边界只依赖 total（跨运行稳定）；拼接走 .assembling 暂存、sha 通过才 os.replace；tests 以逐字节一致 + seg 清理 + resumed 三断言锁定（tests/test_scripts.py TestImageFetch）",
+    "source": "retro/events-round-parallel.json"
+  }
+]

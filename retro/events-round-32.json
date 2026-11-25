@@ -1,0 +1,18 @@
+{
+  "events": [
+    {
+      "category": "行为回归",
+      "description": "round-32 新写的 task-pipeline.py --dispatch 首跑即撞死：org-route --kind review 报「团队技能失联」，org.json 里 review 团队的 9 个成员脚本全部判缺。直接跑 org-route 复现——问题不在新调用方，测试只跑过 --kind fix（repair 团队成员清单恰好还指得到），review 这条路从脚本迁目录那天起就是坏的，一直没有真实调用方撞上去",
+      "root_cause": "技能脚本迁移到别的 skill 目录后（runner.py → orchestrator/scripts、intent-parse.py → prompt-enhancement/scripts、preflight/edge-detect → git-change-analysis/scripts、其余 → multi-agent-review/scripts 等），org.json 的 review.members 仍是裸文件名清单，而 org-route 的搜索目录只有 skills/review/scripts 与 skills/director/scripts——裸名在两个目录下都找不到。清单是配置，脚本搬家不动配置，漂移没有闸：test_director 只覆盖 fix/research 两种 kind，review 团队零覆盖",
+      "countermeasure": "review.members 全部改为相对 skill 根的路径清单（orchestrator/scripts/runner.py 等 9 条，org-route 的 (skill_root / s).exists() 原生支持带路径条目），复验 org-route --kind review 恢复 ok 且 assignee=review；task-pipeline 的 --dispatch 测试（TestTaskPipeline.test_dispatch_attaches_assignments）让 review 路从此有真实调用方，并附 --kind hack 与缺 org 的负面对照。教训入册：组织清单改成员位置必须同轮验证「每类 kind 都能派出去」，只测常用 kind 等于给冷路径免检",
+      "source": "round-32 task-pipeline --dispatch 首跑（reports/_work/tp-disp.json 首版报错）与 org-route 直接复现对照"
+    },
+    {
+      "category": "误报",
+      "description": "死代码扫描对新代码报 5 条：task-pipeline 的三个 store_true 模式旗标判 dead_switch、intent-parse 的 build_assumptions 两个参数判 dead_param。检查器没错——三处全真",
+      "root_cause": "两个同源写法：模式分发用 getattr(argv, m) 动态取属性，AST 扫描器只认字面属性引用，「确实读了」这件事扫描器看不见；build_assumptions 的 object_type / repo_given 参数在 B 级蕴含关系下真的用不上（level==B 已隐含两者），签名是按「直觉上的输入」写的而不是按实际消费写的",
+      "countermeasure": "getattr 改为字面元组遍历（(\"from_intent\", argv.from_intent), ...），既消报又让模式面在代码里显式可数；两个死参数直接删（B 级蕴含的事实写进函数 docstring 而不是参数表）。复跑死代码扫描全绿，15 条新契约测试（TestIntentParse 5 新增 + TestTaskPipeline 6）不变绿。教训入册：动态属性访问过检查器是「人知道、闸不知道」，动态性要么显式化要么加注释说明为什么扫描器看不见",
+      "source": "round-32 死代码扫描（tests/test_scripts.py::test_dead_code_scan_clean_and_catch）"
+    }
+  ]
+}

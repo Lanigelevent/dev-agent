@@ -1,0 +1,110 @@
+{
+  "ok": true,
+  "ledger": "reports\\ledger-demo-round54\\20261029-095326-14093d\\ledger.jsonl",
+  "records": 31,
+  "replayable": 20,
+  "opaque": 11,
+  "by_kind": {
+    "script": 20,
+    "decision": 10,
+    "note": 1
+  },
+  "by_actor": {
+    "preflight": 1,
+    "edge-detect": 1,
+    "deterministic-rules": 1,
+    "taint-cross": 2,
+    "score": 1,
+    "material-check": 1,
+    "dispatch-plan": 1,
+    "experience": 1,
+    "rules-select": 1,
+    "findings-check": 7,
+    "dispatcher": 7,
+    "coverage": 1,
+    "backverify": 1,
+    "perspective-scan": 1,
+    "report-check": 1,
+    "schema-check": 1,
+    "runner": 2
+  },
+  "decisions": [
+    {
+      "seq": 5,
+      "actor": "taint-cross",
+      "action": "audit.step2",
+      "disposition": "采纳",
+      "summary": "跨文件流 0 条（摘要 118）"
+    },
+    {
+      "seq": 12,
+      "actor": "dispatcher",
+      "action": "audit.step4",
+      "disposition": "None",
+      "summary": "正确性与逻辑缺陷: 0 项（正确性与逻辑缺陷 完成；已下发误报模式 0 条）"
+    },
+    {
+      "seq": 14,
+      "actor": "dispatcher",
+      "action": "audit.step4",
+      "disposition": "None",
+      "summary": "跨文件影响: 0 项（跨文件影响 完成；已下发误报模式 0 条）"
+    },
+    {
+      "seq": 16,
+      "actor": "dispatcher",
+      "action": "audit.step4",
+      "disposition": "None",
+      "summary": "回退风险与影响面: 0 项（回退风险与影响面 完成；已下发误报模式 0 条）"
+    },
+    {
+      "seq": 18,
+      "actor": "dispatcher",
+      "action": "audit.step4",
+      "disposition": "None",
+      "summary": "测试覆盖: 0 项（测试覆盖 完成；已下发误报模式 0 条）"
+    },
+    {
+      "seq": 20,
+      "actor": "dispatcher",
+      "action": "audit.step4",
+      "disposition": "None",
+      "summary": "性能与资源: 0 项（性能与资源 完成；已下发误报模式 0 条）"
+    },
+    {
+      "seq": 22,
+      "actor": "dispatcher",
+      "action": "audit.step4",
+      "disposition": "None",
+      "summary": "安全与敏感信息: 0 项（安全与敏感信息 完成；已下发误报模式 0 条）"
+    },
+    {
+      "seq": 24,
+      "actor": "dispatcher",
+      "action": "audit.step4",
+      "disposition": "None",
+      "summary": "意图一致性: 0 项（意图与范围一致，无偏差发现）"
+    },
+    {
+      "seq": 26,
+      "actor": "backverify",
+      "action": "audit.step8",
+      "disposition": "None",
+      "summary": "动态补审额度使用 1/2，未覆盖 hunk 67 个"
+    },
+    {
+      "seq": 30,
+      "actor": "runner",
+      "action": "audit.step10",
+      "disposition": "采纳",
+      "summary": "双闸通过，交付 run 20261029-095326-14093d"
+    }
+  ],
+  "verify": {
+    "ok": true,
+    "records": 31,
+    "first_bad": null,
+    "problems": [],
+    "ledger": "reports\\ledger-demo-round54\\20261029-095326-14093d\\ledger.jsonl"
+  }
+}

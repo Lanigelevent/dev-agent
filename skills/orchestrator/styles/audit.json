@@ -1,0 +1,7 @@
+{
+  "schema": "report-style/1",
+  "detail_level": "deep",
+  "audience": "auditor",
+  "industry": "finance",
+  "max_findings": 50
+}

@@ -1,0 +1,9 @@
+[
+  {
+    "category": "手工",
+    "description": "两个会话共用同一个 imagecache 目录时，逐层下载器在 Windows 上撞文件锁：matplotlib-22835 的 blob 连重试 12 次全失败，报 WinError 32（另一个程序正在使用此文件）",
+    "root_cause": "scripts/docker-image-fetch.py 的续传工作文件（<hex>.part / 各分段文件 / .assembling）是**固定名**，并发进程会同时写同一文件；Windows 对被占用的文件直接拒绝打开（POSIX 上只是互相覆盖，不会报错）——即并发安全只在 POSIX 上「恰好成立」",
+    "countermeasure": "本轮不改下载器（并行会话正在使用它，改动风险大于收益），改用**进程私有缓存目录**取最后一个镜像并加载成功；候选写进下一轮检查单：把工作文件改成进程唯一名（<hex>.part.<pid> / seg.<pid>），final 仍按 sha256 校验后原子替换，共享的 legacy .part 只读作续传基线",
+    "source": "retro/events-round-23.json"
+  }
+]

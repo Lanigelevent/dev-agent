@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "判卷归一化：_dedupe_gt 同片段 gt 对合并为组（r115 坑对策闭环）",
+    "description": "同片段 gt 条目归一化为组（prompt 标注同片段重复 xN 一并判定），命中组=命中其全部成员；主口径按组、member_ref 成员折算仅参考。判卷一致性由结构保证——同片段不可能再分叉。",
+    "outcome": "done"
+  },
+  {
+    "type": "feature",
+    "title": "归一化重判 19 PR + 依赖盘点先行（round-120 预备）",
+    "description": "语义组口径 F1 0.6122（P 0.7895/R 0.5；30 组 32 成员），member_ref recall 0.5312 与机械完全一致——机械约等于语义结论不变。依赖盘点：.venv 110 已装/18 跟踪真值落 reports/_work/dep-inventory-r116.json；scipy、semgrep 未装如实 N/A。REVIEW_LLM_* 三项实测 unset，第三方 judge 不可行如实记录。",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "dedupe 契约 +1（同片段合并/members 映射）",
+    "description": "tests/test_swrenbench.py 15→16 条全绿；去重键=片段（类型不同也合并，同片段同判）；判卷材料变化使 19 判卷 id 全新（幂等缓存机制按设计工作）。",
+    "outcome": "done"
+  }
+]

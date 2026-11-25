@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-28",
+  "kind": "agent-summary",
+  "label": "agent-local7-r48",
+  "input": "reports\\_work\\r48\\agent-eval-local7\\agent-sample-summary.json",
+  "metrics": {
+    "samples": 7,
+    "resolved": 7,
+    "unresolved": 0,
+    "undetermined": 0,
+    "integrity_flagged": 0,
+    "malformed_patch": 0,
+    "resolved_rate": 1.0,
+    "median_elapsed_sec": 36.625,
+    "median_elapsed_resolved_sec": 36.625,
+    "median_elapsed_unresolved_sec": null,
+    "total_elapsed_sec": 444.14,
+    "elapsed_per_resolved_sec": 63.449,
+    "median_rounds": 3.0,
+    "median_edits": 1.0,
+    "tokens": {
+      "available": false,
+      "reason": "host 后端不暴露 token 用量，如实留空不猜"
+    }
+  },
+  "limitations": [
+    "elapsed_sec 是所记链路的墙钟秒（agent-summary 只含编码循环；gold/deepswe 含环境准备与评测开销），不等于模型算力",
+    "中位数只描述这一批样本；样本量小，不构成稳定性或跨模型结论",
+    "token 仅当产物带用量时汇总；host 后端标 N/A，不用字符数估算",
+    "本报告不重算判分：resolved 直接取原台账/汇总的判定",
+    "integrity_flagged 与 malformed_patch 不计入 resolved 分母，单列计数"
+  ],
+  "repro": "py skills/eval-harness/scripts/eval-cost-report.py --input reports\\_work\\r48\\agent-eval-local7\\agent-sample-summary.json --out reports\\evals --label agent-local7-r48"
+}

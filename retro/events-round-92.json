@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "D-049 裁决落地：C 慢测试瘦身 + A 分层套件（仅 CI）",
+    "description": "总监批准附则推荐方案（C 先行 + A 仅 CI + B 底线）。C：deterministic-rules.py 增向后兼容批扫（--file 可重复，单文件模式输出字节级不变；批扫按文件归段各带 rc/findings，缺文件段 rc=2 不毁整批）——六处自扫循环（engines×2/selfiter/approval/director/retro，约 168 次启动）收敛为 6 次批扫，契约 +4（批扫形状/缺文件/互斥/单文件无 batch 键守卫）。A：post-C 实测计时取最快 200 项（<0.5s 档累计 13.0s）预注册 tests/smoke-manifest.json；CI/PR 跑 smoke、nightly cron 跑全量、发布闸维持 full；契约 +2（schema/数量界 + 可加载且为 discover 子集防陈旧）。smoke 实跑 200/200 全过。"
+  },
+  {
+    "type": "confirmation",
+    "title": "计数传播两连踩（+4/+2 契约后未当场同步）",
+    "description": "round-89 同款漂移本轮复发两次：批扫契约 +4 后 post-C 计时跑红 F5（601 vs 文档 597）；manifest 契约 +2 后双跑再红（603 vs 601）——两次都被真仓 freshness 门当场拦下、传播后复绿。教训固化：新增契约的当步就跑 bump-version --sync-counts，不留到跑测前。留观不入册（根因同 F5 既有对策，非新坑形态）。"
+  }
+]

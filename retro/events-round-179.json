@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-179：jobs 资源提案 A+B 批准并落地",
+      "description": "总监裁定「批 A+B」。实现：mcp/review_mcp.py resources/read 增 envelope（job_id/job_state/status/result/cancel/ledger_verify，旧顶层字段保留向后兼容），cancel 摘要从 job ledger 的 job.cancel note 读取，ledger_verify 调 event-ledger verify；新增 review://jobs/<id>/ledger 子资源（64KB 截断标记）并在 resources/list 列出。+5 契约（786→791），工具数 15 不变；篡改 digest → ledger_verify.ok=false 且 first_bad 非空。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-179：真作业 A+B 冒烟通过",
+      "description": "reports/mcp-resource-smoke-r179.md：15 工具；真 job cancel→cancelled；resources/read envelope job_state=cancelled、cancel.killed_pids=[49336]、ledger_verify={ok:true,records:1,first_bad:null}；ledger 子资源含 job.cancel 且 resources/list 列出。阶段 C（purge）已另次批准，本轮不实现（留待下轮）。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-179：开局与版本",
+      "description": "round-gate open --round 179 全 PASS；bump-version 2.77.0 --sync-counts（791/86/15）；doc-freshness 漂移 0；key 轮换无新命中；按 D-035 gate 绿后打并推 v2.77.0 tag。",
+      "outcome": "done"
+    }
+  ]
+}

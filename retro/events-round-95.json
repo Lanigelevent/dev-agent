@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "文档整理优化：三处分卷（ROADMAP/next-round/导航刷新）",
+    "description": "手册「append-only 熵增→分卷」三处落地：ROADMAP §5 分卷（1383→287 行现行卷 + ROADMAP-HISTORY.md 1109 行沿革卷，round-gate roadmap_section 兼容回退两卷、契约 26 过）；next-round 分卷（1167→89 行现行卷 = 第 46-55 号项+最新收官行，next-round-archive.md 1084 行归档第 1-45 号已执行项+历史收官行+来源注，D7 待办唯一事实源不变）；GLOSSARY +8 术语（轮次闸/doc-structure/smoke 清单/era 适配表/host 协议/f2p_passed/分卷/worktree 绝对路径）+ INDEX/07-tasks 导航刷新。切块脚本两轮迭代（块边界=下一块起点定界，防来源注插位丢项）。"
+  }
+]

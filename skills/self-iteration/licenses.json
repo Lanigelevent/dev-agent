@@ -1,0 +1,31 @@
+{
+  "schema": "license-registry/1",
+  "updated": "2026-10-29",
+  "scope": "pyproject 直接依赖（import / subprocess / test-only 三档）；传递依赖不逐项登记，新增直接依赖必须同步本表",
+  "policy": {
+    "import": ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "PSF-2.0"],
+    "test-only": ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "PSF-2.0", "MPL-2.0"],
+    "subprocess": ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "PSF-2.0", "MPL-2.0", "LGPL-2.1-only", "LGPL-2.1-or-later", "LGPL-3.0-only", "LGPL-3.0-or-later"]
+  },
+  "notes": [
+    "GPL/AGPL 系在任何档位一律禁止（license-check.py 按前缀判死）",
+    "LGPL 只允许 subprocess 隔离调用，不得 import（AGENTS 硬约束 1）",
+    "MPL-2.0 只允许 test-only：文件级弱著佐权，测试依赖不随治理壳分发（G12 裁定，D-034）",
+    "pass 判定以本表 + pyproject 声明一致性为准；installed 版本号仅作证据，N/A 不判失败"
+  ],
+  "packages": {
+    "ruff": {"license": "MIT", "mode": "import", "reason": "lint/autofix 引擎（engines/ruff_adapter，子进程 + 库函数）"},
+    "libcst": {"license": "MIT", "mode": "import", "reason": "codemod/重构引擎（engines/libcst_adapter）"},
+    "tree-sitter": {"license": "MIT", "mode": "import", "reason": "repo map 符号解析（agent/repo_map）"},
+    "tree-sitter-python": {"license": "MIT", "mode": "import", "reason": "tree-sitter Python 语法包"},
+    "tree-sitter-typescript": {"license": "MIT", "mode": "import", "reason": "tree-sitter TS/TSX 语法包（阶段四 4.2）"},
+    "tree-sitter-go": {"license": "MIT", "mode": "import", "reason": "tree-sitter Go 语法包（阶段四 4.2）"},
+    "ast-grep-py": {"license": "MIT", "mode": "import", "reason": "多语言 AST 模式引擎（engines/astgrep_adapter）"},
+    "hypothesis": {"license": "MPL-2.0", "mode": "test-only", "reason": "属性测试生成（tests 专用，不随治理壳分发；G12 裁定 D-034）"},
+    "pytest-xdist": {"license": "MIT", "mode": "test-only", "reason": "套件并行（pytest 插件，tests 专用；D-051 批 A，round-100 登记）"},
+    "pytest": {"license": "MIT", "mode": "test-only", "reason": "契约测试与生成物验证运行器"},
+    "coverage": {"license": "Apache-2.0", "mode": "test-only", "reason": "覆盖率门禁采集（coverage-gate.py）"},
+    "semgrep": {"license": "LGPL-2.1-only", "mode": "subprocess", "reason": "LGPL-2.1 引擎，仅 subprocess 隔离调用"},
+    "pynguin": {"license": "LGPL-3.0-only", "mode": "subprocess", "reason": "LGPL-3.0 测试生成基线对照，仅 subprocess 隔离调用"}
+  }
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "type": "feature",
+    "description": "round-47 新增 docs/ROADMAP.md：六维自评（治理 4.8 / 可复现 4.3 / 编码 3.2 / 评测 3.0 / 工程 2.8 / 观测 3.0）+ 15 条差距（P0-P2）+ 四阶段路线（rounds 47-49 / 50-53 / 54-57 / 58-60）与验收标准",
+    "evidence": "docs/ROADMAP.md；docs/DOC-SYSTEM.md D7 行；README 导航表"
+  },
+  {
+    "type": "feature",
+    "description": "补丁完整性闸：deepswe-sample.py 解析生成补丁，触碰测试文件/conftest/sitecustomize/pytest 配置即 integrity_flagged 不计 resolved，--allow-test-edits 显式豁免留痕；配反向测试（clean/conftest/改测试/新测试/pytest.ini/sitecustomize 六形态）",
+    "evidence": "skills/eval-harness/scripts/deepswe-sample.py _patch_integrity；tests/test_gold_sample.py；决策 D-019"
+  },
+  {
+    "type": "feature",
+    "description": "每任务成本度量：results 增加 elapsed_sec 与 code_task（rounds/edits/tests，读 task-manifest 优先、task-meta 兜底）；配契约断言",
+    "evidence": "skills/eval-harness/scripts/deepswe-sample.py _code_task_stats；tests/test_gold_sample.py"
+  },
+  {
+    "type": "feature",
+    "description": "编码循环新增 search 动作：字面不区分大小写、目录裁剪、40 命中上限、2000 文件/512KB 每文件上限、输出行与 query 回显均脱敏；配命中/glob/.git 裁剪/脱敏/短查询拒绝五组断言",
+    "evidence": "agent/code-task.py _search_repo；tests/test_agent.py test_search_is_bounded_and_redacts_secrets；决策 D-020"
+  },
+  {
+    "type": "feature",
+    "description": "CI 硬化：矩阵补 3.12（3.11/3.12/3.13）、安装引擎依赖（ruff/libcst/tree-sitter/ast-grep/hypothesis/pytest）、pip cache、timeout 30 分钟、fail-fast false",
+    "evidence": ".github/workflows/self-check.yml；决策 D-021"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】search 观察头回显原始 query：脱敏只作用于命中行，模型可用 query 本身搬运凭据（自测首跑失败抓出）",
+    "root_cause": "新增输出通道只对「扫描到的行」套脱敏，漏了「回显的输入」这一路；与既有 code-task 输出脱敏习惯不一致",
+    "countermeasure": "query 回显也走 _redact_snippet；测试用 api_key=super-secret-value 同时断言头部与行内都被替换",
+    "source": "tests/test_agent.py 首跑失败；agent/code-task.py dispatch search 分支"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】写记忆时把项目记忆误指到用户级 auto-memory（两处同名 MEMORY.md），Edit 报 0 命中才发现路径不对",
+    "root_cause": "MEMORY.md 同时存在于用户 scope 与项目 <host-memory>/memory/，操作时只凭文件名未按项目根解析绝对路径",
+    "countermeasure": "记忆写入先按项目根拼路径并用 Read 确认行数/内容再 Edit；用户级 auto-memory 不承载项目状态",
+    "source": "round-47 执行过程实踩（<user-home>/<host-memory>/memory vs <host-memory>/memory）"
+  }
+]

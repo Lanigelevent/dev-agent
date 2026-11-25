@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "title": "P0-2 运行面产品化：eval-harness/gate-run.py（脚本 75→76）",
+    "description": "prepare（幂等种子 worktree、绝对路径、子模块可选）/ run（协议 v4 + D-048 附录自动挂载 + 空内容流重试一次 + PYTHONPATH 前置）/ judge（委托 live-sample predictions，不复制判分逻辑）/ report（f2p-only 口径聚合）；key 全程只过环境变量；r77..84 会话一行式转正为单命令链；契约 +4（tests/test_gate_run.py，离线 fixture）。"
+  },
+  {
+    "type": "confirmation",
+    "title": "全面审查报告归档 + P0/P1 队列入 next-round 46",
+    "description": "reports/project-review-r85.md（九维度 A-..B+ 评估、9 项问题分优先级、7 条改进建议）；P0-1 模型轴端点仍待总监资源。"
+  },
+  {
+    "title": "夹具缺 git hunk 头/新文件形态导致 apply 失败（产品无错）",
+    "description": "gate-run 契约夹具三轮迭代：缺 @@ 头→garbage 错、/dev/null 新文件在 Windows git apply 下 dev/null 怪癖→改修改型补丁形态；顺带钉住 prepare 错误路径。非产品缺陷，不入册。",
+    "type": "confirmation"
+  }
+]

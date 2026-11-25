@@ -1,0 +1,20 @@
+{
+  "_comment": "污点流引擎配置（行为级优化，受两人规则治理：提案人≠批准人，附验证结果）。sources：标识符链任一环命中即视为不可信输入；sinks：调用全路径 → 污点流 rule_id。改后必跑污点反向验证 + synth 精度基线。",
+  "sources": ["environ", "argv", "stdin", "request", "input"],
+  "sinks": {
+    "eval": "taint-eval",
+    "exec": "taint-exec",
+    "os.system": "taint-os-shell",
+    "os.popen": "taint-os-shell"
+  },
+  "_governance": {
+    "proposed_by": "retro（迭代官，改进候选：扩展 shell 执行面汇点）",
+    "approved_by": "director（总监，行为级优化审批，提案人≠批准人）",
+    "cosigned_by": "approval（审核人会签：新汇点不与六项核验冲突）",
+    "verification": {
+      "taint_reverse_tests": "tests/test_director.py::TestTaintConfig + test_taint.py 全绿",
+      "synth_baseline": "precision 1.0 / recall 1.0 / clean_fp 0（2026-10-24）"
+    },
+    "change": "新增汇点 os.popen（shell 执行面补全）"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-28",
+  "count": 120,
+  "metrics": {
+    "samples": 120,
+    "clean": 60,
+    "defective": 60,
+    "tp": 60,
+    "fp": 0,
+    "precision": 1.0,
+    "recall_injected": 1.0,
+    "clean_fp": 0
+  },
+  "judge": null,
+  "real": null,
+  "cost": {
+    "samples": 7,
+    "resolved": 7,
+    "unresolved": 0,
+    "undetermined": 0,
+    "integrity_flagged": 0,
+    "malformed_patch": 0,
+    "resolved_rate": 1.0,
+    "median_elapsed_sec": 36.625,
+    "median_elapsed_resolved_sec": 36.625,
+    "median_elapsed_unresolved_sec": null,
+    "total_elapsed_sec": 444.14,
+    "elapsed_per_resolved_sec": 63.449,
+    "median_rounds": 3.0,
+    "median_edits": 1.0,
+    "tokens": {
+      "available": false,
+      "reason": "host 后端不暴露 token 用量，如实留空不猜"
+    },
+    "kind": "agent-summary",
+    "label": "agent-local7-r48"
+  },
+  "merge_audit": {
+    "benchmark": "SWE-bench Lite（历史 agent 补丁 20 例，取每例最终版本）",
+    "reviewer": "dev-agent（agent 初筛，按固定判据逐例读补丁）",
+    "human_review": "pending",
+    "metrics": {
+      "reviewed": 20,
+      "resolved": 18,
+      "mergeable": 18,
+      "not_mergeable": 2,
+      "pass_and_mergeable": 18,
+      "pass_but_unmergeable": 0,
+      "merge_rate": 0.9,
+      "pass_and_merge_rate": 0.9,
+      "reason_counts": {
+        "incomplete_fix": 2
+      }
+    },
+    "limitations": [
+      "C3/C4 为 agent 逐例初筛，人工复核待办；判据与逐例备注可复查，结论不是人工评审",
+      "样本来自单一仓库集（SWE-bench Lite Python），不外推到其他语言/仓库",
+      "mergeable 指按上述判据「可提交评审」，不代表上游一定合并",
+      "判定来源不一致已标注：eval19 与 caliber 对 sympy-13437 的结论不同，按补丁同一性核验后取 gold-v6 跑次；caliber 的 source_runs 未列 gold-v6，对账遗留（round-48 发现，未改证据文件）"
+    ]
+  },
+  "engine_fingerprint": "b27a9346f9e4a8679e9a995300f496656d61b8577a41365e17e51c0a357d6fad",
+  "taint_sinks": 4,
+  "taint_sources": 5,
+  "limitations": [
+    "本报告为确定性评审器口径（38 条硬规则 + 可配置污点引擎），不含真实模型评审",
+    "合成语料证明「报出的都是真的」；真实语料测量「规则类覆盖了哪些真实缺陷」，两者互补",
+    "污点引擎覆盖：同文件直线传播 + 跨文件两遍分析（顶层函数摘要）；无清洗点建模",
+    "判分口径：命中 ground-truth ±1 行计入；单文件 gt 标识符不足的 weak 样本剔除分母"
+  ],
+  "repro": "py skills/eval-harness/scripts/precision-report.py --count 120 --out <目录> --cost-report reports/evals/eval-cost-report-agent-local7-r48-2026-10-28.json --merge-audit reports/swebench/merge-audit-r48.json"
+}

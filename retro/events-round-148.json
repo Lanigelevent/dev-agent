@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "CVE 扫描闭环：pip-audit 7→0 + nightly 固化（round-148）",
+    "description": "pip-audit 2.10.1（OSV）审 130 包命中 7 CVE（black ×4 / setuptools ×3）；升级修复后复审计清零；nightly 增扫描步骤（扫描器钉 2.10.1）；Scorecard Vulnerability-Scan 缺口关闭。",
+    "outcome": "done"
+  }
+]

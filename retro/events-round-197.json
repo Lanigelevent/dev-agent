@@ -1,0 +1,11 @@
+[
+  {
+    "type": "correction",
+    "title": "MCP async cancel-vs-worker 终态竞速——cancelled 被随后的 failed 覆写（家族第三例，新根因类）",
+    "description": "r197 run1 实弹：test_resource_cancel_summary 断言 job_state==cancelled 实得 failed——cancel 写入 cancelled 后，worker 在「轮询自查取消」与「终态写」之间的时间窗内用 failed/done 覆写终态。与 r184（负载轮询窗）、r190（共享锁）不同根因类：本例=终态写序竞速。",
+    "root_cause": "worker 两处终态写（超时路径与正常终局路径）前无取消复查；轮询期自查有秒级窗口。",
+    "countermeasure": "已落地：两处终态写前加 _job_cancelled 复查守卫（已取消则 worker 放弃写终态，cancel 终态为最终事实）；家族 27/27 绿 + cancel 测试连续两过。MCP async 家族失稳史三例三因（r184 负载轮询 / r190 共享锁 / r197 终态竞速）——各有对策落地。",
+    "source": "round-197",
+    "confidence": "observed"
+  }
+]

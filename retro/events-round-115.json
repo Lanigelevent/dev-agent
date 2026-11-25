@@ -1,0 +1,26 @@
+[
+  {
+    "type": "feature",
+    "title": "SWRBench LLM-judge 语义命中臂：judge --match semantic（round-115）",
+    "description": "judge 子命令增 --match semantic：LLM-judge 判卷（rubric 写死：finding 指向 gt 同一处代码且同一缺陷机制，行号偏移可容忍）；host 协议跑批（19 prompt 一次写全、宿主填响应、幂等缓存收尾），每 PR 输出 match 矩阵可审计。",
+    "outcome": "done"
+  },
+  {
+    "type": "feature",
+    "title": "对齐分母对照：机械 0.6296 ≈ 语义 0.6154（同 19 PR）",
+    "description": "语义臂只判有预测的 PR（分母不对称），对齐同 19 PR 重算机械口径后两者几乎相同——本批行号偏移折损 ≈ 0，r114「机械口径系统性偏低」猜想被本批数据否定（此前已标注为待验证猜想）；自评循环性如实声明（judge=评审员同模型，语义数字为乐观上限）。",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "semantic +4 契约（判卷 pending/缓存命中/unparseable/prompt 形状）",
+    "description": "tests/test_swrenbench.py 11→15 条全绿；判卷 id 对齐踩一次（测试构建 prompt 少传 evidence 字段导致 id 失配）。",
+    "outcome": "done"
+  },
+  {
+    "type": "pitfall",
+    "title": "判卷对同片段重复 gt 对判定不一致（自评噪声）",
+    "description": "xarray-8287 的 gt[0]/gt[1] 片段完全相同，判卷对 gt[0] 记命中、gt[1] 未判——同片段应同判；发现于逐 PR 对账。未回头修改判卷响应（事后修正会被机械结果偏置），按原判入数并记录噪声源；判卷 prompt 归一化同片段 gt 对列为已知改进点。",
+    "outcome": "pitfall"
+  }
+]

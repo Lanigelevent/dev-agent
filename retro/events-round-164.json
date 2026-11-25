@@ -1,0 +1,14 @@
+[
+  {
+    "type": "feature",
+    "title": "org-scorecard 并入 close 门检查链（round-164，125 条②结构候选落地）",
+    "description": "round-gate close 增 scorecard_budget 检查（第八项）：子进程实跑 org-scorecard（cwd=root 隔离），WARN（≤2×阈值）整改关注不阻断收官、EXCEEDED（>2×阈值）判红——放行冻结中的轮次等于冻结失效；N/A（无数据）如实放行。+2 契约（绿态 + 17 open 坑 EXCEEDED 反向验证）；真仓 PASS；AGENTS 两处脚本表行同步口径（红线 7）。开发期抓到并修复路径层级 bug（SELF.parent 与 SELF.parents[1]）。约定「每轮结算」至此机械化。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-164 任务面取舍（round-164）",
+    "description": "125 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体。任务面=②scorecard 并入 close 门（完成）。",
+    "outcome": "done"
+  }
+]

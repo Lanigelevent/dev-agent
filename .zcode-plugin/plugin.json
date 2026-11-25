@@ -1,0 +1,22 @@
+{
+  "name": "dev-agent",
+  "version": "2.99.0",
+  "description": "全能代码智能体（治理先行）：评审/修复/重构/测试生成与编码循环；评审/修复两套团队分立，独立审核人两道闸后经五道闸（含行为回归）落盘；LLM 支持桌面宿主模型对接；附 MCP 服务器（stdio）可接入 ZCode 与 DeepSeek Harness",
+  "author": {
+    "name": "ZCX"
+  },
+  "skills": "./skills",
+  "commands": "./commands",
+  "mcpServers": {
+    "code-review": {
+      "command": "py",
+      "args": [
+        "-3",
+        "${CLAUDE_PLUGIN_ROOT}/mcp/review_mcp.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    }
+  }
+}

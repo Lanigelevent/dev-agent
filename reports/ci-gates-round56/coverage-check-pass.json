@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "state": "PASS",
+  "tolerance_pct": 0.5,
+  "baseline_overall_pct": 79.34,
+  "current_overall_pct": 79.34,
+  "overall_drop": 0.0,
+  "overall_regression": false,
+  "regressions": [],
+  "missing": [],
+  "new_files_count": 0,
+  "new_files": [],
+  "baseline": "<repo>\\skills\\self-iteration\\coverage-baseline.json",
+  "measured_from": "<repo>\\reports\\ci-gates-round56\\coverage-measured.json",
+  "files_measured": 57,
+  "files_in_baseline": 57
+}

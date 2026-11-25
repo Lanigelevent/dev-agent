@@ -1,0 +1,60 @@
+{
+  "ok": true,
+  "samples": 1000,
+  "point_recall": 0.0042,
+  "changes_total": 713,
+  "caught": 3,
+  "missed_by_type": {
+    "E.3.2 Solution Approach": 182,
+    "E.1.1 Textual Changes": 138,
+    "F.2 Logic": 81,
+    "E.3.1 Organization": 70,
+    "F.5 Support": 60,
+    "E.2 Visual Representation": 49,
+    "F.1 Interface": 38,
+    "F.6 Larger Defects": 26,
+    "F.4 Check": 26,
+    "F.3 Resource": 22,
+    "E.1.2 Language Features": 18
+  },
+  "clean_prs": 500,
+  "clean_zero_noise": 0.974,
+  "clean_noise_findings": 15,
+  "per": [
+    {
+      "instance_id": "astropy__astropy-187",
+      "change_introduced": true,
+      "findings": 0,
+      "changes_located": 1,
+      "caught": 0
+    },
+    {
+      "instance_id": "astropy__astropy-228",
+      "change_introduced": true,
+      "findings": 0,
+      "changes_located": 1,
+      "caught": 0
+    },
+    {
+      "instance_id": "astropy__astropy-323",
+      "change_introduced": true,
+      "findings": 0,
+      "changes_located": 2,
+      "caught": 0
+    },
+    {
+      "instance_id": "astropy__astropy-417",
+      "change_introduced": true,
+      "findings": 0,
+      "changes_located": 1,
+      "caught": 0
+    },
+    {
+      "instance_id": "astropy__astropy-573",
+      "change_introduced": true,
+      "findings": 0,
+      "changes_located": 2,
+      "caught": 0
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+diff --git a/pkg/agg.py b/pkg/agg.py
+index 1111111..2222222 100644
+--- a/pkg/agg.py
++++ b/pkg/agg.py
+@@ -1,2 +1,7 @@
++import os
++
++
+ def total(items):
+-    return sum(items)
++    if items == None:
++        return 0
++    return sum(items)

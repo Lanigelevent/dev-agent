@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "权威手册对齐 + 真值清理（round-147）",
+    "description": "light 收官用法入 AGENTS.md 复盘阶段第 3 步；残留脚本数真值 83→85 两处（doc-freshness 头注位盲区人工对账）。",
+    "outcome": "done"
+  }
+]

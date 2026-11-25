@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "doc-freshness F10：SKILL.md 行数基线机械对账（round-158，r157 坑 c2ff61af5e52 对策落地）",
+    "description": "doc-freshness 增 F10 检查：BASELINE.md 钉的「- <skill>: N」逐条对照 skills/<skill>/SKILL.md 实际行数（含 missing 档）；truth 面收 skill_lines。+3 契约（复刻 r157 实景反向验证 / missing 档 / 同步绿）；真仓 F10 绿（13 技能基线全同步）。BASELINE 基线块注明机械拦截。r157 坑 c2ff61af5e52 结案（open 7→6）。",
+    "outcome": "done"
+  },
+  {
+    "type": "doc",
+    "title": "BASELINE 行数基线块注记（round-158）",
+    "description": "「## SKILL.md 行数基线」块头注明由 doc-freshness F10 机械对账——改 SKILL.md 行数必须同步本块，否则开局门/CI 判红；手动同步步骤升格为机械拦截（r157 实踩闭环）。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-158 任务面取舍（round-158）",
+    "description": "119 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体。任务面=②行数基线并入 doc-freshness F 面（完成）。",
+    "outcome": "done"
+  }
+]

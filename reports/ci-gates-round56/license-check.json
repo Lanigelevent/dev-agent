@@ -1,0 +1,130 @@
+{
+  "ok": true,
+  "state": "PASS",
+  "root": "<repo>",
+  "registry": "<repo>\\skills\\self-iteration\\licenses.json",
+  "declared": {
+    "import": [
+      "ruff",
+      "libcst",
+      "tree-sitter",
+      "tree-sitter-python",
+      "ast-grep-py"
+    ],
+    "subprocess": [
+      "semgrep",
+      "pynguin"
+    ],
+    "test-only": [
+      "pytest",
+      "coverage",
+      "hypothesis"
+    ]
+  },
+  "checked": [
+    {
+      "package": "ruff",
+      "mode": "import",
+      "license": "MIT",
+      "allowed": true,
+      "installed": "0.17.2"
+    },
+    {
+      "package": "libcst",
+      "mode": "import",
+      "license": "MIT",
+      "allowed": true,
+      "installed": "1.9.0"
+    },
+    {
+      "package": "tree-sitter",
+      "mode": "import",
+      "license": "MIT",
+      "allowed": true,
+      "installed": "0.26.0"
+    },
+    {
+      "package": "tree-sitter-python",
+      "mode": "import",
+      "license": "MIT",
+      "allowed": true,
+      "installed": "0.25.0"
+    },
+    {
+      "package": "ast-grep-py",
+      "mode": "import",
+      "license": "MIT",
+      "allowed": true,
+      "installed": "0.51.0"
+    },
+    {
+      "package": "semgrep",
+      "mode": "subprocess",
+      "license": "LGPL-2.1-only",
+      "allowed": true,
+      "installed": "n/a（未安装，按注册表判定）"
+    },
+    {
+      "package": "pynguin",
+      "mode": "subprocess",
+      "license": "LGPL-3.0-only",
+      "allowed": true,
+      "installed": "0.48.0"
+    },
+    {
+      "package": "pytest",
+      "mode": "test-only",
+      "license": "MIT",
+      "allowed": true,
+      "installed": "8.4.2"
+    },
+    {
+      "package": "coverage",
+      "mode": "test-only",
+      "license": "Apache-2.0",
+      "allowed": true,
+      "installed": "7.17.0"
+    },
+    {
+      "package": "hypothesis",
+      "mode": "test-only",
+      "license": "MPL-2.0",
+      "allowed": true,
+      "installed": "6.170.9"
+    }
+  ],
+  "stale_registry_entries": [],
+  "problems": [],
+  "policy": {
+    "import": [
+      "MIT",
+      "Apache-2.0",
+      "BSD-2-Clause",
+      "BSD-3-Clause",
+      "ISC",
+      "PSF-2.0"
+    ],
+    "test-only": [
+      "MIT",
+      "Apache-2.0",
+      "BSD-2-Clause",
+      "BSD-3-Clause",
+      "ISC",
+      "PSF-2.0",
+      "MPL-2.0"
+    ],
+    "subprocess": [
+      "MIT",
+      "Apache-2.0",
+      "BSD-2-Clause",
+      "BSD-3-Clause",
+      "ISC",
+      "PSF-2.0",
+      "MPL-2.0",
+      "LGPL-2.1-only",
+      "LGPL-2.1-or-later",
+      "LGPL-3.0-only",
+      "LGPL-3.0-or-later"
+    ]
+  }
+}

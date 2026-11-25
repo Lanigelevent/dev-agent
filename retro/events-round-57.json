@@ -1,0 +1,21 @@
+[
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段三 3.5 发布闸：新增 self-iteration/scripts/release-gate.py（只读、绝不创建或推送 tag），一次跑七项检查——version_sync（plugin 真值 vs pyproject / review_mcp SERVER_INFO / README 头条 / DEVELOPMENT 发布口径 / BASELINE 最近「version 升」沿革，六处相等且真值 X.Y.Z）、doc-freshness、doc-drift、secret-scan、license-check、suite_double_run（两份日志均 Ran N + OK，两跑计数相等且等于 discover 真值；--run-suite 当场顺序跑两遍）、git_state（干净树 + 分支 + v<version> tag 形态/相等/尚未存在）；--only 只作 CI 分项（partial=true 不构成签核），CI 增版本同步一步；D-035 定义发布边界（main 打 v<version> 附注 tag、闸绿 + 证据入 reports/release-gate/<version>/ 才可打、不自动 push）",
+    "evidence": "skills/self-iteration/scripts/release-gate.py；tests/test_scripts.py::TestReleaseGate（7 项）；reports/release-gate/1.58.0/release-gate.json；docs/DECISIONS.md D-035；docs/ROADMAP.md §5.15"
+  },
+  {
+    "category": "门禁自举",
+    "description": "发布闸首次全项实跑时 git_state 判脏，但工作树其实是刚提交的干净态：闸自己的 suite_double_run 在算「期望测试数」时用 unittest discover import 了夹具测试模块，写出 tests/__pycache__，排在后面的 git_state 看到未跟踪目录就判红——检查器自己污染了它要检查的对象",
+    "root_cause": "suite 检查用进程内 discover 取真值，默认写字节码；检查顺序把 suite 放在 git_state 之前，等于先弄脏再验干净。夹具没有 .gitignore（真仓有，所以真仓不复现），只有契约测试才暴露",
+    "countermeasure": "discover 期间 sys.dont_write_bytecode=True 并在 finally 复原；--run-suite 的子进程加 -B；契约 test_ready_release_all_green_with_evidence 把「全项一次跑绿」钉成回归锚点（脏树变体会单独判红）",
+    "source": "skills/self-iteration/scripts/release-gate.py（_discovered_count / _run_suite_once）"
+  },
+  {
+    "category": "口径纪律",
+    "description": "version_sync 首版按「**round-N（vX.Y.Z）**」解析 BASELINE 沿革，真仓 count=0——BASELINE 的实际形态是自由行「…：version 升 **X.Y.Z**，测试…」，我只在 README 状态段见过 round-N（vX）写法就套到了 BASELINE",
+    "root_cause": "写解析前没先拿真值核对目标文件的真实格式（只 grep 了 README 的同类字样就假定 BASELINE 同构）；夹具版本号还写生成自假想格式，等于用假想验证假想",
+    "countermeasure": "改为锚定「version 升」并取文件内最后一条（沿革按时间追加），错误信息明确「未找到 version 升 X.Y.Z 沿革」；真仓 --only version_sync 实跑六处同步 rc0；契约覆盖版本漂移与形态错两类",
+    "source": "skills/self-iteration/scripts/release-gate.py（BASELINE_VER / _baseline_ver）；BASELINE.md 版本沿革段"
+  }
+]

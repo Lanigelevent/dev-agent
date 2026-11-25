@@ -1,0 +1,168 @@
+{
+  "samples": [
+    {
+      "fix_commit": "f016f0680e4ace6742b03a70cb0382ce86abe371",
+      "parent_rev": "a8f01d7d52cf9e8410ff737fc8e5f4ea2125ff24",
+      "repo_url": "https://github.com/aio-libs/aiohttp",
+      "local_repo": "aio-libs__aiohttp",
+      "files": [
+        "aiohttp/http_parser.py",
+        "tests/test_http_parser.py"
+      ],
+      "cve_ids": [
+        "CVE-2023-47641"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "f016f0680e4ace6742b03a70cb0382ce86abe371"
+    },
+    {
+      "fix_commit": "e4ae01c2077d2cfa116aa82e4ff6866857f7c466",
+      "parent_rev": "476c4f2445f649fe2ec32db96535b988d69e71b5",
+      "repo_url": "https://github.com/aio-libs/aiohttp",
+      "local_repo": "aio-libs__aiohttp",
+      "files": [
+        "aiohttp/client_reqrep.py",
+        "tests/test_client_request.py",
+        "tests/test_web_request.py"
+      ],
+      "cve_ids": [
+        "CVE-2023-49082"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "e4ae01c2077d2cfa116aa82e4ff6866857f7c466"
+    },
+    {
+      "fix_commit": "1e86b777e61cf4eefc7d92fa57fa19dcc676013b",
+      "parent_rev": "0bf109195427b9f91c2ac47c3de378b0829de296",
+      "repo_url": "https://github.com/aio-libs/aiohttp",
+      "local_repo": "aio-libs__aiohttp",
+      "files": [
+        "aiohttp/client_reqrep.py",
+        "tests/test_client_request.py"
+      ],
+      "cve_ids": [
+        "CVE-2023-49081"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "1e86b777e61cf4eefc7d92fa57fa19dcc676013b"
+    },
+    {
+      "fix_commit": "33ccdfb0a12690af5bb49bda2319ec0907fa7827",
+      "parent_rev": "822fbc7431f3c5522d3e587ad0b658bef8b6a0ab",
+      "repo_url": "https://github.com/aio-libs/aiohttp",
+      "local_repo": "aio-libs__aiohttp",
+      "files": [
+        "aiohttp/http_parser.py",
+        "tests/test_http_parser.py"
+      ],
+      "cve_ids": [
+        "CVE-2024-23829"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "33ccdfb0a12690af5bb49bda2319ec0907fa7827"
+    },
+    {
+      "fix_commit": "1c335944d6a8b1298baf179b7c0b3069f10c514b",
+      "parent_rev": "33ccdfb0a12690af5bb49bda2319ec0907fa7827",
+      "repo_url": "https://github.com/aio-libs/aiohttp",
+      "local_repo": "aio-libs__aiohttp",
+      "files": [
+        "aiohttp/web_urldispatcher.py",
+        "tests/test_web_urldispatcher.py"
+      ],
+      "cve_ids": [
+        "CVE-2024-23334"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "1c335944d6a8b1298baf179b7c0b3069f10c514b"
+    },
+    {
+      "fix_commit": "cebe526b9c34dc3a3da9140409db63014bc4cf19",
+      "parent_rev": "270ae9cf6a9e6159b5e29a950deb6ff7600aebc5",
+      "repo_url": "https://github.com/aio-libs/aiohttp",
+      "local_repo": "aio-libs__aiohttp",
+      "files": [
+        "aiohttp/formdata.py",
+        "aiohttp/multipart.py",
+        "tests/test_client_functional.py",
+        "tests/test_multipart.py",
+        "tests/test_web_functional.py"
+      ],
+      "cve_ids": [
+        "CVE-2024-30251"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "cebe526b9c34dc3a3da9140409db63014bc4cf19"
+    },
+    {
+      "fix_commit": "28335525d1eac015a7e7584137678cbb6ff19397",
+      "parent_rev": "ed43040613988fc4666109aca82a5180ff165df5",
+      "repo_url": "https://github.com/aio-libs/aiohttp",
+      "local_repo": "aio-libs__aiohttp",
+      "files": [
+        "aiohttp/web_urldispatcher.py",
+        "tests/test_web_urldispatcher.py"
+      ],
+      "cve_ids": [
+        "CVE-2024-27306"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "28335525d1eac015a7e7584137678cbb6ff19397"
+    },
+    {
+      "fix_commit": "7eecdff163ccf029fbb1ddc9de4169d4aaeb6597",
+      "parent_rev": "82fbe6476a65e81bbde6f8036baaa34ca0c82c2c",
+      "repo_url": "https://github.com/aio-libs/aiohttp",
+      "local_repo": "aio-libs__aiohttp",
+      "files": [
+        "aiohttp/multipart.py",
+        "tests/test_multipart.py"
+      ],
+      "cve_ids": [
+        "CVE-2024-30251"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "7eecdff163ccf029fbb1ddc9de4169d4aaeb6597"
+    },
+    {
+      "fix_commit": "f21c6f2ca512a026ce7f0f6c6311f62d6a638866",
+      "parent_rev": "7eecdff163ccf029fbb1ddc9de4169d4aaeb6597",
+      "repo_url": "https://github.com/aio-libs/aiohttp",
+      "local_repo": "aio-libs__aiohttp",
+      "files": [
+        "aiohttp/multipart.py",
+        "tests/test_multipart.py"
+      ],
+      "cve_ids": [
+        "CVE-2024-30251"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "f21c6f2ca512a026ce7f0f6c6311f62d6a638866"
+    }
+  ],
+  "sample_ids": [
+    "1c335944d6a8b1298baf179b7c0b3069f10c514b",
+    "1e86b777e61cf4eefc7d92fa57fa19dcc676013b",
+    "28335525d1eac015a7e7584137678cbb6ff19397",
+    "33ccdfb0a12690af5bb49bda2319ec0907fa7827",
+    "7eecdff163ccf029fbb1ddc9de4169d4aaeb6597"
+  ],
+  "metrics": {
+    "recall": 0.0,
+    "hits": 0,
+    "precision": null,
+    "claimed": 0,
+    "grounded": 0,
+    "valid_samples": 5,
+    "weak_samples": 0
+  },
+  "full_set_reference": {
+    "recall": 0.0,
+    "claimed": 0,
+    "grounded": 0,
+    "valid_samples": 9,
+    "n": 9
+  },
+  "recorded": "2026-10-25",
+  "note": "run-regression 缺省子集（fix_commit 排序前 5）实测记录；pipeline=deterministic-rules（无模型）；0 命中与 61 样本聚合 recall 0.016 口径一致"
+}

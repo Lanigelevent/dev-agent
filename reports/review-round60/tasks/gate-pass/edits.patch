@@ -1,0 +1,12 @@
+diff --git a/pkg/agg.py b/pkg/agg.py
+index a3fb760..12d9f86 100644
+--- a/pkg/agg.py
++++ b/pkg/agg.py
+@@ -1,2 +1,7 @@
+ def total(items):
+     return sum(items)
++
++
++def mean(items):
++    values = list(items)
++    return sum(values) / len(values)

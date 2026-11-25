@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-132：SWRBench host arm n=1000 真· 全量跑通",
+      "description": "host review arm 真· n=1000 全量跑——1000/1000 responses = []；mechanical judge：PR fn=500 / point fn=713 / recall=0.0；clean 500/500 零误报。README 评测能力表定调：硬规则臂 0.42% 为唯一外口径；宿主臂 unavailable（host-file-protocol 不能胜任此语料）。",
+      "outcome": "done"
+    }
+  ]
+}

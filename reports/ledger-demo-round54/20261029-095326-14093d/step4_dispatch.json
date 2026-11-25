@@ -1,0 +1,16 @@
+{
+  "dimensions_enabled": [
+    "正确性与逻辑缺陷",
+    "跨文件影响",
+    "回退风险与影响面",
+    "测试覆盖",
+    "性能与资源",
+    "安全与敏感信息",
+    "意图一致性"
+  ],
+  "dimensions_skipped": [],
+  "material_check": {
+    "ok": true,
+    "level": "A"
+  }
+}

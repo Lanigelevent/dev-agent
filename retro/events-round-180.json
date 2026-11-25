@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-180：阶段 C 批准并落地——code_review_purge 三重闸",
+      "description": "总监裁定「批准阶段 C」。实现第 16 工具 code_review_purge：32hex 路径守卫 + 仅终态（done/failed/cancelled）+ confirm=true 三重闸；缺省 PROPOSED 预检不删；删前把 job_id/state/exit_code/has_result 摘要写入**中央** runs/jobs/ledger.jsonl（避免随作业目录一起删除），shutil.rmtree 失败回 isError；+3 契约（非法 id/非终态被拒、无 confirm 预检、成功删除+账本摘要+资源不可读）。工具 15→16、契约 791→794。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-180：真作业 purge 冒烟通过",
+      "description": "reports/mcp-purge-smoke-r180.md：16 工具、last=purge；真 job done step=10；预检 PROPOSED=True/isError=false；purge confirm → purged=true、ledger_ok=true；purge 后 resource/isError=true。至此 D-055 扩面提案 B+C 与 r178 jobs 资源 A+B 全部完成。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-180：开局与版本",
+      "description": "round-gate open --round 180 全 PASS；bump-version 2.78.0 --sync-counts（794/86/16）；doc-freshness 漂移 0；key 轮换无新命中；按 D-035 gate 绿后打并推 v2.78.0 tag。依赖刷新锚点 r173 后第 7 轮未到，不刷新。",
+      "outcome": "done"
+    }
+  ]
+}

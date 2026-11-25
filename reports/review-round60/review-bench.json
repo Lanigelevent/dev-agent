@@ -1,0 +1,276 @@
+{
+  "schema": "review-bench/1",
+  "ocr_exe": "<repo>\\reports\\_work\\tooling\\ocr\\node_modules\\.bin\\ocr.cmd",
+  "cases": [
+    {
+      "id": "clean-ts",
+      "expect": "PASS",
+      "decision": "PASS",
+      "match": true,
+      "threshold": 0.5,
+      "diff_rate": 0.0,
+      "matched": 0,
+      "union": 0,
+      "high_findings": 0,
+      "external_status": [
+        {
+          "name": "ruff",
+          "status": "skipped"
+        },
+        {
+          "name": "astgrep",
+          "status": "ok"
+        },
+        {
+          "name": "ocr",
+          "status": "ok"
+        }
+      ],
+      "coverage": {
+        "reviewable": [
+          "lib/calc.ts"
+        ],
+        "missing": [],
+        "note": "OCR delegate 只列文件，不产出发现"
+      },
+      "reasons": [],
+      "self_n": 0,
+      "external_n": 0,
+      "files": [
+        {
+          "path": "lib/calc.ts",
+          "added_lines": 2
+        }
+      ],
+      "note": "round-59 真实修复补丁；ocr 只作文件覆盖"
+    },
+    {
+      "id": "clean-go",
+      "expect": "PASS",
+      "decision": "PASS",
+      "match": true,
+      "threshold": 0.5,
+      "diff_rate": 0.0,
+      "matched": 0,
+      "union": 0,
+      "high_findings": 0,
+      "external_status": [
+        {
+          "name": "ruff",
+          "status": "skipped"
+        },
+        {
+          "name": "astgrep",
+          "status": "skipped"
+        }
+      ],
+      "coverage": null,
+      "reasons": [],
+      "self_n": 0,
+      "external_n": 0,
+      "files": [
+        {
+          "path": "stack/stack.go",
+          "added_lines": 1
+        }
+      ],
+      "note": "Go 无规则覆盖（ruff/astgrep 均跳过）——覆盖率缺口如实记录"
+    },
+    {
+      "id": "clean-py",
+      "expect": "PASS",
+      "decision": "PASS",
+      "match": true,
+      "threshold": 0.5,
+      "diff_rate": 0.0,
+      "matched": 0,
+      "union": 0,
+      "high_findings": 0,
+      "external_status": [
+        {
+          "name": "ruff",
+          "status": "ok"
+        },
+        {
+          "name": "astgrep",
+          "status": "ok"
+        }
+      ],
+      "coverage": null,
+      "reasons": [],
+      "self_n": 0,
+      "external_n": 0,
+      "files": [
+        {
+          "path": "pkg/agg.py",
+          "added_lines": 5
+        }
+      ],
+      "note": "本次纯净补丁（新增 mean）"
+    },
+    {
+      "id": "seeded-py",
+      "expect": "NEED_HUMAN",
+      "decision": "NEED_HUMAN",
+      "match": true,
+      "threshold": 0.5,
+      "diff_rate": 1.0,
+      "matched": 0,
+      "union": 2,
+      "high_findings": 0,
+      "external_status": [
+        {
+          "name": "ruff",
+          "status": "ok"
+        },
+        {
+          "name": "astgrep",
+          "status": "ok"
+        }
+      ],
+      "coverage": null,
+      "reasons": [
+        "自评/他评差异率 1.00 > 阈值 0.50"
+      ],
+      "self_n": 0,
+      "external_n": 2,
+      "files": [
+        {
+          "path": "pkg/agg.py",
+          "added_lines": 6
+        }
+      ],
+      "note": "植入未用导入 + == None；ruff F401/E711 命中"
+    },
+    {
+      "id": "seeded-ts",
+      "expect": "NEED_HUMAN",
+      "decision": "NEED_HUMAN",
+      "match": true,
+      "threshold": 0.5,
+      "diff_rate": 1.0,
+      "matched": 0,
+      "union": 6,
+      "high_findings": 0,
+      "external_status": [
+        {
+          "name": "astgrep",
+          "status": "ok"
+        }
+      ],
+      "coverage": null,
+      "reasons": [
+        "自评/他评差异率 1.00 > 阈值 0.50"
+      ],
+      "self_n": 0,
+      "external_n": 6,
+      "files": [
+        {
+          "path": "lib/fmt.ts",
+          "added_lines": 8
+        }
+      ],
+      "note": "植入 console.log/var/空 catch/宽松相等；ast-grep 命中"
+    },
+    {
+      "id": "syntax-py",
+      "expect": "NEED_HUMAN",
+      "decision": "NEED_HUMAN",
+      "match": true,
+      "threshold": 0.5,
+      "diff_rate": 0.0,
+      "matched": 1,
+      "union": 1,
+      "high_findings": 1,
+      "external_status": [
+        {
+          "name": "ruff",
+          "status": "ok"
+        }
+      ],
+      "coverage": null,
+      "reasons": [
+        "高严重度发现 1 条：pkg/agg.py:self:syntax"
+      ],
+      "self_n": 1,
+      "external_n": 1,
+      "files": [
+        {
+          "path": "pkg/agg.py",
+          "added_lines": 3
+        }
+      ],
+      "note": "两臂一致命中语法错误——差异率低但高严重度仍阻断"
+    },
+    {
+      "id": "threshold-probe",
+      "expect": "PASS",
+      "decision": "PASS",
+      "match": true,
+      "threshold": 1.01,
+      "diff_rate": 1.0,
+      "matched": 0,
+      "union": 2,
+      "high_findings": 0,
+      "external_status": [
+        {
+          "name": "ruff",
+          "status": "ok"
+        },
+        {
+          "name": "astgrep",
+          "status": "ok"
+        }
+      ],
+      "coverage": null,
+      "reasons": [],
+      "self_n": 0,
+      "external_n": 2,
+      "files": [
+        {
+          "path": "pkg/agg.py",
+          "added_lines": 6
+        }
+      ],
+      "note": "同缺陷补丁抬阈值到 1.01 → 放行；证明判定由差异率数字驱动"
+    },
+    {
+      "id": "cmd-reviewer",
+      "expect": "NEED_HUMAN",
+      "decision": "NEED_HUMAN",
+      "match": true,
+      "threshold": 0.5,
+      "diff_rate": 1.0,
+      "matched": 0,
+      "union": 3,
+      "high_findings": 0,
+      "external_status": [
+        {
+          "name": "ruff",
+          "status": "ok"
+        },
+        {
+          "name": "stub",
+          "status": "ok"
+        }
+      ],
+      "coverage": null,
+      "reasons": [
+        "自评/他评差异率 1.00 > 阈值 0.50"
+      ],
+      "self_n": 0,
+      "external_n": 3,
+      "files": [
+        {
+          "path": "pkg/agg.py",
+          "added_lines": 6
+        }
+      ],
+      "note": "第三方命令评审器接入并计入他评（自评无对应发现）"
+    }
+  ],
+  "totals": {
+    "cases": 8,
+    "as_expected": 8
+  }
+}

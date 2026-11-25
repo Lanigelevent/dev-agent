@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-173：依赖刷新第十一跑——ast-grep-py 0.51.2→0.51.3 + 三引擎矩阵零漂移",
+      "description": "清华主镜像一次命中、零降级：14 项 tracker dry-run 探测完成；升 1（ast-grep-py 0.51.3，装后二次 dry-run 无 Would install）、拒 1 传递升级（numpy 2.5.5 由 pandas 连带提议，不在 tracker 面不静默升级），其余 12 项 no changes。三矩阵 JSON 全等（ruff 973/481/251；astgrep 29 条；libcst 2/2/2）。libcst matrix 输出包裹在 ok/matrix 中，比对取 .matrix；PowerShell 重定向 UTF-16 伪影用 Python subprocess 捕获规避。证据 reports/dep-refresh-r173.md、reports/_work/dep-inventory-r173.json。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-173：开局与版本",
+      "description": "round-gate open --round 173 全 PASS；bump-version 2.74.0 --sync-counts（778/86/14）；doc-freshness 漂移 0；key 轮换无新命中；按 D-035 gate 绿后打并推 v2.74.0 tag。",
+      "outcome": "done"
+    }
+  ]
+}

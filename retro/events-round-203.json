@@ -1,0 +1,11 @@
+[
+ {
+  "type": "correction",
+  "title": "影子检查点 bare 判定上游补研——根因链闭合（r203，open 台账调查终结）",
+  "description": "上游补研三步：①诊断矩阵四形态独立复现全通过（旗标/env/cwd 变化均 OK——仓库外不可复现）；②手动场景实弹：code-task 子进程中 out_dir 只含 llm-tasks/task-meta.json/traces/wt-shadow——wt/ 目录不存在（流程未到达 worktree 创建点）→ shadow repo 在 GIT_DIR env + 无 work tree 下以 bare 模式 init（git init + GIT_DIR env 无 GIT_WORK_TREE → core.bare=true 默认）；③防护 config core.bare=false 被 env GIT_WORK_TREE 的运行时判定压住（env > config 优先级）。根因链闭合：init 时 wt 不存在 → bare init → 后续 add 需要 work tree → bare 拒绝。",
+  "root_cause": "shadow init 在 wt 物理创建之前运行；GIT_DIR env 无 GIT_WORK_TREE 的 git init 默认 bare。",
+  "countermeasure": "已定案：①影子 init 延迟到首个 fix 轮（wt 物理存在后）+ core.bare=false 钉住 → 下轮实施；②本轮缺省 off 维持（不回退），open 台账转观察；③若下轮修复后仍 bare → 永久 off。",
+  "source": "round-203",
+  "confidence": "observed"
+ }
+]

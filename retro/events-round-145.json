@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "provider host 流契约 +5（round-145）",
+    "description": "host 文件协议此前零测试覆盖：补 HostLLMPending 落盘/幂等 id/缓存命中/POSIX 风格路径/内容完整性五契约；零平台分支确认。",
+    "outcome": "done"
+  }
+]

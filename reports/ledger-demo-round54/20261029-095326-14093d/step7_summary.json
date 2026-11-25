@@ -1,0 +1,16 @@
+{
+  "change_summary": "范围 80a6af9^..80a6af9，文件 22，增删 +3778/-99",
+  "test_suggestions": [
+    "为 .zcode-plugin/plugin.json 补充边界用例：覆盖新增分支与错误处理",
+    "为 AGENTS.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 BASELINE.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 README.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 agent/code-task.py 补充边界用例：覆盖新增分支与错误处理",
+    "为 agent/repo_map.py 补充边界用例：覆盖新增分支与错误处理",
+    "为 docs/DECISIONS.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 docs/DEVELOPMENT.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 docs/PROGRESS.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 docs/ROADMAP.md 补充边界用例：覆盖新增分支与错误处理"
+  ],
+  "risk": "高"
+}

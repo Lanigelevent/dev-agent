@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "title": "depth-1 单提交救援产品化（live-sample.py _depth1_rescue）",
+    "description": "full clone/fetch 双失败后按 sha depth-1 自动救援（r66/r81 取法转正）；契约 TestDepth1Rescue ×2（本地 bare 仓 file:// 正反例，离线）；契约 538→540。"
+  },
+  {
+    "type": "confirmation",
+    "title": "gate-r80 批次适配终态 + 两个新数据点",
+    "description": "cfn-lint-3764 = f2p_passed（F2P 2/2、3 编辑/2865 B、判分 83.8 s）；conan-17102 = unresolved；适配终态健康 3 / env_blocked 4 / blocked_data 1 / blocked_source 1（逐仓依据入 gate 文件）；零反馈口径累计 4/11（部分口径单列）。"
+  },
+  {
+    "title": "PYTHONPATH 未前置导致编码循环内测试测旧代码（editable 指向基线 worktree）",
+    "description": "基线 venv 的 pip install -e . 指向基线 worktree；编码 worktree 的循环内测试须把 repo;repo/src 前置 PYTHONPATH，否则测试反馈失真（judge 侧不受影响，自建 venv 重装）。当轮修正；不单独立册（与 round-82 报告执行面同记录）。",
+    "type": "confirmation"
+  }
+]

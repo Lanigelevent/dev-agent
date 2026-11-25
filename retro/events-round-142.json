@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "round-gate --round-type light 轻量收官（round-142）",
+    "description": "light 轮只要求 run1 单跑全绿（parity 仅双跑时校验），其余五检查不减；零代码轮收官成本减半。+3 契约（26→29）。",
+    "outcome": "done"
+  }
+]

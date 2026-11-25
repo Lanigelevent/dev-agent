@@ -1,0 +1,27 @@
+[
+  {
+    "title": "DeepSeek 工具调用先验把结构化协议输出劫持成 DSML 标记，编码循环整轮不可解析（正式跑 4 轮全废）",
+    "description": "round-77 D-046 路径 B 正式批前冒烟：deepseek-chat 在 openai 兼容端点下以私有 DSML 标记（<||DSML|| invoke name=...>）回应，SYSTEM_PROMPT 的「只输出 JSON」先验不足；协议 v1 全灭。修复：llm/provider.py 增 REVIEW_LLM_JSON_MODE=1 门控 response_format=json_object（端点侧强制合法 JSON）；契约 TestOpenAIProviderJSONMode::test_json_mode_env_gates_response_format。",
+    "evidence": "reports/uplift-r77/report.md 实跑暴露节；tests/test_agent.py"
+  },
+  {
+    "title": "DeepSeek JSON 模式下偶发空内容响应，编码循环浪费一轮",
+    "description": "round-77 正式批 v2 跑次中出现空白响应（history: LLM 响应不可解析：纯空白），JSON 模式端点怪癖。修复：provider 把空内容按可重试失败处理（现有重试循环内 raise ValueError）；契约 test_empty_content_retries_then_succeeds。",
+    "evidence": "reports/uplift-r77/report.md；tests/test_agent.py"
+  },
+  {
+    "title": "LLM 一次输出多个 JSON 动作对象（草稿+终稿），解析器贪婪 re.search 必败",
+    "description": "round-77 v2/v3 跑次多见 {\"action\":...}\\n{\"action\":...} 形态，_parse_response 旧实现整段抓取失配、浪费轮次（private-deprecations phases 臂 locate 阶段 1 轮被废）。修复：逐对象 raw_decode 取最后一个成功解码 dict；契约 TestParseResponseMultiObject ×2。",
+    "evidence": "reports/uplift-r77/report.md；tests/test_agent.py"
+  },
+  {
+    "type": "confirmation",
+    "title": "D-046 路径 B 5 对对照完成（差值 0，早停定案）",
+    "description": "语料冻结 sha256、F2P 双向机械验证、机械 pytest 判分；single 1/5 vs phases 1/5，成本比 1.48×；三份独立证据一致，uplift 主张不成立。"
+  },
+  {
+    "type": "feature",
+    "title": "D-022 方案 1 落地（MPL test-only 白名单五处文档同步）",
+    "description": "AGENTS 硬约束 1 / BASELINE 依赖契约 / pyproject 注释 / DECISIONS D-022 状态 / ROADMAP §9.3 同步扩 MPL 边界。"
+  }
+]

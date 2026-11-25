@@ -1,0 +1,4033 @@
+﻿{
+  "ok": true,
+  "verdict_rule": "truth_rate = C 路引用命中 / C 路返回；≥0.5 keep / 0<r<0.5 keep_labeled / ==0 downgrade_hint",
+  "a_generic_rule": "returns<10 sample_too_small_keep / truth_rate==0 drop_from_material（带标注的纯噪声仍占 limit 槽位，不如无材料）/ 0<r<0.3 keep_labeled / r≥0.3 keep",
+  "b_rule": "returns<10 sample_too_small_keep（出场太少判不动）/ truth_rate==0 keep_labeled / r≥0.5 keep",
+  "min_sample_for_verdict": 10,
+  "prod_caliber": {
+    "limit": 2,
+    "max_chars": 1500
+  },
+  "repos": [
+    {
+      "modules_candidates": 701,
+      "modules_sampled": 100,
+      "modules_with_context": 82,
+      "coverage_rate": 0.82,
+      "by_lane": {
+        "A": {
+          "returns": 31,
+          "truth": 11,
+          "strict_import": 11,
+          "noise": 20,
+          "noise_reasons": {
+            "其他代码引用": 16,
+            "注释/文档串": 12,
+            "无引用痕迹": 3,
+            "同名不同模块": 4
+          },
+          "truth_rate": 0.355
+        },
+        "C": {
+          "returns": 47,
+          "truth": 47,
+          "strict_import": 43,
+          "noise": 0,
+          "noise_reasons": {},
+          "truth_rate": 1.0
+        },
+        "A-generic": {
+          "returns": 36,
+          "truth": 0,
+          "strict_import": 0,
+          "noise": 36,
+          "noise_reasons": {
+            "其他代码引用": 17,
+            "同名不同模块": 20,
+            "路径/文件名串": 3,
+            "注释/文档串": 3,
+            "无引用痕迹": 9
+          },
+          "truth_rate": 0.0
+        },
+        "B": {
+          "returns": 3,
+          "truth": 2,
+          "strict_import": 2,
+          "noise": 1,
+          "noise_reasons": {
+            "无引用痕迹": 1
+          },
+          "truth_rate": 0.667
+        }
+      },
+      "records": [
+        {
+          "module": "django/apps/config.py",
+          "dotted": "django.apps.config",
+          "returns": []
+        },
+        {
+          "module": "django/conf/locale/bn/formats.py",
+          "dotted": "django.conf.locale.bn.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/de/formats.py",
+          "dotted": "django.conf.locale.de.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/en_IE/formats.py",
+          "dotted": "django.conf.locale.en_IE.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/es_PR/formats.py",
+          "dotted": "django.conf.locale.es_PR.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/fr_CA/formats.py",
+          "dotted": "django.conf.locale.fr_CA.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/hi/formats.py",
+          "dotted": "django.conf.locale.hi.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/it/formats.py",
+          "dotted": "django.conf.locale.it.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/lt/formats.py",
+          "dotted": "django.conf.locale.lt.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/nl/formats.py",
+          "dotted": "django.conf.locale.nl.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/sk/formats.py",
+          "dotted": "django.conf.locale.sk.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/te/formats.py",
+          "dotted": "django.conf.locale.te.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/conf/locale/uz/formats.py",
+          "dotted": "django.conf.locale.uz.formats",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_input_formats.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/admin/apps.py",
+          "dotted": "django.contrib.admin.apps",
+          "returns": [
+            {
+              "path": "tests/postgres_tests/test_apps.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/admin/helpers.py",
+          "dotted": "django.contrib.admin.helpers",
+          "returns": [
+            {
+              "path": "tests/admin_views/test_actions.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/admin_views/test_forms.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/admin/templatetags/admin_filters.py",
+          "dotted": "django.contrib.admin.templatetags.admin_filters",
+          "returns": [
+            {
+              "path": "tests/admin_views/test_templatetags.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/admin/views/autocomplete.py",
+          "dotted": "django.contrib.admin.views.autocomplete",
+          "returns": [
+            {
+              "path": "tests/admin_views/test_autocomplete_view.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/admindocs/utils.py",
+          "dotted": "django.contrib.admindocs.utils",
+          "returns": [
+            {
+              "path": "tests/admin_docs/test_utils.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/admin_docs/test_views.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/auth/context_processors.py",
+          "dotted": "django.contrib.auth.context_processors",
+          "returns": [
+            {
+              "path": "tests/auth_tests/test_context_processors.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/auth/middleware.py",
+          "dotted": "django.contrib.auth.middleware",
+          "returns": [
+            {
+              "path": "tests/admin_docs/test_middleware.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": false,
+              "reasons": []
+            },
+            {
+              "path": "tests/auth_tests/test_checks.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/auth/migrations/0007_alter_validators_add_error_messages.py",
+          "dotted": "django.contrib.auth.migrations.0007_alter_validators_add_error_messages",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/auth/models.py",
+          "dotted": "django.contrib.auth.models",
+          "returns": [
+            {
+              "path": "tests/admin_changelist/test_date_hierarchy.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/admin_docs/test_middleware.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/auth/views.py",
+          "dotted": "django.contrib.auth.views",
+          "returns": [
+            {
+              "path": "tests/auth_tests/test_templates.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/auth_tests/test_views.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/contenttypes/migrations/0001_initial.py",
+          "dotted": "django.contrib.contenttypes.migrations.0001_initial",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/flatpages/forms.py",
+          "dotted": "django.contrib.flatpages.forms",
+          "returns": [
+            {
+              "path": "tests/flatpages_tests/test_forms.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/flatpages/views.py",
+          "dotted": "django.contrib.flatpages.views",
+          "returns": [
+            {
+              "path": "tests/admin_docs/test_views.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块",
+                "路径/文件名串"
+              ]
+            },
+            {
+              "path": "tests/auth_tests/test_views.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/gis/db/backends/mysql/base.py",
+          "dotted": "django.contrib.gis.db.backends.mysql.base",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_base.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/check_framework/test_database.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/gis/db/backends/oracle/features.py",
+          "dotted": "django.contrib.gis.db.backends.oracle.features",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_features.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用"
+              ]
+            },
+            {
+              "path": "tests/backends/mysql/test_features.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/gis/db/backends/postgis/const.py",
+          "dotted": "django.contrib.gis.db.backends.postgis.const",
+          "returns": [
+            {
+              "path": "tests/postgres_tests/test_constraints.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            },
+            {
+              "path": "tests/utils_tests/test_deconstruct.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/gis/db/backends/spatialite/adapter.py",
+          "dotted": "django.contrib.gis.db.backends.spatialite.adapter",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/gis/db/backends/spatialite/schema.py",
+          "dotted": "django.contrib.gis.db.backends.spatialite.schema",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_schema.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/backends/mysql/test_schema.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/gis/db/models/sql/conversion.py",
+          "dotted": "django.contrib.gis.db.models.sql.conversion",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/gis/gdal/envelope.py",
+          "dotted": "django.contrib.gis.gdal.envelope",
+          "returns": [
+            {
+              "path": "tests/gis_tests/gdal_tests/test_envelope.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/gis/gdal/libgdal.py",
+          "dotted": "django.contrib.gis.gdal.libgdal",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/gis/gdal/raster/band.py",
+          "dotted": "django.contrib.gis.gdal.raster.band",
+          "returns": [
+            {
+              "path": "tests/gis_tests/gdal_tests/test_raster.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/gis/geos/base.py",
+          "dotted": "django.contrib.gis.geos.base",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_base.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/check_framework/test_database.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/gis/geos/libgeos.py",
+          "dotted": "django.contrib.gis.geos.libgeos",
+          "returns": [
+            {
+              "path": "tests/gis_tests/geos_tests/test_coordseq.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/gis_tests/geos_tests/test_geos.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/gis/geos/prototypes/errcheck.py",
+          "dotted": "django.contrib.gis.geos.prototypes.errcheck",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/gis/geos/prototypes/topology.py",
+          "dotted": "django.contrib.gis.geos.prototypes.topology",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/gis/sitemaps/kml.py",
+          "dotted": "django.contrib.gis.sitemaps.kml",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/humanize/apps.py",
+          "dotted": "django.contrib.humanize.apps",
+          "returns": [
+            {
+              "path": "tests/postgres_tests/test_apps.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/messages/storage/base.py",
+          "dotted": "django.contrib.messages.storage.base",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_base.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/check_framework/test_database.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/postgres/aggregates/general.py",
+          "dotted": "django.contrib.postgres.aggregates.general",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/postgres/fields/citext.py",
+          "dotted": "django.contrib.postgres.fields.citext",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/postgres/forms/ranges.py",
+          "dotted": "django.contrib.postgres.forms.ranges",
+          "returns": [
+            {
+              "path": "tests/postgres_tests/test_ranges.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/postgres/signals.py",
+          "dotted": "django.contrib.postgres.signals",
+          "returns": [
+            {
+              "path": "tests/postgres_tests/test_apps.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/postgres_tests/test_signals.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/redirects/migrations/0002_alter_redirect_new_path_help_text.py",
+          "dotted": "django.contrib.redirects.migrations.0002_alter_redirect_new_path_help_text",
+          "returns": []
+        },
+        {
+          "module": "django/contrib/sessions/backends/file.py",
+          "dotted": "django.contrib.sessions.backends.file",
+          "returns": [
+            {
+              "path": "tests/check_framework/test_files.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            },
+            {
+              "path": "tests/file_storage/test_generate_filename.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "路径/文件名串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/sessions/models.py",
+          "dotted": "django.contrib.sessions.models",
+          "returns": [
+            {
+              "path": "tests/auth_tests/test_models.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/composite_pk/test_models.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/sites/management.py",
+          "dotted": "django.contrib.sites.management",
+          "returns": [
+            {
+              "path": "tests/auth_tests/test_management.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块",
+                "注释/文档串"
+              ]
+            },
+            {
+              "path": "tests/contenttypes_tests/test_management.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/sites/shortcuts.py",
+          "dotted": "django.contrib.sites.shortcuts",
+          "returns": [
+            {
+              "path": "tests/async/test_async_shortcuts.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/staticfiles/management/commands/runserver.py",
+          "dotted": "django.contrib.staticfiles.management.commands.runserver",
+          "returns": [
+            {
+              "path": "tests/staticfiles_tests/test_management.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/contrib/syndication/views.py",
+          "dotted": "django.contrib.syndication.views",
+          "returns": [
+            {
+              "path": "tests/admin_docs/test_views.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块",
+                "路径/文件名串"
+              ]
+            },
+            {
+              "path": "tests/auth_tests/test_views.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/core/cache/backends/memcached.py",
+          "dotted": "django.core.cache.backends.memcached",
+          "returns": []
+        },
+        {
+          "module": "django/core/checks/database.py",
+          "dotted": "django.core.checks.database",
+          "returns": [
+            {
+              "path": "tests/check_framework/test_database.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/core/checks/security/csrf.py",
+          "dotted": "django.core.checks.security.csrf",
+          "returns": [
+            {
+              "path": "tests/check_framework/test_security.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/core/files/images.py",
+          "dotted": "django.core.files.images",
+          "returns": [
+            {
+              "path": "tests/model_fields/test_imagefield.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/core/files/storage/mixins.py",
+          "dotted": "django.core.files.storage.mixins",
+          "returns": [
+            {
+              "path": "tests/auth_tests/test_mixins.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/messages_tests/test_mixins.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/core/handlers/exception.py",
+          "dotted": "django.core.handlers.exception",
+          "returns": [
+            {
+              "path": "tests/handlers/test_exception.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            },
+            {
+              "path": "tests/migrations/test_exceptions.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/core/mail/backends/smtp.py",
+          "dotted": "django.core.mail.backends.smtp",
+          "returns": [
+            {
+              "path": "tests/check_framework/test_mail.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": false,
+              "reasons": []
+            },
+            {
+              "path": "tests/mail/test_backends.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/core/management/color.py",
+          "dotted": "django.core.management.color",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_operations.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/backends/mysql/test_operations.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/core/management/commands/flush.py",
+          "dotted": "django.core.management.commands.flush",
+          "returns": []
+        },
+        {
+          "module": "django/core/management/commands/optimizemigration.py",
+          "dotted": "django.core.management.commands.optimizemigration",
+          "returns": []
+        },
+        {
+          "module": "django/core/management/commands/sqlsequencereset.py",
+          "dotted": "django.core.management.commands.sqlsequencereset",
+          "returns": []
+        },
+        {
+          "module": "django/core/management/templates.py",
+          "dotted": "django.core.management.templates",
+          "returns": [
+            {
+              "path": "tests/admin_inlines/test_templates.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            },
+            {
+              "path": "tests/auth_tests/test_templates.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/core/serializers/pyyaml.py",
+          "dotted": "django.core.serializers.pyyaml",
+          "returns": [
+            {
+              "path": "tests/serializers/test_deserialization.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/backends/base/base.py",
+          "dotted": "django.db.backends.base.base",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_base.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/backends/base/validation.py",
+          "dotted": "django.db.backends.base.validation",
+          "returns": [
+            {
+              "path": "tests/check_framework/test_database.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": false,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/backends/mysql/creation.py",
+          "dotted": "django.db.backends.mysql.creation",
+          "returns": [
+            {
+              "path": "tests/backends/mysql/test_creation.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/backends/oracle/client.py",
+          "dotted": "django.db.backends.oracle.client",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_client.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/db/backends/oracle/utils.py",
+          "dotted": "django.db.backends.oracle.utils",
+          "returns": [
+            {
+              "path": "tests/admin_docs/test_utils.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/backends/test_utils.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/db/backends/postgresql/introspection.py",
+          "dotted": "django.db.backends.postgresql.introspection",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_introspection.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/backends/mysql/test_introspection.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/db/backends/sqlite3/client.py",
+          "dotted": "django.db.backends.sqlite3.client",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_client.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/db/migrations/autodetector.py",
+          "dotted": "django.db.migrations.autodetector",
+          "returns": [
+            {
+              "path": "tests/migrations/test_autodetector.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/migrations/operations/fields.py",
+          "dotted": "django.db.migrations.operations.fields",
+          "returns": [
+            {
+              "path": "tests/migrations/test_multidb.py",
+              "lane": "B",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            },
+            {
+              "path": "tests/migrations/test_operations.py",
+              "lane": "B",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/migrations/state.py",
+          "dotted": "django.db.migrations.state",
+          "returns": [
+            {
+              "path": "tests/migrations/test_multidb.py",
+              "lane": "B",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/models/deletion.py",
+          "dotted": "django.db.models.deletion",
+          "returns": []
+        },
+        {
+          "module": "django/db/models/fields/json.py",
+          "dotted": "django.db.models.fields.json",
+          "returns": [
+            {
+              "path": "tests/model_fields/test_jsonfield.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/postgres_tests/test_aggregates.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/models/fields/tuple_lookups.py",
+          "dotted": "django.db.models.fields.tuple_lookups",
+          "returns": [
+            {
+              "path": "tests/foreign_object/test_tuple_lookups.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/models/functions/uuid.py",
+          "dotted": "django.db.models.functions.uuid",
+          "returns": [
+            {
+              "path": "tests/db_functions/test_uuid.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/forms_tests/field_tests/test_uuidfield.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/db/models/query_utils.py",
+          "dotted": "django.db.models.query_utils",
+          "returns": [
+            {
+              "path": "tests/composite_pk/test_names_to_path.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/db/models/sql/where.py",
+          "dotted": "django.db.models.sql.where",
+          "returns": [
+            {
+              "path": "tests/queries/test_q.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/queries/test_query.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/forms/forms.py",
+          "dotted": "django.forms.forms",
+          "returns": [
+            {
+              "path": "tests/forms_tests/tests/test_formsets.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/http/multipartparser.py",
+          "dotted": "django.http.multipartparser",
+          "returns": []
+        },
+        {
+          "module": "django/middleware/csrf.py",
+          "dotted": "django.middleware.csrf",
+          "returns": [
+            {
+              "path": "tests/auth_tests/test_remote_user.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/auth_tests/test_views.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/tasks/backends/dummy.py",
+          "dotted": "django.tasks.backends.dummy",
+          "returns": [
+            {
+              "path": "tests/tasks/test_dummy_backend.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/tasks/test_tasks.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/template/backends/base.py",
+          "dotted": "django.template.backends.base",
+          "returns": [
+            {
+              "path": "tests/check_framework/test_templates.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/template/context_processors.py",
+          "dotted": "django.template.context_processors",
+          "returns": [
+            {
+              "path": "tests/auth_tests/test_context_processors.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/template/loader_tags.py",
+          "dotted": "django.template.loader_tags",
+          "returns": [
+            {
+              "path": "tests/template_backends/test_django.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": false,
+              "reasons": []
+            },
+            {
+              "path": "tests/template_tests/syntax_tests/test_basic.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/template/smartif.py",
+          "dotted": "django.template.smartif",
+          "returns": [
+            {
+              "path": "tests/template_tests/test_smartif.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/urls/base.py",
+          "dotted": "django.urls.base",
+          "returns": [
+            {
+              "path": "tests/backends/base/test_base.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "tests/check_framework/test_database.py",
+              "lane": "A-generic",
+              "mark": "按名字泛化命中",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "django/utils/archive.py",
+          "dotted": "django.utils.archive",
+          "returns": [
+            {
+              "path": "tests/utils_tests/test_archive.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/utils/crypto.py",
+          "dotted": "django.utils.crypto",
+          "returns": [
+            {
+              "path": "tests/utils_tests/test_crypto.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/utils/decorators.py",
+          "dotted": "django.utils.decorators",
+          "returns": [
+            {
+              "path": "tests/auth_tests/test_remote_user.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/decorators/test_cache.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/utils/hashable.py",
+          "dotted": "django.utils.hashable",
+          "returns": [
+            {
+              "path": "tests/utils_tests/test_hashable.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/utils/lorem_ipsum.py",
+          "dotted": "django.utils.lorem_ipsum",
+          "returns": [
+            {
+              "path": "tests/utils_tests/test_lorem_ipsum.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/utils/timesince.py",
+          "dotted": "django.utils.timesince",
+          "returns": [
+            {
+              "path": "tests/utils_tests/test_timesince.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/utils/version.py",
+          "dotted": "django.utils.version",
+          "returns": [
+            {
+              "path": "tests/admin_views/test_templatetags.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "tests/auth_tests/test_auth_backends.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/views/decorators/common.py",
+          "dotted": "django.views.decorators.common",
+          "returns": [
+            {
+              "path": "tests/decorators/test_common.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "django/views/defaults.py",
+          "dotted": "django.views.defaults",
+          "returns": [
+            {
+              "path": "tests/view_tests/tests/test_defaults.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        }
+      ],
+      "repo": "datasets\\swe-repos\\swe__django",
+      "seconds": 19.0,
+      "verdict": {
+        "c_returns": 47,
+        "c_truth_rate": 1.0,
+        "verdict": "keep",
+        "by_lane_verdict": {
+          "A-generic": {
+            "lane_returns": 36,
+            "lane_truth_rate": 0.0,
+            "verdict": "drop_from_material"
+          },
+          "B": {
+            "lane_returns": 3,
+            "lane_truth_rate": 0.667,
+            "verdict": "sample_too_small_keep"
+          }
+        }
+      }
+    },
+    {
+      "modules_candidates": 744,
+      "modules_sampled": 100,
+      "modules_with_context": 60,
+      "coverage_rate": 0.6,
+      "by_lane": {
+        "A": {
+          "returns": 62,
+          "truth": 53,
+          "strict_import": 53,
+          "noise": 9,
+          "noise_reasons": {
+            "同名不同模块": 3,
+            "无引用痕迹": 3,
+            "注释/文档串": 2,
+            "路径/文件名串": 1,
+            "其他代码引用": 3
+          },
+          "truth_rate": 0.855
+        }
+      },
+      "records": [
+        {
+          "module": "sympy/abc.py",
+          "dotted": "sympy.abc",
+          "returns": []
+        },
+        {
+          "module": "sympy/assumptions/handlers/calculus.py",
+          "dotted": "sympy.assumptions.handlers.calculus",
+          "returns": []
+        },
+        {
+          "module": "sympy/assumptions/predicates/calculus.py",
+          "dotted": "sympy.assumptions.predicates.calculus",
+          "returns": []
+        },
+        {
+          "module": "sympy/assumptions/relation/binrel.py",
+          "dotted": "sympy.assumptions.relation.binrel",
+          "returns": []
+        },
+        {
+          "module": "sympy/calculus/finite_diff.py",
+          "dotted": "sympy.calculus.finite_diff",
+          "returns": [
+            {
+              "path": "sympy/calculus/tests/test_finite_diff.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/codegen/ast.py",
+          "dotted": "sympy.codegen.ast",
+          "returns": [
+            {
+              "path": "sympy/codegen/tests/test_ast.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/codegen/matrix_nodes.py",
+          "dotted": "sympy.codegen.matrix_nodes",
+          "returns": [
+            {
+              "path": "sympy/codegen/tests/test_matrix_nodes.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/combinatorics/fp_groups.py",
+          "dotted": "sympy.combinatorics.fp_groups",
+          "returns": [
+            {
+              "path": "sympy/combinatorics/tests/test_fp_groups.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/combinatorics/homomorphisms.py",
+          "dotted": "sympy.combinatorics.homomorphisms",
+          "returns": [
+            {
+              "path": "sympy/combinatorics/tests/test_homomorphisms.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/combinatorics/prufer.py",
+          "dotted": "sympy.combinatorics.prufer",
+          "returns": [
+            {
+              "path": "sympy/combinatorics/tests/test_prufer.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/concrete/delta.py",
+          "dotted": "sympy.concrete.delta",
+          "returns": [
+            {
+              "path": "sympy/concrete/tests/test_delta.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/core/_print_helpers.py",
+          "dotted": "sympy.core._print_helpers",
+          "returns": []
+        },
+        {
+          "module": "sympy/core/compatibility.py",
+          "dotted": "sympy.core.compatibility",
+          "returns": [
+            {
+              "path": "sympy/core/tests/test_compatibility.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/core/exprtools.py",
+          "dotted": "sympy.core.exprtools",
+          "returns": [
+            {
+              "path": "sympy/core/tests/test_exprtools.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/core/multidimensional.py",
+          "dotted": "sympy.core.multidimensional",
+          "returns": [
+            {
+              "path": "sympy/core/tests/test_multidimensional.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/core/rules.py",
+          "dotted": "sympy.core.rules",
+          "returns": [
+            {
+              "path": "sympy/core/tests/test_rules.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/diffgeom/diffgeom.py",
+          "dotted": "sympy.diffgeom.diffgeom",
+          "returns": [
+            {
+              "path": "sympy/diffgeom/tests/test_diffgeom.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            },
+            {
+              "path": "sympy/diffgeom/tests/test_function_diffgeom_book.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "sympy/external/mpmath.py",
+          "dotted": "sympy.external.mpmath",
+          "returns": [
+            {
+              "path": "sympy/external/tests/test_mpmath.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/functions/elementary/exponential.py",
+          "dotted": "sympy.functions.elementary.exponential",
+          "returns": [
+            {
+              "path": "sympy/functions/elementary/tests/test_exponential.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/functions/special/bsplines.py",
+          "dotted": "sympy.functions.special.bsplines",
+          "returns": [
+            {
+              "path": "sympy/functions/special/tests/test_bsplines.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "sympy/functions/special/mathieu_functions.py",
+          "dotted": "sympy.functions.special.mathieu_functions",
+          "returns": []
+        },
+        {
+          "module": "sympy/geometry/ellipse.py",
+          "dotted": "sympy.geometry.ellipse",
+          "returns": [
+            {
+              "path": "sympy/geometry/tests/test_ellipse.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "注释/文档串",
+                "路径/文件名串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "sympy/geometry/polygon.py",
+          "dotted": "sympy.geometry.polygon",
+          "returns": [
+            {
+              "path": "sympy/geometry/tests/test_polygon.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/integrals/integrals.py",
+          "dotted": "sympy.integrals.integrals",
+          "returns": [
+            {
+              "path": "sympy/integrals/tests/test_failing_integrals.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "sympy/integrals/tests/test_integrals.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/integrals/quadrature.py",
+          "dotted": "sympy.integrals.quadrature",
+          "returns": [
+            {
+              "path": "sympy/integrals/tests/test_quadrature.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/interactive/session.py",
+          "dotted": "sympy.interactive.session",
+          "returns": []
+        },
+        {
+          "module": "sympy/liealgebras/type_b.py",
+          "dotted": "sympy.liealgebras.type_b",
+          "returns": []
+        },
+        {
+          "module": "sympy/logic/algorithms/dpll.py",
+          "dotted": "sympy.logic.algorithms.dpll",
+          "returns": []
+        },
+        {
+          "module": "sympy/logic/utilities/dimacs.py",
+          "dotted": "sympy.logic.utilities.dimacs",
+          "returns": []
+        },
+        {
+          "module": "sympy/matrices/expressions/_shape.py",
+          "dotted": "sympy.matrices.expressions._shape",
+          "returns": []
+        },
+        {
+          "module": "sympy/matrices/expressions/factorizations.py",
+          "dotted": "sympy.matrices.expressions.factorizations",
+          "returns": [
+            {
+              "path": "sympy/matrices/expressions/tests/test_factorizations.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/matrices/expressions/matexpr.py",
+          "dotted": "sympy.matrices.expressions.matexpr",
+          "returns": [
+            {
+              "path": "sympy/matrices/expressions/tests/test_matexpr.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/matrices/expressions/transpose.py",
+          "dotted": "sympy.matrices.expressions.transpose",
+          "returns": [
+            {
+              "path": "sympy/matrices/expressions/tests/test_transpose.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "同名不同模块"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "sympy/matrices/normalforms.py",
+          "dotted": "sympy.matrices.normalforms",
+          "returns": [
+            {
+              "path": "sympy/matrices/tests/test_normalforms.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/matrices/utilities.py",
+          "dotted": "sympy.matrices.utilities",
+          "returns": []
+        },
+        {
+          "module": "sympy/ntheory/ecm.py",
+          "dotted": "sympy.ntheory.ecm",
+          "returns": [
+            {
+              "path": "sympy/ntheory/tests/test_ecm.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/ntheory/partitions_.py",
+          "dotted": "sympy.ntheory.partitions_",
+          "returns": []
+        },
+        {
+          "module": "sympy/parsing/autolev/_build_autolev_antlr.py",
+          "dotted": "sympy.parsing.autolev._build_autolev_antlr",
+          "returns": []
+        },
+        {
+          "module": "sympy/parsing/latex/_build_latex_antlr.py",
+          "dotted": "sympy.parsing.latex._build_latex_antlr",
+          "returns": []
+        },
+        {
+          "module": "sympy/parsing/smtlib/lark/smtlib_parser.py",
+          "dotted": "sympy.parsing.smtlib.lark.smtlib_parser",
+          "returns": []
+        },
+        {
+          "module": "sympy/physics/biomechanics/musculotendon.py",
+          "dotted": "sympy.physics.biomechanics.musculotendon",
+          "returns": [
+            {
+              "path": "sympy/physics/biomechanics/tests/test_musculotendon.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/control/routh_table.py",
+          "dotted": "sympy.physics.control.routh_table",
+          "returns": [
+            {
+              "path": "sympy/physics/control/tests/test_routh_table.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/mechanics/functions.py",
+          "dotted": "sympy.physics.mechanics.functions",
+          "returns": [
+            {
+              "path": "sympy/physics/mechanics/tests/test_functions.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/mechanics/loads.py",
+          "dotted": "sympy.physics.mechanics.loads",
+          "returns": [
+            {
+              "path": "sympy/physics/mechanics/tests/test_loads.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/optics/gaussopt.py",
+          "dotted": "sympy.physics.optics.gaussopt",
+          "returns": [
+            {
+              "path": "sympy/physics/optics/tests/test_gaussopt.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/qho_1d.py",
+          "dotted": "sympy.physics.qho_1d",
+          "returns": [
+            {
+              "path": "sympy/physics/tests/test_qho_1d.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/quantum/constants.py",
+          "dotted": "sympy.physics.quantum.constants",
+          "returns": [
+            {
+              "path": "sympy/physics/quantum/tests/test_constants.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/quantum/identitysearch.py",
+          "dotted": "sympy.physics.quantum.identitysearch",
+          "returns": [
+            {
+              "path": "sympy/physics/quantum/tests/test_identitysearch.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/quantum/pauli.py",
+          "dotted": "sympy.physics.quantum.pauli",
+          "returns": [
+            {
+              "path": "sympy/physics/quantum/tests/test_pauli.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/quantum/represent.py",
+          "dotted": "sympy.physics.quantum.represent",
+          "returns": [
+            {
+              "path": "sympy/physics/quantum/tests/test_represent.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/secondquant.py",
+          "dotted": "sympy.physics.secondquant",
+          "returns": [
+            {
+              "path": "sympy/physics/tests/test_secondquant.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/units/systems/cgs.py",
+          "dotted": "sympy.physics.units.systems.cgs",
+          "returns": []
+        },
+        {
+          "module": "sympy/physics/units/util.py",
+          "dotted": "sympy.physics.units.util",
+          "returns": [
+            {
+              "path": "sympy/physics/units/tests/test_util.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/physics/wigner.py",
+          "dotted": "sympy.physics.wigner",
+          "returns": []
+        },
+        {
+          "module": "sympy/plotting/intervalmath/lib_interval.py",
+          "dotted": "sympy.plotting.intervalmath.lib_interval",
+          "returns": []
+        },
+        {
+          "module": "sympy/plotting/pygletplot/plot_camera.py",
+          "dotted": "sympy.plotting.pygletplot.plot_camera",
+          "returns": []
+        },
+        {
+          "module": "sympy/plotting/pygletplot/plot_object.py",
+          "dotted": "sympy.plotting.pygletplot.plot_object",
+          "returns": []
+        },
+        {
+          "module": "sympy/polys/agca/extensions.py",
+          "dotted": "sympy.polys.agca.extensions",
+          "returns": [
+            {
+              "path": "sympy/polys/agca/tests/test_extensions.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/polys/densearith.py",
+          "dotted": "sympy.polys.densearith",
+          "returns": [
+            {
+              "path": "sympy/polys/tests/test_densearith.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/polys/domains/characteristiczero.py",
+          "dotted": "sympy.polys.domains.characteristiczero",
+          "returns": []
+        },
+        {
+          "module": "sympy/polys/domains/expressionrawdomain.py",
+          "dotted": "sympy.polys.domains.expressionrawdomain",
+          "returns": []
+        },
+        {
+          "module": "sympy/polys/domains/gmpyrationalfield.py",
+          "dotted": "sympy.polys.domains.gmpyrationalfield",
+          "returns": []
+        },
+        {
+          "module": "sympy/polys/domains/powerseriesring.py",
+          "dotted": "sympy.polys.domains.powerseriesring",
+          "returns": []
+        },
+        {
+          "module": "sympy/polys/domains/realfield.py",
+          "dotted": "sympy.polys.domains.realfield",
+          "returns": []
+        },
+        {
+          "module": "sympy/polys/galoistools.py",
+          "dotted": "sympy.polys.galoistools",
+          "returns": [
+            {
+              "path": "sympy/polys/tests/test_galoistools.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/polys/matrices/dfm.py",
+          "dotted": "sympy.polys.matrices.dfm",
+          "returns": []
+        },
+        {
+          "module": "sympy/polys/matrices/rref.py",
+          "dotted": "sympy.polys.matrices.rref",
+          "returns": [
+            {
+              "path": "sympy/polys/matrices/tests/test_rref.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "sympy/polys/numberfields/galois_resolvents.py",
+          "dotted": "sympy.polys.numberfields.galois_resolvents",
+          "returns": []
+        },
+        {
+          "module": "sympy/polys/numberfields/utilities.py",
+          "dotted": "sympy.polys.numberfields.utilities",
+          "returns": [
+            {
+              "path": "sympy/polys/numberfields/tests/test_utilities.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/polys/polymatrix.py",
+          "dotted": "sympy.polys.polymatrix",
+          "returns": [
+            {
+              "path": "sympy/polys/tests/test_polymatrix.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/polys/rationaltools.py",
+          "dotted": "sympy.polys.rationaltools",
+          "returns": [
+            {
+              "path": "sympy/polys/tests/test_rationaltools.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/polys/series/ringflint.py",
+          "dotted": "sympy.polys.series.ringflint",
+          "returns": []
+        },
+        {
+          "module": "sympy/polys/sqfreetools.py",
+          "dotted": "sympy.polys.sqfreetools",
+          "returns": [
+            {
+              "path": "sympy/polys/tests/test_sqfreetools.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "无引用痕迹"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "sympy/printing/defaults.py",
+          "dotted": "sympy.printing.defaults",
+          "returns": []
+        },
+        {
+          "module": "sympy/printing/lambdarepr.py",
+          "dotted": "sympy.printing.lambdarepr",
+          "returns": [
+            {
+              "path": "sympy/printing/tests/test_lambdarepr.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/printing/precedence.py",
+          "dotted": "sympy.printing.precedence",
+          "returns": [
+            {
+              "path": "sympy/printing/tests/test_precedence.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/printing/python.py",
+          "dotted": "sympy.printing.python",
+          "returns": [
+            {
+              "path": "sympy/printing/tests/test_python.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/printing/tableform.py",
+          "dotted": "sympy.printing.tableform",
+          "returns": [
+            {
+              "path": "sympy/printing/tests/test_tableform.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/series/aseries.py",
+          "dotted": "sympy.series.aseries",
+          "returns": [
+            {
+              "path": "sympy/series/tests/test_aseries.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "sympy/series/order.py",
+          "dotted": "sympy.series.order",
+          "returns": [
+            {
+              "path": "sympy/series/tests/test_order.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/sets/handlers/add.py",
+          "dotted": "sympy.sets.handlers.add",
+          "returns": []
+        },
+        {
+          "module": "sympy/sets/handlers/union.py",
+          "dotted": "sympy.sets.handlers.union",
+          "returns": []
+        },
+        {
+          "module": "sympy/simplify/cse_opts.py",
+          "dotted": "sympy.simplify.cse_opts",
+          "returns": []
+        },
+        {
+          "module": "sympy/simplify/radsimp.py",
+          "dotted": "sympy.simplify.radsimp",
+          "returns": [
+            {
+              "path": "sympy/simplify/tests/test_radsimp.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/solvers/decompogen.py",
+          "dotted": "sympy.solvers.decompogen",
+          "returns": [
+            {
+              "path": "sympy/solvers/tests/test_decompogen.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/solvers/ode/riccati.py",
+          "dotted": "sympy.solvers.ode.riccati",
+          "returns": [
+            {
+              "path": "sympy/solvers/ode/tests/test_riccati.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/solvers/simplex.py",
+          "dotted": "sympy.solvers.simplex",
+          "returns": [
+            {
+              "path": "sympy/solvers/tests/test_simplex.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/stats/error_prop.py",
+          "dotted": "sympy.stats.error_prop",
+          "returns": [
+            {
+              "path": "sympy/stats/tests/test_error_prop.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/stats/random_matrix_models.py",
+          "dotted": "sympy.stats.random_matrix_models",
+          "returns": []
+        },
+        {
+          "module": "sympy/stats/symbolic_multivariate_probability.py",
+          "dotted": "sympy.stats.symbolic_multivariate_probability",
+          "returns": []
+        },
+        {
+          "module": "sympy/strategies/tools.py",
+          "dotted": "sympy.strategies.tools",
+          "returns": [
+            {
+              "path": "sympy/strategies/tests/test_tools.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/tensor/array/expressions/array_expressions.py",
+          "dotted": "sympy.tensor.array.expressions.array_expressions",
+          "returns": [
+            {
+              "path": "sympy/tensor/array/expressions/tests/test_array_expressions.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/tensor/array/expressions/from_array_to_matrix.py",
+          "dotted": "sympy.tensor.array.expressions.from_array_to_matrix",
+          "returns": []
+        },
+        {
+          "module": "sympy/tensor/array/sparse_ndim_array.py",
+          "dotted": "sympy.tensor.array.sparse_ndim_array",
+          "returns": []
+        },
+        {
+          "module": "sympy/testing/quality_unicode.py",
+          "dotted": "sympy.testing.quality_unicode",
+          "returns": []
+        },
+        {
+          "module": "sympy/unify/rewrite.py",
+          "dotted": "sympy.unify.rewrite",
+          "returns": [
+            {
+              "path": "sympy/unify/tests/test_rewrite.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/utilities/decorator.py",
+          "dotted": "sympy.utilities.decorator",
+          "returns": [
+            {
+              "path": "sympy/utilities/tests/test_decorator.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "sympy/utilities/memoization.py",
+          "dotted": "sympy.utilities.memoization",
+          "returns": []
+        },
+        {
+          "module": "sympy/utilities/tmpfiles.py",
+          "dotted": "sympy.utilities.tmpfiles",
+          "returns": []
+        },
+        {
+          "module": "sympy/vector/integrals.py",
+          "dotted": "sympy.vector.integrals",
+          "returns": [
+            {
+              "path": "sympy/vector/tests/test_integrals.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        }
+      ],
+      "repo": "datasets\\swe-repos\\sympy",
+      "seconds": 4.8,
+      "verdict": {
+        "c_returns": 0,
+        "verdict": "not_observed",
+        "meaning": "样本里 C 路一次都没出场——它本来只在 A/B 全空时才跑",
+        "by_lane_verdict": {
+          "A-generic": {
+            "lane_returns": 0,
+            "verdict": "not_observed"
+          },
+          "B": {
+            "lane_returns": 0,
+            "verdict": "not_observed"
+          }
+        }
+      }
+    },
+    {
+      "modules_candidates": 163,
+      "modules_sampled": 100,
+      "modules_with_context": 49,
+      "coverage_rate": 0.49,
+      "by_lane": {
+        "A": {
+          "returns": 31,
+          "truth": 27,
+          "strict_import": 27,
+          "noise": 4,
+          "noise_reasons": {
+            "其他代码引用": 3,
+            "注释/文档串": 3,
+            "路径/文件名串": 1
+          },
+          "truth_rate": 0.871
+        },
+        "C": {
+          "returns": 30,
+          "truth": 30,
+          "strict_import": 28,
+          "noise": 0,
+          "noise_reasons": {},
+          "truth_rate": 1.0
+        }
+      },
+      "records": [
+        {
+          "module": "lib/matplotlib/_afm.py",
+          "dotted": "matplotlib._afm",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_afm.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/_animation_data.py",
+          "dotted": "matplotlib._animation_data",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_blocking_input.py",
+          "dotted": "matplotlib._blocking_input",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_cm.py",
+          "dotted": "matplotlib._cm",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_cm_listed.py",
+          "dotted": "matplotlib._cm_listed",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_color_data.py",
+          "dotted": "matplotlib._color_data",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_constrained_layout.py",
+          "dotted": "matplotlib._constrained_layout",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_enums.py",
+          "dotted": "matplotlib._enums",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_internal_utils.py",
+          "dotted": "matplotlib._internal_utils",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_layoutgrid.py",
+          "dotted": "matplotlib._layoutgrid",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_mathtext_data.py",
+          "dotted": "matplotlib._mathtext_data",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_pylab_helpers.py",
+          "dotted": "matplotlib._pylab_helpers",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_qt.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/_text_helpers.py",
+          "dotted": "matplotlib._text_helpers",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_tight_layout.py",
+          "dotted": "matplotlib._tight_layout",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/_type1font.py",
+          "dotted": "matplotlib._type1font",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_type1font.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/artist.py",
+          "dotted": "matplotlib.artist",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_artist.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/axes/_base.py",
+          "dotted": "matplotlib.axes._base",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/axes/_secondary_axes.py",
+          "dotted": "matplotlib.axes._secondary_axes",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backend_bases.py",
+          "dotted": "matplotlib.backend_bases",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_bases.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backend_managers.py",
+          "dotted": "matplotlib.backend_managers",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/_backend_gtk.py",
+          "dotted": "matplotlib.backends._backend_gtk",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/_backend_tk.py",
+          "dotted": "matplotlib.backends._backend_tk",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_tk.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_agg.py",
+          "dotted": "matplotlib.backends.backend_agg",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_agg.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_backend_bases.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_gtk3.py",
+          "dotted": "matplotlib.backends.backend_gtk3",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_gtk3cairo.py",
+          "dotted": "matplotlib.backends.backend_gtk3cairo",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_gtk4.py",
+          "dotted": "matplotlib.backends.backend_gtk4",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_gtk4cairo.py",
+          "dotted": "matplotlib.backends.backend_gtk4cairo",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_mixed.py",
+          "dotted": "matplotlib.backends.backend_mixed",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_nbagg.py",
+          "dotted": "matplotlib.backends.backend_nbagg",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_pgf.py",
+          "dotted": "matplotlib.backends.backend_pgf",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_pgf.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_backends_rendering.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_ps.py",
+          "dotted": "matplotlib.backends.backend_ps",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_qt5.py",
+          "dotted": "matplotlib.backends.backend_qt5",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_qt.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_backends_interactive.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_qt5cairo.py",
+          "dotted": "matplotlib.backends.backend_qt5cairo",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backends_interactive.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_qtagg.py",
+          "dotted": "matplotlib.backends.backend_qtagg",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_qt.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_backend_registry.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": false,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_svg.py",
+          "dotted": "matplotlib.backends.backend_svg",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backends_rendering.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_tkagg.py",
+          "dotted": "matplotlib.backends.backend_tkagg",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_tk.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_tkcairo.py",
+          "dotted": "matplotlib.backends.backend_tkcairo",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_webagg_core.py",
+          "dotted": "matplotlib.backends.backend_webagg_core",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_webagg.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_wx.py",
+          "dotted": "matplotlib.backends.backend_wx",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/backend_wxcairo.py",
+          "dotted": "matplotlib.backends.backend_wxcairo",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/backends/qt_editor/_formlayout.py",
+          "dotted": "matplotlib.backends.qt_editor._formlayout",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_qt.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/backends/qt_editor/figureoptions.py",
+          "dotted": "matplotlib.backends.qt_editor.figureoptions",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/bezier.py",
+          "dotted": "matplotlib.bezier",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_bezier.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/cbook.py",
+          "dotted": "matplotlib.cbook",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_cbook.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/cm.py",
+          "dotted": "matplotlib.cm",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_colorbar.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_colors.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/colorbar.py",
+          "dotted": "matplotlib.colorbar",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_colorbar.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/colorizer.py",
+          "dotted": "matplotlib.colorizer",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_colors.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/container.py",
+          "dotted": "matplotlib.container",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_container.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/dates.py",
+          "dotted": "matplotlib.dates",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_dates.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/dviread.py",
+          "dotted": "matplotlib.dviread",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_dviread.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/font_manager.py",
+          "dotted": "matplotlib.font_manager",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_font_manager.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/hatch.py",
+          "dotted": "matplotlib.hatch",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/image.py",
+          "dotted": "matplotlib.image",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_compare_images.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "注释/文档串"
+              ]
+            },
+            {
+              "path": "lib/matplotlib/tests/test_image.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/layout_engine.py",
+          "dotted": "matplotlib.layout_engine",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_figure.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/legend_handler.py",
+          "dotted": "matplotlib.legend_handler",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_legend.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/lines.py",
+          "dotted": "matplotlib.lines",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_lines.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/mathtext.py",
+          "dotted": "matplotlib.mathtext",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_mathtext.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/mlab.py",
+          "dotted": "matplotlib.mlab",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_mlab.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/patches.py",
+          "dotted": "matplotlib.patches",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_arrow_patches.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_patches.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/patheffects.py",
+          "dotted": "matplotlib.patheffects",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_patheffects.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/projections/geo.py",
+          "dotted": "matplotlib.projections.geo",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_axes.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/pylab.py",
+          "dotted": "matplotlib.pylab",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/quiver.py",
+          "dotted": "matplotlib.quiver",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_quiver.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/rcsetup.py",
+          "dotted": "matplotlib.rcsetup",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_colors.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_matplotlib.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": false,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/scale.py",
+          "dotted": "matplotlib.scale",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_scale.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/sphinxext/figmpl_directive.py",
+          "dotted": "matplotlib.sphinxext.figmpl_directive",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/sphinxext/plot_directive.py",
+          "dotted": "matplotlib.sphinxext.plot_directive",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/spines.py",
+          "dotted": "matplotlib.spines",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_spines.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/stackplot.py",
+          "dotted": "matplotlib.stackplot",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/style/core.py",
+          "dotted": "matplotlib.style.core",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/testing/_markers.py",
+          "dotted": "matplotlib.testing._markers",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_axes.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_backend_bases.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/testing/compare.py",
+          "dotted": "matplotlib.testing.compare",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_pgf.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_compare_images.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/testing/exceptions.py",
+          "dotted": "matplotlib.testing.exceptions",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_backend_pgf.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            },
+            {
+              "path": "lib/matplotlib/tests/test_compare_images.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/testing/jpl_units/Duration.py",
+          "dotted": "matplotlib.testing.jpl_units.Duration",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/testing/jpl_units/EpochConverter.py",
+          "dotted": "matplotlib.testing.jpl_units.EpochConverter",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/testing/jpl_units/UnitDbl.py",
+          "dotted": "matplotlib.testing.jpl_units.UnitDbl",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/testing/jpl_units/UnitDblConverter.py",
+          "dotted": "matplotlib.testing.jpl_units.UnitDblConverter",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/testing/widgets.py",
+          "dotted": "matplotlib.testing.widgets",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_widgets.py",
+              "lane": "C",
+              "mark": "按内容命中",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/text.py",
+          "dotted": "matplotlib.text",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_mathtext.py",
+              "lane": "A",
+              "mark": "",
+              "truth": false,
+              "strict_import": false,
+              "reasons": [
+                "其他代码引用",
+                "注释/文档串",
+                "路径/文件名串"
+              ]
+            },
+            {
+              "path": "lib/matplotlib/tests/test_text.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/textpath.py",
+          "dotted": "matplotlib.textpath",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_textpath.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/transforms.py",
+          "dotted": "matplotlib.transforms",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_transforms.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/tri/_tricontour.py",
+          "dotted": "matplotlib.tri._tricontour",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/tri/_trifinder.py",
+          "dotted": "matplotlib.tri._trifinder",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/tri/_tripcolor.py",
+          "dotted": "matplotlib.tri._tripcolor",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/tri/_triplot.py",
+          "dotted": "matplotlib.tri._triplot",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/tri/_tritools.py",
+          "dotted": "matplotlib.tri._tritools",
+          "returns": []
+        },
+        {
+          "module": "lib/matplotlib/units.py",
+          "dotted": "matplotlib.units",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_units.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/matplotlib/widgets.py",
+          "dotted": "matplotlib.widgets",
+          "returns": [
+            {
+              "path": "lib/matplotlib/tests/test_widgets.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/mpl_toolkits/axes_grid1/axes_divider.py",
+          "dotted": "axes_grid1.axes_divider",
+          "returns": []
+        },
+        {
+          "module": "lib/mpl_toolkits/axes_grid1/axes_rgb.py",
+          "dotted": "axes_grid1.axes_rgb",
+          "returns": []
+        },
+        {
+          "module": "lib/mpl_toolkits/axes_grid1/axes_size.py",
+          "dotted": "axes_grid1.axes_size",
+          "returns": []
+        },
+        {
+          "module": "lib/mpl_toolkits/axes_grid1/mpl_axes.py",
+          "dotted": "axes_grid1.mpl_axes",
+          "returns": []
+        },
+        {
+          "module": "lib/mpl_toolkits/axes_grid1/parasite_axes.py",
+          "dotted": "axes_grid1.parasite_axes",
+          "returns": []
+        },
+        {
+          "module": "lib/mpl_toolkits/axisartist/axes_divider.py",
+          "dotted": "axisartist.axes_divider",
+          "returns": []
+        },
+        {
+          "module": "lib/mpl_toolkits/axisartist/axisline_style.py",
+          "dotted": "axisartist.axisline_style",
+          "returns": []
+        },
+        {
+          "module": "lib/mpl_toolkits/axisartist/axislines.py",
+          "dotted": "axisartist.axislines",
+          "returns": [
+            {
+              "path": "lib/mpl_toolkits/axisartist/tests/test_axislines.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/mpl_toolkits/axisartist/grid_finder.py",
+          "dotted": "axisartist.grid_finder",
+          "returns": [
+            {
+              "path": "lib/mpl_toolkits/axisartist/tests/test_grid_finder.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/mpl_toolkits/axisartist/parasite_axes.py",
+          "dotted": "axisartist.parasite_axes",
+          "returns": []
+        },
+        {
+          "module": "lib/mpl_toolkits/mplot3d/art3d.py",
+          "dotted": "mplot3d.art3d",
+          "returns": [
+            {
+              "path": "lib/mpl_toolkits/mplot3d/tests/test_art3d.py",
+              "lane": "A",
+              "mark": "",
+              "truth": true,
+              "strict_import": true,
+              "reasons": []
+            }
+          ]
+        },
+        {
+          "module": "lib/mpl_toolkits/mplot3d/axis3d.py",
+          "dotted": "mplot3d.axis3d",
+          "returns": []
+        }
+      ],
+      "repo": "datasets\\swe-repos\\matplotlib",
+      "seconds": 7.5,
+      "verdict": {
+        "c_returns": 30,
+        "c_truth_rate": 1.0,
+        "verdict": "keep",
+        "by_lane_verdict": {
+          "A-generic": {
+            "lane_returns": 0,
+            "verdict": "not_observed"
+          },
+          "B": {
+            "lane_returns": 0,
+            "verdict": "not_observed"
+          }
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "by_lane": {
+      "A": {
+        "returns": 124,
+        "truth": 91,
+        "strict_import": 91,
+        "noise": 33,
+        "noise_reasons": {
+          "其他代码引用": 22,
+          "注释/文档串": 17,
+          "无引用痕迹": 6,
+          "同名不同模块": 7,
+          "路径/文件名串": 2
+        },
+        "truth_rate": 0.734
+      },
+      "C": {
+        "returns": 77,
+        "truth": 77,
+        "strict_import": 71,
+        "noise": 0,
+        "noise_reasons": {},
+        "truth_rate": 1.0
+      },
+      "A-generic": {
+        "returns": 36,
+        "truth": 0,
+        "strict_import": 0,
+        "noise": 36,
+        "noise_reasons": {
+          "其他代码引用": 17,
+          "同名不同模块": 20,
+          "路径/文件名串": 3,
+          "注释/文档串": 3,
+          "无引用痕迹": 9
+        },
+        "truth_rate": 0.0
+      },
+      "B": {
+        "returns": 3,
+        "truth": 2,
+        "strict_import": 2,
+        "noise": 1,
+        "noise_reasons": {
+          "无引用痕迹": 1
+        },
+        "truth_rate": 0.667
+      }
+    },
+    "verdict": {
+      "c_returns": 77,
+      "c_truth_rate": 1.0,
+      "verdict": "keep",
+      "by_lane_verdict": {
+        "A-generic": {
+          "lane_returns": 36,
+          "lane_truth_rate": 0.0,
+          "verdict": "drop_from_material"
+        },
+        "B": {
+          "lane_returns": 3,
+          "lane_truth_rate": 0.667,
+          "verdict": "sample_too_small_keep"
+        }
+      }
+    },
+    "modules_sampled": 300,
+    "modules_with_context": 191,
+    "seconds": 31.3
+  }
+}

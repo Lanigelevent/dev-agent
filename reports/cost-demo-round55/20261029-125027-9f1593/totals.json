@@ -1,0 +1,229 @@
+{
+  "caps": {
+    "max_review_minutes": 120.0,
+    "max_total_rounds": 32,
+    "max_verification_rounds": 3,
+    "max_dynamic_dispatches": 2
+  },
+  "steps": [
+    {
+      "step": "step0",
+      "rounds_used": 0,
+      "dynamic_used": 0,
+      "elapsed_sec": 0.0
+    },
+    {
+      "step": "step1",
+      "rounds_used": 0,
+      "dynamic_used": 0,
+      "elapsed_sec": 0.094
+    },
+    {
+      "step": "step2",
+      "rounds_used": 0,
+      "dynamic_used": 0,
+      "elapsed_sec": 11.937
+    },
+    {
+      "step": "step3",
+      "rounds_used": 0,
+      "dynamic_used": 0,
+      "elapsed_sec": 0.235
+    },
+    {
+      "step": "step4",
+      "rounds_used": 7,
+      "dynamic_used": 0,
+      "elapsed_sec": 2.89
+    },
+    {
+      "step": "step5",
+      "rounds_used": 7,
+      "dynamic_used": 0,
+      "elapsed_sec": 0.157
+    },
+    {
+      "step": "step6",
+      "rounds_used": 9,
+      "dynamic_used": 0,
+      "elapsed_sec": 0.187
+    },
+    {
+      "step": "step7",
+      "rounds_used": 9,
+      "dynamic_used": 0,
+      "elapsed_sec": 0.109
+    },
+    {
+      "step": "step8",
+      "rounds_used": 9,
+      "dynamic_used": 1,
+      "elapsed_sec": 0.704
+    },
+    {
+      "step": "step9",
+      "rounds_used": 9,
+      "dynamic_used": 1,
+      "elapsed_sec": 0.125
+    },
+    {
+      "step": "step10",
+      "rounds_used": 9,
+      "dynamic_used": 1,
+      "elapsed_sec": 0.468
+    }
+  ],
+  "rounds": [
+    {
+      "no": 1,
+      "tag": "dispatch:正确性与逻辑缺陷"
+    },
+    {
+      "no": 2,
+      "tag": "dispatch:跨文件影响"
+    },
+    {
+      "no": 3,
+      "tag": "dispatch:回退风险与影响面"
+    },
+    {
+      "no": 4,
+      "tag": "dispatch:测试覆盖"
+    },
+    {
+      "no": 5,
+      "tag": "dispatch:性能与资源"
+    },
+    {
+      "no": 6,
+      "tag": "dispatch:安全与敏感信息"
+    },
+    {
+      "no": 7,
+      "tag": "dispatch:意图一致性"
+    },
+    {
+      "no": 8,
+      "tag": "challenge:tests/test_scripts.py:756"
+    },
+    {
+      "no": 9,
+      "tag": "challenge:tests/test_scripts.py:756"
+    }
+  ],
+  "tokens": 0,
+  "minutes_used": 0.285,
+  "ledger": {
+    "file": "reports\\cost-demo-round55\\20261029-125027-9f1593\\ledger.jsonl",
+    "active": true,
+    "errors": 0
+  },
+  "cost": {
+    "llm_calls": 0,
+    "llm_calls_baseline": 0,
+    "llm_providers": [],
+    "tokens_reported_calls": 0,
+    "tokens_status": "not_used",
+    "resume_count": 0,
+    "wall_sec": 17.109,
+    "minutes_used": 0.285,
+    "tokens": 0,
+    "rounds_used": 9,
+    "dynamic_used": 1,
+    "steps": [
+      {
+        "step": "step0",
+        "rounds_used": 0,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.0
+      },
+      {
+        "step": "step1",
+        "rounds_used": 0,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.094
+      },
+      {
+        "step": "step2",
+        "rounds_used": 0,
+        "dynamic_used": 0,
+        "elapsed_sec": 11.937
+      },
+      {
+        "step": "step3",
+        "rounds_used": 0,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.235
+      },
+      {
+        "step": "step4",
+        "rounds_used": 7,
+        "dynamic_used": 0,
+        "elapsed_sec": 2.89
+      },
+      {
+        "step": "step5",
+        "rounds_used": 7,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.157
+      },
+      {
+        "step": "step6",
+        "rounds_used": 9,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.187
+      },
+      {
+        "step": "step7",
+        "rounds_used": 9,
+        "dynamic_used": 0,
+        "elapsed_sec": 0.109
+      },
+      {
+        "step": "step8",
+        "rounds_used": 9,
+        "dynamic_used": 1,
+        "elapsed_sec": 0.704
+      },
+      {
+        "step": "step9",
+        "rounds_used": 9,
+        "dynamic_used": 1,
+        "elapsed_sec": 0.125
+      },
+      {
+        "step": "step10",
+        "rounds_used": 9,
+        "dynamic_used": 1,
+        "elapsed_sec": 0.468
+      }
+    ],
+    "budget": [
+      {
+        "item": "minutes",
+        "used": 0.285,
+        "cap": 120.0,
+        "status": "OK"
+      },
+      {
+        "item": "rounds",
+        "used": 9.0,
+        "cap": 32,
+        "status": "OK"
+      },
+      {
+        "item": "dynamic_dispatches",
+        "used": 1.0,
+        "cap": 2,
+        "status": "OK"
+      },
+      {
+        "item": "tokens",
+        "used": 0,
+        "cap": null,
+        "status": "N/A"
+      }
+    ],
+    "scope": "current_process（--resume 各段另行起算）"
+  }
+}

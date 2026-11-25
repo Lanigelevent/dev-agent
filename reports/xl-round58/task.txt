@@ -1,0 +1,7 @@
+xlib 发票金额管线与业务口径不一致，需要修好：
+1) 会计括号负数金额（如 "(1,234.50)"）解析失败，应按负号解析；
+2) validate_amount 拒绝退款负金额，且不拦三位小数；
+3) total 把退款（kind=refund）当收入累加；
+4) render 对负金额没有按会计格式加括号，应输出 "(1,234.50)"；
+5) 包级 parse_and_validate 直接抛 TypeError。
+期望口径以 tests/test_xlib.py 为准（当前 7 failed / 5 passed），把它跑绿。

@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "MCP ledger flaky 留观复核结案 + 事件账本对账复核（round-185）",
+    "description": "①留观复核：隔离 3/3 过（r184）+ 模块 -n 2 压测 5 轮 5/5 过（25 tests/轮）+ r185 全量 light 复跑 792 passed + 2 skipped（441.78s）零复现——r184 单次失败为负载型偶发，按坑对策条款（零复现结案）结案 1049f4d0b4b6。②第 145 条③顺延：事件账本哈希链 verify 完好、round-summary 153..184 全覆盖 32/32、轮报 32/32 齐；发现 r154 历史双记 1 条（11 秒间隔双 append，链内完好，不追改历史账本，如实记录）。",
+    "countermeasure": "零代码轮（不增版本，light 收官）；flaky 若未来复发则按测试隔离加固（延长轮询窗或放宽断言序）。",
+    "source": "round-185"
+  }
+]

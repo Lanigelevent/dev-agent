@@ -1,0 +1,20 @@
+{
+  "round": 0,
+  "tests": "pass",
+  "test_detail": [
+    "引擎 go（go.mod → go test ./...）",
+    "ok  \tdemo/stack\t(cached)"
+  ],
+  "edits_applied": 1,
+  "patch_validation": {
+    "ok": true,
+    "issues": []
+  },
+  "selfcheck_broken": [],
+  "files": [
+    "stack/stack.go"
+  ],
+  "patch_chars": 249,
+  "has_patch": true,
+  "patch_text": "diff --git a/stack/stack.go b/stack/stack.go\nindex 582e4ba..8fe6a24 100644\n--- a/stack/stack.go\n+++ b/stack/stack.go\n@@ -18,5 +18,5 @@ func (s *Stack) Pop() int {\n }\n \n func (s *Stack) Size() int {\n-\treturn len(s.items) + 1\n+\treturn len(s.items)\n }\n"
+}

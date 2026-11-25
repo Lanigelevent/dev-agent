@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "维护轮——五检全绿（round-211）",
+    "description": "r210 依赖刷新提交后首个验证轮：freshness/drift/structure/dead-code 四检全绿 + secret-scan 零命中，确认 v2.94.0 提交态全文档一致。观察项：①MCP async 家族无新 flaky（第 5 例仍 r204 run2）；②CI nightly mcp-scan 枚举复核待首次 CI 实跑（操作员）；③下一依赖锚点 r220。",
+    "countermeasure": "零代码轮（light 收官）。",
+    "source": "round-211"
+  }
+]

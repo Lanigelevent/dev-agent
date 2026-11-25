@@ -1,0 +1,26 @@
+{
+  "id": "0867786ad184",
+  "description": "行业对标：评审证据面（resolved 口径/中立基准）与交付面（GitHub 集成）落后于第一梯队，需吸收成熟方案",
+  "pitfall_id": null,
+  "constraints": [
+    "只用 Python 标准库，禁第三方依赖（硬约束 1）",
+    "对被审仓库只读；产物只落复盘/研究目录（产物红线）",
+    "改动需过反向验证 + synth 精度基线（行为级优化口径）"
+  ],
+  "queries": [
+    "Python stdlib resolved implementation",
+    "resolved static analysis without third-party libraries",
+    "resolved 最佳实践 站内:github",
+    "行业对标：评审证据面（resolved 口径/中立基准）与交 实现方案",
+    "Python stdlib GitHub implementation",
+    "GitHub static analysis without third-party libraries",
+    "GitHub 最佳实践 站内:github",
+    "行业对标：评审证据面（resolved 口径/中立基准）与交 实现方案"
+  ],
+  "known_cases": [],
+  "acceptance": [
+    "检索来源可信（官方文档/权威仓库优先），记录 URL",
+    "结论必须给出可落地的三种形态之一：配置扩展/测试补充/代码修改",
+    "行为级改动必过反向验证 + synth 精度基线"
+  ]
+}

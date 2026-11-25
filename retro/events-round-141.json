@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "评测口径单一事实源 eval-config.toml（round-141）",
+    "description": "eval-harness/eval-config.toml（schema eval-config/1，stdlib tomllib）：[review_quality_gate] 阈值 / [review].max_chars / [canonical].anchor 三段；review-quality-gate 与 swrenbench review 改读配置（CLI > 配置 > 内置三级缺省链），配置缺失回退内置不阻断。",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "配置契约 +3（schema/CLI 覆盖/缺失回退）",
+    "description": "test_load_eval_config_schema / test_cli_overrides_config / test_config_missing_falls_back；judge 对 r114 findings 复跑 F1 0.5789/0.3656 逐位一致（回归护栏达标）。",
+    "outcome": "done"
+  },
+  {
+    "type": "pitfall",
+    "title": "D-052 判红四连（宿主外部负载）——r141 收官受阻",
+    "description": "收官双跑连续判红（640/766/614/687/983s，同数测试健康基线 406/387s）；归因=宿主外部重负载（qemu-system-x86_64-headless ×2 累计 CPU 74471s/69543s + 大型 python 进程 ×2，Get-Process 实查，非本会话残留）。总监裁决 A（等待负载结束），不调红线不绕闸；归因报告 reports/d-052-redline-r141.md。",
+    "outcome": "pitfall"
+  }
+]

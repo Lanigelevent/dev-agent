@@ -1,0 +1,83 @@
+{
+  "ok": true,
+  "weights": {
+    "scale": 0.3,
+    "coupling": 0.4,
+    "stability": 0.3
+  },
+  "regions": [
+    {
+      "name": ".zcode-plugin",
+      "scale": 1,
+      "coupling": 1,
+      "stability": 5,
+      "score": 2.2,
+      "level": "低"
+    },
+    {
+      "name": "(root)",
+      "scale": 3,
+      "coupling": 1,
+      "stability": 5,
+      "score": 2.8,
+      "level": "中"
+    },
+    {
+      "name": "docs",
+      "scale": 3,
+      "coupling": 1,
+      "stability": 5,
+      "score": 2.8,
+      "level": "中"
+    },
+    {
+      "name": "mcp",
+      "scale": 1,
+      "coupling": 1,
+      "stability": 5,
+      "score": 2.2,
+      "level": "低"
+    },
+    {
+      "name": "reports",
+      "scale": 5,
+      "coupling": 1,
+      "stability": 5,
+      "score": 3.4,
+      "level": "中"
+    },
+    {
+      "name": "retro",
+      "scale": 3,
+      "coupling": 1,
+      "stability": 5,
+      "score": 2.8,
+      "level": "中"
+    },
+    {
+      "name": "skills",
+      "scale": 4,
+      "coupling": 1,
+      "stability": 3,
+      "score": 2.5,
+      "level": "中"
+    },
+    {
+      "name": "tests",
+      "scale": 2,
+      "coupling": 1,
+      "stability": 5,
+      "score": 2.5,
+      "level": "中"
+    }
+  ],
+  "overall": {
+    "name": "overall",
+    "scale": 5,
+    "coupling": 3,
+    "stability": 5,
+    "score": 4.2,
+    "level": "高"
+  },
+  "high_regions": []
+}

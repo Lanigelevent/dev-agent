@@ -1,0 +1,14 @@
+[
+  {
+    "type": "feature",
+    "title": "latency-bench.py（第 86 脚本）+ F4 结构收尾 + MCP 表对账（round-154）",
+    "description": "scan 延迟基准：三档合成 diff（S100/M500/L2000）实跑 38 规则臂 → p50/p95（实测 0.117-0.122s 恒定，子进程启动主导）；+3 契约。round-gate close 收官全过时自动追加 event-ledger round-summary（best-effort WARN 不阻断；F4 从手工约定升级为机械自动）。AGENTS MCP 表 4→12 工具对账。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "MCP 异步作业模式设计稿（提案，待总监裁决）",
+    "description": "submit/status 双工具 + review://jobs 资源形态；作业存储复用断点设施（runs/jobs/）；断线重连与 --resume 语义一致。约一轮工作量。提案文件 reports/proposal-mcp-async-r154.md。",
+    "outcome": "done"
+  }
+]

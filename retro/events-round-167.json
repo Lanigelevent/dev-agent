@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "依赖刷新第十跑探测面——12/12 已最新零升级（round-167，128 条②）",
+    "description": "12 项清华镜像逐项对照（installed vs pip index versions）：ruff 0.17.5 / libcst 1.9.0 / tree-sitter 0.26.1 / ast-grep-py 0.51.2 / pytest 9.2.0 / coverage 7.17.3 / hypothesis 6.170.15 / pytest-xdist 3.8.0 / pip-audit 2.10.1 等 12/12 全部已最新——零升级、零代码变更轮（light 收官候选）。三引擎矩阵落盘对比全一致（astgrep/ruff 逐位、libcst 内层）。探测面全程无需全量套件。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "r166 双跑受阻跨轮补录与取证（round-167 开局动作）",
+    "description": "r166 close 待负载：三连判红（首跑 run1 EXIT=124、重试 run2 EXIT=124、r167 开局第三次重试 run2 92% 处被 600s 击杀）；Get-Process 取证 qemu-system-x86_64-headless ×2（CPU 20500s/18848s）——与 r141 事件同型，归因外部负载一致，处置「等待负载结束」不绕闸。traceback 噪声来源定位：timeout 击杀撕裂 execnet worker bootstrap 所致（非测试失败）。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-167 任务面取舍（round-167）",
+    "description": "128 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体。任务面=②依赖刷新第十跑探测面（零升级）+ r166 受阻补录与取证。",
+    "outcome": "done"
+  }
+]

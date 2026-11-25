@@ -1,0 +1,38 @@
+[
+  {
+    "type": "feature",
+    "description": "Pro agent 侧 10 条以宿主会话模型（CRA_LLM_PROVIDER=host）实跑并判分：仅给 problem_statement（10 条合计 8483 字符，任务行无任何测试字段），产出 edits.patch → pro-sample.py --mode predictions → 10/10 resolved（F2P 32/32、P2P 269/269）；补丁合计 37 处编辑 / 14 文件 / +442 −34；判分整轮 48.141s（pytest 合计 18.188s，逐条 elapsed 合计 43.033s）；malformed 0 / integrity_flagged 0 / blocked_source 0 / stale 0；台账 predictions 10 行与 baseline/gold 分 key，不折算",
+    "evidence": "reports/swebench/pro-agent-10-2026-10-29.md；datasets/swebench/pro-work/agent/tasks/agent-10.jsonl；datasets/swebench/pro-runs/pro-sample-ledger.json、patch-provenance.json（不入库）"
+  },
+  {
+    "type": "feature",
+    "description": "多轮尝试与归档可追溯：4 条实例需多次尝试（openlibrary 03095f26 8 次、ansible 106909db 3 次、ansible 11c1777d / qutebrowser 01d1d149 各 2 次），每次新尝试从基线重建 run 目录、旧产物归档到 runs-archive/<iid>__attemptN；终版全部 resolved，attempts 与终版轮数/编辑数在报告逐条列明",
+    "evidence": "reports/swebench/pro-agent-10-2026-10-29.md §2/§5；datasets/swebench/pro-work/agent/runs-archive/（不入库）"
+  },
+  {
+    "type": "doc",
+    "description": "round-52 报告 reports/swebench/pro-agent-10-2026-10-29.md（结论先行 + 五列摘要 + 任务/产物/判分三表 + 真坑 + 边界）；版本 v1.53.0 三处同步；PROGRESS/README/BASELINE/DECISIONS/ROADMAP/next-round 传播（agent 口径 10/10 与 gold 10/10 分列，台账与测试计数按命令真值）",
+    "evidence": "reports/swebench/pro-agent-10-2026-10-29.md；docs/PROGRESS.md；README.md；docs/BASELINE.md；docs/DECISIONS.md；docs/ROADMAP.md"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】隐藏契约欠定，只能从自产运行时失败信号迭代推断：ansible 106909db 的 multipart 编码接口无文档、problem_statement 只描述需求，attempt1/2 分别栽在信号名（field 键）、异常类型（DID NOT RAISE）、返回值形状（'NoneType' object is not callable）与允许值集合上，第 3 次才收束",
+    "root_cause": "评测只允许读 problem_statement 与仓库代码，隐藏测试期望的 API 形状（函数名、参数键、返回可调用编码器、允许编码集）不可见；单看首轮失败像实现错误，实为契约理解偏差",
+    "countermeasure": "把每轮 F2P 失败消息当契约信号：ImportError→缺公开符号；TypeError/NoneType→返回值形状；DID NOT RAISE→校验策略；unknown encoding→允许值集合。每次尝试独立 run 目录、旧产物归档，最小语义化实现（复用 email.encoders）收敛；全程不读 test_patch/gold_patch、不查上游修复 commit",
+    "source": "reports/swebench/pro-agent-10-2026-10-29.md §5；datasets/swebench/pro-work/agent/runs-archive/instance_ansible__ansible-106909db8b730480615f4a33de0eb5b710944e78-v0f01c69f1e2528b935359cfe578530722bca2c59__attempt1/、__attempt2/"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】跨记录缓存失效必须同时看改前文档：openlibrary 03095f26 移动 edition 后源 work 未重索引，前 7 次尝试只从新文档（changeset.docs）取键，均未同时满足 2 条 F2P；终版改为 docs + old_docs 双取「新文档已不再引用」的 authors/works key 才收束",
+    "root_cause": "infogami changeset 同时携带 docs（新）与 old_docs（改前，可能为 None）；移动 edition 后旧 work 只出现在 old_docs 里，只看新文档必然漏掉被解绑的源 work",
+    "countermeasure": "失效键 = 新文档键 ∪ (old_docs 键 − 新文档键)；依据仓库内 openlibrary/olbase/events.py 以 docs + old_docs 取 editions 的先例；save 与 save_many 两路都接；8 次尝试的补丁全部归档可复算",
+    "source": "reports/swebench/pro-agent-10-2026-10-29.md §5；datasets/swebench/pro-work/agent/runs/instance_internetarchive__openlibrary-03095f2680f7516fca35a58e665bf2a41f006273-v8717e18970bcdc4e0d2cea3b1527752b21e74866/edits.patch"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】code-task 自记 tests=fail 与容器判分 resolved 并存，且 code_task.elapsed 只含终版编码循环活跃时间：若把前者当判分、把两套 elapsed 相加当总成本，会同时错判成败与成本",
+    "root_cause": "编码循环在 worktree 跑仓库自带测试，缺镜像依赖（ansible dist-packages、QtWebEngine 显示环境）时必然 fail；provenance 只保留终版 code_task，归档尝试不计入；判分只认容器内 F2P/P2P 逐 node 对账",
+    "countermeasure": "报告中 code_task.tests 如实保留并标注「本地环境测试 ≠ 判分」；成本分列编码循环活跃时间（183.550s）、判分 pytest（18.188s）、判分 elapsed（43.033s / 整轮 48.141s），宿主往返与人工编排不计并声明；禁止相加成单一成本数字",
+    "source": "reports/swebench/pro-agent-10-2026-10-29.md §5.4/§5.5/§6.4；datasets/swebench/pro-runs/patch-provenance.json（不入库）"
+  }
+]

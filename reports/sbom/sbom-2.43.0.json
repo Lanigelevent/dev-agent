@@ -1,0 +1,89 @@
+{
+  "schema": "sbom-inventory/1",
+  "generated": "2026-11-13",
+  "generator": "uv export --format requirements.txt --no-emit-project --extra dev (round-146)",
+  "source": "requirements-lock.txt (sha256-pinned)",
+  "components": 20,
+  "packages": [
+    {
+      "name": "ast-grep-py",
+      "version": "0.51.2"
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6"
+    },
+    {
+      "name": "coverage",
+      "version": "7.17.2"
+    },
+    {
+      "name": "execnet",
+      "version": "2.1.2"
+    },
+    {
+      "name": "hypothesis",
+      "version": "6.170.15"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.1"
+    },
+    {
+      "name": "libcst",
+      "version": "1.9.0"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.7.0"
+    },
+    {
+      "name": "pygments",
+      "version": "2.21.0"
+    },
+    {
+      "name": "pytest",
+      "version": "8.4.2"
+    },
+    {
+      "name": "pytest-xdist",
+      "version": "3.8.0"
+    },
+    {
+      "name": "pyyaml",
+      "version": "6.0.3"
+    },
+    {
+      "name": "pyyaml-ft",
+      "version": "8.0.0"
+    },
+    {
+      "name": "ruff",
+      "version": "0.17.4"
+    },
+    {
+      "name": "sortedcontainers",
+      "version": "2.4.0"
+    },
+    {
+      "name": "tree-sitter",
+      "version": "0.26.1"
+    },
+    {
+      "name": "tree-sitter-go",
+      "version": "0.25.0"
+    },
+    {
+      "name": "tree-sitter-python",
+      "version": "0.25.0"
+    },
+    {
+      "name": "tree-sitter-typescript",
+      "version": "0.23.2"
+    }
+  ]
+}

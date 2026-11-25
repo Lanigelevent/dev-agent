@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-07 ACI 工具面审计 + AB-15 对照审计（round-195，路线图阶段一①⑦）",
+    "description": "16 工具×三准则（短命令/反馈及时/防呆）逐条对照（reports/aci-audit-r195.md）：3 处描述面修订（scan exactly-one-of 失败语义 / coding resume-new 条件必填说明 / director prose 补 scorecard）；AB-15 对照零差异（edit_formats 唯一命中与 opencode 同型、终端闸 timeout/截断/白名单同型）。诚实口径：描述改动不改工具行为——precision 数字预期不变，ACI 收益量化留待 LLM 臂复测点；上游补研受阻（SWE-agent 文档直连+CDN 重置），实例细节留网络窗口。过程注记：首次 close 被 retro_artifacts 拦截（events 文件漏写）——闸面正确工作，补齐后重过。",
+    "countermeasure": "零行为变更（描述面），版本 2.85.0；阶段一①⑦完成，队列进第 157 条。",
+    "source": "round-195"
+  }
+]

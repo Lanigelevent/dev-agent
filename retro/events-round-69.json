@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "description": "round-69 结构改造落地（open 坑对策）：编码循环 read 动作新增 路径:起-止 行区间取窗（1 基含端、逐行行号前缀、单段 ≤400 行超限标注续取、非法输入钳制）与 路径#符号 锚定（词法缩进跨度：def/class 起至同级缩进，未命中退回关键词取窗）；SYSTEM_PROMPT 同步文档化；默认无后缀路径行为不变（round-19/20 语义保留）；契约 +2（slice_lines 钳制/截断/行号 + extract_symbol_span 跨度/未命中/1 基行号），528→530",
+    "evidence": "agent/repo_map.py（slice_lines/extract_symbol_span）、agent/code-task.py（read 处理器 + SYSTEM_PROMPT）、tests/test_agent.py::TestRepoMapCandidates"
+  },
+  {
+    "type": "feature",
+    "description": "round-69 pdm-3237 复跑验证（D-045 重试口径）：attempt-2 第 1 轮即用 :195-330 直读深区（attempt-1 为 11 轮 0 编辑深区不可见），第 3 轮锁定崩点链（use_uv 下构建隔离安装走 UvSynchronizer 项目级 uv sync 管道），第 9 轮交付补丁（UvSynchronizer.synchronize 对无依赖组构建隔离安装回退 BaseSynchronizer，+7 行）；判分 f2p-only 45.61 s unresolved——F2P 期望 do_build(..., verbose=0) 新签名（上游修复连带改 CLI 管道），13 行外科回退未覆盖；pdm-3237 维持 failed，冷启动累计 n=2 实例 / 3 次尝试全 failed，材料可达性障碍已移除、剩余差距收窄为修复面设计",
+    "evidence": "datasets/swebench/live-runs-r68/coldstart-pdm-3237/（attempt-2 trace/edits.patch 1 031 B）、live-judge-pdm/live-sample-ledger.json、reports/swebench/live-coldstart-r69-2026-10-31.md"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-69 边界与未结项：①unresolved ≠ 回退修法错误——F2P 断言的是上游改造后签名，未对照 gold patch、归因基于测试断言与 difficulty 字段；②pdm venv 缺测试依赖（pytest-httpserver 等），循环内全套件门收集期 ERROR 形同关闭，交付判据完全依赖判分侧 f2p-only；③宿主协议响应 id 写错 3 次（纪律复发）；④D-046 4.1 复验、merge-audit 人工复核、Pro 单发口径、DeepSWE 余 19 条、instructlab 依赖适配仍在账上",
+    "source": "reports/swebench/live-coldstart-r69-2026-10-31.md §3、retro/next-round.md 第 29 条"
+  }
+]

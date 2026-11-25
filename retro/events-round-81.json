@@ -1,0 +1,17 @@
+[
+  {
+    "title": "git worktree add 的相对 dest 被解析到 -C 指定仓内（评测驱动脚本坑）",
+    "description": "round-81 briefcase worktree 准备：git -C <缓存仓> worktree add --detach <相对路径> 把 dest 建到缓存仓目录内（相对路径按 -C 的 cwd 解析），apply 报目录不存在。修复：dest 一律绝对路径；同脚本清理残留 reports/ 目录。",
+    "evidence": "reports/swebench/live-coldstart-r81.md"
+  },
+  {
+    "type": "confirmation",
+    "title": "gate-r80 批次真连跑：briefcase-2075 = f2p_passed（第 1 数据点）",
+    "description": "F2P 13/13（基线实测回填的参数化节点）、1 编辑/582 B、判分 52.734 s；零反馈口径 2/7（部分口径单列）；基线体检 9 条全跑（仅 briefcase 健康），8 条环境适配挂账 round-82；源拉取 8/9（depth-1 预填法）；checkov blocked_source。"
+  },
+  {
+    "type": "feature",
+    "title": "F2P 静态推导修正链沉淀（gate 语料适配方法）",
+    "description": "+++ 路径容忍 arviz/tests/ 型非 tests/ 前缀；类方法追踪 +class 上下文（aiogram 型）；参数化 id 需基线实测回填（静态只能到函数级）；环境失败不得冒充任务 F2P（口径纪律）。"
+  }
+]

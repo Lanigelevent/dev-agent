@@ -1,0 +1,11 @@
+[
+  {
+    "type": "correction",
+    "title": "MCP 异步作业 spawn 链黑色弹窗——DETACHED_PROCESS 根因修复（r188 用户报告）",
+    "description": "用户报告黑色弹窗频现：_submit_tool 用 DETACHED_PROCESS 起 worker（无控制台），worker 再裸 Popen 起 runner（控制台程序）——Windows 规则为无控制台父进程的控制台子程序分配【可见】控制台，作业链每个子孙都闪黑窗（r185 压测 5×25 假作业对上弹窗量）。修复：worker 与 runner 两处 spawn 均改 CREATE_NO_WINDOW——worker 带隐藏控制台，子孙继承之不再被分配可见窗；taskkill /T /F 取消语义与组标记不变。",
+    "root_cause": "DETACHED_PROCESS 使 spawn 树失去可继承控制台，子孙控制台程序被分配可见窗口。",
+    "countermeasure": "已落地：review_mcp.py 两处 spawn 改 CREATE_NO_WINDOW（+注释说明根因与取消语义不变）；+1 契约（Popen 捕获断言：CREATE_NO_WINDOW 在位、DETACHED_PROCESS 禁用、组标记保留；POSIX 保持 start_new_session）；复跑 test_mcp_async 26/26 绿。",
+    "source": "round-188",
+    "confidence": "observed"
+  }
+]

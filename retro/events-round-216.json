@@ -1,0 +1,15 @@
+[
+  {
+    "type": "feature",
+    "title": "AB-20 记忆三级管线落地——memory-pipeline.py 第 89 号脚本（round-216，阶段三④，版本 2.96.0）",
+    "description": "抽取→合并决策→检索三级分工：completion 类型过滤与台账口径一致；合并决策 TF-IDF cosine ≥0.65 判 UPDATE 合并刷新、否则 ADD 新知识（DELETE 归 compact-memory 老化层不重复造）；检索委托 memory_retrieval（阈值沿用 round-61 标定）。决策臂双臂：deterministic 缺省 / llm 臂自写决策提示供宿主消费，无 key 时 arm_status=blocked_no_key 且不写 store（不冒充决策已判，诚实口径同 live-sample blocked 语义）。namespace 分级（mem0 user/agent/run 同型，同级对照跨级不合并）；store 原子写（uuid4 tmp + os.replace）。",
+    "countermeasure": "skills/retro/scripts/memory-pipeline.py + 5 契约（tests/test_memory_pipeline.py：ADD/UPDATE 合并不重复入库/blocked 臂不写 store/有 key ready/retrieve 委托命中/坏事件 rc=1）+ SKILL.md 登记 + BASELINE 行数基线 66→90 + AGENTS 清单 89 + 版本 2.96.0。烟测实证：同事件重 add 判 UPDATE（cosine 1.0）条目稳定 1 条。",
+    "source": "round-216"
+  },
+  {
+    "type": "confirmation",
+    "title": "doc-drift 死代码拦截实证——未接线函数被机械抓出（round-216）",
+    "description": "run1 翻红 2 例均指向 doc-drift Q3 死代码：memory-pipeline.py:_decision_prompt 已写未接（漏 prompt 子命令）。反向验证面实证：检查器真实工作，新脚本在入仓链中被机械拦截，补接线后 31 测试全绿。",
+    "countermeasure": "prompt 子命令接线 + docstring/SKILL.md 用法示例同步（参数漂移防线）；BASELINE 行数基线 90→92 复核。"
+  }
+]

@@ -1,0 +1,98 @@
+{
+  "schema": "review-loop/1",
+  "decision": "NEED_HUMAN",
+  "threshold": 0.5,
+  "files": [
+    {
+      "path": "pkg/agg.py",
+      "added_lines": 6
+    }
+  ],
+  "reviewers": {
+    "self": {
+      "status": "ok",
+      "findings": []
+    },
+    "ruff": {
+      "status": "ok",
+      "findings": [
+        {
+          "file": "pkg/agg.py",
+          "line": 1,
+          "rule": "ruff:F401",
+          "severity": "medium",
+          "message": "`os` imported but unused"
+        },
+        {
+          "file": "pkg/agg.py",
+          "line": 5,
+          "rule": "ruff:E711",
+          "severity": "medium",
+          "message": "Comparison to `None` should be `cond is None`"
+        }
+      ],
+      "note": "ruff rc=1，2 条"
+    },
+    "astgrep": {
+      "status": "ok",
+      "findings": [],
+      "note": "扫描 1 文件，0 条"
+    }
+  },
+  "external_status": [
+    {
+      "name": "ruff",
+      "status": "ok",
+      "note": "ruff rc=1，2 条"
+    },
+    {
+      "name": "astgrep",
+      "status": "ok",
+      "note": "扫描 1 文件，0 条"
+    }
+  ],
+  "coverage": null,
+  "metrics": {
+    "matched": 0,
+    "union": 2,
+    "diff_rate": 1.0
+  },
+  "high_findings": [],
+  "external_only": [
+    {
+      "file": "pkg/agg.py",
+      "line": 1,
+      "rule": "ruff:F401",
+      "severity": "medium",
+      "message": "`os` imported but unused"
+    },
+    {
+      "file": "pkg/agg.py",
+      "line": 5,
+      "rule": "ruff:E711",
+      "severity": "medium",
+      "message": "Comparison to `None` should be `cond is None`"
+    }
+  ],
+  "self_only": [],
+  "self_findings": [],
+  "external_findings": [
+    {
+      "file": "pkg/agg.py",
+      "line": 1,
+      "rule": "ruff:F401",
+      "severity": "medium",
+      "message": "`os` imported but unused"
+    },
+    {
+      "file": "pkg/agg.py",
+      "line": 5,
+      "rule": "ruff:E711",
+      "severity": "medium",
+      "message": "Comparison to `None` should be `cond is None`"
+    }
+  ],
+  "reasons": [
+    "自评/他评差异率 1.00 > 阈值 0.50"
+  ]
+}

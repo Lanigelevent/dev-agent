@@ -1,0 +1,14 @@
+[
+  {
+    "category": "手工",
+    "description": "matplotlib-22835（BoundaryNorm 下取光标读数崩溃）第四版 resolved：norm.inverse 对不可反演的 norm 抛 ValueError，改为回退到「值所属颜色区间的宽度」作为该值的分辨率",
+    "root_cause": "format_cursor_data 依赖 norm.inverse 取相邻颜色区间，BoundaryNorm 不可反演 → 直接抛错；而「该值有多精确」在不可反演时只能由区间宽度给出（值的有效位数由 _g_sig_digits(value, delta) 决定）",
+    "countermeasure": "catch ValueError 后用 norm.boundaries 求出值所在区间宽度作为 delta（索引钳到 [0, len-2]，使落在最外边界的值用最后一个区间）；本轮把上游期望的 9 个标签全部对上，F2P 1/1、P2P 24/24"
+  },
+  {
+    "category": "手工",
+    "description": "本地「离线复算」栽在两处，都不是逻辑错而是**参照物取错版本/基准**：① 以为 cbook._g_sig_digits 只看 delta，实际 matplotlib 3.5 的实现同时看 value 与 delta——用错版本会让公式族搜索整体偏一位，8/9 的结果在容器里变成另一种错法；② 给 code-task 的 SEARCH 写成了上一版补丁的代码，而每个新工作区都从基线重建，编辑未命中 → 补丁为空，收集器转而评了上一版补丁",
+    "root_cause": "① 凭记忆假设库的辅助函数语义，没先读被审版本里的实现；② 把「在已有改动之上再改」当成工作区语义，实际每个版本目录都是干净基线，SEARCH 必须针对基线代码",
+    "countermeasure": "① 任何「用公式/行为反推根因」的本地模型，必须先读被审版本里真实调用的那个函数（本次是 _g_sig_digits 的 value-aware 实现），再用它做穷举；② 产补丁后立即校验「补丁非空 + 关键行确实在补丁里」，否则评测会静默地跑上一版补丁而不报错——这一点已写进下一轮检查单"
+  }
+]

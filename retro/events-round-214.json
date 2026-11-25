@@ -1,0 +1,8 @@
+[
+  {
+    "type": "correction",
+    "title": "kill 测试进程树可留真仓夹具损坏态（round-214 发现即结）",
+    "description": "杀过早 run2 时 test_taint 正处「写坏样例→验证回退→finally 恢复」中段，恢复未执行——skills/multi-agent-review/taint-config.json 被留成 '{broken json'，重跑 run2 的 test_output_contract_unchanged 读到损坏配置翻红。根因：该测试直接改真仓配置文件而非临时副本，finally 恢复对进程树强杀无免疫。",
+    "countermeasure": "当轮恢复：git checkout -- taint-config.json 后 run2 全绿（367.38s，820 项）。纪律：kill 测试进程树后必须 git status 复核真仓文件未被夹具污染（checkout 复原）；加固候选：test_taint 改临时副本（入第 178 条候选）。"
+  }
+]

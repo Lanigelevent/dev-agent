@@ -1,0 +1,28 @@
+[
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段三 3.1 落地：统一事件账本 event-ledger.py（Action/Observation JSONL，append-only + sha256 哈希链 + 脱敏；record/verify/replay/summary 四动词；deterministic 白名单重放并逐项对账，差异带 JSONPath 与新旧值；opaque 只做完整性校验）。runner.py 全链接入：所有脚本子进程经唯一入口 self._run 入账（只读脚本 deterministic，写状态/宿主协议 opaque），audit 记 decision 事件，LLM 调用只记 provider/model 与 prompt/response sha256，totals.json 增 ledger 段；账本失败自动停用不阻塞评审。演示账本 reports/ledger-demo-round54（31 条记录：script 20 / decision 10 / note 1）verify 链完好、replay 20/20 MATCH、opaque 11 条跳过",
+    "evidence": "skills/production-guardrails/scripts/event-ledger.py；skills/orchestrator/scripts/runner.py；tests/test_scripts.py::TestEventLedger（2 条）+ test_runner_e2e 账本断言；reports/ledger-demo-round54/"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】事件账本的令牌化在 Windows 上整体失效：_norm_path 把前缀归一为正斜杠后再 re.escape，而 argv/观测里的路径是反斜杠，正则永不命中——账本「看起来有令牌」，实际每条都落绝对路径；replay 在本机仍 MATCH，直到 e2e 加「夹具绝对路径不得出现」的反向断言才暴露",
+    "root_cause": "tokenize 先用 _norm_path 归一成 `/` 建前缀，再用 re.escape 原样匹配；Windows 路径在 argv 里是反斜杠，分隔符没有做成双态，前缀永远匹配不到",
+    "countermeasure": "新增 _path_pattern 把分隔符拼成 [/\\\\] 双态（POSIX/Windows 记录都能命中）；detokenize 改带右边界 (?![A-Z0-9_]) 的 re.sub 并转义反斜杠；e2e 断言账本含 $REPO 且不含夹具绝对路径，TestEventLedger 覆盖 MATCH/DIFF",
+    "source": "skills/production-guardrails/scripts/event-ledger.py::tokenize/detokenize；tests/test_scripts.py::test_runner_e2e 新增反向断言"
+  },
+  {
+    "category": "误报",
+    "description": "【坑】lang-closure-late-bind 把「默认参数即时绑定」的循环内 lambda 判为闭包延迟绑定：event-ledger.detokenize 用 lambda 做 re.sub 替换函数（默认参数在定义时求值，恰是安全写法），自扫门禁直接红一条",
+    "root_cause": "规则只捕 for/while 体内的 lambda，未排除带默认参数的绑定——`lambda _m, p=str(path): p` 的 p 在定义时已求值，不存在延迟绑定",
+    "countermeasure": "本轮改写为 re.sub 字符串替换 + 反斜杠转义绕开误报；规则未动，建议下一轮加「默认参数豁免」并配正反样例后再改判据",
+    "source": "skills/multi-agent-review/scripts/deterministic-rules.py（lang-closure-late-bind）；tests/test_scripts.py::test_self_scan_zero_hits"
+  },
+  {
+    "category": "测试",
+    "description": "【坑】重放对账的差异路径根缺 `$`：_first_diff 从空 path 起步，首层键拼出 `.n` 而不是 `$.n`、长度差异拼出 `.length`——消费方按 JSONPath 解析会错层；测试按 `$.n` 写期望时先红",
+    "root_cause": "递归函数把「根」当成空字符串，没有统一 `$` 前缀；dict 键与 list 下标/长度两条分支各自拼接，形状不一致",
+    "countermeasure": "根统一为 `$`（dict 键 `$.k`、list 长度 `$.length`、下标 `$[i]`）；TestEventLedger 用 recorded 3 / current 6 钉住路径与新旧值",
+    "source": "skills/production-guardrails/scripts/event-ledger.py::_first_diff；tests/test_scripts.py::TestEventLedger.test_replay_match_then_diff"
+  }
+]

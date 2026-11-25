@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "verified 首批开跑：2 判 f2p_passed + 3 blocked（D-052 批准口径）",
+    "description": "中档口径 + n=5（astropy/django/seaborn/flask/requests，取源 5/5 gitee）。seaborn-3069 = f2p_passed（F2P 2/2，Nominal._finalize 三 tweaks + plot 接线，0.13.0 对照=gold-assisted）；flask-5014 = f2p_passed（F2P 1/1，Blueprint 空名 ValueError，纯自研）。blocked 3：astropy（hypothesis 钉入未生效待查）、django（verified F2P 为 django-runner 节点格式，pytest 不可收集=判分链格式转换缺口，环境可收集 175 项）、requests-1142（py2 vendored，r94 同根因）。折损 3/5=60% 与评估预测一致偏高。零反馈 3/7 不变 + gold-assisted 3 + 纯自研 host 轴 1。"
+  }
+]

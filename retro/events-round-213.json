@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-10 elicitation 可行性评估——评估完成，暂不实现（round-213，阶段三①，总监 2026-11-27 全量批准阶段三）",
+    "description": "规范取证走国内 SDK 源（@modelcontextprotocol/sdk 1.24.0，官方站直连超时降级记录）：form/url 双模式 + requestedSchema 原语白名单（禁嵌套）+ action 三态（accept/decline/cancel）+ 安全条款（不得收凭据）。三面判定：批准书载体不采纳（瞬态原语 vs 批准书持久化工件 + sha256 绑定 + 两人规则，结构性冲突）；防呆面有条件采纳（能力探测+回退）但暂缓（客户端支持面未验证）；URL 批准页不采纳。验收口径=评估提案本身（吸收列表原文）。",
+    "countermeasure": "reports/ab10-elicitation-r213.md；设计面备档（能力探测+回退防呆面），客户端支持面成熟后可落地。",
+    "source": "round-213"
+  }
+]

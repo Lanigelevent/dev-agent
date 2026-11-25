@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "category": "误报",
+      "description": "requests 的 pickle 命中是方向伪影（修复新增的代码形态被记为抓住 bug）",
+      "root_cause": "run-samples 正向 diff 扫修复后代码",
+      "countermeasure": "方向契约测试（TestRealCorpusChain）永久锁定；失败案例 8b26199b0a71 已归档"
+    },
+    {
+      "category": "手工",
+      "description": "urllib3 的 cred-password 命中因 snippet 脱敏丢失第二个 gt 标识符而无法 ground",
+      "root_cause": "脱敏（产品红线）与判分标识符重合的固有张力",
+      "countermeasure": "接受该折衷并在报告局限声明；不为指标好看而放宽脱敏"
+    }
+  ]
+}

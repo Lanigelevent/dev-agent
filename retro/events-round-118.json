@@ -1,0 +1,32 @@
+[
+  {
+    "type": "feature",
+    "title": "round-118：安全加固批次——SSRF/注入/协议口径（v2.19.0）",
+    "description": "llm/provider.py：重定向逐跳复验（_SSRFRedirectHandler 对 302 跳逐跳重跑白名单+ipaddress 保留段复核，违规跳抛 _SSRFRejected 不跟进不重试）、DNS 解析逐 IP 复核（resolve=True，解析失败不误报）、响应体分块读取封顶 MAX_RESPONSE_BYTES=4MB、IPv6 映射 IPv4 漏网形态由 ipaddress 字面量兜底；github-poster.py：内网/保留段默认拒绝（ipaddress 三判+ .internal/.local 域名），局域网自建端点须 EXTRA_ALLOWED_HOSTS 显式登记；.github/workflows/review.yml：${{ }} 表达式一律经 env 中转（base_ref 构造 REVIEW_RANGE 与 --repo 本轮补漏，REQUEST/PR_NUMBER 为前批修复），tests/test_workflow_injection.py 静态锁死（含反向验证）；mcp/review_mcp.py：协议版本 2024-11-05→2025-06-18 + 12 工具 annotations（readOnlyHint/destructiveHint/openWorldHint）；doc-structure.py：invalid escape 改 raw string（表格转义竖线 绿/红两契约锁定）",
+    "outcome": "done"
+  },
+  {
+    "type": "feature",
+    "title": "round-118：OTel GenAI 语义约定对齐——trace.py gen_ai.* 双写（B1-06）",
+    "description": "step=llm 的 span 携带 gen_ai.system / gen_ai.request.model / gen_ai.usage.input_tokens / gen_ai.usage.output_tokens 四键（值未知为 null，键必须在）；旧字段原样保留一版本（双写过渡，消费方不断裂）；span_name 按 OTel GenAI 命名映射（llm→execute_agent_task，parse/edit/test/search/list→execute_tool，其余退回原名）；loop.py 注入 gen_ai_system=provider.select()；契约由 tests/test_trace_genai_contract.py 锁定（7 例）",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "round-118：round-65 环境坑代码锚点（B1-02）——env 哨兵 + _pid_alive 显式编码",
+    "description": "tests/test_live_sample.py::_pid_alive 的 tasklist 子进程补 encoding=mbcs errors=replace（PEP 686，PYTHONUTF8=1 下不再严格解码崩溃）；新增 tests/test_env_guard.py 模块级哨兵（非默认 PYTHONUTF8/PYTHONIOENCODING 组合向 stderr 警告 + 判定用例）；pitfalls.json 8cfbcaf7d227 countermeasure 增补代码锚点",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "round-118：provider SSRF 加固补契约——tests/test_provider_ssrf.py（+20 例）",
+    "description": "上一交接点 provider 加固零直接测试，本轮补齐：_endpoint_error（公网放行/回环豁免/IP 字面量/IPv6 映射/.internal/DNS 打桩三态）、_SSRFRedirectHandler（302 跳内网拒/公网放行/幂等 opener）、_read_capped（超限止读）、_openai_complete 端点闸（内网 BASE_URL 在联网前被拦，urlopen 不被调用）；全部离线打桩，不触网",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-118：round-gate close 前置项——retro 产物/ROADMAP-HISTORY/next-round/PROGRESS/双跑日志",
+    "description": "close 闸要求 retro/round-118-report.md + candidates.md + events-round-118.json、next-round.md 顶行收官块、ROADMAP-HISTORY §5.76、logs/suite-r118-run1/2.log 两跑同绿同数（688）；文档计数（663 项为上一交接点乐观值，实测 discover 665→本轮补测后 688）已校准",
+    "outcome": "done"
+  }
+]

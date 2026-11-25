@@ -1,0 +1,209 @@
+{
+  "version": "v1.49.0",
+  "created": "2026-10-28",
+  "benchmark": "SWE-bench-Live lite（300 例，全部 pytest）",
+  "source": {
+    "dataset": "SWE-bench-Live/SWE-bench-Live",
+    "revision": "b51a86422e10cfd403beb4773e5a2947953e36ec",
+    "file": "data/lite-00000-of-00001.parquet",
+    "bytes": 14442471,
+    "sha256": "7ee0a75c41bfc954fd441b67ce738fc5c1cbae00721c4e30e7db4d893057c9ab",
+    "mirror": "hf-mirror.com（国内镜像优先，硬约束 8）"
+  },
+  "selection_rule": "lite 全集 300 例均为 pytest；按仓库分组，仓库按(实例数降序,名称升序)轮转各取一例，取前 10 个不同仓库；仓库内按 instance_id 升序取首例。确定性可复算。",
+  "environment": {
+    "images": "无预构建镜像：需按 repo/base_commit clone 后按 test_cmds 建环境（比 Pro 重，阶段一先做 10 例试点）"
+  },
+  "contamination_note": "Live 每月更新、时间切分抗污染（自报）；本项目只报自有实跑样本。",
+  "harness_feasibility": {
+    "report": "reports/swebench/live-harness-validation-2026-10-28.md",
+    "instance_id": "urllib3__urllib3-3527（非基线样本）",
+    "source": "gitee mirrors/urllib3 本地缓存 + git worktree 检出 base_commit；零外网源码下载",
+    "baseline": "仅应用 test_patch：3 个 F2P 全失败",
+    "gold": "test_patch + gold patch：3 个 F2P 全通过",
+    "caliber": "环境可行性探针；未跑 1,816 个 P2P，不折算基线通过率，基线 10 条仍 not_run"
+  },
+  "status": "not_run",
+  "instances": [
+    {
+      "instance_id": "conan-io__conan-17092",
+      "repo": "conan-io/conan",
+      "base_commit": "f31647f3ef2feaabc91b2875d540ae48d2a4a4c8",
+      "language": "python",
+      "test_cmds": [
+        "python -m pytest . -rA"
+      ],
+      "difficulty": {
+        "files": 2,
+        "hunks": 9,
+        "lines": 41
+      },
+      "fail_to_pass_count": 6,
+      "pass_to_pass_count": 4032,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "aws-cloudformation__cfn-lint-3749",
+      "repo": "aws-cloudformation/cfn-lint",
+      "base_commit": "07652d4a4133e825aeeb09973398575b25713c82",
+      "language": "python",
+      "test_cmds": [
+        "pytest -rA"
+      ],
+      "difficulty": {
+        "files": 1,
+        "hunks": 3,
+        "lines": 11
+      },
+      "fail_to_pass_count": 3,
+      "pass_to_pass_count": 1223,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "deepset-ai__haystack-8489",
+      "repo": "deepset-ai/haystack",
+      "base_commit": "906177329bcc54f6946af361fcd3d0e334e6ce5f",
+      "language": "python",
+      "test_cmds": [
+        "hatch run test:unit -rA -vv"
+      ],
+      "difficulty": {
+        "files": 6,
+        "hunks": 11,
+        "lines": 45
+      },
+      "fail_to_pass_count": 4,
+      "pass_to_pass_count": 1547,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-28933",
+      "repo": "matplotlib/matplotlib",
+      "base_commit": "cf84d9a6410dec07f57916905c9f54bf00d22b2e",
+      "language": "python",
+      "test_cmds": [
+        "pytest -rA"
+      ],
+      "difficulty": {
+        "files": 3,
+        "hunks": 4,
+        "lines": 41
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 8227,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "reflex-dev__reflex-4087",
+      "repo": "reflex-dev/reflex",
+      "base_commit": "bec73109d60c08f0e27d407858f8048b2d5c354c",
+      "language": "python",
+      "test_cmds": [
+        "poetry run pytest -rA"
+      ],
+      "difficulty": {
+        "files": 1,
+        "hunks": 1,
+        "lines": 4
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 2624,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instructlab__instructlab-2526",
+      "repo": "instructlab/instructlab",
+      "base_commit": "22b88e7d3866ca5410bb2ecfd3081486d0566dc5",
+      "language": "python",
+      "test_cmds": [
+        "pytest -rA"
+      ],
+      "difficulty": {
+        "files": 1,
+        "hunks": 1,
+        "lines": 2
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 192,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "run-llama__llama_deploy-330",
+      "repo": "run-llama/llama_deploy",
+      "base_commit": "73ea5949bbb8e99bacd16d1cada2a444861a9cfa",
+      "language": "python",
+      "test_cmds": [
+        "poetry run pytest -rA"
+      ],
+      "difficulty": {
+        "files": 5,
+        "hunks": 17,
+        "lines": 128
+      },
+      "fail_to_pass_count": 2,
+      "pass_to_pass_count": 117,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "keras-team__keras-20389",
+      "repo": "keras-team/keras",
+      "base_commit": "c31fad7b695faad63108c39bd008da9681bd8183",
+      "language": "python",
+      "test_cmds": [
+        "pytest keras --ignore keras/src/applications -rA"
+      ],
+      "difficulty": {
+        "files": 1,
+        "hunks": 1,
+        "lines": 2
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 7686,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "pdm-project__pdm-3237",
+      "repo": "pdm-project/pdm",
+      "base_commit": "fba5a6a65c37c2b9307c4d6c8ce3aacf7abb7c92",
+      "language": "python",
+      "test_cmds": [
+        "pdm run pytest -rA"
+      ],
+      "difficulty": {
+        "files": 2,
+        "hunks": 5,
+        "lines": 75
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 914,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "pvlib__pvlib-python-2249",
+      "repo": "pvlib/pvlib-python",
+      "base_commit": "38eb89e5a9ac3b61ca71834a3e92af7dd51e03f5",
+      "language": "python",
+      "test_cmds": [
+        "pytest -rA pvlib --ignore=pvlib/tests/iotools"
+      ],
+      "difficulty": {
+        "files": 2,
+        "hunks": 3,
+        "lines": 13
+      },
+      "fail_to_pass_count": 7,
+      "pass_to_pass_count": 1177,
+      "status": "not_run",
+      "resolved": null
+    }
+  ]
+}

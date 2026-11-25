@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-133：全局口径一致性收尾（方向①）——前向口径 6 项 + 占位 5 处 + 勘误 4 处修正",
+      "description": "SWRBench host arm 叙事闭环后的全局扫描：README 0.42% 引用统一到 v2.34.0；PROGRESS/下轮检查单/README 对齐「round-132 已跑毕（host-unavailable）」；TIMES 占位 5 处填真值；ROADMAP-HISTORY §5.90 n=100→n=80 勘误入册；swr-r131-batch1.md 补勘误块；BASELINE-HISTORY/PROGRESS 双跑链补齐 round-129..132；坑台账单元格 open 8→0 / closed 209→217 修齐；不动历史账本行与冻结 round 报告。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-133：不动代码、不动口径系数、不重写历史——只收束前向口径",
+      "description": "范围约束：不改 713 契约、83 脚本、38 硬规则、0.42% 口径；历史 events/reports/PROGRESS §3/§4/BASELINE-HISTORY≤1930 原文保留，仅前向快照与占位填充、带标记勘误。",
+      "outcome": "done"
+    }
+  ]
+}

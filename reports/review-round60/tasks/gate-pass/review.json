@@ -1,0 +1,51 @@
+{
+  "schema": "review-loop/1",
+  "decision": "PASS",
+  "threshold": 0.5,
+  "files": [
+    {
+      "path": "pkg/agg.py",
+      "added_lines": 5
+    }
+  ],
+  "reviewers": {
+    "self": {
+      "status": "ok",
+      "findings": []
+    },
+    "ruff": {
+      "status": "ok",
+      "findings": [],
+      "note": "ruff rc=0，0 条"
+    },
+    "astgrep": {
+      "status": "ok",
+      "findings": [],
+      "note": "扫描 1 文件，0 条"
+    }
+  },
+  "external_status": [
+    {
+      "name": "ruff",
+      "status": "ok",
+      "note": "ruff rc=0，0 条"
+    },
+    {
+      "name": "astgrep",
+      "status": "ok",
+      "note": "扫描 1 文件，0 条"
+    }
+  ],
+  "coverage": null,
+  "metrics": {
+    "matched": 0,
+    "union": 0,
+    "diff_rate": 0.0
+  },
+  "high_findings": [],
+  "external_only": [],
+  "self_only": [],
+  "self_findings": [],
+  "external_findings": [],
+  "reasons": []
+}

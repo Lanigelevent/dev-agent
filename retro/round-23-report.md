@@ -1,0 +1,21 @@
+# 复盘轮报 round-23
+
+open 2 / closed 67
+
+## 分类统计
+
+- 手工：61
+- 行为回归：3
+- 误报：3
+- 补丁返工：2
+
+## 未结坑明细
+
+| ID | 类别 | 坑 | 根因 | 对策 | 来源 |
+|---|---|---|---|---|---|
+| 04b97450c2ff | 手工 | astropy-14365（QDP 命令大小写不敏感）第三版仍 unresolved：命令段已大小写无关（该文件 8/9 | issue 只提了命令，但格式语义是整体的；上游期望（写回路径的大小写、roun | 按检查单建议再试一版（整条 _type_re 用 re.IGNORECASE 编 | retro/events-round-20.json |
+| fdded6c00ace | 手工 | 两个会话共用同一个 imagecache 目录时，逐层下载器在 Windows 上撞文件锁：matplotlib-228 | scripts/docker-image-fetch.py 的续传工作文件（<h | 本轮不改下载器（并行会话正在使用它，改动风险大于收益），改用**进程私有缓存目录 | retro/events-round-23.json |
+
+## 改进候选（按 权重×数量 排序）
+
+- **手工：2 个未结坑** — 纳入下一轮改进候选，明确责任与验收口径

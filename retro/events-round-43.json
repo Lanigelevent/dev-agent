@@ -1,0 +1,79 @@
+[
+  {
+    "category": "手工",
+    "description": "【能力】ast-grep 规则集 6→29 条（安全 / 代码质量 / 类型卫生三族，JS/TS + Python 跨语言）；js-implicit-global 因误报率过高下线；单次扫描超时 300→30 秒防挂死；矩阵重生成 29 规则 / 2 可修复 / 2 safe；质量夹具改为 9 条规则全命中",
+    "source": "engines/astgrep_adapter.py BUILTIN_RULES=29；engines/astgrep-matrix.json；tests/test_engines.py TestAstgrepAdapter / TestAstgrepEngineChain；tests/fixtures/astgrep-quality/problem-quality.js"
+  },
+  {
+    "category": "手工",
+    "description": "【能力】上下文工程四件套（v1.43.0）：材料稳定前缀 + 动态后缀（prompt caching）、工具输出超 20000 字符/500 行外置 tool-outputs/、history 超 280K tokens 等效字符压缩旧条目（保留最近 12 条）、agent/trace.py JSONL 埋点（Langfuse 兼容三键）",
+    "source": "agent/code-task.py MAX_INLINE_CHARS / COMPRESS_TRIGGER_CHARS / KEEP_RECENT_ENTRIES；agent/trace.py；tests/test_agent.py TestContextBudget 5 例 / TestTracer 2 例"
+  },
+  {
+    "category": "手工",
+    "description": "【能力】记忆层（v1.44.0）：memory_retrieval.py（TF-IDF + cosine，top-k/max-chars）把历史相似案例注入编码材料（≤2000 字符）；compact-memory.py 相似度聚类合并 + 冷记忆老化；编码循环记忆读写均默认关闭（--memory-file / CRA_MEMORY_FILE 显式开启），测试与临时任务不污染长期记忆",
+    "source": "skills/retro/scripts/memory_retrieval.py、compact-memory.py；agent/code-task.py _retro_few_shot / _write_memory；tests/test_retro.py TestMemoryRetrieval 6 例 / TestCompactMemory 5 例；tests/test_agent.py TestMemoryFewShot / TestMemoryWriteIntegration"
+  },
+  {
+    "category": "手工",
+    "description": "【能力】流式进度帧（v1.44.0）：code-task 每轮向 stderr 输出单行 JSON（round_start / llm_call_start / parsed），stdout 主输出仍是单个 JSON 文档；帧事件序列有契约断言",
+    "source": "agent/code-task.py _progress_frame；tests/test_agent.py TestProgressFrameConsumer（stderr 隔离 + 事件序列）"
+  },
+  {
+    "category": "手工",
+    "description": "【能力】DeepSWE 基准接入（v1.44.0）：deepswe-fetch.py 把 Harbor 格式 113 任务（5 语言）解析成 JSONL 索引（ModelScope 国内源优先）；deepswe-sample.py 串起 clone→checkout→code-task→Docker 验证→台账，--registry-mirror / --pull-timeout 遵守硬约束 8；基线 reports/deepswe/baseline-v1.44.0.json（20 个 Python 任务 / 10 个回归 ID，status=not_run 待首次实跑）；gate 语料不入库，测试在语料缺失时 skip 并标注原因",
+    "source": "skills/eval-harness/scripts/deepswe-fetch.py、deepswe-sample.py；reports/deepswe/baseline-v1.44.0.json；tests/test_gold_sample.py TestDeepSWE；tests/test_scripts.py 两个退出码契约；.gitignore 新增 skills/eval-harness/data/"
+  },
+  {
+    "category": "手工",
+    "description": "【修复】compact-memory.py 三缺陷：①main() 返回值被 `if __name__` 丢弃，任何失败都 exit 0（违反退出码契约）；②输入文件缺失直接 traceback；③stdout/stderr 未 reconfigure，GBK 控制台下中文乱码——统一修复并补 GBK 契约测试",
+    "root_cause": "脚本按函数式写 main() 但入口没 sys.exit(main())；stdout 编码契约只在新脚本上补了一半",
+    "countermeasure": "入口改 sys.exit(main())；缺输入输出 JSON error + exit 2；stdout/stderr reconfigure UTF-8；PYTHONIOENCODING=gbk 契约断言中文不丢",
+    "source": "skills/retro/scripts/compact-memory.py；tests/test_retro.py test_output_is_utf8_under_gbk_stdio / test_compact_missing_input_exit_2"
+  },
+  {
+    "category": "手工",
+    "description": "【修复】记忆条目记录 trace_file 指向 Tracer 从不创建的路径（out/traces/round-NNN.jsonl），等于伪造证据链——改为 Tracer 实例的真实 path，集成测试断言该文件存在",
+    "root_cause": "写记忆时凭想象拼 trace 路径，没核对 Tracer 的落盘位置",
+    "countermeasure": "trace_file 直接取 tracer.path；TestMemoryWriteIntegration 断言 Path(entry[\"trace_file\"]).is_file()",
+    "source": "agent/code-task.py _write_memory(trace_file=tracer.path)；tests/test_agent.py TestMemoryWriteIntegration"
+  },
+  {
+    "category": "手工",
+    "description": "【修复】_truncate_for_history 行数判据差一：500 个换行是 501 行，旧条件按 count(\"\\n\")≤500 判仍内联，外置阈值形同虚设——改用 len(splitlines())≤500",
+    "root_cause": "把换行数当行数用（末行无换行时差 1）",
+    "countermeasure": "splitlines() 计数 + 501 行边界契约（TestContextBudget 覆盖小文本内联 / 大文本外置 / 多行外置）",
+    "source": "agent/code-task.py _truncate_for_history；tests/test_agent.py TestContextBudget"
+  },
+  {
+    "category": "手工",
+    "description": "【修复】deepswe-sample.py 三缺陷：①to_docker_path 永不命中 Windows 盘符（输入已斜杠化后仍按反斜杠匹配）→ 改判 norm[1]==\":\" 形态；②docstring 里写 Windows 路径触发 unicodeescape SyntaxError（\\x 截断）→ 改写措辞；③JSONL 缺 id / 坏行被静默跳过 → 显式校验 + exit 2",
+    "root_cause": "路径规范化顺序与匹配条件不一致；docstring 反斜杠转义；解析层把坏输入当空输入",
+    "countermeasure": "to_docker_path 按已规范化形态判盘符；docstring 不写裸反斜杠路径；_load_tasks 校验 id 并报错；错误注入契约 test_deepswe_sample_malformed_jsonl_exit_2 / test_deepswe_sample_failure_exit_1",
+    "source": "skills/eval-harness/scripts/deepswe-sample.py；tests/test_scripts.py 两个 DeepSWE 退出码契约"
+  },
+  {
+    "category": "手工",
+    "description": "【口径】版本与计数全量传播：版本 1.42.0→1.44.0（plugin/pyproject/MCP 三处一致），测试 370→398，ast-grep 6→29 规则，DeepSWE 基线改名 v1.44.0；README/DEVELOPMENT/AGENTS 同步，doc-freshness drift_count=0",
+    "source": "README.md；docs/DEVELOPMENT.md；AGENTS.md；.zcode-plugin/plugin.json；pyproject.toml；mcp/review_mcp.py；reports/deepswe/baseline-v1.44.0.json；skills/self-iteration/scripts/doc-freshness.py --root ."
+  },
+  {
+    "category": "手工",
+    "description": "【运维】工作区清理：30 个一次性脚本 + 4 个被测试灌入假路径的记忆/测试 JSONL 移出仓库（Temp/dev-agent-round43-oneoff/，可恢复不删除）；gate 语料（skills/eval-harness/data/）与运行时记忆（retro/agent-memory.jsonl）加入 .gitignore",
+    "source": "git status 清点；<user-home>/AppData/Local/Temp/dev-agent-round43-oneoff/；.gitignore"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】台账与预算口径漂移两周未发现：README 状态行写「迭代官未结坑 0/8、0 处 WARN、无整队冻结」，而 org-scorecard 实算 open 30/8 = EXCEEDED（freeze_teams=[retro]）；同期 round-37..42 事件自称「README/DEVELOPMENT/BASELINE」已传播，但 git 历史显示 BASELINE.md 自 round-36（29d3e41）起未改动",
+    "root_cause": "状态行与沿革靠手工抄写；doc-freshness 只扫 README/AGENTS/DEVELOPMENT 且不核对预算值，也不扫 BASELINE，于是漏更不可见",
+    "countermeasure": "本轮如实改报 EXCEEDED 并补 BASELINE v1.38–v1.44 沿革；next-round 增「台账清理至 open≤8」为冻结期首要项；「预算数值由 scorecard 生成而非手抄」列入改进候选（属行为级优化，需总监批准，本轮不动脚本）",
+    "source": "skills/director/scripts/org-scorecard.py 实跑；git log -- BASELINE.md；README 状态行"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】TF-IDF 记忆检索对共享通用词（fix / task / code）不设相似度阈值，任意共享 token 即得分>0 并进 top-k——测试里 query「fix ...」把无关条目「typo fix」召进 few-shot；当前以 top-k=3 + max-chars=2000 限流，未加最小分阈值",
+    "root_cause": "检索层只排序不过滤（scored 收集 score>0）；few-shot 注入宽容策略下未定阈值口径",
+    "countermeasure": "本轮用测试数据隔离（不相干条目不含共享词）并把该局限记入台账；后续按真实记忆库样本定阈值（先看数字再改代码），不拍脑袋加 0.2",
+    "source": "skills/retro/scripts/memory_retrieval.py retrieve()；tests/test_agent.py TestMemoryFewShot 测试数据调整"
+  }
+]

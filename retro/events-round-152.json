@@ -1,0 +1,14 @@
+[
+  {
+    "type": "pitfall",
+    "title": "release-gate 解析器补丁无契约（红线 6 自我违例，round-152 清偿）",
+    "description": "r141 收官时为 release-gate._parse_suite 打 pytest 双格式补丁未带契约——检查器反向验证红线在自己手里被绕过；+6 契约清偿（双格式/ran 含 skipped/未知格式/分支互斥）。",
+    "outcome": "pitfall"
+  },
+  {
+    "type": "confirmation",
+    "title": "二轮审查 F2/F4/F6 候选登记（round-152）",
+    "description": "F2 Gitea CI 死配置（GitHub workflows 不在 Gitea 运行，Scorecard CI-Tests 自评修正）；F4 event-ledger 哈希链未接轮流程（结构改造候选）；F6 覆盖基线 76.1% 为 r138 时点（重测候选）。",
+    "outcome": "done"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "report-adapter 深化：runner/MCP 接线 + spec 枚举校验",
+    "description": "runner --report-style 透传（双闸通过后 step10 生成 report-<style>.md 变体，适配失败 fail-soft 降级不阻断交付）；MCP code_review_run 增可选 report_style 参数（向后兼容，BASELINE 必填路径不变）；adapter _validate_spec 加载期拒绝非法枚举（detail_level/audience/industry/min_severity）与非正整数 max_findings。"
+  },
+  {
+    "type": "test",
+    "title": "r105 契约 +5（枚举 rc2/max rc2/合法枚举 ok/runner 接线/MCP schema）",
+    "description": "tests/test_report_adapter.py 12 项全绿；adapter 子进程两臂冒烟（executive rc=0、坏 preset rc=2 走降级臂）；核实 runner _run_json 显式 UTF-8 解码（真实链路无 GBK 风险）。"
+  }
+]

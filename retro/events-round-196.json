@@ -1,0 +1,11 @@
+[
+  {
+    "type": "correction",
+    "title": "self-check.yml 预存 YAML 缺陷——多行双引号标量内嵌换行致整个 workflow 解析失败（pushes 恢复后 nightly 将全部起不来）",
+    "description": "r196 AB-08 接线前用 PyYAML 校验工作流（接线校验纪律），发现 windows-latest full-suite 步的 run: python -c \"...\" 内嵌裸换行（57-62 行）——HEAD 版本即解析失败。此前长期未推送、nightly 无实跑观察（r157 先例）；r182+ 恢复推送后 nightly 实际会因 workflow 解析失败整体不可执行，无人观察到。review.yml 同检合法。",
+    "root_cause": "YAML 双引号标量跨行时延续行脱离缩进结构（plain scalar 语法被破坏）；写作时未做 YAML 语法校验。",
+    "countermeasure": "已落地：改为块标量（run: |）+ 单引号 shell 字符串内嵌换行，PyYAML 校验两 workflow 全部合法；AB-08 接线校验步固化——今后 workflow 改动必须先过 PyYAML 解析再提交。",
+    "source": "round-196",
+    "confidence": "observed"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "category": "手工",
+    "description": "镜像源判定被 manifest 掩蔽：用 docker manifest inspect 探到 1ms.run 上 7 个 swebench 预构建镜像 manifest 全命中就判可用，docker pull 挂 10 分钟无进展（假启动）——blob 段实测 307→CDN 仅 0.1MB/s（8MB 需 30s+）",
+    "root_cause": "manifest 由代理本体快速返回，blob 经 307 跳转的 CDN 才是真实瓶颈；manifest 可达 ≠ 镜像可拉",
+    "countermeasure": "镜像源判定一律跑 scripts/docker-mirror-probe.py（blob 段实测 + phase 分段死因，本轮已增 phase 字段并补 5 项离线反向验证）；agent/swe-workflow.md 路线 5 成文实测口径",
+    "source": "retro/events-round-gold6.json"
+  },
+  {
+    "category": "手工",
+    "description": "Phase 3B 扩样三路由实测全阻：① swe-bench-tasks 任务仓（github 直连 21s 连接失败、gitee mirrors 401 要认证、gitclone/ghfast 死、容器内同断）② auth.docker.io token 15s 超时 ③ 预构建镜像 blob CDN 0.1MB/s 且 8 源探针全 unusable",
+    "root_cause": "本机网络窗口对 github/dockerhub 生态整体不可达（round-5 已有先例，本轮三协议实测坐实）",
+    "countermeasure": "扩样材料已备齐待窗口：datasets/swebench/lite-test-image-map.csv（300 实例→镜像映射）+ predictions-gold6.jsonl（6 实例 gold 预测）+ swe_run.py 四阶段就绪；网络窗口恢复后按 swe-workflow.md 路线 5 或 prepare/build 路线执行",
+    "source": "retro/events-round-gold6.json"
+  }
+]

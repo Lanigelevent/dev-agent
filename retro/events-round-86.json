@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "title": "P1-3 code-task.py 拆分：2,388→78 行薄入口 + agent/code_task/ 11 模块包",
+    "description": "protocol/materials/candidates/state/search/testrun/selfcheck/review_gate/tools/loop 分解，行为字节级不变；CLI 契约与对外符号再导出保留；monkeypatch 目标随迁（test_agent 4 处 + materials/selfcheck 迁移）。"
+  },
+  {
+    "type": "feature",
+    "title": "P1-5 bump-version.py 产品化 + dogfood",
+    "description": "六处版本真值 + 可选计数同步（技能/脚本/契约，历史标记逐处豁免与 F5 同口径）；两阶段落盘、校验失败零写入；契约 +8（tests/test_bump_version.py）；本轮 1.87.0 提升即由其单命令完成（559/77 同步）。"
+  },
+  {
+    "type": "feature",
+    "title": "P1-4 文档分卷 + P1-6/P2-9 条款 + P2-7 D-049 提案",
+    "description": "BASELINE 沿革卷 docs/BASELINE-HISTORY.md（1,530 行）分离、release-gate 兼容回退；README 状态行 20,201→943 字符；PROGRESS 巨石单元格收敛；ROADMAP 去重 1,681→1,192 行；依赖刷新每 10 轮纪律（round-90 首跑）；setup_cmds 信任边界条款；D-049 分层套件提案待总监裁决。"
+  }
+]

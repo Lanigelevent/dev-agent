@@ -1,0 +1,18 @@
+[
+ {
+  "type": "doc",
+  "title": "AB-11 影子 git 检查点——编码循环持久多检查点（round-202，路线图阶段二③）",
+  "description": "落地：①agent/shadow_git.py（第 88 模块）：ShadowGit 类 snapshot/rollback/checkpoints——独立 shadow git 目录（git --git-dir + --work-tree）与用户 .git 解耦，fix 每轮开始全树快照（label=round-N）；②code-task 接线：--shadow-checkpoints（on/off，仅 local 档生效）+ --rollback-to <label>（还原 worktree 后退出，失败运行可回任意轮起点）。与 tools._snapshot_paths/_restore_paths 互补：后者=本轮触及文件内存级精确回滚，本模块=全树持久历史+审计（不重复）。",
+  "countermeasure": "设计修正：影子目录缺省放 worktree 兄弟目录（放里面会以 ?? 目录污染用户 git status——解耦承诺自破，解耦契约测试实证）；与既有单批回滚机制分层共存。验收=构造破坏（改+删+新增）回滚全树还原实证 + 用户 HEAD/status 解耦契约。",
+  "source": "round-202"
+ },
+ {
+  "type": "correction",
+  "title": "影子快照在 code-task 子进程上下文被 bare 判定——机制未决，缺省 off（r202）",
+  "description": "shadow snapshot 的 git add -A 在 code-task 子进程上下文稳定报 'fatal: this operation must be run in a work tree'（round2 fix 实弹；GIT_DIR/GIT_WORK_TREE 均 None）；同命令在独立复现脚本（链接 worktree 与常规仓两形态）与 shadow 单测均通过。已试：core.bare=false + core.worktree 显式钉 + cwd 锚定——co-run 仍失败（防护保留无害）。仓库外无法复现 → 需上游补研（git worktree + 独立 --git-dir 的判定序）。",
+  "root_cause": "code-task 子进程上下文中 shadow 仓库被 git 判为 bare——机制未决（环境差异在子进程内，外部不可复现）。",
+  "countermeasure": "缺省 off（显式 --shadow-checkpoints on 启用）；防护性 config 保留；机制裁决列为上游补研项（git worktree + separate --git-dir 判定序），裁决后再定默认值。",
+  "source": "round-202",
+  "confidence": "observed"
+ }
+]

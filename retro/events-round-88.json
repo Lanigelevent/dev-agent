@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "title": "P2-8 test_scripts.py 巨石拆分（4102 行 → 8 域文件 + 共享夹具单例）",
+    "description": "行区间逐字机械搬移（9 处边界断言 + 全文件 py_compile + discover 计数 585 零丢失）：test_scripts_review/cigates_eval/selfiter/engines/images/gates/corpus/reviewbench 八域 + _scripts_common.py（SCRIPTS/V1-V3/FIXTURE/run/snapshot_repo + ensure_fixture 每进程单例，tearDownModule 有意取消交 tmpspace atexit）。16 个消费模块 import 与模块钩子迁移（setUpModule→ensure_fixture、tearDownModule 删除）。"
+  },
+  {
+    "type": "feature",
+    "title": "拆分暴露三处顺序耦合缺陷，当轮修复",
+    "description": "①tearDownModule 经 from-import * 再导出，unittest 逐模块调用导致共享夹具在模块 1 结束即被释放（首跑冒烟抓到，拆分设计课入 common 注释）；②test_engines.py 孤儿 tearDownModule（setUpModule 形状不同漏改）；③test_scripts_reviewbench 漏标 _git 显式导入。全量单跑 8 failed+13 errors → 逐族归因修复 → 585 项全绿双跑。"
+  },
+  {
+    "type": "feature",
+    "title": "round-gate open 首次实战 + P1-6 条款核读",
+    "description": "round-88 开局门五项一次全 PASS（探针+对账不再手工跑）；P1-6 依赖刷新条款核读：绑定 round-90 专属轮（提前触发仅限依赖兼容阻塞 ④），本轮不越权代跑，纪律优先。"
+  }
+]

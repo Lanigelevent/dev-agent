@@ -1,0 +1,44 @@
+[
+  {
+    "category": "误报",
+    "description": "同一个 tests/test_scripts.py 模块，两次全量跑出不同结论：首轮 TestOptimizations 三例失败（findings_check_stdin / runner_e2e / runner_feedback_loop），复跑与单独跑均 12/12 通过；首轮 feedback_loop 的失败形状是 rc==0 但 findings 里没有 human_review 标记，即「跑通了但结论变少」，不是崩溃",
+    "root_cause": "runner.py 带分钟级评审预算与逐步超时，开局时上一轮残留的后台负载（JVM/Gradle 与并行 pytest）挤压 CPU，预算在维度收束前触顶，编排器按「预算耗尽」正常收束——于是产出更少发现、少标人工复核，退出码仍是 0。时间敏感型的「绿」在负载高的机器上会静默变松，而断言只看有没有标记，看不出被预算截短",
+    "countermeasure": "全量验收固定两条：① 跑之前确认没有并发重负载（后台任务全部先收），② 同一模块至少两次一致才认绿；单次异常先按「是否时间敏感」分类，再用单跑复现判定是偶发还是回归。本轮实测：复跑 1 次全模块 + 单独连跑 3 次 TestOptimizations 全绿，首轮判为负载偶发并记入本条待观察",
+    "source": "round-28 全量复跑"
+  },
+  {
+    "category": "手工",
+    "description": "新增 16 项测试后，门禁 F5（doc-freshness）立刻变红：README 与 docs/DEVELOPMENT.md 仍写「契约测试 232 项」，而实测采集数已是 248——四处引用同一数字、只有一处会先被想到",
+    "root_cause": "测试计数是共享事实源的多处引用，加测试的动作与改文档的动作不在同一次编辑里；F5 门禁的设计就是把这类漂移在提交前拦住（真缺陷，不是门禁误报）",
+    "countermeasure": "「谁改计数谁全量传播」：同一轮里改完代码就同步 README 状态行 / 目录说明 / 运行方式三处 + DEVELOPMENT.md 两处，并复跑 doc-freshness --root . 直到 0 drift 才算绿；不要把同步留给下一轮",
+    "source": "round-28 doc-freshness 实跑"
+  },
+  {
+    "category": "手工",
+    "description": "行为探针（模型给代码、编码循环在容器/工作树里跑并回读观测）本质是「扩大权限」的动作：把它直接写进动作面，等于默认允许执行模型写的代码",
+    "root_cause": "能力面的默认值就是权限的默认值；探针模板若常驻提示词，模型会在没被授权的场景里主动用它，而「读对象状态」这件事在只读评审语境下是不可接受的副作用面",
+    "countermeasure": "探针只在显式开关（--allow-probe）下出现在动作面与系统提示词里；默认面不变。反向验证入测试：未带开关时探针动作被拒（test_probe_denied_without_flag），带开关时观测原样回传（test_probe_runs_and_observation_returns），两条锁住开关的两侧",
+    "source": "round-28 检查单第 3 项落地"
+  },
+  {
+    "category": "手工",
+    "description": "本轮把 round-27 遗留的「产补丁后立刻校验」做成闸门时，发现只校验「补丁非空 + 关键行在补丁里」不够：非 ASCII 的补丁（中文 docstring 落盘被编码破坏）同样会以「补丁看起来正常」的形态进入评测，而它坏在语法层，报错点是 EVAL_FAILED",
+    "root_cause": "补丁的三个失败模式（空补丁 / 编辑未命中 / 编码破坏）来自不同层，若闸门只盯一层，另外两层照样静默通过；而收集器会回退评上一版补丁，把「这一版没产出」伪装成「评过了」",
+    "countermeasure": "每次产补丁都过三查（非空、逐处编辑的新增行命中、新增行纯 ASCII），拒绝原因码分类返回（empty_patch / edit_not_matched / non_ascii）并在 deliver 前拦截；同时 agent-sample 收集器给每个实例记录来源（provenance），新版补丁为空时打 stale_patch 标记、把 patch_validation 结论一并带出，评测不再静默跑旧补丁",
+    "source": "round-28 检查单第 7/9 项落地"
+  },
+  {
+    "category": "行为回归",
+    "description": "跑 retro-report.py --round 28 之后，retro/next-round.md 从 46 行的人工检查单变成 5 行骨架：脚本按「open 坑的类别 → CATEGORY_SUGGESTION」生成，每条只有一行类别建议，上一轮那条「样本 n=20、17 resolved / 三个未过实例逐例判定」这类带口径与来源的正文全部丢失",
+    "root_cause": "next-round.md 有两个写入者：retro-report.py 每次重写（机器口径），会话末尾人工增补（带证据、来源产物与验收口径的详版）。脚本不读回既有文件，因此人工内容不是「合并」而是被覆盖；台账只存 description/root_cause/countermeasure 三字段，渲染时不可能还原人工段",
+    "countermeasure": "把顺序固定成「先机器后人工」：跑 report 前不需要备份，跑完立刻用 git 还原上一版再手工改（本轮实测 `git checkout -- retro/next-round.md` 可完全恢复，因为上一版已提交）；新脚本产出的骨架只当候选清单参考，检查单正文归人工维护。下一轮若要根治，改 report 只在 next-round.md 不存在时落笔，或把它写成 round-<N>-candidates.md，不与人工检查单同名",
+    "source": "round-28 复盘动作实跑"
+  },
+  {
+    "category": "误报",
+    "description": "全量套件用全局 python（3.14）跑时出现 14 例 ERROR，全部指向本轮新加的编码循环测试（TestRepoMapCandidates / TestPatchSelfCheck / TestSiblingTestMapping / TestPatchInstantValidation 等），看起来像「新代码炸了」；换 `.venv/Scripts/python.exe`（3.12）复跑后 14 例全绿，只剩 1 例文档计数漂移",
+    "root_cause": "`tests/test_agent.py` 会 import 引擎层 `agent/repo_map.py`，后者模块级 `import tree_sitter_python`——引擎层白名单依赖只装在项目 `.venv`（分层依赖契约），全局解释器没有。文档只写了「引擎与编码循环脚本用 .venv」，全量测试这条命令却写成裸 `python`，而测试恰好横跨两层，解释器选择没有唯一答案",
+    "countermeasure": "把解释器写进命令本体而不是脚注：README §八 与 docs/DEVELOPMENT.md §1/§7 的全量测试命令改成 `.venv/Scripts/python -m unittest discover -s tests`，BASELINE「测试预算」加一条解释器契约并点名这次的假警报形状（14 例 ModuleNotFoundError ≠ 代码回归）。判定顺序固定：全量出现成簇 ERROR 先查解释器与依赖，再怀疑代码",
+    "source": "round-28 全量复跑（全局 python vs .venv）"
+  }
+]

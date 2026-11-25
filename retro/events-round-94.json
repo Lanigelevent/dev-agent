@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "D-045 扩样真连跑（宿主会话模型轴）：2 判 f2p_passed + 1 env_blocked",
+    "description": "总监派工「由会话模型作为后端替代扩样」。gate-r94 批次（seaborn-2848/flask-4045/requests-1963，三新仓零重叠、选法确定性）；gitee 3/3 取源无降级；era 环境适配表增补（seaborn mpl3.8.4 pin / flask werkzeug2.0.3+pytest7.4.4+-p no:warnings）；host 协议逐跳编码循环：seaborn 3 跳收敛（v2 修法=to_rgba_array 归一保行对齐零色填充）F2P 1/1、flask 2 hunk（assert→ValueError + __init__ 名检查）F2P 2/2；requests py2 vendored 布局 env_blocked 不补位。零反馈口径累计 3/7（partial 单列不折算）。模型轴=host 会话模型，与 flash/deepseek 端点轴分开记账。"
+  },
+  {
+    "type": "坑",
+    "title": "【坑】git worktree add 相对路径在 -C repo 下解析为 repo 内嵌套路径",
+    "description": "以 git -C <repo> worktree add --detach datasets/...（相对路径）手动补建 loop 的 wt，git 把相对路径解析到 repo 目录内部，产出 repo/datasets/.../wt 嵌套 worktree，loop 自建 wt 时持续 fatal。对策：worktree add 一律用绝对路径（cygpath -w 转换）；清理用 worktree remove --force + prune。根因：git worktree 的路径解析以 -C 指定目录为 cwd，不相对调用方 shell。"
+  }
+]

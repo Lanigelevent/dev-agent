@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-174：MCP 异步作业扩面提案（仅写案，不动代码）",
+      "description": "产物 reports/proposal-mcp-async-ext-r174.md：基于 r170/r171/r172 真作业基线，列三个真实缺口（无取消、budget/config 互斥且无白名单、runs/jobs 留存无界），候选 A 不扩面 / B 取消+配置透传（+1 工具 +5 契约）/ C 再加 purge 留存（+1 工具 +3 契约）；提案人建议分阶段 B→C，各阶段独立双跑/gate/tag；含子进程树终止、pid 复用守卫、purge 三重闸、凭据不经 MCP 参数等安全面与 8 条验收判据。状态=待总监裁决，不构成批准。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-174：开局与版本",
+      "description": "round-gate open --round 174 全 PASS；main 7e6c6fc 与 origin/main 同步；版本保持 v2.74.0 不增（提案轮无代码变更，避免制造 tag 新断档）；key 轮换无新命中。",
+      "outcome": "done"
+    }
+  ]
+}

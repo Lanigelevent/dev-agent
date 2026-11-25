@@ -1,0 +1,11 @@
+[
+  {
+    "type": "correction",
+    "title": "受阻轮补录期间轮询读 stale 日志——「三连判红」误记并一度入档（round-168 自报）",
+    "description": "round-166 双跑受阻期间（2026-11-15 02:48 前后），会话在等待重试窗口时轮询读取了上一次尝试残留的 run2 日志（stale 内容），把「两连红后第三次重试全绿」误记为「三连判红」，并写入 ae89bb4/71c0098 两个提交与 BASELINE-HISTORY，直到第三跑日志以 RUN1_EXIT=0 落盘后才由 d4e5ec5 勘误（BASELINE-HISTORY 同步修正）。同类操作面风险：误把残留日志当作本次重试的判定输入。",
+    "root_cause": "轮询判定输入未校验文件属主与写入完成（无 RUN*_EXIT 尾行即读到半截/残留日志）。",
+    "countermeasure": "已落地：①d4e5ec5 勘误（BASELINE-HISTORY 同步修正，教训注记「重试读日志必须先确认文件属主与写入完成」）；②闸面一律以闸内新鲜读取的日志为准（round-gate/release-gate 在闸执行时解析 RUN*_EXIT 与计数，不信任轮询期中间态）；③本轮（r168）收官行与 PROGRESS 快照以新鲜日志实测时长为准。",
+    "source": "round-168",
+    "confidence": "observed"
+  }
+]

@@ -1,0 +1,73 @@
+{
+  "schema": "review-loop/1",
+  "decision": "PASS",
+  "threshold": 0.5,
+  "files": [
+    {
+      "path": "lib/calc.ts",
+      "added_lines": 2
+    }
+  ],
+  "reviewers": {
+    "self": {
+      "status": "ok",
+      "findings": []
+    },
+    "ruff": {
+      "status": "skipped",
+      "findings": [],
+      "note": "补丁无 Python 文件"
+    },
+    "astgrep": {
+      "status": "ok",
+      "findings": [],
+      "note": "扫描 1 文件，0 条"
+    },
+    "ocr": {
+      "status": "ok",
+      "findings": [],
+      "coverage": {
+        "reviewable": [
+          "lib/calc.ts"
+        ],
+        "missing": [],
+        "note": "OCR delegate 只列文件，不产出发现"
+      }
+    }
+  },
+  "external_status": [
+    {
+      "name": "ruff",
+      "status": "skipped",
+      "note": "补丁无 Python 文件"
+    },
+    {
+      "name": "astgrep",
+      "status": "ok",
+      "note": "扫描 1 文件，0 条"
+    },
+    {
+      "name": "ocr",
+      "status": "ok",
+      "note": ""
+    }
+  ],
+  "coverage": {
+    "reviewable": [
+      "lib/calc.ts"
+    ],
+    "missing": [],
+    "note": "OCR delegate 只列文件，不产出发现"
+  },
+  "metrics": {
+    "matched": 0,
+    "union": 0,
+    "diff_rate": 0.0
+  },
+  "high_findings": [],
+  "external_only": [],
+  "self_only": [],
+  "self_findings": [],
+  "external_findings": [],
+  "reasons": []
+}

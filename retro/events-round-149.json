@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "锁对齐 pytest 9.2.0——override-dependencies 实验成功（round-149）",
+    "description": "[tool.uv] override-dependencies = [pytest>=9] 实验成功：锁干净解出 9.2.0（无冲突；与 floor 实验触发的 semgrep 构建墙对照——override 只改选择不改约束图）；锁与 venv 分歧关闭；ruff 0.17.5 连带刷新，矩阵口径 970/480/250→973/481/251 三处同步；requirements-lock.txt 重导出 hash 演练通过。",
+    "outcome": "done"
+  }
+]

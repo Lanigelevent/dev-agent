@@ -1,0 +1,20 @@
+[
+  {
+    "category": "手工",
+    "description": "评测结果只有计数没有归因：13 例评测的未过实例只显示「F2P 0/1」，看不出是「补丁没应用」「补丁破坏了模块」「补丁搞坏了别的测试」还是「语义没修对」——每次返工都要人去翻日志",
+    "root_cause": "评测链只汇总 F2P/P2P 计数与 resolved 布尔，缺少把「症状」翻译成「下一步动作」的一层",
+    "countermeasure": "agent/swe_run.py 报告阶段新增 diagnose()：按补丁是否应用、有无导入期错误、P2P 是否也失败，判为 PATCH_APPLY_FAILED / PATCH_BROKE_MODULE / REGRESSION / F2P_MISSED / RESOLVED；gold-sample.py 把归因带进台账；契约测试锁定 5 个分桶。应用到已有的 13 例评测后得到关键结论：5 例未过**全部是 F2P_MISSED，零回归、零补丁破坏模块**——agent 的补丁是「安全但语义未对齐」，方向明确"
+  },
+  {
+    "category": "手工",
+    "description": "astropy-14365（QDP 大小写）第三版仍 unresolved：命令段已修（该文件 8/9 测试通过），F2P test_roundtrip[True] 仍失败在**数据行**匹配",
+    "root_cause": "QDP 的数据段（NO/nan 占位符）与写回路径的大小写语义未放开；issue 文本只提命令，agent 只能逼近",
+    "countermeasure": "保留为未结项；下一轮候选：读侧正则 + 写回路径一起做大小写不敏感，或按上游重写后的测试期望对齐（不必再猜）"
+  },
+  {
+    "category": "手工",
+    "description": "扩样余量仍未吃完：镜像就绪 10/13（余 3 个在下载），sklearn-14087 / sklearn-14092 / matplotlib-22711 三例已起跑到「读完目标文件」，补丁未写",
+    "root_cause": "每例需人工（宿主模型）逐轮读窗口写编辑，样本扩展与上下文预算线性相关；本轮优先把「失败归因」这类能提升后续每一轮效率的能力做掉",
+    "countermeasure": "扩样链路已验证可跑，归因能力上线后下一轮续跑剩余实例（每例的返工方向会由 F2P_MISSED/REGRESSION 明确指示），目标 n≥20"
+  }
+]

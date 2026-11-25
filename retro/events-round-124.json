@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "test",
+      "title": "round-124：agent/code_task/review_gate.py 四条错误路径契约",
+      "description": "tests/test_agent.py::TestReviewGateWiring 增 4 条：_review_gate 缺 edits.patch → ReviewError；交付补丁干净检出应用失败 → ReviewError 且 worktree 清理；非 git 仓库 worktree 失败 → ReviewError；_parse_review_cmds（None→{}、a=b=c、缺 = 必抛 ReviewError）。round-122 入账的 review_gate.py 63.64%（33 语句，r122 覆盖面最小的一项）为修复对象",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-124：freshness/discover 校准再被 F5 拦住（+4 契约）",
+      "description": "新增 4 契约 → tests discover 694 vs 文档 690；docs 全仓 690→694 校准 + bump v2.25.0，freshness 归零后重 measure/双跑",
+      "outcome": "done"
+    }
+  ]
+}

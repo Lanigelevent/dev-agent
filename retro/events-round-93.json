@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "D-050 尾项收口：权威源文档元信息八字段补齐 + doc-structure 扫描面扩权威源",
+    "description": "AGENTS/BASELINE/DEVELOPMENT/ROADMAP/PROGRESS/DECISIONS/GLOSSARY 七份权威源插入标准元信息块（创建日期/当前状态/权威范围/所有者/主导模式/不是权威/复核期限/上次复核；原头行保留作详述）；doc-structure.py 扫描面 12→19 文件（链接 78→108）全绿。判据校准两处：S9 收窄为内容占位符形态（<待补/占位/TODO> 标记；命令语法 <repo> 与数字比较 <0.5s 不误伤），裸词 TODO 提及（BASELINE「TODO 全仓 1 处」讨论句）不判——判据纠偏带注释留痕。"
+  },
+  {
+    "type": "feature",
+    "title": "CI smoke 时长对账首跑：200/200 全过 19.2s（口径 ≤2.5 分钟大幅优于）",
+    "description": "D-049 A 的验证义务兑现：smoke 清单（200 项）加载器实跑 fail=0 err=0 skip=0、19.2 秒——CI/PR 口径从全量 ~7.5 分钟降至 ~0.3 分钟（不含依赖安装），nightly 全量与发布闸 full 口径不变。"
+  }
+]

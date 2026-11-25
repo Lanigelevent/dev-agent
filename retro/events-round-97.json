@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "round-100 依赖刷新预备盘点 + e2e 慢项瘦身提案（B+A 列入 round-100 议程）",
+    "description": "预备盘点（只读 dry-run，非官方）：引擎层 7 件全最新；pytest 9.2.0 大版本（r90 已裁维持）+ hypothesis 6.170.15 补丁两项待 round-100 裁决。e2e 慢项复测画像（419.8s 总 call）：top-15 全为多步异构流程（host_mode_pause 18.4s 等，5-9 步子进程/项），D-049 C 循环合并杠杆不适用；提案 reports/proposal-slow-test-r97.md：B 维持现状 + A pytest-xdist 列入 round-100 议程（与依赖刷新同轮裁决，需审计 tmpspace/夹具单例并行正确性）。smoke 对账复跑 200/200 全过 21.1s（D-049 持续验证）。"
+  }
+]

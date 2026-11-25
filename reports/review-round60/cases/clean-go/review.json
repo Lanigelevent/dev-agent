@@ -1,0 +1,51 @@
+{
+  "schema": "review-loop/1",
+  "decision": "PASS",
+  "threshold": 0.5,
+  "files": [
+    {
+      "path": "stack/stack.go",
+      "added_lines": 1
+    }
+  ],
+  "reviewers": {
+    "self": {
+      "status": "ok",
+      "findings": []
+    },
+    "ruff": {
+      "status": "skipped",
+      "findings": [],
+      "note": "补丁无 Python 文件"
+    },
+    "astgrep": {
+      "status": "skipped",
+      "findings": [],
+      "note": "补丁无可扫描的 JS/TS/Python 文件"
+    }
+  },
+  "external_status": [
+    {
+      "name": "ruff",
+      "status": "skipped",
+      "note": "补丁无 Python 文件"
+    },
+    {
+      "name": "astgrep",
+      "status": "skipped",
+      "note": "补丁无可扫描的 JS/TS/Python 文件"
+    }
+  ],
+  "coverage": null,
+  "metrics": {
+    "matched": 0,
+    "union": 0,
+    "diff_rate": 0.0
+  },
+  "high_findings": [],
+  "external_only": [],
+  "self_only": [],
+  "self_findings": [],
+  "external_findings": [],
+  "reasons": []
+}

@@ -1,0 +1,21 @@
+{
+  "round": 0,
+  "tests": "pass",
+  "test_detail": [
+    "引擎 cmd（<repo>\\.venv\\Scripts\\python.exe -m pytest -q）",
+    ".                                                                        [100%]",
+    "1 passed in 0.50s"
+  ],
+  "edits_applied": 1,
+  "patch_validation": {
+    "ok": true,
+    "issues": []
+  },
+  "selfcheck_broken": [],
+  "files": [
+    "pkg/agg.py"
+  ],
+  "patch_chars": 245,
+  "has_patch": true,
+  "patch_text": "diff --git a/pkg/agg.py b/pkg/agg.py\nindex a3fb760..12d9f86 100644\n--- a/pkg/agg.py\n+++ b/pkg/agg.py\n@@ -1,2 +1,7 @@\n def total(items):\n     return sum(items)\n+\n+\n+def mean(items):\n+    values = list(items)\n+    return sum(values) / len(values)\n"
+}

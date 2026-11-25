@@ -1,0 +1,53 @@
+{
+  "events": [
+    {
+      "category": "误报",
+      "description": "真实仓库邻近测试实测第一轮里，matplotlib 的 C 路返回 78 条判真全 0——看起来像「映射彻底坏了」，实际模块 lib/matplotlib/_afm.py 被判定器算成 matplotlib 仓库根下的点分路径 `lib.matplotlib._afm`，测试里当然永远搜不到这个串",
+      "root_cause": "判定器（scripts/sibling-test-realbench.py 的 _module_ref）把「仓库根相对路径」直接点分当成模块的 import 名，隐含假设源码就在仓库根；src-layout（lib/、src/）的仓库这个假设不成立，而 repo_map.py 的 C 路用的正是真实 import 名——两边口径不一致，测的是量具不是被测物",
+      "countermeasure": "_module_ref 改为沿 __init__.py 上溯定位真正的包根，取不到包根的目录（ci/、galleries/ 这类脚本）不参与判定；repo_map.py 侧把同一口径抽成公开函数 module_ref()，tests/test_agent.py::test_realbench_judge_and_repo_map_share_one_reference_shape 用同一个临时仓库对两边逐字段比对，判定器与生产代码再不可能各走各的",
+      "source": "round-30 真实仓库实测第一/二轮（reports/real-corpus-sibling-tests/attribution-*.json）"
+    },
+    {
+      "category": "误报",
+      "description": "同一份实测里覆盖率与判真率随抽样形状剧烈摆动：抽到的模块包含 ci/export_sdist_name.py、galleries/plot_types/basic/pie.py 这类根本不可 import 的脚本，C 路按裸词 `pie`/`bar`/`stem` 在测试里到处命中，噪声成因统计被这些词主导",
+      "root_cause": "抽样域取的是「仓库里所有 .py」，没限定在可 import 的包模块上；判真口径是「测试是否引用了这个模块」，而脚本模块压根没有引用者——分母里混进了问题不适用的样本，于是数字是抽样形状的函数而不是映射质量的函数",
+      "countermeasure": "抽样域收紧为「沿 __init__.py 能定出包根的模块」（_package_modules），并按生产口径固定 sample 为确定性 stride 抽样、limit=2/max_chars=1500 与 find_sibling_tests 默认参数一致；两套产物 attribution-bareword / attribution-reference-shape 用**同一份 300 模块样本**，前后对比才只反映口径改动",
+      "source": "round-30 真实仓库实测抽样明细复查（matplotlib 仓库逐模块 dump）"
+    },
+    {
+      "category": "补丁返工",
+      "description": "C 路（内容兜底）的真实命中质量远低于合成语料的印象：300 模块样本上 C 返回 132 条、判真仅 46 条（0.348），且因为 find_sibling_tests 命中即停 + limit=2，噪声会把同目录里真正的引用测试挤出材料；检查单第 4 项预设的结论是「C 大概率该降级」，实测却指向更深的缺陷",
+      "root_cause": "C 的谓词写成「测试文本里出现模块名这个裸词」，把 fixture 路径字符串、注释、别的同名模块的 import 全当引用；这不是打分排序问题而是**谓词本身判错了对象**——引用一个模块的形状是点分路径或 from 包 import 模块，不是它的词根",
+      "countermeasure": "repo_map.py 的 C 路改为引用形状检索（完整点分路径，或 `^from <包> import ...\\b<模块>`），保留「按内容命中」标注；实测 C 返回 132→76、判真 46→76（0.348→1.000），aggregate truth 129→159，噪声返回 125→59；诚实代价是覆盖率 191/300→174/300，掉的 17 个模块原本只拿到纯噪声材料。合成语料 precision_mean 0.667→0.8，判定规则（≥0.5 keep / 0<r<0.5 keep_labeled / ==0 downgrade_hint）在看数字前已写进脚本常量",
+      "source": "round-30 真实仓库实测前后两轮对照（scripts/sibling-test-realbench.py --verbose）"
+    },
+    {
+      "category": "行为回归",
+      "description": "同类排查第 7 项 R1：round-29 把缺省轮号改成「最大轮号 + 1」后，retro-report.py 的显式 `--round N` 仍能绕过它，把一个已归档轮报原地重写——round-29 覆盖 round-28 那次实踩就是手给了号",
+      "root_cause": "自增口径只修了缺省分支，把「轮报是历史记录」这条约束寄托在调用者不会给错号上；覆盖闸门应该在写入点而不是在取号点，取号正确性是可绕的路径，写前存在性检查不是",
+      "countermeasure": "main() 在写 report/candidates 前加 `report_path.is_file() and not argv.force → 退出码 2 并说明加 --force 才重写`，并把 forced_overwrite 如实打进 stdout；tests/test_retro.py::test_report_refuses_to_clobber_an_existing_round 断言被拒那次逐字节不变、--force 才生效且标记为真、缺省自增路径不受闸门影响；两个变异（撤掉闸门 / forced_overwrite 恒 False）各转红一条断言后复原",
+      "source": "round-30 覆盖历史产物路径排查（retro/next-round.md 第 7 项）"
+    },
+    {
+      "category": "补丁返工",
+      "description": "同类排查第 7 项 R2：三个引擎适配器把补丁产物命名成 `<前缀>-<文件 basename>`，两个不同目录下同名模块（services/util.py 与 tasks/util.py）产出同一个文件名，后写的把前一份原地盖掉，而调用方拿到的路径看起来完全正常",
+      "root_cause": "产物名只取了 basename，等于用「最后一个路径段」当全局唯一键；引擎一次运行里处理多个模块时这是必撞的键，且覆盖是静默的——没有任何一方知道少了一份补丁",
+      "countermeasure": "新增 engines/artifact_names.py 作单一口径：名字 = 前缀 + 安全化的 basename + `sha256(归一化相对路径)[:8]`，反斜杠与正斜杠同键、非 ASCII 路径产 ASCII 名；ruff/libcst/testgen 三处写盘点都改为调它。tests/test_engines.py::TestArtifactNaming 用两个同名模块灌进同一个 --out 目录，断言 2 个不同路径、盘上 2 个文件、每份补丁内容指向自己的 rel",
+      "source": "round-30 覆盖历史产物路径排查（engines/*_adapter.py 与 engines/testgen.py 写盘点）"
+    },
+    {
+      "category": "行为回归",
+      "description": "同类排查第 7 项 R3 落地时露出的第二个坑：落盘验证失败回滚后，被审仓库里留着 pytest 写的未跟踪 `tests/__pycache__/`，而 `apply-log.json` 是单文件覆盖写——重试一次上一条 ROLLED_BACK 证据就没了；操作者第二次撞「工作树不干净」闸时，只会以为是自己的补丁有问题",
+      "root_cause": "回滚只 `git checkout` 恢复**已跟踪**文件，未跟踪产物天然不在恢复范围内，这是设计使然却被当成「回滚＝恢复原状」；台账侧把「最新状态」和「每一次历史」塞进同一个覆盖写的 json，重试即抹历史——两个各自合理的口径叠在一起，就变成同一个坑要踩两次还没有证据",
+      "countermeasure": "`_write_log` 保留 `apply-log.json`（最新态）之外追加 append-only `apply-log-history.jsonl`（每一次），回滚分支额外报告 `worktree_leftovers` 与 `retry_hint`；`retro-ledger.py` 的产物采集逐行吃 jsonl 并按坑 id 去重，重试不会重复计一条。反向验证 tests/test_repair.py::test_apply_log_history_survives_retry：第一次回滚必须列出 `__pycache__` 并给出重试提示，不清就直接重试要拿到退出码 2「工作树不干净」（证明这个坑是真的而不是文档里的担心），清理后第二次仍回滚，json 只有最新态而 jsonl 有两行，`--scan` 只算 1 条回滚坑",
+      "source": "round-30 覆盖历史产物路径排查（skills/repair/scripts/fix-apply.py 写盘点）"
+    },
+    {
+      "category": "行为回归",
+      "description": "R3 结案时把验收命令写成 `-m unittest tests.test_repair -k apply_log_history_survives_retry`，照着复跑直接 ImportError: Failed to import test module / ModuleNotFoundError: No module named 'test_scripts'，而 `Ran 1 test ... FAILED (errors=1)` 里那个 1 是 unittest.loader 的占位 _FailedTest——形状像「没这个测试」，实际是命令本身跑不起来；台账里已经躺了一条谁都复现不了的「验收口径」",
+      "root_cause": "「结案必须带可验证验收口径」这条要求只校验了口径**存在**（`--close` 缺 `--close-note` 退出码 2），没校验口径里的命令**可跑**；tests/ 下的模块互相 import 兄弟模块，按模块名加载时目录不在 sys.path，能跑的形态只有 `discover -s tests`。存在性闸门挡不住写错形态的字符串，等于把「可验证」又寄托回人的自觉",
+      "countermeasure": "retro-ledger.py 新增 `_closure_command_is_runnable()`：口径里出现 `-m unittest` 就必须同时出现 `discover` 与 `-s tests`，否则退出码 2 并在报错里给出正确形态（不含 unittest 命令的人工复核口径不受影响，避免误伤）。反向验证 tests/test_retro.py::test_close_rejects_unrunnable_acceptance_command 断言坏形态被拒且台账状态逐条不变、好形态能结、非命令口径不被误拦；变异（谓词置空）只转红这一条断言后复原。8a49a0dbee23 的 closure_note 同步改为实跑过的 discover 形态，并确认全台账 94 条里没有其他违反新闸的历史口径（扫描结果 0 条）",
+      "source": "round-30 结案复跑时发现（retro/pitfalls.json 的 closure_note 与 unittest loader 行为）"
+    }
+  ]
+}

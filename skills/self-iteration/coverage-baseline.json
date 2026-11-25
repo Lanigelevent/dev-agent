@@ -1,0 +1,450 @@
+{
+  "schema": "coverage-baseline/1",
+  "generated_at": "2026-11-14T15:07:04+08:00",
+  "scope": {
+    "source": [
+      "skills",
+      "llm",
+      "agent"
+    ],
+    "tests": [
+      "test_scripts_*.py",
+      "test_agent.py",
+      "test_dual_reviewer.py",
+      "test_provider_ssrf.py",
+      "test_report_adapter.py"
+    ],
+    "python": "3.14.6",
+    "platform": "win32"
+  },
+  "tolerance_pct": 0.5,
+  "overall_pct": 76.09,
+  "files": {
+    "agent/__init__.py": {
+      "pct": 100.0,
+      "statements": 0,
+      "covered": 0
+    },
+    "agent/code-task.py": {
+      "pct": 100.0,
+      "statements": 25,
+      "covered": 25
+    },
+    "agent/code_task/__init__.py": {
+      "pct": 100.0,
+      "statements": 0,
+      "covered": 0
+    },
+    "agent/code_task/candidates.py": {
+      "pct": 89.39,
+      "statements": 66,
+      "covered": 59
+    },
+    "agent/code_task/loop.py": {
+      "pct": 73.43,
+      "statements": 508,
+      "covered": 373
+    },
+    "agent/code_task/materials.py": {
+      "pct": 93.18,
+      "statements": 132,
+      "covered": 123
+    },
+    "agent/code_task/protocol.py": {
+      "pct": 95.08,
+      "statements": 61,
+      "covered": 58
+    },
+    "agent/code_task/review_gate.py": {
+      "pct": 93.94,
+      "statements": 33,
+      "covered": 31
+    },
+    "agent/code_task/search.py": {
+      "pct": 75.72,
+      "statements": 173,
+      "covered": 131
+    },
+    "agent/code_task/selfcheck.py": {
+      "pct": 77.05,
+      "statements": 122,
+      "covered": 94
+    },
+    "agent/code_task/state.py": {
+      "pct": 96.67,
+      "statements": 30,
+      "covered": 29
+    },
+    "agent/code_task/testrun.py": {
+      "pct": 80.36,
+      "statements": 168,
+      "covered": 135
+    },
+    "agent/code_task/tools.py": {
+      "pct": 76.92,
+      "statements": 52,
+      "covered": 40
+    },
+    "agent/edit_formats.py": {
+      "pct": 70.91,
+      "statements": 110,
+      "covered": 78
+    },
+    "agent/legacy_compat.py": {
+      "pct": 85.11,
+      "statements": 47,
+      "covered": 40
+    },
+    "agent/legacy_compat/sitecustomize.py": {
+      "pct": 100.0,
+      "statements": 8,
+      "covered": 8
+    },
+    "agent/phases.py": {
+      "pct": 92.62,
+      "statements": 149,
+      "covered": 138
+    },
+    "agent/repo_map.py": {
+      "pct": 88.56,
+      "statements": 699,
+      "covered": 619
+    },
+    "agent/review_loop.py": {
+      "pct": 65.9,
+      "statements": 305,
+      "covered": 201
+    },
+    "agent/swe_run.py": {
+      "pct": 74.44,
+      "statements": 270,
+      "covered": 201
+    },
+    "agent/trace.py": {
+      "pct": 92.86,
+      "statements": 56,
+      "covered": 52
+    },
+    "agent/workspace.py": {
+      "pct": 71.47,
+      "statements": 361,
+      "covered": 258
+    },
+    "llm/__init__.py": {
+      "pct": 100.0,
+      "statements": 0,
+      "covered": 0
+    },
+    "llm/provider.py": {
+      "pct": 95.27,
+      "statements": 148,
+      "covered": 141
+    },
+    "skills/eval-harness/scripts/agent-sample.py": {
+      "pct": 21.83,
+      "statements": 229,
+      "covered": 50
+    },
+    "skills/eval-harness/scripts/collect-samples.py": {
+      "pct": 79.63,
+      "statements": 108,
+      "covered": 86
+    },
+    "skills/eval-harness/scripts/deepswe-fetch.py": {
+      "pct": 65.08,
+      "statements": 126,
+      "covered": 82
+    },
+    "skills/eval-harness/scripts/deepswe-sample.py": {
+      "pct": 35.21,
+      "statements": 497,
+      "covered": 175
+    },
+    "skills/eval-harness/scripts/extract-window.py": {
+      "pct": 87.76,
+      "statements": 98,
+      "covered": 86
+    },
+    "skills/eval-harness/scripts/fingerprint.py": {
+      "pct": 88.24,
+      "statements": 51,
+      "covered": 45
+    },
+    "skills/eval-harness/scripts/forward-bench.py": {
+      "pct": 84.72,
+      "statements": 229,
+      "covered": 194
+    },
+    "skills/eval-harness/scripts/precision-gate.py": {
+      "pct": 75.0,
+      "statements": 156,
+      "covered": 117
+    },
+    "skills/eval-harness/scripts/precision-report.py": {
+      "pct": 51.14,
+      "statements": 219,
+      "covered": 112
+    },
+    "skills/eval-harness/scripts/review-quality-gate.py": {
+      "pct": 95.18,
+      "statements": 83,
+      "covered": 79
+    },
+    "skills/eval-harness/scripts/reviewbench-bridge.py": {
+      "pct": 74.58,
+      "statements": 59,
+      "covered": 44
+    },
+    "skills/eval-harness/scripts/reviewbench-eval.py": {
+      "pct": 82.22,
+      "statements": 270,
+      "covered": 222
+    },
+    "skills/eval-harness/scripts/reviewbench-import.py": {
+      "pct": 78.0,
+      "statements": 100,
+      "covered": 78
+    },
+    "skills/eval-harness/scripts/run-regression.py": {
+      "pct": 81.08,
+      "statements": 111,
+      "covered": 90
+    },
+    "skills/eval-harness/scripts/swrenbench-import.py": {
+      "pct": 29.08,
+      "statements": 650,
+      "covered": 189
+    },
+    "skills/git-change-analysis/scripts/edge-detect.py": {
+      "pct": 89.68,
+      "statements": 126,
+      "covered": 113
+    },
+    "skills/git-change-analysis/scripts/graph-cache.py": {
+      "pct": 80.58,
+      "statements": 139,
+      "covered": 112
+    },
+    "skills/git-change-analysis/scripts/preflight.py": {
+      "pct": 81.25,
+      "statements": 96,
+      "covered": 78
+    },
+    "skills/multi-agent-review/scripts/coverage.py": {
+      "pct": 81.44,
+      "statements": 97,
+      "covered": 79
+    },
+    "skills/multi-agent-review/scripts/deterministic-rules.py": {
+      "pct": 85.18,
+      "statements": 479,
+      "covered": 408
+    },
+    "skills/multi-agent-review/scripts/dispatch-plan.py": {
+      "pct": 88.98,
+      "statements": 118,
+      "covered": 105
+    },
+    "skills/multi-agent-review/scripts/findings-check.py": {
+      "pct": 84.34,
+      "statements": 83,
+      "covered": 70
+    },
+    "skills/multi-agent-review/scripts/material-check.py": {
+      "pct": 81.72,
+      "statements": 93,
+      "covered": 76
+    },
+    "skills/multi-agent-review/scripts/rules-select.py": {
+      "pct": 92.11,
+      "statements": 76,
+      "covered": 70
+    },
+    "skills/multi-agent-review/scripts/taint-cross.py": {
+      "pct": 77.17,
+      "statements": 219,
+      "covered": 169
+    },
+    "skills/orchestrator/scripts/report-adapter.py": {
+      "pct": 89.39,
+      "statements": 132,
+      "covered": 118
+    },
+    "skills/orchestrator/scripts/runner.py": {
+      "pct": 86.72,
+      "statements": 670,
+      "covered": 581
+    },
+    "skills/production-guardrails/scripts/audit-log.py": {
+      "pct": 92.86,
+      "statements": 56,
+      "covered": 52
+    },
+    "skills/production-guardrails/scripts/checkpoint.py": {
+      "pct": 76.81,
+      "statements": 69,
+      "covered": 53
+    },
+    "skills/production-guardrails/scripts/cost-ledger.py": {
+      "pct": 90.0,
+      "statements": 160,
+      "covered": 144
+    },
+    "skills/production-guardrails/scripts/event-ledger.py": {
+      "pct": 85.24,
+      "statements": 393,
+      "covered": 335
+    },
+    "skills/production-guardrails/scripts/experience.py": {
+      "pct": 90.22,
+      "statements": 92,
+      "covered": 83
+    },
+    "skills/production-guardrails/scripts/feedback-close.py": {
+      "pct": 73.91,
+      "statements": 69,
+      "covered": 51
+    },
+    "skills/production-guardrails/scripts/human-gate.py": {
+      "pct": 100.0,
+      "statements": 25,
+      "covered": 25
+    },
+    "skills/production-guardrails/scripts/manifest_args.py": {
+      "pct": 79.59,
+      "statements": 49,
+      "covered": 39
+    },
+    "skills/production-guardrails/scripts/report-check.py": {
+      "pct": 90.91,
+      "statements": 55,
+      "covered": 50
+    },
+    "skills/production-guardrails/scripts/schema-check.py": {
+      "pct": 91.92,
+      "statements": 99,
+      "covered": 91
+    },
+    "skills/prompt-enhancement/scripts/intent-parse.py": {
+      "pct": 90.44,
+      "statements": 136,
+      "covered": 123
+    },
+    "skills/retro/scripts/memory_retrieval.py": {
+      "pct": 88.17,
+      "statements": 93,
+      "covered": 82
+    },
+    "skills/risk-scoring/scripts/score.py": {
+      "pct": 88.76,
+      "statements": 89,
+      "covered": 79
+    },
+    "skills/self-iteration/scripts/convergence-check.py": {
+      "pct": 81.58,
+      "statements": 38,
+      "covered": 31
+    },
+    "skills/self-iteration/scripts/coverage-gate.py": {
+      "pct": 51.27,
+      "statements": 197,
+      "covered": 101
+    },
+    "skills/self-iteration/scripts/dead-code-scan.py": {
+      "pct": 93.26,
+      "statements": 89,
+      "covered": 83
+    },
+    "skills/self-iteration/scripts/doc-drift.py": {
+      "pct": 85.9,
+      "statements": 234,
+      "covered": 201
+    },
+    "skills/self-iteration/scripts/doc-freshness.py": {
+      "pct": 83.23,
+      "statements": 167,
+      "covered": 139
+    },
+    "skills/self-iteration/scripts/e2e-check.py": {
+      "pct": 94.44,
+      "statements": 90,
+      "covered": 85
+    },
+    "skills/self-iteration/scripts/license-check.py": {
+      "pct": 87.72,
+      "statements": 114,
+      "covered": 100
+    },
+    "skills/self-iteration/scripts/mutation-sampler.py": {
+      "pct": 74.21,
+      "statements": 159,
+      "covered": 118
+    },
+    "skills/self-iteration/scripts/perspective-scan.py": {
+      "pct": 92.37,
+      "statements": 118,
+      "covered": 109
+    },
+    "skills/self-iteration/scripts/pick-candidate.py": {
+      "pct": 86.0,
+      "statements": 50,
+      "covered": 43
+    },
+    "skills/self-iteration/scripts/release-gate.py": {
+      "pct": 89.83,
+      "statements": 295,
+      "covered": 265
+    },
+    "skills/self-iteration/scripts/secret-scan.py": {
+      "pct": 84.44,
+      "statements": 135,
+      "covered": 114
+    },
+    "skills/self-iteration/scripts/session-probe.py": {
+      "pct": 76.56,
+      "statements": 64,
+      "covered": 49
+    },
+    "skills/self-iteration/scripts/trigger-audit.py": {
+      "pct": 78.1,
+      "statements": 137,
+      "covered": 107
+    }
+  },
+  "platform_optional": [],
+  "measure_meta": {
+    "elapsed_sec": 1179.496,
+    "runs": [
+      {
+        "pattern": "test_scripts_*.py",
+        "rc": 0,
+        "elapsed_sec": 753.71,
+        "tail": "OK"
+      },
+      {
+        "pattern": "test_agent.py",
+        "rc": 0,
+        "elapsed_sec": 280.459,
+        "tail": "OK"
+      },
+      {
+        "pattern": "test_dual_reviewer.py",
+        "rc": 0,
+        "elapsed_sec": 137.938,
+        "tail": "OK"
+      },
+      {
+        "pattern": "test_provider_ssrf.py",
+        "rc": 0,
+        "elapsed_sec": 0.493,
+        "tail": "OK"
+      },
+      {
+        "pattern": "test_report_adapter.py",
+        "rc": 0,
+        "elapsed_sec": 0.506,
+        "tail": "OK"
+      }
+    ]
+  }
+}

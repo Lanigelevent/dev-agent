@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "P0-1 sb-cli 导出通路（live-sample --export-sbcli）",
+    "description": "f2p_passed/resolved 样本导出官方 predictions JSONL（字段对齐 sb-cli submit）；v108 三例真冒烟 3/3 导出。官方 resolved 口径的送审通路就绪（submit 为操作员动作）。"
+  },
+  {
+    "type": "test",
+    "title": "导出契约 +3（状态过滤/缺补丁如实/缺省关闭）",
+    "description": "tests/test_live_sample.py 22 项全绿。"
+  }
+]

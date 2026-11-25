@@ -1,0 +1,20 @@
+[
+  {
+    "type": "pitfall",
+    "title": "r156 改 SKILL.md 行数未同步 BASELINE 行数基线——首对双跑 3 红（检查器真值面同步纪律）",
+    "description": "r156 护栏文档使 skills/retro/SKILL.md 从 64 行增到 66 行，BASELINE.md 钉的行数基线（- retro: 64）未同步校准，首对双跑 skill_md_line_baseline + doc_drift + session_probe 三红同根。根因=改 SKILL.md 行数的动作清单里没有「同步 BASELINE 行数基线」这一步（检查器真值面分散：行数基线在 BASELINE.md，不在 doc-freshness 扫描面）。对策=改任何 SKILL.md 后跑 BASELINE 行数基线核对（或把行数基线并入 doc-freshness F 面，结构候选）；r157 已将教训落 BASELINE-HISTORY r156 条目。",
+    "outcome": "pitfall"
+  },
+  {
+    "type": "feature",
+    "title": "真仓强制 --round 的下游对账（round-157，118 条③）",
+    "description": "全仓扫 retro-report 引用面：唯一执行面口径（AGENTS 复盘阶段第 2 步 + SKILL.md 命令）已于 r156 同步；MCP code_review_retro report 模式 round 描述更新（真仓必填），新增 MCP 真仓拒绝契约（护栏单点在脚本，MCP 透传 isError 面）；其余引用均为叙述性文本无执行面。+1 契约（test_retro_tool_report_guard_refuses_real_repo_auto）。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-157 任务面取舍（round-157）",
+    "description": "118 条①MCP 异步作业：D-055 仍待总监裁决跳过；②SLO nightly CI 首跑观察：提交未推送（本地领先 origin 8 提交），GitHub Actions 未见到 r155/156 改动，条件不满足如实记录；④操作员项不属智能体。任务面=③下游对账（完成）+ r156 遗留坑入册。",
+    "outcome": "done"
+  }
+]

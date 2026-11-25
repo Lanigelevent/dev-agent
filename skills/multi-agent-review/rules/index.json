@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "note": "路径模式（fnmatch）→ 规则文档。评审材料装配时命中即附带；规则全部蒸馏自本仓真实坑/实例，出处见各文档尾。v2 新增 JS/TS 规则（与 ast-grep v2 引擎规则对称）。",
+  "mappings": [
+    {"pattern": "*.py", "docs": ["python-mutable-shared-state.md", "python-import-time-compile.md", "debug-statement-residue.md"]},
+    {"pattern": "**/migrations/**", "docs": ["schema-noop-semantics.md"]},
+    {"pattern": "**/models.py", "docs": ["schema-noop-semantics.md"]},
+    {"pattern": "*.js", "docs": ["js-var-scope-trap.md", "js-eval-injection.md", "debug-statement-residue.md"]},
+    {"pattern": "*.jsx", "docs": ["js-var-scope-trap.md", "js-eval-injection.md", "debug-statement-residue.md"]},
+    {"pattern": "*.mjs", "docs": ["js-var-scope-trap.md", "js-eval-injection.md", "debug-statement-residue.md"]},
+    {"pattern": "*.cjs", "docs": ["js-var-scope-trap.md", "js-eval-injection.md", "debug-statement-residue.md"]},
+    {"pattern": "*.ts", "docs": ["js-var-scope-trap.md", "js-eval-injection.md", "debug-statement-residue.md"]},
+    {"pattern": "*.tsx", "docs": ["js-var-scope-trap.md", "js-eval-injection.md", "debug-statement-residue.md"]}
+  ]
+}

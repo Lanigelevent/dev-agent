@@ -1,0 +1,26 @@
+[
+  {
+    "type": "feature",
+    "title": "scan SLO 门禁化（round-155）",
+    "description": "latency-bench.py 增 check 动词：报告 p95 对 latency-slo.json（单一事实源，S/M/L p95 上限 1.0/1.0/2.0s，约 10x 余量）逐档断言，任一档超限 rc=1；报告档位增 name 字段（S/M/L），check 兼容旧格式按 lines 反查；run_tier 增档名透传。+6 契约（check 三态 PASS/FAIL/输入错误、坏 JSON、旧格式兼容、真实 SLO 配置完整性）；红线 6 反向验证实弹（造 p95 超限样例确认抓住，rc=1）。nightly CI 接线（self-check.yml run+check 全链）。AGENTS 脚本表行更新。",
+    "outcome": "done"
+  },
+  {
+    "type": "doc",
+    "title": "README/DEVELOPMENT 计数真值校准 748→754 + r154 计数误计勘误（round-155）",
+    "description": "实测 HEAD 套件 748（r154 日志 747 passed + 1 skipped 印证）；README/DEVELOPMENT 六处 748→754（含本轮 +6 契约）；r154 轮报「测试 751→754」为误计（真值 745→748），历史行不回改、本行勘误。",
+    "outcome": "done"
+  },
+  {
+    "type": "pitfall",
+    "title": "retro-report.py 无 --round 时按最大轮号+1 自动编号——r154 收官被多跑两遍生成过早轮报并误入库",
+    "description": "r154 收官对齐时 retro-report.py 被多跑两遍（无 --round），按「最大轮号+1」自动编号生成 round-155/156「预览」报告（内容与 154 报告逐字节同、仅标题异）并被误提交入库。开局（r155）发现即清（5fcfe4e）。根因=脚本自动编号无防重跑护栏 + 收官动作序列未固定（retro-report 只跑一次）。对策：收官动作序列约定「retro-report 收官只跑一次、跑前核对目标轮号」；远期候选=脚本加 --round 缺省防误（自动编号时要求显式 --confirm-next）。",
+    "outcome": "pitfall"
+  },
+  {
+    "type": "pitfall",
+    "title": "r154 轮报测试计数「751→754」误计——真值 745→748（口径纪律）",
+    "description": "HEAD 实测 discover=748（r154 双跑日志 747 passed + 1 skipped 印证）；r154 轮报/next-round 收官行写 751→754，比真值多 3。根因=收官计数未以 discover/日志实测为准（分母错误不报错只算错，易错点 4）；且 doc-freshness 当时未拦（F5 比文档 vs 真值，文档行也是 748 属真值侧正确，轮报文本不在其扫描面）。对策：收官口径=测试计数一律以套件日志/ discover 实测为准，轮报写数前先实测；远期候选=round-gate close 增对收官行计数与 discover 真值对账（F5 扩面）。",
+    "outcome": "pitfall"
+  }
+]

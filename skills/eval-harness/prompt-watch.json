@@ -1,0 +1,8 @@
+{
+  "watched": [
+    "skills/eval-harness/scripts/swrenbench-import.py",
+    "agent/code_task.py",
+    "agent/code_task/materials.py"
+  ],
+  "note": "AB-03 提示面声明（r198）：LLM-judge 语义臂与编码循环提示载体。变更任一文件 → precision-gate check 的 prompt_regression 检查 FAIL（提示即变更，须重跑基线评测并 record-baseline）。promptfoo「声明式变更即红」概念的确定性形态（live provider 矩阵待 AB-02 judge 集成评估）。"
+}

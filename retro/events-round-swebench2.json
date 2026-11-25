@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "category": "手工",
+      "description": "swebench 公开加速器八源全灭：daocloud 对 swebench/* 白名单外 403，1ms.run 需账号，其余超时——此前 docker CLI Pulling from 是假启动（开始后无限挂起）",
+      "root_cause": "转载清单的“实测可用”针对 library 镜像，不含 swebench 命名空间；且可用性漂移极快",
+      "countermeasure": "docker-mirror-probe.py 实测口径（token 流+逐跳 SSRF 安全重定向+首 blob 8MB 测速），2 分钟慢即判死不傻等；镜像获取改走本地构建路径（sparse clone swe-bench-tasks → docker build 打官方 tag）"
+    },
+    {
+      "category": "手工",
+      "description": "code-task 真 bug：WAIT_HOST_LLM 暂停退出走 finally 删了含已应用编辑的 worktree，resume 后补丁永远为空但 edits_applied 计数残留，造成“编辑成功无补丁”假象",
+      "root_cause": "finally 清理不区分暂停与收束",
+      "countermeasure": "仅 task-manifest.json 落盘（收束）后才清 worktree；django-14999 真跑验证修复正确"
+    },
+    {
+      "category": "手工",
+      "description": "swebench 5.0.2 三个坑：princeton-nlp 数据集缺 image 列（须 SWE-bench/ 命名空间）；predictions 需 model_name_or_path 字段；image_builder 导入 Unix-only resource 模块（Windows 原生 build 路径不可用）",
+      "root_cause": "版本迭代数据格式与平台假设变了",
+      "countermeasure": "正确命名空间+补字段+手动 docker build 替代 --task_repo 自动构建"
+    }
+  ]
+}

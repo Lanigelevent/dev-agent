@@ -1,0 +1,16 @@
+[
+  {
+    "type": "feature",
+    "title": "AB-18 符号级取窗对照实验落地——真实验出数（round-212，阶段二补漏①）",
+    "description": "新量具 scripts/symbol-window-bench.py（stdlib，复用 r197 同源 n=11 真实语料 + base_commit 快照口径）：符号臂/整文件臂两臂对照。结果：成本比 0.279（符号窗仅整文件 27.9%）、覆盖率 0.5455（6/11 全覆盖，5/11 模块级改动兜底——global_settings.py 0% 是符号级天然盲区）。判定：现役「定义点优先+有界窗兜底」组合比纯符号/纯整读两极端都稳；Serena 增量有限（LSP 后端依赖面超白名单，读设计不引依赖）。AB-18 终局=已对齐（已有超出，实验背书）。",
+    "countermeasure": "reports/ab18-ab05-ab19-r212.md；反向验证面=实验自身区分状态（coverage 1.0 vs 0.0 文件并存，量具真实测到东西）。",
+    "source": "round-212"
+  },
+  {
+    "type": "doc",
+    "title": "AB-05 Terminal-Bench + AB-19 repomix 对照审计——终局结论（round-212，阶段二补漏②③）",
+    "description": "AB-05：环境+判分器三件套与评测链同型（与 r207 AB-04 同型结论），任务包分发面按需留观察，不吸收。AB-19：目录树/敏感检查已覆盖，单文件打包与「不把整文件当材料」哲学相悖，有意排除。吸收列表 27 项对账收口：22 项终局（含战略 5 项），6 项阶段三待总监裁决，零漏排。",
+    "countermeasure": "reports/ab18-ab05-ab19-r212.md 收口表。",
+    "source": "round-212"
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "type": "feature",
+      "title": "round-128：依赖刷新第六跑——tree-sitter 0.26.1 补丁 + pytest 降级拒绝",
+      "description": "清华镜像逐项核对 18 跟踪项：tree-sitter 0.26.0→0.26.1（补丁，其余 17 项零升级）；pytest 9.2.0→8.4.2 降级被拒（pynguin 0.48.0 元数据 pytest<9，单独 dry-run 无变更，r110 裁决维持）；ruff/pytest/hypothesis --refresh 复验零变化；一举不投降",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-128：引擎矩阵零漂移复核",
+      "description": "三矩阵全新生成对比：ruff 970/480/250 JSON 等价、libcst 2/2/2 JSON 等价（subprocess capture 对比）、ast-grep 29 identical——零漂移；任一引擎版本未动，矩阵口径不变",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-128：台账 open 清零",
+      "description": "总监批准的全部 8 条未结坑结案（台账 240/open 7 → 241/open 0）；本轮 `retro-ledger --close` 7 条 + round-127 前置结案 1 条；round-128 close 收官证据以 gate close 为准",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-128：双跑全绿（450.510 / 455.260 秒）",
+      "description": "`logs/suite-r128-run1/2.log`，jeweils 各 1 skip，713 项全绿；round-128 close 全绿",
+      "outcome": "done"
+    }
+  ]
+}

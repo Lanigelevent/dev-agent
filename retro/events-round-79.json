@@ -1,0 +1,12 @@
+[
+  {
+    "type": "confirmation",
+    "title": "tomlkit 地板效应实验完成：placement 指针解锁 resolved，literal-strings 归因端点层",
+    "description": "协议 v4（附录+失败测试指针行）3 跑（预算 ≤6）：placement 0 编辑→resolved（F2P 1/1+P2P 173 passed，1 编辑/334s）；literal-strings 两次 0 编辑归因 flash JSON 模式空内容流（r77 d6332f1fd795 对策生效，端点侧空内容率过高）。"
+  },
+  {
+    "type": "feature",
+    "title": "D-048 语料设计条款批准生效 + 样例模板更新",
+    "description": "种子失败测试类语料的协议附录必含失败测试指针行（文件+node id）；agent/protocol-notes-example.md 增占位行与依据注记；n=2 单模型实验不外推强度。"
+  }
+]

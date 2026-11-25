@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-181：MCP 异步作业全链收官复核（零代码 light）",
+      "description": "reports/mcp-async-chain-audit-r181.md：真 MCP 服务器 tools=16/handlers=16，末四工具 submit/status/cancel/purge；5 份真作业冒烟证据（r171/r172/r176/r179/r180）全部在仓；runs/jobs 7 目录（cancelled 3/done 4）+ 中央账本 1 条 job.purge；README/AGENTS/DEVELOPMENT/架构页/MEMORY 工具数全部 16；对外口径不变。依赖锚点 r173 后第 8 轮未到；口径季度对账 r175 刚做，不重复。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-181：开局与版本",
+      "description": "round-gate open --round 181 全 PASS；版本保持 v2.78.0 不增（复核轮零代码）；key 轮换无新命中；light 收官。",
+      "outcome": "done"
+    }
+  ]
+}

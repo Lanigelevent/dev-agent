@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "pytest 9 重议落地（8.4.2→9.2.0，清华镜像实测）",
+    "description": "r90 起两轮维持的 pytest 9 议题闭环：uv pip --dry-run 走清华镜像实测 9.2.0 可用并升级；630 契约全绿（xdist 274.94s 抽验）。其余九项镜像实测均已最新。引擎矩阵重测口径不变（ruff 970/480/250、ast-grep 29/2/2、libcst 2）。"
+  }
+]

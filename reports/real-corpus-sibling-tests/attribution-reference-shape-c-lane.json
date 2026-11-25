@@ -1,0 +1,193 @@
+{
+  "ok": true,
+  "verdict_rule": "truth_rate = C 路引用命中 / C 路返回；≥0.5 keep / 0<r<0.5 keep_labeled / ==0 downgrade_hint",
+  "prod_caliber": {
+    "limit": 2,
+    "max_chars": 1500
+  },
+  "repos": [
+    {
+      "modules_candidates": 900,
+      "modules_sampled": 100,
+      "modules_with_context": 67,
+      "coverage_rate": 0.67,
+      "by_lane": {
+        "A": {
+          "returns": 26,
+          "truth": 8,
+          "strict_import": 8,
+          "noise": 18,
+          "noise_reasons": {
+            "其他代码引用": 16,
+            "注释/文档串": 10,
+            "同名不同模块": 4,
+            "无引用痕迹": 2
+          },
+          "truth_rate": 0.308
+        },
+        "C": {
+          "returns": 48,
+          "truth": 48,
+          "strict_import": 40,
+          "noise": 0,
+          "noise_reasons": {},
+          "truth_rate": 1.0
+        },
+        "A-generic": {
+          "returns": 20,
+          "truth": 0,
+          "strict_import": 0,
+          "noise": 20,
+          "noise_reasons": {
+            "其他代码引用": 13,
+            "同名不同模块": 12,
+            "路径/文件名串": 3,
+            "注释/文档串": 1,
+            "无引用痕迹": 3
+          },
+          "truth_rate": 0.0
+        },
+        "B": {
+          "returns": 2,
+          "truth": 0,
+          "strict_import": 0,
+          "noise": 2,
+          "noise_reasons": {
+            "无引用痕迹": 2
+          },
+          "truth_rate": 0.0
+        }
+      },
+      "records": [],
+      "repo": "datasets\\swe-repos\\swe__django",
+      "seconds": 10.3,
+      "verdict": {
+        "c_returns": 48,
+        "c_truth_rate": 1.0,
+        "verdict": "keep"
+      }
+    },
+    {
+      "modules_candidates": 834,
+      "modules_sampled": 100,
+      "modules_with_context": 57,
+      "coverage_rate": 0.57,
+      "by_lane": {
+        "A": {
+          "returns": 62,
+          "truth": 48,
+          "strict_import": 48,
+          "noise": 14,
+          "noise_reasons": {
+            "无引用痕迹": 8,
+            "同名不同模块": 2,
+            "其他代码引用": 4,
+            "注释/文档串": 1
+          },
+          "truth_rate": 0.774
+        }
+      },
+      "records": [],
+      "repo": "datasets\\swe-repos\\sympy",
+      "seconds": 2.9,
+      "verdict": {
+        "c_returns": 0,
+        "verdict": "not_observed",
+        "meaning": "样本里 C 路一次都没出场——它本来只在 A/B 全空时才跑"
+      }
+    },
+    {
+      "modules_candidates": 177,
+      "modules_sampled": 100,
+      "modules_with_context": 50,
+      "coverage_rate": 0.5,
+      "by_lane": {
+        "A": {
+          "returns": 32,
+          "truth": 27,
+          "strict_import": 27,
+          "noise": 5,
+          "noise_reasons": {
+            "无引用痕迹": 1,
+            "其他代码引用": 4,
+            "注释/文档串": 2
+          },
+          "truth_rate": 0.844
+        },
+        "C": {
+          "returns": 28,
+          "truth": 28,
+          "strict_import": 27,
+          "noise": 0,
+          "noise_reasons": {},
+          "truth_rate": 1.0
+        }
+      },
+      "records": [],
+      "repo": "datasets\\swe-repos\\matplotlib",
+      "seconds": 5.6,
+      "verdict": {
+        "c_returns": 28,
+        "c_truth_rate": 1.0,
+        "verdict": "keep"
+      }
+    }
+  ],
+  "aggregate": {
+    "by_lane": {
+      "A": {
+        "returns": 120,
+        "truth": 83,
+        "strict_import": 83,
+        "noise": 37,
+        "noise_reasons": {
+          "其他代码引用": 24,
+          "注释/文档串": 13,
+          "同名不同模块": 6,
+          "无引用痕迹": 11
+        },
+        "truth_rate": 0.692
+      },
+      "C": {
+        "returns": 76,
+        "truth": 76,
+        "strict_import": 67,
+        "noise": 0,
+        "noise_reasons": {},
+        "truth_rate": 1.0
+      },
+      "A-generic": {
+        "returns": 20,
+        "truth": 0,
+        "strict_import": 0,
+        "noise": 20,
+        "noise_reasons": {
+          "其他代码引用": 13,
+          "同名不同模块": 12,
+          "路径/文件名串": 3,
+          "注释/文档串": 1,
+          "无引用痕迹": 3
+        },
+        "truth_rate": 0.0
+      },
+      "B": {
+        "returns": 2,
+        "truth": 0,
+        "strict_import": 0,
+        "noise": 2,
+        "noise_reasons": {
+          "无引用痕迹": 2
+        },
+        "truth_rate": 0.0
+      }
+    },
+    "verdict": {
+      "c_returns": 76,
+      "c_truth_rate": 1.0,
+      "verdict": "keep"
+    },
+    "modules_sampled": 300,
+    "modules_with_context": 174,
+    "seconds": 18.8
+  }
+}

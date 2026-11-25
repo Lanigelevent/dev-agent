@@ -1,0 +1,9 @@
+[
+  {
+    "category": "手工",
+    "description": "docker 探测三连误判：只查了 PATH（旧进程环境快照）与 Program Files，漏了 Docker Desktop 用户级安装路径 %LOCALAPPDATA%\\Programs\\DockerDesktop——v1.21.0 曾据误判记录「本机无 docker」，用户出示运行中的 Docker Desktop 截图才澄清",
+    "root_cause": "Docker Desktop 支持用户级安装，安装器更新的是用户 PATH，已启动进程的环境快照取不到",
+    "countermeasure": "探测口径写入 docs/DEVELOPMENT.md §10（PATH/Program Files/用户目录三处都查）；swe_run.py find_docker 固化三级发现顺序",
+    "source": "retro/events-round-swerun.json"
+  }
+]

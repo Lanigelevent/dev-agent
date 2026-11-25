@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "D-045 扩样第二连跑：池末双例 f2p_passed（gold-assisted 口径）+ derive 产品修正",
+    "description": "gate-r96（xarray-3364/pylint-5859，池末 2 仓）：xarray 修法=concat 缺变量跳过收集（0.16.2 对照）；pylint 修法=fixme 正则 \b→前瞻（2.13.0 对照）。两例均 gold-assisted 如实登记（自研三轮迭代败于 merge 语义/转义坑后按 r73 先例对照发布版），不冒充零反馈；零反馈累计 3/7 不变 + gold-assisted 列 2 例。derive 产品修正落地（官方 F2P 不覆写，契约 +1）。era 适配表 +2 仓（distutils shim/pylint 依赖链）；pylint 取源 gitee 无镜像→GitHub 兜底记录。池见底：本地 lite 可判实例全部消费，扩样续池需换语料源（总监决策项）。"
+  }
+]

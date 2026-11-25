@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "description": "round-75 gold 对照校准（判分侧，冷启动已完口径分离）：pvlib-2249 gold 修法 if jd > 2299160.0: jd += b（2299160.0=1582-10-15 的儒略日数）与本轮日期元组条件化语义等价（同 bug 同修点不同等价机制）——零反馈成功非运气；haystack-8489 gold 恰为 trace() 全链路加 parent_span 参数（ABC+三实现+pipeline 调用点，6 文件与本轮「跨层重构」判断逐文件吻合，机制为显式 parent_span 线程化而非 contextvar 但面完全一致）——失败归因被 gold 结构证实",
+    "evidence": "datasets/swebench/live-runs-r72/gold-compare/（两例 gold patch）、reports/swebench/live-coldstart-r75-2026-10-31.md"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-75 D-045 语料边界收束（如实）：九候选全部走完——4 条可信判分链跑完冷启动（n=6 对照面板：零反馈 1/5、带反馈 1/1）、2 条 blocked（reflex compat bug/instructlab Python<3.12）、1 条不可判（cfn-lint 上游截断）+1 条剔除（matplotlib 仓库级暴露）；本机资源面下冷启动评测能力边界已测得——失败/成功分界线=修复面规模与跨层程度（n=6 形态一致）；继续扩样需换语料批次并重走「补源→判分链 gold 验证→冻结→冷启动」全流程（D-045 协议可复用）；方法论四件沉淀：gold 先行验证 / 结构改造双件 / gold 对照校准；边界：gold 对照只校准归因不改变判分数字，pvlib 语义等价由 F2P 7/7 与同一 1582 断点支撑非逐字对照，「语料见底」限于冻结九候选+本机资源面",
+    "source": "reports/swebench/live-coldstart-r75-2026-10-31.md、docs/DECISIONS.md D-045、retro/next-round.md 第 35 条"
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "type": "correction",
+    "title": "MCP 异步 status 并发写读共享锁冲突——PermissionError 实弹（r190 run2）",
+    "description": "r190 run2 实弹：test_resource_cancel_summary 因 PermissionError on status.json.tmp 失败——worker 进度写与 cancel 写并发时，固定 tmp 名被双写碰撞 + 读侧在 replace 换窗期撞共享锁。MCP async 家族第二次实弹（r184 第一次），本次定位到产品代码真根因（非测试时序）。",
+    "root_cause": "①固定 tmp 名跨进程/线程碰撞（time_ns 在并发下同刻）；②写读双侧均无 Windows 共享锁冲突容错。",
+    "countermeasure": "已落地：_status_write 改 uuid4 唯一 tmp 名 + PermissionError/FileNotFoundError 有界重试；新增 _read_json_retry（读侧同款容错）接入 _status_tool 与 purge 资源读；+1 契约（TestStatusWriteConcurrency：4 写 1 读线程 3s 并发，异常零逃逸、终态可读）。MCP async 家族 27/27 绿。",
+    "source": "round-190",
+    "confidence": "observed"
+  }
+]

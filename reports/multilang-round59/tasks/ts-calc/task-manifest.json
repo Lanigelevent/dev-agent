@@ -1,0 +1,53 @@
+{
+  "engine": "agent",
+  "repo": "<repo>\\reports\\_work\\multilang-bench\\ts-calc-1793266418",
+  "task": "The clamp() helper in lib/calc.ts returns the wrong bound when the value is outside [lo, hi]; the Node tests in lib/calc.test.ts fail. Fix the implementation so all tests pass.",
+  "rounds": 1,
+  "edits": 1,
+  "tests": "pass",
+  "test_scope": "引擎 node（Node 内置测试器（1 个 *.test.*））",
+  "test_engine": "node",
+  "elapsed_sec": 0.531,
+  "patch": "edits.patch",
+  "patch_validation": {
+    "ok": true,
+    "issues": []
+  },
+  "selected_source": "last_edit",
+  "rank": "refs",
+  "candidates": [
+    {
+      "round": 0,
+      "tests": "pass",
+      "test_detail": [
+        "引擎 node（Node 内置测试器（1 个 *.test.*））",
+        "# tests 3",
+        "# suites 0",
+        "# pass 3",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 102.7877"
+      ],
+      "edits_applied": 1,
+      "patch_validation": {
+        "ok": true,
+        "issues": []
+      },
+      "selfcheck_broken": [],
+      "files": [
+        "lib/calc.ts"
+      ],
+      "patch_chars": 333,
+      "has_patch": true,
+      "rank": 0,
+      "rank_reason": {
+        "tier": 0,
+        "tier_name": "pass",
+        "validation_ok": true,
+        "patch_chars": 333
+      }
+    }
+  ]
+}

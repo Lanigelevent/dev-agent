@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-170：D-055 批准并实现——MCP 异步作业 submit/status + jobs 资源",
+      "description": "总监 2026-11-18 会话裁定 D-055=B 批准（提案 r154）。实现：mcp/review_mcp.py 新增 code_review_submit（repo+range/resume 白名单校验、budget→agent.json、uuid4 job_id、DETACHED_PROCESS/start_new_session 独立子进程、runner 进度帧落 status.json）/ code_review_status（32 位 hex job_id 路径守卫、只读状态）；resources/list + resources/read 暴露 review://jobs/<id>（只读 result.json/status.json）；initialize capabilities 增 resources。工具数 12→14，+6 契约（tests 769→775），MCP 自扫零命中（无空 catch/路径穿越/明文凭据）。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-170：D-055 假作业冒烟与接口文档对账",
+      "description": "6 条新契约覆盖：工具面/schema/annotations、submit 入参守卫（budget/config_path 互斥、reviewer 枚举）、非法 job_id 路径穿越拒绝、queued→running→done 真生命周期（budget 落 agent.json max_review_minutes）、resources/list+read、failed 作业 exit=2 + 未知 URI；假 runner 子进程不依赖 LLM 端点。README/AGENTS/DEVELOPMENT/架构页/MEMORY 工具数同步 14；doc-freshness 漂移 0。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-170：开局检查单——key 轮换 + round-gate open",
+      "description": "session-probe all_green；round-gate open --round 170 全 PASS（topline 169 / items 86 / 台账 250 / 漂移 0）；event-ledger verify 21 条链完好（末条 round-169 closed）；key 轮换检查沿用 r169 secret-scan 零命中结论、本轮无新明文凭据。",
+      "outcome": "done"
+    }
+  ]
+}

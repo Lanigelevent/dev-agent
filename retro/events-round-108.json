@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "verified django 续批 3/3 f2p_passed（11095/11099/11119）",
+    "description": "纯自研 host 轴零 blocked；F2P 5/5 标签全过。get_inlines 钩子 / 正则 A Z 锚定 / render_to_string autoescape 三修法。venv-base 免 -e 复用流程落地（r107 隔离教训）。"
+  },
+  {
+    "type": "confirmation",
+    "title": "SEARCH 唯一性闸行为确认",
+    "description": "11099 两处同文正则首投被唯一性闸正确拒绝（0 编辑落盘，测试原样失败）；带类名上下文重投一次过。编辑闸的防呆按设计工作。"
+  }
+]

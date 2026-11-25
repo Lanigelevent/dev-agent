@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-171：D-055 真作业冒烟——submit→断连→重连→status→resource 全通",
+      "description": "经 MCP stdio 真服务器（14 工具）向临时 git 仓库小 diff 提交 code_review_submit（reviewer=deterministic、budget=2、skip_probe），job_id=7d3620da213a49c9afb07564b6e44416；关闭第一客户端模拟断连，新客户端凭 job_id 轮询至 done（exit_code=0、progress=1.0、findings_url 可读），resources/read 返回真 runner 产物（state=DONE、run_id、report_path、findings、risk、gates），resources/list 含该 job。观察：runner 未吐出可解析的 step 进度帧（终态 step=0），记为下一步候选；findings=[] 与 0.42% 口径一致，不作能力宣称。证据 reports/mcp-async-smoke-r171.md。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-171：tag 断档全量追认——v2.38–v2.72 共 35 版逐版预检后打 tag 并推送",
+      "description": "总监裁定全量回填。预检：35 版 gate evidence 均 ok=true 且七项 PASS；均无现存 tag；按证据 JSON 首次入仓 commit 逐版打附注 tag（v2.38→18db9392db…、v2.72→0f5d3f1bc4…），已 push origin；远端 v2.38+ tag 数=35。D-035 增加断档追认记录（只追认已过闸版本；后续不得重演）。本轮不新增版本（v2.72.0 保持不变），避免制造新断档。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-171：开局门 + key 轮换检查",
+      "description": "round-gate open --round 171 全 PASS；HEAD f4164e8 与 origin/main 同步；key 轮换沿用 r170 零命中结论，本轮无新明文凭据。",
+      "outcome": "done"
+    }
+  ]
+}

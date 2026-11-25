@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-16 rail 校验注册表对照审计——已对齐（2 面有意排除，治理更强）（round-215，阶段三③）",
+    "description": "五道闸 on_fail 动作面已标准化：rc 三态（0/1/2）+ 结论三态（REJECTED/ROLLED_BACK/NEED_HUMAN）+ 台账去向明确；3/5 概念面已对齐（EXCEPTION/REEXCEPTION/HUMAN）。2 面有意排除：FIX/重试生成与「批准书作废重审」是同一需求的两种治理哲学——我们选不自动重试（防双记 L329 + 补丁变动即作废重审 + 两人规则），治理更强。rail 注册表（可组合校验器）与工作流闸结构性不同，不采纳。",
+    "countermeasure": "reports/ab16-rails-r215.md；on_fail 动作盘点表留档。",
+    "source": "round-215"
+  }
+]

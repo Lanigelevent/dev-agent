@@ -1,0 +1,81 @@
+{
+  "ok": true,
+  "mode": "judge",
+  "recall": 0.0,
+  "precision": null,
+  "claimed": 0,
+  "grounded": 0,
+  "grounded_but_not_claimed": 0,
+  "claimed_but_not_grounded": 0,
+  "hits": 0,
+  "valid_samples": 9,
+  "weak_samples": 0,
+  "weak": [],
+  "per_sample": [
+    {
+      "sample_id": "f016f0680e4ace6742b03a70cb0382ce86abe371",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "e4ae01c2077d2cfa116aa82e4ff6866857f7c466",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "1e86b777e61cf4eefc7d92fa57fa19dcc676013b",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "33ccdfb0a12690af5bb49bda2319ec0907fa7827",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "1c335944d6a8b1298baf179b7c0b3069f10c514b",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "cebe526b9c34dc3a3da9140409db63014bc4cf19",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "28335525d1eac015a7e7584137678cbb6ff19397",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "7eecdff163ccf029fbb1ddc9de4169d4aaeb6597",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    },
+    {
+      "sample_id": "f21c6f2ca512a026ce7f0f6c6311f62d6a638866",
+      "claimed": false,
+      "hit": false,
+      "matched": [],
+      "weak": false
+    }
+  ],
+  "threshold": 2,
+  "note": "recall=hits/valid_samples；precision=grounded/claimed；分母只用非 weak 样本；汇总必须同时输出两个指标（易错点 4）"
+}

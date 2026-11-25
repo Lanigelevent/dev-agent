@@ -1,0 +1,71 @@
+[
+  {
+    "type": "feature",
+    "description": "Pro 适配层代码化：新增 skills/eval-harness/scripts/pro-sample.py（stdlib-only，65→66 个脚本）——单命令批量/mode baseline|gold|predictions、12 态互斥状态机、补丁双闸复用 deepswe-sample、任务级环境适配字段 pre_test_cmd/env/pytest_args、台账 key=<instance_id>|<mode> 幂等续跑；契约测试 tests/test_pro_sample.py 10 项全过",
+    "evidence": "skills/eval-harness/scripts/pro-sample.py；tests/test_pro_sample.py；决策 D-028"
+  },
+  {
+    "type": "feature",
+    "description": "Pro 3 仓 3 条 gold 对照全通：ansible-0ea40e09（1/1 F2P、15/15 P2P，16 passed）、openlibrary-00bec1e7（5/5、15/15，20 passed）、qutebrowser-01d1d149（3/3、46/46；残留 test_existing_attributes[adblock-True] 失败不在判分点内）；三条基线均 baseline_ok、gold 全 resolved，台账重跑 run_this_time=0 幂等；镜像只走 ghcr.nju.edu.cn（1021.3 MiB/35 s、713.6 MiB/20 s，8MB blob 5.13/5.38 MB/s）",
+    "evidence": "reports/swebench/pro-3repo-validation-2026-10-28.md；reports/swebench/pro-baseline-v1.49.0.json harness_validation 块；datasets/swebench/pro-runs/pro-sample-ledger.json（不入库）"
+  },
+  {
+    "type": "test",
+    "description": "docker-image-fetch.py 与 docker-mirror-probe.py 支持显式 tag（Pro 按实例打 tag），各补回归测试：probe 的 manifest URL 含 --tag、fetch 的 plan 请求 /manifests/<tag>",
+    "evidence": "tests/test_scripts.py::TestMirrorProbe::test_tag_reaches_manifest_url；tests/test_scripts.py::TestImageFetch::test_plan_uses_explicit_tag"
+  },
+  {
+    "type": "doc",
+    "description": "版本 v1.51.0 三处同步 + DECISIONS D-028（Pro 适配层状态机/判分口径/环境适配边界）+ ROADMAP §5.8 与阶段二开局项 2.0 + 脚本 65→66、测试 436 项传播（README/DEVELOPMENT/PROGRESS/BASELINE/MEMORY）",
+    "evidence": ".zcode-plugin/plugin.json；pyproject.toml；docs/DECISIONS.md；docs/ROADMAP.md §5.8；docs/PROGRESS.md"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】镜像按实例 tag 打标签，但 docker-image-fetch.py 与 docker-mirror-probe.py 都把 manifest URL 写死成 /manifests/latest，plan 阶段直接 404——测速可达被误读为镜像可拉",
+    "root_cause": "两处脚本从 registry 默认 tag 假设出发拼 URL；Pro/GHCR 按 instance_id 打 tag 时 latest 不存在；此前 v1.22.0 已在 blob 段踩过同型坑（manifest 可达 ≠ 镜像可拉），这次换到 tag 维度重演",
+    "countermeasure": "manifest URL 必须由显式 tag 拼接（probe 新增 --tag；fetch 的 resolve_amd64_manifest 增参、cmd_plan 切分 repo[:tag]）；两处各加回归测试断言 /manifests/<tag> 被请求；复用镜像前先看 plan.json 的 manifest digest",
+    "source": "reports/swebench/pro-3repo-validation-2026-10-28.md §5.1；tests/test_scripts.py 两个新增用例"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】qutebrowser 容器内 QtWebEngine 在 root + 无 X 环境初始化时整进程退出，pytest 停在 74%、无 -rA 摘要（rc=1 无判分行），会被适配层误判为 prepare_failed",
+    "root_cause": "任务级环境差异：QtWebEngine 需要 X server 且 root 下必须禁 sandbox；数据集只给 before_repo_set_cmd 与测试文件，不含环境启动步骤；xvfb-run 仅包住进程还不够（teardown 断连仍 rc=1）",
+    "countermeasure": "容器判分必须允许任务级环境适配：pre_test_cmd 常驻 Xvfb :99 + env DISPLAY/QTWEBENGINE_DISABLE_SANDBOX=1 + pytest_args -p no:xvfb；判据是 pytest 摘要行出现且 F2P/P2P 全过；不把实例差异硬编码进脚本",
+    "source": "reports/swebench/pro-3repo-validation-2026-10-28.md §5.2；gate-3.jsonl 的 qutebrowser 任务级字段"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】probe 的 --image 不接受带 tag 的镜像名（tag 走 --tag），把 scaleapi/swe-bench_pro-v2:<tag> 塞给 --image 会拼出 /v2/<repo>:<tag>/manifests/<tag> 假 404，误以为镜像源挂了",
+    "root_cause": "两个脚本参数切分不一致：fetch 接受 repo[:tag]，probe 要求 image 与 tag 分离；报错只有 HTTP 404，不提示 URL 形状",
+    "countermeasure": "probe docstring 写清 --image 不含 tag 的用法；split_ref 统一「首段含 . / : 或 localhost 才算 registry」；排查 404 先打印实际请求 URL（probe 输出 tag 字段）",
+    "source": "reports/swebench/pro-3repo-validation-2026-10-28.md §5.3"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】pytest -rA 摘要里的跳过汇总行 SKIPPED [1] <file>:<line>: <reason> 第二列是计数不是 node id，解析器当成 node 会污染后缀匹配",
+    "root_cause": "只按 ^(PASSED|FAILED|ERROR|SKIPPED|XFAIL|XPASS)\\s+(\\S+) 抓第二列；SKIPPED 的汇总行格式与逐条结果不同",
+    "countermeasure": "第二列以 [ 开头的 token 直接跳过；node 匹配先精确后唯一后缀，不做模糊包含；用例覆盖 SKIPPED [1] 行",
+    "source": "reports/swebench/pro-3repo-validation-2026-10-28.md §5.4；tests/test_pro_sample.py 解析用例"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】judge 初版要求 F2P 与 P2P 都非空才算可判，零 P2P 的合法任务会被永久判 unresolved（数据集允许 pass_to_pass 为空）",
+    "root_cause": "把「两组判分点」当成假设前提，没按数据集实际形态建模；P2P 缺失是合法形态而非数据错误",
+    "countermeasure": "resolved 只要求 F2P 非空且全 PASSED；P2P 有则核、无则 N/A；baseline 的 P2P 失败单独落 baseline_p2p_failed 状态",
+    "source": "reports/swebench/pro-3repo-validation-2026-10-28.md §5.5；tests/test_pro_sample.py judge 用例"
+  },
+  {
+    "category": "测试",
+    "description": "【坑】blocked_source 用例最初传不存在的 --docker 路径，docker_bin() 返回空直接落 infra_error，测不到降级分支；且 meta.json 初版只在有 pytest_log 时写，失败样本丢元数据",
+    "root_cause": "测试造数选错触发点（可执行文件缺失 vs 镜像缺失是两条路径）；结果落盘条件绑在「有日志」上，把可选产物当必要条件",
+    "countermeasure": "用 --docker sys.executable 让 docker 查询失败但二进制存在，落 blocked_source；_finish 对每条结果都写 meta.json（含 gate/state/耗时），失败样本同样可复盘",
+    "source": "tests/test_pro_sample.py；skills/eval-harness/scripts/pro-sample.py _finish"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】提交前按惯例把 datasets 移出工作区时，`mv datasets ../hold` 报 Permission denied：`datasets/deepswe-out/repos/tomlkit` 被两个悬挂的 git credential-manager get 进程以该仓库为 CWD 持有句柄（Device or resource busy）",
+    "root_cause": "早前 git 操作（credential-manager get）挂起未退出，子进程继承 CWD 指向缓存仓；Windows 下目录被进程作为工作目录占用即不可改名/移动；mv 报错只给 Permission denied，不指出占用者",
+    "countermeasure": "先查悬挂进程（tasklist + Get-CimInstance 取 CommandLine/CWD），确认是 credential-manager get 这类阻塞进程后用 Stop-Process 结束；再逐项搬目录并校验还原（整目录 mv 失败时按子目录逐项搬）；提交后恢复 datasets 并核对条目数",
+    "source": "round-50 提交过程实踩；PowerShell Stop-Process 释放句柄后 mv 成功"
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "events": [
+    {
+      "type": "incident",
+      "category": "口径纪律",
+      "title": "suite 日志字节口径两次误判致 round-119 双跑日志损毁",
+      "description": "【坑】round-119 接手时双跑已绿（688/1 skip），但日志经 PowerShell `>` 按 UTF-16 落盘；随后又依据 console 表现误判为 GBK、以 utf-16 解码重写，两次误判把两份 suite 日志不可逆损毁（logs/ 不在版本控制内，无法恢复）。按 r117 同款 cmd /c 口径全套重跑两遍补救（436.193 / 395.945 秒，688 项全绿）。",
+      "root_cause": "以 console 表现（Select-String 读得到、乱码形态）替代字节级事实判定编码；PowerShell 5.1 重定向默认 UTF-16LE；『编码修复』转换未做损失校验、未留原件、不原地写回。本项目 suite 日志口径必须能被 round-gate close / release-gate 以 utf-8 errors=replace 解析（format=unittest），GBK/cp936 字节可满足，UTF-16 不满足。",
+      "countermeasure": "生成 suite 日志一律 `cmd /c \"python -m unittest discover -s tests > logs\\suite-rN-runK.log 2>&1\"`（r117 实证）；任何『编码修复』前先以字节级检查定编码（BOM/0x00 间插率/UTF-8 严格解码试探）；转换必须 roundtrip 校验且不原地覆盖；验收唯一事实=round-gate close --round N 的 suite_logs 解析（format=unittest、green=true）。证据：r119×2 / r120×2 / r121×2 全部被 gate 解析为全绿；人工编码猜测导致损毁且不可恢复（本条自报）。",
+      "source": "logs/suite-r119-run1/2.log、logs/suite-r120-run1/2.log、logs/suite-r121-run1/2.log（事后重跑，gate 可解析）；round-119/120/121 收官 commit 信息；本会话 PowerShell 5.1 实测"
+    },
+    {
+      "type": "test",
+      "title": "round-122：runner --report-style 补固定子集契约（覆盖率漂移收敛）",
+      "description": "tests/test_scripts_selfiter.py::test_runner_report_style_variant：固定四子集内 e2e 跑双闸通过并 --report-style engineering，断言 run_dir/report-engineering.md 落盘且非空壳。runner.py 固定子集覆盖 86.66→85.22→本轮实测 **86.72%**（回到基线之上），r120 入账漂移关闭。",
+      "outcome": "done"
+    },
+    {
+      "type": "feature",
+      "title": "round-122：coverage 常态 watch 收尾——四子集实测与新可见文件登记",
+      "description": "measure（四子集，689→690 项后）：overall 77.81%（vs 基线 77.85%，−0.04pp，容差内），regressions=0、missing=0；修复子进程 coverage 复现环境（绝对路径 COVERAGE_PROCESS_START/COVERAGE_FILE/PYTHONPATH，首版相对路径导致 probe 子进程 site.py 崩溃、test_probe_runs_and_observation_returns 假红——一次性排障，非仓库代码缺陷）；new_files=1：skills/orchestrator/scripts/report-adapter.py 首次可见（66.67%，r105 接线经 runner 子进程被覆盖收集，仅作信息登记，不判回归）。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-122：doc-freshness.py 漂移已于 r120 重切基线时一并入账",
+      "description": "doc-freshness.py 相对 2026-11-06 基线 83.83→83.23（−0.6pp，缺 28 行：F5 计数同步分支与 deepswe-canary 等）——该值已随 r120 基线重切（四子集 83.23%）一并裁定入账，本轮不再单独追；runner.py 通过新增契约回到基线之上。报告/台账记录两项漂移的处置路径各自不同，均如实入账。",
+      "outcome": "done"
+    }
+  ]
+}

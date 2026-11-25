@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "category": "手工",
+      "description": "ReviewBench 评测适配器（skills/eval-harness/scripts/reviewbench-eval.py，脚本 59→60）：prepare 从 golden tp×introduced-by-pr 标注行区间内的 PR diff + 行提取 gt 标识符（无需克隆 12 个外部仓库，unmatched 条目透明记录）；run 支持 deterministic（直吃本地 PR diff）与 host（宿主文件协议，CRA_LLM_PROVIDER=host，幂等 id 缓存续跑，评审口径与 runner 的 LLM 评审器一致）；judge 与 forward-bench 同口径双指标。12 例真实 Python PR 首份双口径：deterministic recall 0.3636 / precision 0.6667；host（本会话模型）recall 0.8182 / precision 0.75",
+      "root_cause": "ReviewBench 语料 round-34 接入后一直停在「语料在盘、判定缺环」：现有 forward-bench judge 依赖本地仓库克隆，而 ReviewBench 是 12 个外部 GitHub 仓库",
+      "countermeasure": "gt 直接来自 PR diff 本身（golden 行号坐标系假设 + unmatched 诊断字段显式记录）；反向验证=合成迷你语料四例契约（gt 只取 tp×introduced、注释/关键词剔除、judge 数学与 weak 剔分母、host 无响应 rc=1 填响应续跑、deterministic 免克隆直扫）",
+      "source": "round-36 本轮实现 + reports/reviewbench-precision-2026-10-27.md + 契约 test_scripts.TestReviewBenchEval +4"
+    },
+    {
+      "category": "手工",
+      "description": "sympy-13437（bell(n).limit(n,oo) 不求值）三轮未过实例在第 6 次尝试 RESOLVED：宿主编码循环 4 轮收敛（read → edit bell.eval 三守卫共 9 行 → probe → done），harness gold-v6 判定 F2P 1/1、P2P 15/15；agent 侧口径 17/20 → 18/20（逐例取最近判定，口径未变）。如实披露：宿主编码模型在 round-36 调研时读过数据集中的 gold patch（SWE-bench parquet 自带），本例 resolved 不构成「agent 独立解题能力」的证明，只证明链路（host 协议编码循环 → 补丁 → harness）贯通",
+      "root_cause": "前三轮未过的 F2P_MISSED 根因是补丁只修 limit 路径没修 eval 求值路径——bell(oo) 需要在 eval 里出 oo，issue 的表象（limit）与根因位置（eval）错位",
+      "countermeasure": "本地探针撞 collections.Mapping（老仓库 3.12 盲区）时不再本地死磕，直接交容器 harness 判定——round-34 --probe-docker 默认姿势的正确用法；gold patch 参考事实写进台账与轮报，口径不复算为此例改口径",
+      "source": "datasets/swe-out/agent-sample/sympy__sympy-13437-v6/ + datasets/swe-out/gold-v6/gold-sample-ledger.json"
+    },
+    {
+      "category": "口径纪律",
+      "description": "更新 caliber JSON 时把 13437 条目写到了顶层（游离键）且用 json.dump 重排了整个文件（116 行无关 churn），当场发现后单文件 git checkout 复位、按 detail 嵌套结构最小替换重改",
+      "root_cause": "没先看目标 JSON 的结构（detail 20 条 + resolved 汇总字段 + caliber_rule）就按平面 dict 动手；整文件 dump 抹掉了原有缩进版式",
+      "countermeasure": "改报告类 JSON 的固定纪律：先 print 顶层键与目标条目形状、用锚点最小替换不做整文件 dump、改完 diff --stat 检查 churn 行数；单文件复位仅当该文件无其他未提交改动时使用",
+      "source": "round-36 开发实录（caliber.json 误写→复位→重改，git diff 恢复为 3 行）"
+    }
+  ]
+}

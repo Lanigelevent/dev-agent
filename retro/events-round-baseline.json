@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "category": "行为回归",
+      "description": "审核人批准书闸定义了校验函数但没插进 fix-apply 调用链，REJECTED 批准书仍 APPLIED",
+      "root_cause": "编辑冲突后未核对调用点，职责分离闸门缺少负路径测试",
+      "countermeasure": "安全闸门必须先写负路径测试（篡改/缺批准书/REJECTED 三态）再算完成"
+    },
+    {
+      "category": "手工",
+      "description": "污点引擎汇点表用裸名 system，实际调用全路径是 os.system，导致漏报",
+      "root_cause": "汇点键与 _call_fullname 产物口径不一致，先写引擎后补用例",
+      "countermeasure": "新检测引擎一律先写正反双向用例再实现（红线 6 顺序化）"
+    },
+    {
+      "category": "手工",
+      "description": "fix-apply 文档字符串与 SKILL.md 提及其他脚本的旗标拼写，被 doc-drift 参数漂移误判",
+      "root_cause": "不知道 doc-drift 会把同现脚本名与 --flag 的行当参数断言",
+      "countermeasure": "写文档时散文体不出现 --旗标 拼写，git 旗标改文字描述"
+    },
+    {
+      "category": "手工",
+      "description": "测试 fixture 的测试文件未提交导致工作树脏，闸门守卫把行为回归测试用例本身拦下",
+      "root_cause": "五道闸前置条件与测试夹具准备顺序冲突",
+      "countermeasure": "凡进五道闸链路的夹具先提交再送审"
+    }
+  ]
+}

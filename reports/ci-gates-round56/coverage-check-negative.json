@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "target": "agent/code-task.py",
+  "drop_case": {
+    "rc": 1,
+    "state": "REGRESSION",
+    "regressions": [
+      {
+        "file": "agent/code-task.py",
+        "baseline_pct": 81.07,
+        "current_pct": 78.07,
+        "drop": 3.0
+      }
+    ],
+    "overall_drop": 0.0
+  },
+  "missing_case": {
+    "rc": 1,
+    "state": "REGRESSION",
+    "missing": [
+      "agent/code-task.py"
+    ]
+  },
+  "overall_case": {
+    "rc": 1,
+    "state": "REGRESSION",
+    "overall_drop": 3.0,
+    "overall_regression": true
+  },
+  "note": "反向验证：篡改基线样例（单文件降 3.0pp / 删除文件 / 总体降 3.0pp）必须 rc=1"
+}

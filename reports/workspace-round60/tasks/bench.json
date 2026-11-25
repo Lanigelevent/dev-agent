@@ -1,0 +1,70 @@
+{
+  "schema": "workspace-bench/1",
+  "fixture": "fix-calc",
+  "task": "修复 calc.py：add 应为加法、label 应输出 Hello 前缀；跑仓库测试验证",
+  "image": "cra-pytest:3.12",
+  "image_id": "sha256:ce76ca15acd9107d4dec1cd00b888a2e63a6bbaedb7f5238c7e148485d13cc11",
+  "identical_patch": true,
+  "both_done": true,
+  "arms": [
+    {
+      "arm": "local",
+      "workspace_spec": "local",
+      "state": "DONE",
+      "tests": "pass",
+      "rounds": 1,
+      "edits": 2,
+      "rc": 0,
+      "elapsed_sec": 2.281,
+      "patch_bytes": 232,
+      "patch_sha256": "820b56a2e804b2b889bf91f7ddc5e5c77302f463e2926fe44e2319636760ebe0",
+      "test_scope": "子集 1 项（原范围 1 项）：..                                                                       [100%]; 2 passed in 0.25s（未抽检）",
+      "test_engine": "pytest",
+      "workspace": {
+        "backend": "local",
+        "repo": "<repo>\\reports\\_work\\workspace-round60\\local\\repo",
+        "workspace": "<repo>\\reports\\workspace-round60\\tasks\\local\\wt",
+        "python": "<repo>\\.venv\\Scripts\\python.exe",
+        "python_version": "3.12.13",
+        "platform": "Windows"
+      },
+      "stderr_tail": [
+        "{\"round\": 0, \"event\": \"round_start\", \"total_rounds\": 6, \"history_len\": 0, \"phase\": \"\"}",
+        "{\"round\": 0, \"event\": \"llm_call_start\", \"material_chars\": 478, \"history_entries\": 0}",
+        "{\"round\": 0, \"event\": \"parsed\", \"action\": \"edit\", \"raw_len\": 269, \"parse_ok\": true}",
+        "{\"round\": 0, \"event\": \"test_done\", \"status\": \"pass\", \"detail\": \"子集 1 项（原范围 1 项）：..                                                                       [100%]; 2 passed in 0.25s（未抽检）\", \"tests_count\": \"pass\"}",
+        "{\"round\": 0, \"event\": \"edit_applied\", \"files\": [\"calc.py\", \"calc.py\"], \"edits_count\": 2, \"test_status\": \"pass\"}"
+      ]
+    },
+    {
+      "arm": "container",
+      "workspace_spec": "container:cra-pytest:3.12",
+      "state": "DONE",
+      "tests": "pass",
+      "rounds": 1,
+      "edits": 2,
+      "rc": 0,
+      "elapsed_sec": 3.89,
+      "patch_bytes": 232,
+      "patch_sha256": "820b56a2e804b2b889bf91f7ddc5e5c77302f463e2926fe44e2319636760ebe0",
+      "test_scope": "子集 1 项（原范围 1 项）（工作区 cra-pytest:3.12）：..                                                                       [100%]; 2 passed in 0.08s（未抽检）",
+      "test_engine": "pytest",
+      "workspace": {
+        "backend": "container",
+        "workspace": "<repo>\\reports\\workspace-round60\\tasks\\container\\wt",
+        "repo": "<repo>\\reports\\_work\\workspace-round60\\container\\repo",
+        "image": "cra-pytest:3.12",
+        "python": "python",
+        "python_version": "3.12.16",
+        "platform": "Linux"
+      },
+      "stderr_tail": [
+        "{\"round\": 0, \"event\": \"round_start\", \"total_rounds\": 6, \"history_len\": 0, \"phase\": \"\"}",
+        "{\"round\": 0, \"event\": \"llm_call_start\", \"material_chars\": 478, \"history_entries\": 0}",
+        "{\"round\": 0, \"event\": \"parsed\", \"action\": \"edit\", \"raw_len\": 269, \"parse_ok\": true}",
+        "{\"round\": 0, \"event\": \"test_done\", \"status\": \"pass\", \"detail\": \"子集 1 项（原范围 1 项）（工作区 cra-pytest:3.12）：..                                                                       [100%]; 2 passed in 0.08s（未抽检）\", \"tests_count\": \"pass\"}",
+        "{\"round\": 0, \"event\": \"edit_applied\", \"files\": [\"calc.py\", \"calc.py\"], \"edits_count\": 2, \"test_status\": \"pass\"}"
+      ]
+    }
+  ]
+}

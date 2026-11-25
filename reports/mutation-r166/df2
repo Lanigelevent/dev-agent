@@ -1,0 +1,68 @@
+{
+  "ok": true,
+  "mode": "mutation-sampler",
+  "target": "skills/self-iteration/scripts/doc-freshness.py",
+  "tests": "tests/test_scripts_gates.py",
+  "sites_total": 65,
+  "sampled": 10,
+  "killed": 1,
+  "survived": 9,
+  "kill_rate": 0.1,
+  "survived_detail": [
+    {
+      "index": 0,
+      "lineno": 61,
+      "kind": "False→True",
+      "killed": false
+    },
+    {
+      "index": 1,
+      "lineno": 61,
+      "kind": "常量+1",
+      "killed": false
+    },
+    {
+      "index": 2,
+      "lineno": 65,
+      "kind": "False→True",
+      "killed": false
+    },
+    {
+      "index": 3,
+      "lineno": 66,
+      "kind": "常量+1",
+      "killed": false
+    },
+    {
+      "index": 4,
+      "lineno": 95,
+      "kind": "常量+1",
+      "killed": false
+    },
+    {
+      "index": 5,
+      "lineno": 105,
+      "kind": "常量+1",
+      "killed": false
+    },
+    {
+      "index": 7,
+      "lineno": 113,
+      "kind": "常量+1",
+      "killed": false
+    },
+    {
+      "index": 8,
+      "lineno": 115,
+      "kind": "常量+1",
+      "killed": false
+    },
+    {
+      "index": 9,
+      "lineno": 117,
+      "kind": "常量+1",
+      "killed": false
+    }
+  ],
+  "note": "killed=测试抓住变异；survived=测试盲区（补行为断言的候选点）；原文件已恢复（finally 保证）"
+}

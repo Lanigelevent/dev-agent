@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "CI 门禁接线对账——doc-structure 接线 + mutation-sampler 登记修正（round-165）",
+    "description": "AGENTS 表标「CI 门禁」的 8 脚本逐个核对执行面：6 个真接线（coverage-gate/doc-freshness/latency/license/secret/trigger-audit），2 个无任何执行点（doc-structure、mutation-sampler）——登记与执行面漂移坐实。处置：①doc-structure 接线 CI（接线前实跑先发现真漂移：PROGRESS 状态表 L24 行 || 空列 7 列≠4 列且真值陈旧 b3c744c/v2.54.0——修复为 410e1bf/v2.66.0 规整 4 列，20/20 PASS 后接线）；②mutation-sampler 登记修正为「按需抽检」（r144 轮任务性质，非常设门禁——跑 CI 需目标选择且分钟级耗时，登记修正而非硬接线）。e2e-check.py 顺带体检 rc=0。",
+    "outcome": "done"
+  },
+  {
+    "type": "doc",
+    "title": "PROGRESS 状态表 L24 真值修复（round-165）",
+    "description": "「最近已提交」行：b3c744c（v2.54.0，r152 时代）→ 410e1bf（v2.66.0，r164），备注列 r141..152→r155..164 十轮收官；|| 空列修复（doc-structure table_shape 判据抓到的第一枚真实漂移——接线前的实跑即是反向验证）。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-165 任务面取舍（round-165）",
+    "description": "126 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体；②依赖刷新第十跑未到节奏（r161 第九跑后仅 4 轮）。任务面=CI 门禁接线对账（自拟维护面：脚本表标称与执行面的一致性审计）。",
+    "outcome": "done"
+  }
+]

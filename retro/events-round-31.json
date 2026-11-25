@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "category": "误报",
+      "description": "新写的 scripts/verify-closure-commands.py 首轮在真台账上抽出 7 条命令，其中 3 条是假的：`skills/retro/scripts/retro-report.py main`（叙述里顺带提到的函数名）、`grep -c '\\.venv/…'` 引号内部二次命中的畸形命令（尾巴带一个单引号）、以及 `grep -c '<模式>'` 只有模式没有文件操作数——照原样实跑会转去读 stdin，既不报错也什么都不证",
+      "root_cause": "抽取只认「启动器白名单 + 断句」，没约束启动器**后面那一段的形状**，也没管命中区间是否可以互相嵌套；于是「代码样子的词」和「代码」不分，而 `grep -c` 这类「命令名合法但操作数缺失」的残缺形态照样判成可跑。检查器自身的精度没人管，被检查的东西再多也只会被误判",
+      "countermeasure": "判据补严四条并写进脚本常量与 docstring（第二轮）：参数必须含旗标/引号/`=`/带斜杠操作数之一；落在已接受片段内部的命中直接丢；`grep -c` 不足 4 段判 `incomplete`；实跑一律 `stdin=DEVNULL`。真台账抽出数 7→5（全部为真命令），散文误抽 0；`tests/test_scripts.py::TestVerifyClosureCommands` 9 例把四条判据逐条钉住，含负面对照（同形命令只抽一次）",
+      "source": "round-31 结案口径全量实跑（reports/_work/cc-dry.json 首跑对照）"
+    },
+    {
+      "category": "行为回归",
+      "description": "第一次 `--run` 逐条实跑 5 条口径，3 条 `rc=127 命令起不来`、1 条 `rc=1` 但三条文件计数全 0——看起来是「台账里的口径全跑不过」，实际全是执行器自己的错：`PYTHONIOENCODING=utf-8` 被当成可执行文件名、`scripts/x.py --verbose` 在 Windows 下没有 shebang 支持、以及 `cmd.replace('\\\\','/')` 把 `grep -c '\\.venv/…'` 的正则转义改成了 `/`",
+      "root_cause": "把「命令字符串」直接当 argv 用，没有区分环境前缀 / 解释器 / 参数三种 token；而那条反斜杠替换是为 Windows 路径写的**便利**，它改动的是正则语义——最坏的一种失败：命令跑完了、退出码正常、数字全是 0，读报表的人看不出任何异常",
+      "countermeasure": "`_argv_of()` 显式拆三段：前导 `KEY=VALUE` 进 env、argv[0] 以 `.py` 结尾时用 `sys.executable` 并在报表里标 `interpreter_injected`（口径写得不完整这件事要留痕）、彻底删掉全局反斜杠替换；`OSError` 单列为 `environment` 不混进违规。复跑同一份台账 executed 5 / passed 5 / failed 0 / env 0，那条 grep 回到 README.md:1 / DEVELOPMENT.md:2 / test_scripts.py:1。`test_argv_of_handles_env_prefix_and_py_launcher_and_escapes` 三条断言各钉一个坑，`test_bad_shape_is_reported_not_run` 反向钉「形状不过的一律不进 subprocess」",
+      "source": "round-31 结案口径 --run 首轮与次轮对照（reports/_work/cc-run.json）"
+    },
+    {
+      "category": "误报",
+      "description": "台账 e185003c3d8c 的口径是「grep -c 某解释器字面量 → README 1 处 / DEVELOPMENT 2 处 / test_scripts 1 处」，本轮把它补成带文件操作数的可跑形态后实跑复验，第三条变成 2 处——多出来的那一处是本轮新加的测试夹具：nested-quote 抽取用例的 prompt 字面量里正好写着被计数的整串",
+      "root_cause": "检查器的样例文本与被检查的口径共用同一段字面量，写测试时只考虑「形状像不像」，没考虑这段源码本身就在被计数的那三个文件里。测量工具改变了被测物，且改变的方向是「让口径的断言变假」",
+      "countermeasure": "夹具改用短一截的字面量（`.venv/Scripts/python\\.exe`，同样能造出引号内嵌套命中的形状但不含被计数整串），并在测试里写明为什么不用原串；台账那条口径同时把「609 行」这类会漂的行号改成只指条目名。复验回到 1 / 2 / 1",
+      "source": "round-31 结案口径实跑（scripts/verify-closure-commands.py --run 输出与 grep 复核）"
+    },
+    {
+      "category": "行为回归",
+      "description": "round-30 排查「会盖掉历史的写入路径」时补的 append-only `apply-log-history.jsonl` 自己成了新的同类风险：只追加、无轮转无上限，同一 manifest 目录反复重试就一路长；检查单第 7 项点名的正是这条——要么给口径，要么写明允许无界由人工清理，别让它默默长",
+      "root_cause": "修「证据被盖掉」时只加了追加通道，把「追加通道自己的长度」当成不存在问题；一个目录里的重试次数在正常人工流程里是个位数，但脚本化重试与自动化跑次没有这个隐含上界，无界增长只是没被触发而不是不存在",
+      "countermeasure": "活跃文件固定 50 行窗口，溢出按签名压进同目录 `apply-log-history.archived.jsonl`（一条 = 一种「状态 + error 前 200 字」形状，带 occurrences/first_at/last_at），归档长度由不同形状数决定而不是由重试次数决定；签名键与 retro-ledger 的 pitfall id 键同源，压掉的正好是它本来也会去重的重复证据；采集端改为同时认活跃文件与归档。tests/test_repair.py::test_apply_log_history_rotation_is_bounded_and_keeps_evidence 连写 180 次断言窗口=50、归档=3 条 / 130 行，并把窗口刷成单一形状后仍采到两种回滚；两处变异（窗口设成 10^6 → 「活跃必须停在窗口大小」红；采集端改回只认活跃文件 → 只剩一条回滚）各自转红后复原",
+      "source": "round-31 检查单第 7 项（retro/next-round.md 无界增长条）"
+    },
+    {
+      "category": "行为回归",
+      "description": "全量套件从「只剩 1 条文档新鲜度红」变成 8 条红，其中 7 条同因且形状最坏：runner 报 state=DONE、退出码 0，但 findings 全空（inline []、双意见 sources 为空集、跨文件污点流 0 条），findings-check 单跑则炸 UnicodeEncodeError: 'utf-8' codec can't encode character '\\udc8e'。根因是宿主 ANSI locale——本机中文桌面为 cp936，子进程 sys.stdin 因此按 GBK 打开（errors=surrogateescape），而 runner 以 ensure_ascii=False 把中文 findings 写成 UTF-8 字节喂进 stdin，校验器读到的是代理对/乱码，判成「校验不过」后整批发现被丢弃",
+      "root_cause": "脚本清一色只 reconfigure 了 stdout/stderr 到 UTF-8，没人管 stdin；于是「输入按 UTF-8 送、输出按 UTF-8 写」这条契约实际只在输出侧成立，输入侧悄悄跟着宿主 locale 走。同类漏网共四处：findings-check（stdin 的 - 分支）、report-check（同形）、risk-scoring/score.py（缺省读 stdin）、engines/libcst_adapter.py 的 cmd_fix_text（带中文注释的源码进 codemod 前就坏）。mcp/review_mcp.py 的 main() 早就同时 reconfigure 了 stdin+stdout，说明意图一直是 UTF-8，只是没有全项目一致落地",
+      "countermeasure": "四处读 stdin 的脚本在读取前统一 `sys.stdin.reconfigure(encoding='utf-8')`，脚本 docstring 写明「stdin 与文件两条路都按 UTF-8 读，不跟宿主 ANSI locale 走」。复现与宿主无关：测试用 PYTHONIOENCODING=gbk 显式把孩子的 stdio 钉成 GBK（中文 Windows 桌面的默认态），`TestReproductionIsReal` 先证明这个旋钮确实会把「不 reconfigure stdin 的孩子」解坏（enc 非 utf 且长度变化，否则判不了真假），再由 TestStdinIsUtf8 五条断言分别钉住代理对崩溃形状、乱码枚举被拒形状、中文章节名、中文区域名原样回显、以及 argv 不受 stdio 旋钮牵连；test_engines 一条钉住 libcst fix-text 的中文注释。四处各做变异复验：删掉对应 reconfigure 后，findings-check 3 条 / report-check 1 条 / score 1 条 / libcst 1 条转红，复原后全绿。同轮把 tests/test_interop.py 里硬编码的 1.31.0 版本字面量改为「README 头条版本 == manifest 版本」的同步断言，消掉「改版本要改两处」这个第三抄件",
+      "source": "round-31 收官全量套件首跑（reports/_work/full-run1.txt 8 failures）与逐模块复跑定位"
+    }
+  ]
+}

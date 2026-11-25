@@ -1,0 +1,32 @@
+[
+  {
+    "category": "手工",
+    "description": "matplotlib-22711 第一次修复方向错了：按 issue 描述删掉 set_val 里对 xy[4] 的越界赋值，结果 harness 报 F2P 0/2——poly 的范围被撑成 x[0.1,0.34] × y[0,0.75]（期望 y 下界 0.25）",
+    "root_cause": "issue 的报错（index 4 out of bounds for axis 0 with size 4）来自上游 3.5.1 的 4 顶点 poly，而本仓库该基线的 poly.xy 实为 5 个顶点（第 5 个是闭合重复点），xy[4] 恰恰是它、必须保留；只凭 issue 文本无法判定本基线的多边形结构",
+    "countermeasure": "改为在容器内跑行为探针（读 poly 顶点数/顶点表/extent），一步定位真根因：set_val 只更新了 poly 与文字、没同步移动两个 handle（self._handles），所以程序化设值与 reset() 之后手柄仍停在旧位置；补上按 orientation 更新 handle 坐标后 F2P 2/2 通过。结论沉淀为方法：**症状（报错行）不等于根因，几何/状态类缺陷必须实测行为**"
+  },
+  {
+    "category": "手工",
+    "description": "sklearn-14087 第一版补丁只修了一半：F2P 0/3，harness 显示 elasticnet 三个参数化全过、l2 三个全败",
+    "root_cause": "两处独立缺陷叠加：① refit=False 分支用构造参数 self.multi_class（默认 'auto'）而非 _check_multi_class 已解析的 multi_class，四维索引打到三维 coefs_paths 上；② penalty!='elasticnet' 时 l1_ratios_ 是普通 list [None]，用数组索引抛 TypeError（elasticnet 走 numpy 数组才侥幸不炸）",
+    "countermeasure": "两处一并修：分支判断改用已解析的 multi_class；l1_ratio 取值改为按元素取并对非 elasticnet 置 None。harness 反馈的「哪几个参数化过了、哪几个没过」直接定位到第二个根因——这类分桶信息比单看报错行有效得多"
+  },
+  {
+    "category": "手工",
+    "description": "sklearn-14092（NCA 在 GridSearchCV 下参数类型过严）：np.int64 的 n_components 与整数形态的 tol 被判类型不符",
+    "root_cause": "NCA 用 check_scalar(..., int/float, ...) 做精确 isinstance 校验，numpy 标量与整数值浮点参数被拒；而全局放宽 check_scalar 会撞上既有契约测试（check_scalar(1, ..., float) 必须抛 TypeError）",
+    "countermeasure": "只改 NCA 自身：改用 numbers.Integral / numbers.Real 抽象基类——numpy 标量与整数形态浮点都放行，非数值类型仍抛 TypeError，check_scalar 本体语义不动；harness F2P 3/3、P2P 212/212（含上游同步放宽的那条 tol 断言）全过"
+  },
+  {
+    "category": "手工",
+    "description": "扩样余量收尾：上一轮遗留的三例（sklearn-14087 / sklearn-14092 / matplotlib-22711）全部拿到官方 harness 的 resolved",
+    "root_cause": "上一轮因上下文预算把三例停在「读完目标文件」，补丁未写；本轮续跑时，失败归因（F2P_MISSED）已经把返工方向从「担心补丁弄坏东西」收敛到「对齐上游期望的语义」",
+    "countermeasure": "三例全部走 code-task 宿主协议产出补丁（每例 1-2 轮编辑），按 harness 反馈迭代到 resolved；agent 侧样本从 n=13 扩到 n=16（跨 astropy/django/sympy/scikit-learn/matplotlib 五仓），并重跑全量 16 例得到单一口径分数"
+  },
+  {
+    "category": "手工",
+    "description": "上一轮 README 的 agent 侧口径「11/13」与同轮归档的产物对不上：归因产物写的是 RESOLVED 8 / F2P_MISSED 5，harness 逐例报告与 gold-sample 台账也都只有 8 例 resolved——sympy-13437 的 F2P test_bell 在 agent7/agent8/agent14 三轮里一次都没过，却被当作「补 Bell 的非法入参语义」计进了迭代收益",
+    "root_cause": "口径数字靠人工累加（批量跑 8/13 + 之后两例单例补跑 = 10，却写成 11），没有从产物复算；文档门禁只对计数/版本，不校验 README 头条数字与归档产物是否一致，于是虚高被固化进 README 头条",
+    "countermeasure": "本轮口径一律取自**单次完整重跑**（n=16 全部重跑，台账与 harness 逐例报告两源互校后取交集一致值 13/16），不再人工累加；把「口径数字必须能从归档产物复算」写进检查单，并建议给 doc-freshness 增加一条交叉校验：README 的 N/M 与 reports/swebench/*.json 的实例数、resolved 数必须一致，不一致即漂移"
+  }
+]

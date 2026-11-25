@@ -1,0 +1,9 @@
+[
+  {
+    "category": "手工",
+    "description": "gold 扩样收官：gold-sample 驱动器单命令跑完 6 实例全链（跨 django/sympy/astropy/scikit-learn 四仓），6/6 DONE 全 resolved，零人工干预；网络窗口期吞吐远超此前 100KB/s 常态（5.4GB 镜像在数十分钟内完成）——窗口波动再证实测优先",
+    "root_cause": "（成功案例，非坑）管线与断点续跑设计在窗口期直接兑现",
+    "countermeasure": "gold 口径 8/8 resolved 已入 BASELINE 沿革与 README 状态块；下一阶段转 agent 侧补丁口径（code-task 产 patch 而非 gold patch）",
+    "source": "retro/events-round-gold17.json"
+  }
+]

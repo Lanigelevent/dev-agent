@@ -1,0 +1,11 @@
+[
+  {
+    "type": "correction",
+    "title": "发布闸证据面重跑陷阱——闸被自己的产物绊倒（r190 三次拦截的结构性教训）",
+    "description": "r190 发布闸重跑场景：--out 证据文件（已 tracked）被每次闸运行重写，上次未提交的证据面在检查时使 git_state 判脏——闸自身的输出产物让重跑必踩 FAIL（叠加 tag-reuse 预检与 retro 产物顺序错误共三次拦截，其中本次结构性项占一）。",
+    "root_cause": "git_state 脏扫描未豁免闸自身 --out 证据路径；_git() 助手返回已 strip 的行，porcelain 前缀列宽不保证，固定列切片解析脆弱。",
+    "countermeasure": "已落地：check_git_state 扩 out_path 自豁免（按空白切路径段 + R 重命名尾段解析 + resolve 规范比对），evidence 记 out_evidence_excluded 计数；+2 契约（out 脏→PASS / out 脏+他文件脏→仍 FAIL 反向验证）。excluded==0 伪像由契约首跑即抓（strip 后 line[3:] 切片错位）——契约先行验证解析健壮性。",
+    "source": "round-191",
+    "confidence": "observed"
+  }
+]

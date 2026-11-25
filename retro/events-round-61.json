@@ -1,0 +1,30 @@
+[
+ {
+  "type": "feature",
+  "description": "round-61 独立语料 uplift 对照基准落地：run-uplift-bench.py prepare/judge/report 三子命令，公开上游提交 + 测试补丁预置 + pytest 机械判分；两题两臂 4/4 resolved、补丁字节级一致、未观测到 uplift（n=2，同一宿主模型，D-040）",
+  "source": "reports/uplift-round61/run-uplift-bench.py、tasks.json、bench.json、report.md"
+ },
+ {
+  "type": "test",
+  "description": "round-61 契约测试 +3：默认参数闭包豁免正反双向（跨 AST 与 diff 行扫描）、TF-IDF min-score 过滤与反向验证、docstring 旗标 ⊆ argparse 前移检查（73 脚本 + 违规探针），511→514",
+  "source": "tests/test_scripts.py、tests/test_retro.py"
+ },
+ {
+  "type": "doc",
+  "description": "round-61 文档回填：ROADMAP §5.19 + 阶段四 4.1 复证 + §9 红线提案引用；DECISIONS D-040/D-041；版本 1.62.0",
+  "source": "docs/ROADMAP.md、docs/DECISIONS.md"
+ },
+ {
+  "type": "confirmation",
+  "description": "300s 红线改线提案已正式化（D-041，方案 2：观测指标 + 600s 挂死护栏，三项条件），待总监批准；本轮红线数值未改",
+  "source": "docs/DECISIONS.md D-041"
+ },
+ {
+  "type": "pitfall",
+  "category": "手工",
+  "description": "【坑】uplift 判分 worktree 里的子模块 tests/toml-test 没初始化：首轮全量 error；改用主仓当前子模块（08ed869）又引入 32 条与本任务无关的 invalid_decode/数据用例失败；phases 臂因此耗尽轮预算 ESCALATED，属环境故障",
+  "root_cause": "判分 worktree 不自动持仓库提交的子模块内容；主仓子模块已前进到新版本，与 base 提交锚定的 27837d38 不一致，测试数据漂移",
+  "countermeasure": "tasks.json 钉死 submodule_src（提交锚定的内容副本）+ submodule_dest，judge 前幂等复制并去掉 .git 指针；基线自检必须红（1 failed/743 passed）才开跑，环境故障重跑不混入结论",
+  "source": "reports/uplift-round61/tasks.json、report.md；reports/_work/uplift-r61/_submodules/toml-test-27837d38"
+ }
+]

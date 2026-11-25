@@ -1,0 +1,16 @@
+{
+  "rc": 0,
+  "data": {
+    "ok": true,
+    "state": "DONE",
+    "patch": "<repo>\\reports\\multilang-round59\\tasks\\ts-calc\\edits.patch",
+    "tests": "pass",
+    "rounds": 1,
+    "edits": 1,
+    "patch_validation": {
+      "ok": true,
+      "issues": []
+    },
+    "note": "补丁产出；落盘走修复链（工单/批准书/五道闸）"
+  }
+}

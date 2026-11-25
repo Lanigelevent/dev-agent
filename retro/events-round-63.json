@@ -1,0 +1,43 @@
+[
+ {
+  "type": "feature",
+  "description": "round-63 评测口径收口：历史未过实例 astropy-14365（QDP 大小写）第 6 版补丁在官方容器 harness 判定 resolved（F2P test_roundtrip[True] 1/1、P2P 8/8，判分 166.516 s）；编码循环 2 轮 / 2 编辑、补丁 1 115 B / 1 文件 / +4 −2；agent 侧 20 条口径 18/20→19/20，余 django-11019；n=1 且任务文本带历史容器判分反馈，只证带反馈复修可收敛，不外推（D-030）",
+  "source": "reports/swebench/astropy-14365-v6-2026-10-29.md、datasets/swe-out/agent-sample/eval-r63/（gate 语料）、reports/swebench/code-review-agent.agent-diagnosis.json"
+ },
+ {
+  "type": "test",
+  "description": "round-63 契约测试 +1：TestSkillGates.test_scan_agent_caliber_prefers_diagnosis 钉住 F7 真值取 agent-diagnosis（20 条）而非 50 条 caliber、行内「→」不得整行豁免，518→519",
+  "source": "tests/test_scripts.py"
+ },
+ {
+  "type": "doc",
+  "description": "round-63 文档回填：ROADMAP §5.21 + DECISIONS D-043 + README 状态块 round-63 沿革；版本 1.64.0；测试 518→519、脚本 74 不变、台账 222 条（open 2 / closed 196 / archived 24）",
+  "source": "docs/ROADMAP.md、docs/DECISIONS.md、README.md、BASELINE.md、docs/PROGRESS.md、retro/next-round.md"
+ },
+ {
+  "type": "confirmation",
+  "description": "astropy-14365 的复修任务文本含历史容器判分反馈（文件/行号/异常形态）作为规格，属「带反馈复修」而非冷启动解题；n=1 不宣称成功率或能力上限；本地测试信号 fail 如实保留、以容器 harness 为判据",
+  "source": "reports/swebench/astropy-14365-v6-2026-10-29.md §6"
+ },
+ {
+  "type": "pitfall",
+  "category": "口径纪律",
+  "description": "【坑】README 的 agent 侧口径 18/20 与归档产物 agent-diagnosis 的 17/20 长期不一致：round-36 的 sympy-13437 只回填了 README/BASELINE 与 50 条 caliber，没回填 20 条 agent-diagnosis；同时 F7 检查器按整行历史标记跳过（状态块一行里必有「→」），真值又取 50 条 gold caliber（与 agent 20 条不同分母）——两道保护同时失效，直到 round-63 更新口径才暴露",
+  "root_cause": "同一口径存在两个产物（20 条 agent-diagnosis 与 50 条 caliber），README 人工叙述与产物回填脱节；检查器沿用行级历史豁免，与 round-23 在 F5 上修过的是同一类缺陷，但当时没有同步到 F7",
+  "countermeasure": "F7 真值优先取 agent-diagnosis、缺失才回退 caliber；历史判定由整行改为「数值前 12 字」；补契约 test_scan_agent_caliber_prefers_diagnosis 钉住两条（行内箭头不豁免 + 取 agent 专项产物）；同步回填 sympy-13437（gold-v6）与 astropy-14365（eval-r63），顶层 resolved 17→19、余 django-11019",
+  "source": "skills/self-iteration/scripts/doc-freshness.py、tests/test_scripts.py、reports/swebench/code-review-agent.agent-diagnosis.json"
+ },
+ {
+  "type": "test",
+  "description": "round-63 契约测试 +2：TestVerifyClosureCommands 引号感知（引号内括号/分号不截断）+ 反向未闭合引号仍判 unrunnable_shape，518→521",
+  "source": "tests/test_scripts.py"
+ },
+ {
+  "type": "pitfall",
+  "category": "口径纪律",
+  "description": "【坑】结案命令抽取器引号盲区：verify-closure-commands 的断句只管句读与 CJK、不辨引号内外，真实台账里 python -c \"…json.load(open('x'))…\" 在第一个 ( 处被截断，平衡引号被劈开判成 unrunnable_shape——形状判据对了字面却不可跑，属检查器假阳性，全量首跑即暴露",
+  "root_cause": "抽取器把括号一律当散文句读，未区分「引号内是命令正文」；此前口径里的 python -c 都没带括号，缺陷一直潜伏",
+  "countermeasure": "断句改引号感知：引号内只认换行、反斜杠按转义跳字，引号外仍按句读/箭头/CJK 断句；未闭合引号扫到末尾交由 shlex 判 unrunnable_shape（宽松不放行）。新增 2 条契约（正向保留括号分号 + 反向未闭合）",
+  "source": "scripts/verify-closure-commands.py、tests/test_scripts.py、logs/suite-r63-run1-fail.log"
+ }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "报告输出适配器：三维度风格 spec（三 preset）",
+    "description": "report-adapter.py 读 findings JSON + 风格 spec（detail_level/audience/industry + max_findings/min_severity），按受众渲染（management 摘要/auditor 取证链/engineering 全文），severity 过滤 + 截断，行业术语映射 finance/healthcare/gaming；与 runner step10 解耦。"
+  },
+  {
+    "type": "test",
+    "title": "report-adapter 7 契约",
+    "description": "tests/test_report_adapter.py 7 项全绿（discover 口径 0.071s）。"
+  }
+]

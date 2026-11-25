@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "依赖刷新第十四跑——三补丁升级 + 矩阵重分类同步（round-200，路线锚点轮）",
+    "description": "14 项清华镜像逐项探测：11 项 no changes + 三真升级（ruff 0.17.5→0.17.6 / coverage 7.17.3→7.17.4 / hypothesis 6.170.15→6.170.17）+ 拒 numpy 2.5.5 传递提议（r182/r190 先例）。矩阵重测 drift：ruff 0.17.6 规则重分类 973/481/251→973/482/250（fixable +1/safe −1，总数不变）——接受升级并三面同步（engines/ruff-matrix.json + AGENTS 表 + 文档引用），非回滚（分类变化非行为回归；契约无计数钉实证）。锁定向刷新（uv lock --upgrade-package ×3）+ requirements 重导出（--extra dev 惯例确认——uv export 缺省不含 optional-dependencies，中途发现 --no-dev 差点剥掉 dev 组，--hashes 440 条保持）；附带发现 uv.lock 项目版本停在 2.62.0（零升级轮未刷锁的积累）一并修正。license-check PASS。",
+    "countermeasure": "锁刷新纪律细化：uv lock 缺省不升钉，定向用 --upgrade-package；导出用 --extra dev（dev 组在 optional-dependencies）；零升级轮也周期性刷新锁（项目版本字段漂移教训）。下一锚点约 r210。",
+    "source": "round-200"
+  }
+]

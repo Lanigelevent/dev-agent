@@ -1,0 +1,39 @@
+[project]
+name = "dev-agent"
+version = "2.99.0"
+description = "全能代码智能体（治理先行）：评审/修复/重构/测试生成与编码循环，复用成熟开源引擎，一切写操作经五道闸"
+requires-python = ">=3.11"
+# 依赖白名单（AGENTS.md 硬约束 1）：MIT/Apache/BSD 可嵌入；MPL-2.0 仅 test-only（D-022）；LGPL 组件一律 subprocess 隔离（不入本表）
+dependencies = [
+    "ruff>=0.8",        # MIT — lint + autofix 引擎（engines/ruff_adapter）
+    "libcst>=1.5",      # MIT — codemod/重构引擎（engines/libcst_adapter）
+    "tree-sitter>=0.23",        # MIT — 仓库地图（agent/repo_map）
+    "tree-sitter-python>=0.23", # MIT — Python 语法包
+    "tree-sitter-typescript>=0.23", # MIT — TS/TSX 语法包（阶段四 4.2）
+    "tree-sitter-go>=0.25",   # MIT — Go 语法包（阶段四 4.2）
+    "ast-grep-py>=0.4", # MIT — 多语言 AST 模式引擎（engines/astgrep_adapter）
+]
+
+[project.optional-dependencies]
+# LGPL 组件：仅 subprocess 隔离使用，按需单独安装，不进运行时 import 依赖
+isolated = [
+    "semgrep",   # LGPL-2.1 引擎（subprocess）
+    "pynguin",   # LGPL-3.0 测试生成（subprocess）
+]
+# 测试/构建工具：不随治理壳分发；许可证按 test-only 策略校验（G12 裁定，D-034）
+dev = [
+    "pytest>=8",      # MIT — 契约测试与生成物验证运行器
+    "coverage>=7.6",  # Apache-2.0 — 覆盖率门禁采集（coverage-gate.py）
+    "hypothesis>=6",  # MPL-2.0 — 属性测试生成（仅测试依赖，不随治理壳分发；G12 裁定 D-034）
+    "pytest-xdist>=3.5",  # MIT — 套件并行（D-051 批 A：nightly/发布闸提速可选；CI 命令另切）
+]
+
+[tool.uv]
+# 国内网络环境下优先清华镜像（GitHub/PyPI 直连不稳定）
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+# r149 实验：override pytest 下界（isolated extra 全图解析回压排查）
+override-dependencies = ["pytest>=9; python_full_version >= '3.11'"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

@@ -1,0 +1,434 @@
+{
+  "rule": "只蒸馏 resolved=True 实例；数据全部取自补丁与 manifest 产物",
+  "resolved_count": 17,
+  "plans": {
+    "astropy": {
+      "instances": [
+        "astropy__astropy-12907",
+        "astropy__astropy-14182"
+      ],
+      "top_file_prefixes": [
+        [
+          "astropy/modeling/separable.py",
+          1
+        ],
+        [
+          "astropy/io/ascii",
+          1
+        ]
+      ],
+      "rounds_minmax": [
+        3,
+        3
+      ],
+      "added_lines_minmax": [
+        1,
+        11
+      ]
+    },
+    "django": {
+      "instances": [
+        "django__django-10914",
+        "django__django-11039",
+        "django__django-11049",
+        "django__django-12284",
+        "django__django-14999"
+      ],
+      "top_file_prefixes": [
+        [
+          "django/db/models",
+          2
+        ],
+        [
+          "django/conf/global_settings.py",
+          1
+        ],
+        [
+          "django/core/management",
+          1
+        ],
+        [
+          "django/db/migrations",
+          1
+        ]
+      ],
+      "rounds_minmax": [
+        3,
+        3
+      ],
+      "added_lines_minmax": [
+        1,
+        6
+      ]
+    },
+    "matplotlib": {
+      "instances": [
+        "matplotlib__matplotlib-22711",
+        "matplotlib__matplotlib-22835"
+      ],
+      "top_file_prefixes": [
+        [
+          "lib/matplotlib/widgets.py",
+          1
+        ],
+        [
+          "lib/matplotlib/artist.py",
+          1
+        ]
+      ],
+      "rounds_minmax": [
+        2,
+        2
+      ],
+      "added_lines_minmax": [
+        4,
+        20
+      ]
+    },
+    "pytest-dev": {
+      "instances": [
+        "pytest-dev__pytest-7220"
+      ],
+      "top_file_prefixes": [
+        [
+          "src/_pytest/nodes.py",
+          1
+        ]
+      ],
+      "rounds_minmax": [
+        2,
+        2
+      ],
+      "added_lines_minmax": [
+        5,
+        5
+      ]
+    },
+    "scikit-learn": {
+      "instances": [
+        "scikit-learn__scikit-learn-13241",
+        "scikit-learn__scikit-learn-14087",
+        "scikit-learn__scikit-learn-14092"
+      ],
+      "top_file_prefixes": [
+        [
+          "sklearn/decomposition/kernel_pca.py",
+          1
+        ],
+        [
+          "sklearn/linear_model/logistic.py",
+          1
+        ],
+        [
+          "sklearn/neighbors/nca.py",
+          1
+        ]
+      ],
+      "rounds_minmax": [
+        2,
+        3
+      ],
+      "added_lines_minmax": [
+        4,
+        14
+      ]
+    },
+    "sphinx-doc": {
+      "instances": [
+        "sphinx-doc__sphinx-8506"
+      ],
+      "top_file_prefixes": [
+        [
+          "sphinx/domains/std.py",
+          1
+        ]
+      ],
+      "rounds_minmax": [
+        2,
+        2
+      ],
+      "added_lines_minmax": [
+        1,
+        1
+      ]
+    },
+    "sympy": {
+      "instances": [
+        "sympy__sympy-13031",
+        "sympy__sympy-13043",
+        "sympy__sympy-13146"
+      ],
+      "top_file_prefixes": [
+        [
+          "sympy/matrices/sparse.py",
+          1
+        ],
+        [
+          "sympy/integrals/intpoly.py",
+          1
+        ],
+        [
+          "sympy/core/operations.py",
+          1
+        ]
+      ],
+      "rounds_minmax": [
+        2,
+        3
+      ],
+      "added_lines_minmax": [
+        7,
+        20
+      ]
+    }
+  },
+  "details": [
+    {
+      "files": [
+        "astropy/modeling/separable.py"
+      ],
+      "hunk_contexts": [
+        "def _cstack(left, right):"
+      ],
+      "added_lines": 1,
+      "removed_lines": 1,
+      "rounds": 3,
+      "edits": 1,
+      "instance_id": "astropy__astropy-12907",
+      "source_dir": "astropy__astropy-12907-v2"
+    },
+    {
+      "files": [
+        "astropy/io/ascii/rst.py"
+      ],
+      "hunk_contexts": [
+        "class RST(FixedWidth):"
+      ],
+      "added_lines": 11,
+      "removed_lines": 3,
+      "rounds": 3,
+      "edits": 2,
+      "instance_id": "astropy__astropy-14182",
+      "source_dir": "astropy__astropy-14182-v2"
+    },
+    {
+      "files": [
+        "django/conf/global_settings.py"
+      ],
+      "hunk_contexts": [
+        "DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000"
+      ],
+      "added_lines": 5,
+      "removed_lines": 3,
+      "rounds": 3,
+      "edits": 1,
+      "instance_id": "django__django-10914",
+      "source_dir": "django__django-10914"
+    },
+    {
+      "files": [
+        "django/core/management/commands/sqlmigrate.py"
+      ],
+      "hunk_contexts": [
+        "class Command(BaseCommand):"
+      ],
+      "added_lines": 4,
+      "removed_lines": 1,
+      "rounds": 3,
+      "edits": 1,
+      "instance_id": "django__django-11039",
+      "source_dir": "django__django-11039-v2"
+    },
+    {
+      "files": [
+        "django/db/models/fields/__init__.py"
+      ],
+      "hunk_contexts": [
+        "class DurationField(Field):"
+      ],
+      "added_lines": 1,
+      "removed_lines": 1,
+      "rounds": 3,
+      "edits": 1,
+      "instance_id": "django__django-11049",
+      "source_dir": "django__django-11049"
+    },
+    {
+      "files": [
+        "django/db/models/base.py"
+      ],
+      "hunk_contexts": [
+        "class Model(metaclass=ModelBase):"
+      ],
+      "added_lines": 6,
+      "removed_lines": 0,
+      "rounds": 3,
+      "edits": 1,
+      "instance_id": "django__django-12284",
+      "source_dir": "django__django-12284-v2"
+    },
+    {
+      "files": [
+        "django/db/migrations/operations/models.py"
+      ],
+      "hunk_contexts": [
+        "class RenameModel(ModelOperation):"
+      ],
+      "added_lines": 4,
+      "removed_lines": 0,
+      "rounds": 3,
+      "edits": 1,
+      "instance_id": "django__django-14999",
+      "source_dir": "django__django-14999-v3"
+    },
+    {
+      "files": [
+        "lib/matplotlib/widgets.py"
+      ],
+      "hunk_contexts": [
+        "class RangeSlider(SliderBase):"
+      ],
+      "added_lines": 4,
+      "removed_lines": 0,
+      "rounds": 2,
+      "edits": 2,
+      "instance_id": "matplotlib__matplotlib-22711",
+      "source_dir": "matplotlib__matplotlib-22711-v2"
+    },
+    {
+      "files": [
+        "lib/matplotlib/artist.py"
+      ],
+      "hunk_contexts": [
+        "class Artist:"
+      ],
+      "added_lines": 20,
+      "removed_lines": 4,
+      "rounds": 2,
+      "edits": 1,
+      "instance_id": "matplotlib__matplotlib-22835",
+      "source_dir": "matplotlib__matplotlib-22835-v5"
+    },
+    {
+      "files": [
+        "src/_pytest/nodes.py"
+      ],
+      "hunk_contexts": [
+        "class Node(metaclass=NodeMeta):"
+      ],
+      "added_lines": 5,
+      "removed_lines": 2,
+      "rounds": 2,
+      "edits": 1,
+      "instance_id": "pytest-dev__pytest-7220",
+      "source_dir": "pytest-dev__pytest-7220-v2"
+    },
+    {
+      "files": [
+        "sklearn/decomposition/kernel_pca.py"
+      ],
+      "hunk_contexts": [
+        "class KernelPCA(BaseEstimator, TransformerMixin, _UnstableOn32BitMixin):",
+        "class KernelPCA(BaseEstimator, TransformerMixin, _UnstableOn32BitMixin):"
+      ],
+      "added_lines": 14,
+      "removed_lines": 1,
+      "rounds": 3,
+      "edits": 2,
+      "instance_id": "scikit-learn__scikit-learn-13241",
+      "source_dir": "scikit-learn__scikit-learn-13241-v2"
+    },
+    {
+      "files": [
+        "sklearn/linear_model/logistic.py"
+      ],
+      "hunk_contexts": [
+        "class LogisticRegressionCV(LogisticRegression, BaseEstimator,",
+        "class LogisticRegressionCV(LogisticRegression, BaseEstimator,"
+      ],
+      "added_lines": 9,
+      "removed_lines": 2,
+      "rounds": 2,
+      "edits": 2,
+      "instance_id": "scikit-learn__scikit-learn-14087",
+      "source_dir": "scikit-learn__scikit-learn-14087-v2"
+    },
+    {
+      "files": [
+        "sklearn/neighbors/nca.py"
+      ],
+      "hunk_contexts": [
+        "Neighborhood Component Analysis",
+        "class NeighborhoodComponentsAnalysis(BaseEstimator, TransformerMixin):",
+        "class NeighborhoodComponentsAnalysis(BaseEstimator, TransformerMixin):"
+      ],
+      "added_lines": 4,
+      "removed_lines": 3,
+      "rounds": 3,
+      "edits": 3,
+      "instance_id": "scikit-learn__scikit-learn-14092",
+      "source_dir": "scikit-learn__scikit-learn-14092"
+    },
+    {
+      "files": [
+        "sphinx/domains/std.py"
+      ],
+      "hunk_contexts": [
+        "logger = logging.getLogger(__name__)"
+      ],
+      "added_lines": 1,
+      "removed_lines": 1,
+      "rounds": 2,
+      "edits": 1,
+      "instance_id": "sphinx-doc__sphinx-8506",
+      "source_dir": "sphinx-doc__sphinx-8506-v2"
+    },
+    {
+      "files": [
+        "sympy/matrices/sparse.py"
+      ],
+      "hunk_contexts": [
+        "def col_join(self, other):",
+        "def row_join(self, other):"
+      ],
+      "added_lines": 8,
+      "removed_lines": 4,
+      "rounds": 3,
+      "edits": 2,
+      "instance_id": "sympy__sympy-13031",
+      "source_dir": "sympy__sympy-13031-v2"
+    },
+    {
+      "files": [
+        "sympy/integrals/intpoly.py"
+      ],
+      "hunk_contexts": [
+        "def decompose(expr, separate=False):",
+        "def decompose(expr, separate=False):",
+        "def decompose(expr, separate=False):"
+      ],
+      "added_lines": 7,
+      "removed_lines": 4,
+      "rounds": 3,
+      "edits": 3,
+      "instance_id": "sympy__sympy-13043",
+      "source_dir": "sympy__sympy-13043-v2"
+    },
+    {
+      "files": [
+        "sympy/core/operations.py"
+      ],
+      "hunk_contexts": [
+        "def _eval_evalf(self, prec):",
+        "def _eval_evalf(self, prec):",
+        "def _eval_evalf(self, prec):"
+      ],
+      "added_lines": 20,
+      "removed_lines": 2,
+      "rounds": 2,
+      "edits": 3,
+      "instance_id": "sympy__sympy-13146",
+      "source_dir": "sympy__sympy-13146-v4"
+    }
+  ]
+}

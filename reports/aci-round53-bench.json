@@ -1,0 +1,1585 @@
+{
+  "ok": true,
+  "generated_at": "2026-10-29T01:20:27",
+  "rules": {
+    "2.1": "constructed 退步>1 → degrade；real best_graph<=refs → default_off_only；real best_graph>refs → adopt_best",
+    "2.2": "new_hit>old_hit → keep；否则 revert",
+    "2.4": "coverage>0 且 subset_sec<full_sec → keep；否则 full_only",
+    "2.5": "caught==10 且 false_positive==0 → keep；否则 fix"
+  },
+  "real_samples": 11,
+  "constructed_repos": [
+    "swe__django",
+    "sympy",
+    "matplotlib"
+  ],
+  "map_rank": {
+    "samples": [
+      {
+        "id": "swe__django::django/utils/tree.py",
+        "kind": "constructed",
+        "repo": "swe__django",
+        "targets": [
+          "django/utils/tree.py"
+        ],
+        "root_mode": "clone_head",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 2,
+        "graph_rank": 2,
+        "reserved_rank": 2,
+        "sec": 8.69
+      },
+      {
+        "id": "swe__django::django/contrib/auth/base_user.py",
+        "kind": "constructed",
+        "repo": "swe__django",
+        "targets": [
+          "django/contrib/auth/base_user.py"
+        ],
+        "root_mode": "clone_head",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 1,
+        "graph_rank": 1,
+        "reserved_rank": 1,
+        "sec": 1.73
+      },
+      {
+        "id": "swe__django::django/contrib/staticfiles/views.py",
+        "kind": "constructed",
+        "repo": "swe__django",
+        "targets": [
+          "django/contrib/staticfiles/views.py"
+        ],
+        "root_mode": "clone_head",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 2,
+        "graph_rank": 2,
+        "reserved_rank": 2,
+        "sec": 1.41
+      },
+      {
+        "id": "sympy::sympy/polys/appellseqs.py",
+        "kind": "constructed",
+        "repo": "sympy",
+        "targets": [
+          "sympy/polys/appellseqs.py"
+        ],
+        "root_mode": "clone_head",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 2,
+        "graph_rank": 2,
+        "reserved_rank": 2,
+        "sec": 13.25
+      },
+      {
+        "id": "sympy::sympy/solvers/ode/hypergeometric.py",
+        "kind": "constructed",
+        "repo": "sympy",
+        "targets": [
+          "sympy/solvers/ode/hypergeometric.py"
+        ],
+        "root_mode": "clone_head",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": false,
+        "graph_hit8": false,
+        "graph_hit12": false,
+        "reserved_hit8": false,
+        "refs_rank": 0,
+        "graph_rank": 0,
+        "reserved_rank": 0,
+        "sec": 1.08
+      },
+      {
+        "id": "sympy::sympy/polys/domains/expressionrawdomain.py",
+        "kind": "constructed",
+        "repo": "sympy",
+        "targets": [
+          "sympy/polys/domains/expressionrawdomain.py"
+        ],
+        "root_mode": "clone_head",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 1,
+        "graph_rank": 1,
+        "reserved_rank": 1,
+        "sec": 1.02
+      },
+      {
+        "id": "matplotlib::lib/matplotlib/backends/backend_qt5agg.py",
+        "kind": "constructed",
+        "repo": "matplotlib",
+        "targets": [
+          "lib/matplotlib/backends/backend_qt5agg.py"
+        ],
+        "root_mode": "clone_head",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": false,
+        "graph_hit8": false,
+        "graph_hit12": false,
+        "reserved_hit8": false,
+        "refs_rank": 0,
+        "graph_rank": 0,
+        "reserved_rank": 0,
+        "sec": 3.83
+      },
+      {
+        "id": "matplotlib::lib/matplotlib/testing/_markers.py",
+        "kind": "constructed",
+        "repo": "matplotlib",
+        "targets": [
+          "lib/matplotlib/testing/_markers.py"
+        ],
+        "root_mode": "clone_head",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 1,
+        "graph_rank": 1,
+        "reserved_rank": 1,
+        "sec": 0.52
+      },
+      {
+        "id": "matplotlib::lib/matplotlib/testing/jpl_units/UnitDblConverter.py",
+        "kind": "constructed",
+        "repo": "matplotlib",
+        "targets": [
+          "lib/matplotlib/testing/jpl_units/UnitDblConverter.py"
+        ],
+        "root_mode": "clone_head",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 1,
+        "graph_rank": 1,
+        "reserved_rank": 1,
+        "sec": 0.55
+      },
+      {
+        "id": "astropy__astropy-12907",
+        "kind": "real_task",
+        "repo": "astropy",
+        "targets": [
+          "astropy/modeling/separable.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 3,
+        "graph_rank": 3,
+        "reserved_rank": 3,
+        "sec": 12.06
+      },
+      {
+        "id": "astropy__astropy-14182",
+        "kind": "real_task",
+        "repo": "astropy",
+        "targets": [
+          "astropy/io/ascii/rst.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": false,
+        "graph_hit8": false,
+        "graph_hit12": false,
+        "reserved_hit8": false,
+        "refs_rank": 0,
+        "graph_rank": 0,
+        "reserved_rank": 0,
+        "sec": 12.83
+      },
+      {
+        "id": "django__django-10914",
+        "kind": "real_task",
+        "repo": "swe__django",
+        "targets": [
+          "django/conf/global_settings.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 1,
+        "graph_rank": 1,
+        "reserved_rank": 1,
+        "sec": 19.95
+      },
+      {
+        "id": "django__django-11039",
+        "kind": "real_task",
+        "repo": "swe__django",
+        "targets": [
+          "django/core/management/commands/sqlmigrate.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 1,
+        "graph_rank": 1,
+        "reserved_rank": 1,
+        "sec": 15.06
+      },
+      {
+        "id": "django__django-11049",
+        "kind": "real_task",
+        "repo": "swe__django",
+        "targets": [
+          "django/db/models/fields/__init__.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 1,
+        "graph_rank": 1,
+        "reserved_rank": 1,
+        "sec": 14.28
+      },
+      {
+        "id": "django__django-12284",
+        "kind": "real_task",
+        "repo": "swe__django",
+        "targets": [
+          "django/db/models/base.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 5,
+        "graph_rank": 5,
+        "reserved_rank": 5,
+        "sec": 15.81
+      },
+      {
+        "id": "django__django-14999",
+        "kind": "real_task",
+        "repo": "swe__django",
+        "targets": [
+          "django/db/migrations/operations/models.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 1,
+        "graph_rank": 1,
+        "reserved_rank": 1,
+        "sec": 16.97
+      },
+      {
+        "id": "scikit-learn__scikit-learn-13241",
+        "kind": "real_task",
+        "repo": "scikit-learn",
+        "targets": [
+          "sklearn/decomposition/kernel_pca.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 1,
+        "graph_rank": 1,
+        "reserved_rank": 1,
+        "sec": 8.47
+      },
+      {
+        "id": "scikit-learn__scikit-learn-14092",
+        "kind": "real_task",
+        "repo": "scikit-learn",
+        "targets": [
+          "sklearn/neighbors/nca.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 6,
+        "graph_rank": 6,
+        "reserved_rank": 6,
+        "sec": 7.06
+      },
+      {
+        "id": "sympy__sympy-13031",
+        "kind": "real_task",
+        "repo": "sympy",
+        "targets": [
+          "sympy/matrices/sparse.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": false,
+        "graph_hit8": false,
+        "graph_hit12": false,
+        "reserved_hit8": false,
+        "refs_rank": 0,
+        "graph_rank": 0,
+        "reserved_rank": 0,
+        "sec": 17.3
+      },
+      {
+        "id": "sympy__sympy-13043",
+        "kind": "real_task",
+        "repo": "sympy",
+        "targets": [
+          "sympy/integrals/intpoly.py"
+        ],
+        "root_mode": "worktree@base_commit",
+        "refs_n": 8,
+        "extra_n": 6,
+        "refs_hit8": true,
+        "graph_hit8": true,
+        "graph_hit12": true,
+        "reserved_hit8": true,
+        "refs_rank": 3,
+        "graph_rank": 3,
+        "reserved_rank": 3,
+        "sec": 15.05
+      }
+    ],
+    "constructed": {
+      "n": 9,
+      "refs_hit8": 7,
+      "graph_hit8": 7,
+      "graph_hit12": 7,
+      "reserved_hit8": 7,
+      "graph_added_files": 54
+    },
+    "real": {
+      "n": 11,
+      "refs_hit8": 9,
+      "graph_hit8": 9,
+      "graph_hit12": 9,
+      "reserved_hit8": 9,
+      "graph_added_files": 66
+    },
+    "best_policy": "refs",
+    "verdict": "default_off_only",
+    "rule": "constructed 退步>1 → degrade；real best_graph<=refs → default_off_only；real best_graph>refs → adopt_best",
+    "policies": [
+      "refs",
+      "graph",
+      "reserved"
+    ]
+  },
+  "search_rank": {
+    "samples": [
+      {
+        "id": "astropy__astropy-12907",
+        "symbol": "separability_matrix",
+        "target": "astropy/modeling/separable.py",
+        "def_line": 66,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "CHANGES.rst",
+            4535
+          ],
+          [
+            "astropy/modeling/core.py",
+            808
+          ],
+          [
+            "astropy/modeling/separable.py",
+            24
+          ],
+          [
+            "astropy/modeling/separable.py",
+            66
+          ],
+          [
+            "astropy/modeling/separable.py",
+            86
+          ]
+        ],
+        "new_first": [
+          [
+            "astropy/modeling/separable.py",
+            66
+          ],
+          [
+            "CHANGES.rst",
+            4535
+          ],
+          [
+            "astropy/modeling/core.py",
+            808
+          ],
+          [
+            "astropy/modeling/separable.py",
+            24
+          ],
+          [
+            "astropy/modeling/separable.py",
+            86
+          ]
+        ],
+        "sec": 4.2
+      },
+      {
+        "id": "astropy__astropy-12907",
+        "symbol": "_compute_n_outputs",
+        "target": "astropy/modeling/separable.py",
+        "def_line": 105,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "astropy/modeling/separable.py",
+            105
+          ],
+          [
+            "astropy/modeling/separable.py",
+            234
+          ]
+        ],
+        "new_first": [
+          [
+            "astropy/modeling/separable.py",
+            105
+          ],
+          [
+            "astropy/modeling/separable.py",
+            234
+          ]
+        ],
+        "sec": 0.86
+      },
+      {
+        "id": "astropy__astropy-14182",
+        "symbol": "get_fixedwidth_params",
+        "target": "astropy/io/ascii/rst.py",
+        "def_line": 22,
+        "old_hit": false,
+        "new_hit": true,
+        "old_first": [
+          [
+            "astropy/io/ascii/fixedwidth.py",
+            122
+          ],
+          [
+            "astropy/io/ascii/fixedwidth.py",
+            137
+          ],
+          [
+            "astropy/io/ascii/fixedwidth.py",
+            138
+          ],
+          [
+            "astropy/io/ascii/fixedwidth.py",
+            159
+          ],
+          [
+            "astropy/io/ascii/fixedwidth.py",
+            164
+          ]
+        ],
+        "new_first": [
+          [
+            "astropy/io/ascii/fixedwidth.py",
+            181
+          ],
+          [
+            "astropy/io/ascii/rst.py",
+            22
+          ],
+          [
+            "astropy/io/ascii/fixedwidth.py",
+            122
+          ],
+          [
+            "astropy/io/ascii/fixedwidth.py",
+            159
+          ],
+          [
+            "astropy/io/ascii/fixedwidth.py",
+            164
+          ]
+        ],
+        "sec": 3.06
+      },
+      {
+        "id": "astropy__astropy-14182",
+        "symbol": "SimpleRSTHeader",
+        "target": "astropy/io/ascii/rst.py",
+        "def_line": 16,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "astropy/io/ascii/rst.py",
+            16
+          ],
+          [
+            "astropy/io/ascii/rst.py",
+            58
+          ]
+        ],
+        "new_first": [
+          [
+            "astropy/io/ascii/rst.py",
+            16
+          ],
+          [
+            "astropy/io/ascii/rst.py",
+            58
+          ]
+        ],
+        "sec": 0.83
+      },
+      {
+        "id": "django__django-10914",
+        "symbol": "gettext_noop",
+        "target": "django/conf/global_settings.py",
+        "def_line": 9,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "django/conf/global_settings.py",
+            9
+          ],
+          [
+            "django/conf/global_settings.py",
+            52
+          ],
+          [
+            "django/conf/global_settings.py",
+            53
+          ],
+          [
+            "django/conf/global_settings.py",
+            54
+          ],
+          [
+            "django/conf/global_settings.py",
+            55
+          ]
+        ],
+        "new_first": [
+          [
+            "django/conf/global_settings.py",
+            9
+          ],
+          [
+            "django/conf/global_settings.py",
+            52
+          ],
+          [
+            "django/conf/global_settings.py",
+            53
+          ],
+          [
+            "django/conf/global_settings.py",
+            54
+          ],
+          [
+            "django/conf/global_settings.py",
+            55
+          ]
+        ],
+        "sec": 0.05
+      },
+      {
+        "id": "django__django-11039",
+        "symbol": "add_arguments",
+        "target": "django/core/management/commands/sqlmigrate.py",
+        "def_line": 13,
+        "old_hit": false,
+        "new_hit": false,
+        "old_first": [
+          [
+            "django/contrib/auth/management/commands/changepassword.py",
+            23
+          ],
+          [
+            "django/contrib/auth/management/commands/createsuperuser.py",
+            33
+          ],
+          [
+            "django/contrib/contenttypes/management/commands/remove_stale_contenttypes.py",
+            12
+          ],
+          [
+            "django/contrib/gis/management/commands/ogrinspect.py",
+            42
+          ],
+          [
+            "django/contrib/sitemaps/management/commands/ping_google.py",
+            8
+          ]
+        ],
+        "new_first": [
+          [
+            "django/contrib/auth/management/commands/changepassword.py",
+            23
+          ],
+          [
+            "django/contrib/auth/management/commands/createsuperuser.py",
+            33
+          ],
+          [
+            "django/contrib/contenttypes/management/commands/remove_stale_contenttypes.py",
+            12
+          ],
+          [
+            "django/contrib/gis/management/commands/ogrinspect.py",
+            42
+          ],
+          [
+            "django/contrib/sitemaps/management/commands/ping_google.py",
+            8
+          ]
+        ],
+        "sec": 4.56
+      },
+      {
+        "id": "django__django-11039",
+        "symbol": "Command",
+        "target": "django/core/management/commands/sqlmigrate.py",
+        "def_line": 8,
+        "old_hit": false,
+        "new_hit": false,
+        "old_first": [
+          [
+            "setup.py",
+            50
+          ],
+          [
+            "setup.py",
+            84
+          ],
+          [
+            "tox.ini",
+            29
+          ],
+          [
+            "tox.ini",
+            37
+          ],
+          [
+            "tox.ini",
+            49
+          ]
+        ],
+        "new_first": [
+          [
+            "django/contrib/auth/management/commands/changepassword.py",
+            12
+          ],
+          [
+            "django/contrib/auth/management/commands/createsuperuser.py",
+            23
+          ],
+          [
+            "django/contrib/contenttypes/management/commands/remove_stale_contenttypes.py",
+            10
+          ],
+          [
+            "django/contrib/gis/management/commands/inspectdb.py",
+            6
+          ],
+          [
+            "django/contrib/gis/management/commands/ogrinspect.py",
+            33
+          ]
+        ],
+        "sec": 0.42
+      },
+      {
+        "id": "django__django-11049",
+        "symbol": "_check_null_allowed_for_primary_keys",
+        "target": "django/db/models/fields/__init__.py",
+        "def_line": 304,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "django/db/models/fields/__init__.py",
+            204
+          ],
+          [
+            "django/db/models/fields/__init__.py",
+            304
+          ]
+        ],
+        "new_first": [
+          [
+            "django/db/models/fields/__init__.py",
+            304
+          ],
+          [
+            "django/db/models/fields/__init__.py",
+            204
+          ]
+        ],
+        "sec": 4.14
+      },
+      {
+        "id": "django__django-11049",
+        "symbol": "_check_decimal_places_and_max_digits",
+        "target": "django/db/models/fields/__init__.py",
+        "def_line": 1518,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "django/db/models/fields/__init__.py",
+            1465
+          ],
+          [
+            "django/db/models/fields/__init__.py",
+            1518
+          ]
+        ],
+        "new_first": [
+          [
+            "django/db/models/fields/__init__.py",
+            1518
+          ],
+          [
+            "django/db/models/fields/__init__.py",
+            1465
+          ]
+        ],
+        "sec": 1.25
+      },
+      {
+        "id": "django__django-12284",
+        "symbol": "_check_property_name_related_field_accessor_clashes",
+        "target": "django/db/models/base.py",
+        "def_line": 1499,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "django/db/models/base.py",
+            1267
+          ],
+          [
+            "django/db/models/base.py",
+            1499
+          ]
+        ],
+        "new_first": [
+          [
+            "django/db/models/base.py",
+            1499
+          ],
+          [
+            "django/db/models/base.py",
+            1267
+          ]
+        ],
+        "sec": 5.47
+      },
+      {
+        "id": "django__django-12284",
+        "symbol": "_check_m2m_through_same_relationship",
+        "target": "django/db/models/base.py",
+        "def_line": 1344,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "django/db/models/base.py",
+            1260
+          ],
+          [
+            "django/db/models/base.py",
+            1344
+          ]
+        ],
+        "new_first": [
+          [
+            "django/db/models/base.py",
+            1344
+          ],
+          [
+            "django/db/models/base.py",
+            1260
+          ]
+        ],
+        "sec": 1.41
+      },
+      {
+        "id": "django__django-14999",
+        "symbol": "AlterTogetherOptionOperation",
+        "target": "django/db/migrations/operations/models.py",
+        "def_line": 469,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "django/db/migrations/operations/models.py",
+            153
+          ],
+          [
+            "django/db/migrations/operations/models.py",
+            469
+          ],
+          [
+            "django/db/migrations/operations/models.py",
+            531
+          ],
+          [
+            "django/db/migrations/operations/models.py",
+            542
+          ]
+        ],
+        "new_first": [
+          [
+            "django/db/migrations/operations/models.py",
+            469
+          ],
+          [
+            "django/db/migrations/operations/models.py",
+            153
+          ],
+          [
+            "django/db/migrations/operations/models.py",
+            531
+          ],
+          [
+            "django/db/migrations/operations/models.py",
+            542
+          ]
+        ],
+        "sec": 5.73
+      },
+      {
+        "id": "django__django-14999",
+        "symbol": "migration_name_fragment",
+        "target": "django/db/migrations/operations/models.py",
+        "def_line": 103,
+        "old_hit": false,
+        "new_hit": false,
+        "old_first": [
+          [
+            "django/contrib/postgres/operations.py",
+            60
+          ],
+          [
+            "django/contrib/postgres/operations.py",
+            235
+          ],
+          [
+            "django/contrib/postgres/operations.py",
+            258
+          ],
+          [
+            "django/contrib/postgres/operations.py",
+            292
+          ],
+          [
+            "django/contrib/postgres/operations.py",
+            293
+          ]
+        ],
+        "new_first": [
+          [
+            "django/contrib/postgres/operations.py",
+            60
+          ],
+          [
+            "django/contrib/postgres/operations.py",
+            235
+          ],
+          [
+            "django/contrib/postgres/operations.py",
+            258
+          ],
+          [
+            "django/contrib/postgres/operations.py",
+            292
+          ],
+          [
+            "django/contrib/postgres/operations.py",
+            322
+          ]
+        ],
+        "sec": 1.05
+      },
+      {
+        "id": "scikit-learn__scikit-learn-13241",
+        "symbol": "_fit_inverse_transform",
+        "target": "sklearn/decomposition/kernel_pca.py",
+        "def_line": 225,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "sklearn/decomposition/kernel_pca.py",
+            225
+          ],
+          [
+            "sklearn/decomposition/kernel_pca.py",
+            258
+          ],
+          [
+            "sklearn/decomposition/kernel_pca.py",
+            281
+          ]
+        ],
+        "new_first": [
+          [
+            "sklearn/decomposition/kernel_pca.py",
+            225
+          ],
+          [
+            "sklearn/decomposition/kernel_pca.py",
+            258
+          ],
+          [
+            "sklearn/decomposition/kernel_pca.py",
+            281
+          ]
+        ],
+        "sec": 1.89
+      },
+      {
+        "id": "scikit-learn__scikit-learn-13241",
+        "symbol": "inverse_transform",
+        "target": "sklearn/decomposition/kernel_pca.py",
+        "def_line": 301,
+        "old_hit": false,
+        "new_hit": false,
+        "old_first": [
+          [
+            "benchmarks/bench_plot_incremental_pca.py",
+            30
+          ],
+          [
+            "benchmarks/bench_plot_nmf.py",
+            221
+          ],
+          [
+            "benchmarks/bench_saga.py",
+            121
+          ],
+          [
+            "doc/modules/decomposition.rst",
+            152
+          ],
+          [
+            "doc/modules/decomposition.rst",
+            179
+          ]
+        ],
+        "new_first": [
+          [
+            "benchmarks/bench_plot_nmf.py",
+            221
+          ],
+          [
+            "sklearn/cluster/_feature_agglomeration.py",
+            60
+          ],
+          [
+            "sklearn/pipeline.py",
+            464
+          ],
+          [
+            "benchmarks/bench_plot_incremental_pca.py",
+            30
+          ],
+          [
+            "benchmarks/bench_saga.py",
+            121
+          ]
+        ],
+        "sec": 0.12
+      },
+      {
+        "id": "scikit-learn__scikit-learn-14092",
+        "symbol": "NeighborhoodComponentsAnalysis",
+        "target": "sklearn/neighbors/nca.py",
+        "def_line": 29,
+        "old_hit": false,
+        "new_hit": true,
+        "old_first": [
+          [
+            "doc/modules/classes.rst",
+            1182
+          ],
+          [
+            "doc/modules/neighbors.rst",
+            520
+          ],
+          [
+            "doc/modules/neighbors.rst",
+            566
+          ],
+          [
+            "doc/modules/neighbors.rst",
+            571
+          ],
+          [
+            "doc/modules/neighbors.rst",
+            579
+          ]
+        ],
+        "new_first": [
+          [
+            "sklearn/neighbors/nca.py",
+            29
+          ],
+          [
+            "doc/modules/classes.rst",
+            1182
+          ],
+          [
+            "doc/modules/neighbors.rst",
+            520
+          ],
+          [
+            "doc/modules/neighbors.rst",
+            566
+          ],
+          [
+            "doc/modules/neighbors.rst",
+            571
+          ]
+        ],
+        "sec": 1.12
+      },
+      {
+        "id": "scikit-learn__scikit-learn-14092",
+        "symbol": "_validate_params",
+        "target": "sklearn/neighbors/nca.py",
+        "def_line": 262,
+        "old_hit": false,
+        "new_hit": true,
+        "old_first": [
+          [
+            "sklearn/feature_extraction/hashing.py",
+            88
+          ],
+          [
+            "sklearn/feature_extraction/hashing.py",
+            96
+          ],
+          [
+            "sklearn/feature_extraction/hashing.py",
+            125
+          ],
+          [
+            "sklearn/feature_extraction/text.py",
+            394
+          ],
+          [
+            "sklearn/feature_extraction/text.py",
+            616
+          ]
+        ],
+        "new_first": [
+          [
+            "sklearn/feature_extraction/hashing.py",
+            96
+          ],
+          [
+            "sklearn/feature_extraction/text.py",
+            394
+          ],
+          [
+            "sklearn/linear_model/stochastic_gradient.py",
+            110
+          ],
+          [
+            "sklearn/neighbors/nca.py",
+            262
+          ],
+          [
+            "sklearn/feature_extraction/hashing.py",
+            88
+          ]
+        ],
+        "sec": 0.39
+      },
+      {
+        "id": "sympy__sympy-13031",
+        "symbol": "row_structure_symbolic_cholesky",
+        "target": "sympy/matrices/sparse.py",
+        "def_line": 724,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "sympy/matrices/sparse.py",
+            166
+          ],
+          [
+            "sympy/matrices/sparse.py",
+            433
+          ],
+          [
+            "sympy/matrices/sparse.py",
+            724
+          ],
+          [
+            "sympy/matrices/sparse.py",
+            737
+          ]
+        ],
+        "new_first": [
+          [
+            "sympy/matrices/sparse.py",
+            724
+          ],
+          [
+            "sympy/matrices/sparse.py",
+            166
+          ],
+          [
+            "sympy/matrices/sparse.py",
+            433
+          ],
+          [
+            "sympy/matrices/sparse.py",
+            737
+          ]
+        ],
+        "sec": 1.92
+      },
+      {
+        "id": "sympy__sympy-13031",
+        "symbol": "_lower_triangular_solve",
+        "target": "sympy/matrices/sparse.py",
+        "def_line": 466,
+        "old_hit": false,
+        "new_hit": true,
+        "old_first": [
+          [
+            "sympy/matrices/dense.py",
+            299
+          ],
+          [
+            "sympy/matrices/matrices.py",
+            2163
+          ],
+          [
+            "sympy/matrices/matrices.py",
+            2938
+          ],
+          [
+            "sympy/matrices/matrices.py",
+            2964
+          ],
+          [
+            "sympy/matrices/sparse.py",
+            160
+          ]
+        ],
+        "new_first": [
+          [
+            "sympy/matrices/dense.py",
+            299
+          ],
+          [
+            "sympy/matrices/sparse.py",
+            466
+          ],
+          [
+            "sympy/matrices/matrices.py",
+            2163
+          ],
+          [
+            "sympy/matrices/matrices.py",
+            2938
+          ],
+          [
+            "sympy/matrices/matrices.py",
+            2964
+          ]
+        ],
+        "sec": 0.55
+      },
+      {
+        "id": "sympy__sympy-13043",
+        "symbol": "integration_reduction_dynamic",
+        "target": "sympy/integrals/intpoly.py",
+        "def_line": 271,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "sympy/integrals/intpoly.py",
+            147
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            271
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            293
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            303
+          ]
+        ],
+        "new_first": [
+          [
+            "sympy/integrals/intpoly.py",
+            271
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            147
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            293
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            303
+          ]
+        ],
+        "sec": 1.2
+      },
+      {
+        "id": "sympy__sympy-13043",
+        "symbol": "integration_reduction",
+        "target": "sympy/integrals/intpoly.py",
+        "def_line": 178,
+        "old_hit": true,
+        "new_hit": true,
+        "old_first": [
+          [
+            "sympy/integrals/intpoly.py",
+            147
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            166
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            178
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            193
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            200
+          ]
+        ],
+        "new_first": [
+          [
+            "sympy/integrals/intpoly.py",
+            178
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            147
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            166
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            193
+          ],
+          [
+            "sympy/integrals/intpoly.py",
+            200
+          ]
+        ],
+        "sec": 0.48
+      }
+    ],
+    "n": 21,
+    "old_hit": 13,
+    "new_hit": 17,
+    "verdict": "keep",
+    "rule": "new_hit>old_hit → keep；否则 revert"
+  },
+  "test_subset": {
+    "samples": [
+      {
+        "id": "astropy__astropy-12907",
+        "targets": [
+          "astropy/modeling/separable.py"
+        ],
+        "selected": [
+          "astropy/modeling/tests/test_separable.py"
+        ],
+        "selected_n": 1,
+        "total_n": 306,
+        "coverage": 0.003
+      },
+      {
+        "id": "astropy__astropy-14182",
+        "targets": [
+          "astropy/io/ascii/rst.py"
+        ],
+        "selected": [
+          "astropy/io/ascii/tests/test_rst.py"
+        ],
+        "selected_n": 1,
+        "total_n": 311,
+        "coverage": 0.003
+      },
+      {
+        "id": "django__django-10914",
+        "targets": [
+          "django/conf/global_settings.py"
+        ],
+        "selected": [],
+        "selected_n": 0,
+        "total_n": 520,
+        "coverage": 0.0
+      },
+      {
+        "id": "django__django-11039",
+        "targets": [
+          "django/core/management/commands/sqlmigrate.py"
+        ],
+        "selected": [],
+        "selected_n": 0,
+        "total_n": 522,
+        "coverage": 0.0
+      },
+      {
+        "id": "django__django-11049",
+        "targets": [
+          "django/db/models/fields/__init__.py"
+        ],
+        "selected": [],
+        "selected_n": 0,
+        "total_n": 522,
+        "coverage": 0.0
+      },
+      {
+        "id": "django__django-12284",
+        "targets": [
+          "django/db/models/base.py"
+        ],
+        "selected": [],
+        "selected_n": 0,
+        "total_n": 540,
+        "coverage": 0.0
+      },
+      {
+        "id": "django__django-14999",
+        "targets": [
+          "django/db/migrations/operations/models.py"
+        ],
+        "selected": [
+          "tests/migrations/test_multidb.py",
+          "tests/migrations/test_operations.py"
+        ],
+        "selected_n": 2,
+        "total_n": 561,
+        "coverage": 0.004
+      },
+      {
+        "id": "scikit-learn__scikit-learn-13241",
+        "targets": [
+          "sklearn/decomposition/kernel_pca.py"
+        ],
+        "selected": [
+          "sklearn/decomposition/tests/test_kernel_pca.py"
+        ],
+        "selected_n": 1,
+        "total_n": 166,
+        "coverage": 0.006
+      },
+      {
+        "id": "scikit-learn__scikit-learn-14092",
+        "targets": [
+          "sklearn/neighbors/nca.py"
+        ],
+        "selected": [
+          "sklearn/neighbors/tests/test_nca.py"
+        ],
+        "selected_n": 1,
+        "total_n": 175,
+        "coverage": 0.006
+      },
+      {
+        "id": "sympy__sympy-13031",
+        "targets": [
+          "sympy/matrices/sparse.py"
+        ],
+        "selected": [
+          "sympy/matrices/tests/test_sparse.py",
+          "sympy/matrices/tests/test_sparsetools.py"
+        ],
+        "selected_n": 2,
+        "total_n": 353,
+        "coverage": 0.006
+      },
+      {
+        "id": "sympy__sympy-13043",
+        "targets": [
+          "sympy/integrals/intpoly.py"
+        ],
+        "selected": [
+          "sympy/integrals/tests/test_intpoly.py"
+        ],
+        "selected_n": 1,
+        "total_n": 357,
+        "coverage": 0.003
+      }
+    ],
+    "covered": 7,
+    "n": 11,
+    "timing": {
+      "ran": true,
+      "full_sec": 1.62,
+      "subset_sec": 1.05,
+      "full_status": "pass",
+      "subset_status": "pass",
+      "subset_detail": "子集 1 项（原范围 1 项）：.                                                                        [100%]; 1 passed in 0.19s（未抽检）",
+      "speedup": 1.54
+    },
+    "audit": {
+      "ran": true,
+      "audit_seed": "0|mod/core.py|6",
+      "audited_status": "fail",
+      "audited_note": "子集 1 项（原范围 1 项） 通过但全量抽检未过（隐藏回归，按 fail 处理）",
+      "unaudited_status": "pass",
+      "unaudited_note": "子集 1 项（原范围 1 项）：.                                                                        [100%]; 1 passed in 0.19s（未抽检）",
+      "detects_hidden_regression": true,
+      "labels_unaudited": true
+    },
+    "verdict": "keep",
+    "rule": "coverage>0 且 subset_sec<full_sec → keep；否则 full_only"
+  },
+  "syntax": {
+    "valid_n": 8,
+    "broken_n": 10,
+    "caught": [
+      "bad_indent.py",
+      "broken_dict.py",
+      "garbage_token.py",
+      "missing_colon.py",
+      "missing_paren.py",
+      "stray_else.py",
+      "truncated_def.py",
+      "unclosed_bracket.py",
+      "unclosed_string.py",
+      "unclosed_triple.py"
+    ],
+    "caught_n": 10,
+    "false_positive": [],
+    "false_positive_n": 0,
+    "non_py_flagged": false,
+    "verdict": "keep",
+    "rule": "caught==10 且 false_positive==0 → keep；否则 fix"
+  },
+  "summary": {
+    "map_real": {
+      "n": 11,
+      "refs_hit8": 9,
+      "graph_hit8": 9,
+      "graph_hit12": 9,
+      "reserved_hit8": 9,
+      "graph_added_files": 66
+    },
+    "map_verdict": "default_off_only",
+    "map_best_policy": "refs",
+    "search": {
+      "n": 21,
+      "old_hit": 13,
+      "new_hit": 17,
+      "verdict": "keep"
+    },
+    "subset": {
+      "n": 11,
+      "covered": 7,
+      "verdict": "keep",
+      "timing": {
+        "ran": true,
+        "full_sec": 1.62,
+        "subset_sec": 1.05,
+        "full_status": "pass",
+        "subset_status": "pass",
+        "subset_detail": "子集 1 项（原范围 1 项）：.                                                                        [100%]; 1 passed in 0.19s（未抽检）",
+        "speedup": 1.54
+      },
+      "audit": {
+        "ran": true,
+        "audit_seed": "0|mod/core.py|6",
+        "audited_status": "fail",
+        "audited_note": "子集 1 项（原范围 1 项） 通过但全量抽检未过（隐藏回归，按 fail 处理）",
+        "unaudited_status": "pass",
+        "unaudited_note": "子集 1 项（原范围 1 项）：.                                                                        [100%]; 1 passed in 0.19s（未抽检）",
+        "detects_hidden_regression": true,
+        "labels_unaudited": true
+      }
+    },
+    "syntax": {
+      "broken_n": 10,
+      "caught_n": 10,
+      "false_positive_n": 0,
+      "verdict": "keep"
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "review-loop/1",
+  "decision": "NEED_HUMAN",
+  "threshold": 0.5,
+  "files": [
+    {
+      "path": "pkg/agg.py",
+      "added_lines": 3
+    }
+  ],
+  "reviewers": {
+    "self": {
+      "status": "ok",
+      "findings": [
+        {
+          "file": "pkg/agg.py",
+          "line": 1,
+          "rule": "self:syntax",
+          "severity": "high",
+          "message": "pkg/agg.py:1 语法树含 ERROR 节点（括号/引号/缩进未闭合，或 REPLACE 写坏了结构）"
+        }
+      ]
+    },
+    "ruff": {
+      "status": "ok",
+      "findings": [
+        {
+          "file": "pkg/agg.py",
+          "line": 1,
+          "rule": "ruff:invalid-syntax",
+          "severity": "medium",
+          "message": "Expected a parameter or the end of the parameter list"
+        },
+        {
+          "file": "pkg/agg.py",
+          "line": 1,
+          "rule": "ruff:invalid-syntax",
+          "severity": "medium",
+          "message": "Expected `)`, found newline"
+        }
+      ],
+      "note": "ruff rc=1，2 条"
+    }
+  },
+  "external_status": [
+    {
+      "name": "ruff",
+      "status": "ok",
+      "note": "ruff rc=1，2 条"
+    }
+  ],
+  "coverage": null,
+  "metrics": {
+    "matched": 1,
+    "union": 1,
+    "diff_rate": 0.0
+  },
+  "high_findings": [
+    {
+      "file": "pkg/agg.py",
+      "line": 1,
+      "rule": "self:syntax",
+      "severity": "high",
+      "message": "pkg/agg.py:1 语法树含 ERROR 节点（括号/引号/缩进未闭合，或 REPLACE 写坏了结构）"
+    }
+  ],
+  "external_only": [],
+  "self_only": [],
+  "self_findings": [
+    {
+      "file": "pkg/agg.py",
+      "line": 1,
+      "rule": "self:syntax",
+      "severity": "high",
+      "message": "pkg/agg.py:1 语法树含 ERROR 节点（括号/引号/缩进未闭合，或 REPLACE 写坏了结构）"
+    }
+  ],
+  "external_findings": [
+    {
+      "file": "pkg/agg.py",
+      "line": 1,
+      "rule": "ruff:invalid-syntax",
+      "severity": "medium",
+      "message": "Expected a parameter or the end of the parameter list"
+    }
+  ],
+  "reasons": [
+    "高严重度发现 1 条：pkg/agg.py:self:syntax"
+  ]
+}

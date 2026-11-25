@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "弹窗修复真作业实证冒烟（round-189，第 150 条①）",
+    "description": "temp 双提交仓 + 真 runner.py 全链冒烟（reports/_work/smoke-r189.json）：queued→running→done，PROGRESS step=0/10→10/10，runner 终态 DONE——r188 CREATE_NO_WINDOW spawn 树端到端实证通过。夹具首版单提交仓 HEAD~1 不可解析致 runner 预检 NEED_HUMAN（冒烟夹具问题非链路缺陷，双提交修正）；作业级账本仅 cancel/purge 写入为设计行为（干净 done 无账本，_resource_read 返回 None 属预期）。用户侧视觉复证（弹窗消失）待日常跑批观察。",
+    "countermeasure": "零代码轮（不增版本，light 收官）。",
+    "source": "round-189"
+  }
+]

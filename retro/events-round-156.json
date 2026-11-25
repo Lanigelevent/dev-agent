@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "retro-report 防重跑护栏（round-156，r155 坑 a5ba44db35ee 对策落地）",
+    "description": "真仓（out 目录有 next-round.md）缺省自动编号一律拒绝 rc=2，必须显式 --round N 或 --confirm-next；沙盒（无 next-round.md）自动编号兼容不变。+3 契约（复刻 r154 实景的反向验证、--confirm-next 放行、显式 --round 放行）；真仓两态实弹验证；AGENTS 复盘阶段第 2 步与 skills/retro/SKILL.md 口径同步 --round N（红线 7 全引用面）；坑 a5ba44db35ee 结案（open 7→6）。",
+    "outcome": "done"
+  },
+  {
+    "type": "doc",
+    "title": "SLO 门禁首跑观察（round-156 任务②）",
+    "description": "latency-bench run+check 5 runs/档实弹：S 0.116s / M 0.094s / L 0.116s 全 PASS，margin 0.88-1.88s，与 r154 基准（0.117-0.122s）及 r155 门禁上线时口径一致；报告落 reports/_work/latency-observe-r156.json。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-156 任务面取舍（round-156）",
+    "description": "117 条①MCP 异步作业：D-055 仍待总监裁决，条件不满足跳过不擅自实现；④CII/Gitea runner 为操作员动作不属智能体。任务面=③防重跑护栏（主）+②SLO 观察（辅）。",
+    "outcome": "done"
+  }
+]

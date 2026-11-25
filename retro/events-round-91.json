@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "D-050 文档体系按通用手册三层结构重构（round-91 主体）",
+    "description": "方案②（INDEX 登记取代关系，权威约束保留 AGENTS/BASELINE 不迁移）：门面层（README 322→82 行收敛为统一入口 + RULES.md 约束读者视图 R-001..R-108 + GLOSSARY/INDEX）/ 正文层八类入口（docs/01-overview…08-memory，树内索引登记归属与取代）/ 冻结层（BASELINE-HISTORY / docs/archive/2026-11-06-doc-restructure/DOC-SYSTEM.md / retro / reports）。新机器判据 skills/self-iteration/scripts/doc-structure.py（手册 §7.1 九条：元信息/链接/锚点/表格/登记/占位符）+ tests/test_doc_structure.py 11 例（含判别力注入）。脚本 78→79，契约 586→597；版本 1.92.0。"
+  },
+  {
+    "type": "confirmation",
+    "title": "收官修复 GLOSSARY 悬空入站锚点 + 版本对账（597/79）",
+    "description": "README 重构后 docs/GLOSSARY.md 四处锚点悬空（「README §八/§九」→ DEVELOPMENT §4/§7/§10 与 D-042/归档口径），收官时逐处点名修复；留观项：**大改重构必须带入站锚点体检**（入站 §-引用自动化排查），不入册。README 版本行 1.92.0、状态行「实跑 v1.92.0 / 597 项全绿」对账；PROGRESS 巨石单元格按 v1.87.0 纪律只更新当前态。"
+  }
+]

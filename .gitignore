@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# 运行时产物（可再生，不入库）
+runs/
+logs/
+datasets/
+corpus/
+pynguin-report/
+reports/_work/
+<host-memory>/
+*.log
+
+# DeepSWE gate 评测语料：只在本机构建，任务内容不得入库（索引/基线除外）
+skills/eval-harness/data/
+
+# 编码记忆：运行时累积，含本机路径；--memory-file 显式指定才写
+retro/agent-memory.jsonl
+
+# 运行时自建归档仓库（不作为子模块跟踪）
+**/archive-repo/
+
+# 工具与系统状态
+.mimosa/
+.zcode/
+.claude/
+.DS_Store
+Thumbs.db
+
+# harness 汇总报告（官方 harness 默认写进 CWD；归档副本在 reports/swebench/）
+dev-agent.*.json

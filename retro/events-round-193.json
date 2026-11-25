@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "开源生态吸收地图研究轮（round-193）",
+    "description": "四路并行只读研读 450+ 项目资料（Harness 生态 119 深读 / 可吸收能力地图 95 项 / 核心 42+全景+落地指南 / 大索引栈交集扫描），逐条对照 dev-agent 现有模块判定。产物 reports/absorb-map-opensource-r193.md：战略级确认 4 项（引擎组合差异化空白 / AutoGPT 反例反向印证五道闸 / MCP Registry 跟进 / Aider 放缓警示）、收敛级发现 6 组（评测闭环三差距 / MCP 三道自检 / 编码循环影子 git / 上下文工程 / 治理安全链 / SKILL.md 资产化）、候选借鉴 Top10（trace 评分回挂→质量指标 pytest 化→prompt 回归门→ACI 审查→mcp-scan→影子 git→repo_map 中心度复评→Serena 对照→SKILL.md 对齐→elicitation）。资料按不受信数据处理（只读，未执行附带脚本）。",
+    "countermeasure": "借鉴纪律=读设计不引依赖（硬约束 1 + Aider 放缓警示）；候选进第 155 条按轮次节奏滚动；对外口径数字不动。",
+    "source": "round-193"
+  }
+]

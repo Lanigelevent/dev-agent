@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "description": "round-73 冷启动第 5 数据点（pvlib-2249，修复面 2 文件/3 hunks/13 行现役最小）：**零反馈 f2p_passed**（F2P 7/7，87.328 s）——编码循环 4 轮/1 编辑/补丁 968 B：第 1 轮定向搜索 → 第 2 轮符号锚定全函数覆盖（round-69 改造直接验证：spa.py#julian_day_dt 一次拿全 16 行零盲区）→ 第 3 轮编辑（格里历修正 b 仅在 1582-10-15 及之后应用，更早儒略历 b=0——报告差值 4 恰为 b 项）→ 第 4 轮 done；PENDING 指针首次实战即暴露第 7 次 stale-id 并当场纠正（零轮次损失）；宿主探索策略修正生效（对照 round-68 attempt-1 的 11 轮 0 编辑）",
+    "evidence": "datasets/swebench/live-runs-r72/coldstart-pvlib-2249/（4 轮/1 编辑/edits.patch 968 B）、live-judge-pvlib/live-sample-ledger.json、reports/swebench/live-coldstart-r73-2026-10-31.md"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-73 冷启动对照测量面板（D-045，全部可复算）：零反馈 1/4（pvlib f2p_passed ✓；llama_deploy/pdm/conan failed——失败形态全指向多文件 API 改造类修复面）、带反馈复修 1/1（keras f2p_passed）；口径如实：n 均为 1、二项区间极宽不作成功率宣称；pvlib PS 含 NREL 表链接与期望值（任务固有材料）、修复面为教科书级算法条件化（难度偏易因素如实标注）；f2p_passed 为 partial 口径（pvlib P2P 含 9 条上游截断 id，完整 resolved 不可得）；gold patch 全程未读",
+    "source": "reports/swebench/live-coldstart-r73-2026-10-31.md §1、docs/DECISIONS.md D-045"
+  }
+]

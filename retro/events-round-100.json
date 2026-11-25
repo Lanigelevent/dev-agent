@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "round-100 依赖刷新专属轮：hypothesis 补丁 + xdist 落地 + 三矩阵复验",
+    "description": "P1-6 第二轮（r90 后）。升级：hypothesis 6.170.14→6.170.15 补丁 + pytest-xdist 3.8.0 新增（D-051 批 A：pyproject dev 组 + 许可注册表登记，license-check 拦截未登记当场补）；pytest 9 重议未获总监回应→按建议默认维持 8.4.2（r90 同裁，round-110 再议）。xdist 前置验证性测试落地（tests/test_xdist_audit.py 2 例：2 worker 并行子集 6.2s 全绿无互删 + sweep 零未认领）——D-051 审计的 4 阻塞点实证关闭。三引擎矩阵复验口径一致（970/480/250、29/2/2、2/2/2 零漂移）。计数传播两连踩第三次（+2 契约后 606 vs 文档 604，freshness 拦下）——教训固化建议：新增契约当步即 sync-counts。"
+  }
+]

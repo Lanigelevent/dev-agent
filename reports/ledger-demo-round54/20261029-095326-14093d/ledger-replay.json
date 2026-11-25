@@ -1,0 +1,220 @@
+{
+  "ok": true,
+  "state": "MATCH",
+  "ledger": "reports\\ledger-demo-round54\\20261029-095326-14093d\\ledger.jsonl",
+  "records": 31,
+  "replayed": 20,
+  "matched": 20,
+  "diffs": 0,
+  "skipped": 11,
+  "errors": 0,
+  "items": [
+    {
+      "seq": 1,
+      "action": "script.preflight",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 2,
+      "action": "script.edge-detect",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 3,
+      "action": "script.deterministic-rules",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 4,
+      "action": "script.taint-cross",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 5,
+      "action": "audit.step2",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 6,
+      "action": "script.score",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 7,
+      "action": "script.material-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 8,
+      "action": "script.dispatch-plan",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 9,
+      "action": "script.experience",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 10,
+      "action": "script.rules-select",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 11,
+      "action": "script.findings-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 12,
+      "action": "audit.step4",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 13,
+      "action": "script.findings-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 14,
+      "action": "audit.step4",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 15,
+      "action": "script.findings-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 16,
+      "action": "audit.step4",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 17,
+      "action": "script.findings-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 18,
+      "action": "audit.step4",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 19,
+      "action": "script.findings-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 20,
+      "action": "audit.step4",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 21,
+      "action": "script.findings-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 22,
+      "action": "audit.step4",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 23,
+      "action": "script.findings-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 24,
+      "action": "audit.step4",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 25,
+      "action": "script.coverage",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 26,
+      "action": "audit.step8",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 27,
+      "action": "script.perspective-scan",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 28,
+      "action": "script.report-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 29,
+      "action": "script.schema-check",
+      "status": "match",
+      "recorded_exit": 0,
+      "current_exit": 0
+    },
+    {
+      "seq": 30,
+      "action": "audit.step10",
+      "status": "skipped",
+      "note": "opaque"
+    },
+    {
+      "seq": 31,
+      "action": "run.done",
+      "status": "skipped",
+      "note": "opaque"
+    }
+  ],
+  "elapsed_sec": 10.25
+}

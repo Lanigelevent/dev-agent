@@ -1,0 +1,14 @@
+[
+  {
+    "type": "confirmation",
+    "title": "依赖刷新第七跑：14 tracker 项零升级 + 三引擎矩阵零漂移",
+    "description": "清华镜像 --upgrade --dry-run --refresh 全 no changes（ruff 抽验 238ms 真网络解析，绕 uv 缓存）；r120+ 中间轮次已把 click 8.5.1/pandas 3.1.1/tree-sitter 0.26.1/tzdata 2026.6 刷到最新。三引擎矩阵全新生成对比入仓 JSON 零漂移（ruff 970/480/250、astgrep identical、libcst 整字典 identical 落盘复验）。",
+    "outcome": "done"
+  },
+  {
+    "type": "pitfall",
+    "title": "引擎矩阵对比的管道直比瞬时伪影",
+    "description": "libcst 矩阵「管道直比 False、落盘复验 True」——对比基线一律以落盘产物为准，管道直比仅作初筛；与易错点 4/8 同族（结论要可复算）。一次性探查性质，无需改码。",
+    "outcome": "pitfall"
+  }
+]

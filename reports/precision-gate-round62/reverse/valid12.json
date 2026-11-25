@@ -1,0 +1,47 @@
+{
+  "ok": false,
+  "status": "SAMPLE_DRIFT",
+  "failed": [
+    "sample_drift"
+  ],
+  "checks": [
+    {
+      "id": "precision_floor",
+      "status": "PASS",
+      "value": 0.6667,
+      "floor": 0.65
+    },
+    {
+      "id": "precision_trend",
+      "status": "PASS",
+      "value": 0.6667,
+      "baseline": 0.6667,
+      "tolerance": 0.01
+    },
+    {
+      "id": "sample_drift",
+      "status": "SAMPLE_DRIFT",
+      "value": 11,
+      "baseline": 12
+    },
+    {
+      "id": "reviewer_match",
+      "status": "PASS",
+      "value": "deterministic",
+      "baseline": "deterministic"
+    }
+  ],
+  "metrics": {
+    "precision": 0.6667,
+    "recall": 0.3636,
+    "valid_samples": 11,
+    "weak_samples": 1,
+    "claimed": 6,
+    "grounded": 4,
+    "hits": 4,
+    "reviewer": "deterministic"
+  },
+  "baseline_precision": 0.6667,
+  "judge": "reports/_work/precision-gate-r62/judge.json",
+  "note": "语料不入库，本门禁在本地/发布签核跑；格式：基准/样本量/判分口径/成本/完整性告警"
+}

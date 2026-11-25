@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "description": "round-72 PENDING 指针结构改造（stale-id 对策升级）：code-task 的 WAIT_HOST_LLM 每跳覆写 out_dir/llm-tasks/PENDING 指针文件（prompt/response 绝对路径），输出 note 增显式「id 随材料逐跳变化勿复用上一跳」警告；既有 WAIT_HOST 契约内嵌指针断言（契约 530 不变）——本会话宿主 stale-id 六次实踩的对策闭环",
+    "evidence": "agent/code-task.py（HostLLMPending 处理块）、tests/test_agent.py（指针断言）"
+  },
+  {
+    "type": "feature",
+    "description": "round-72 判分链修复 ×2（gold 先行验证驱动）：haystack-8489（ddtrace → opentelemetry.sdk 两轮补依赖）与 pvlib-2249（pyproject testpaths 字符串 × pytest≥8，钉 pytest~=7.4；首版 pytest<8 的 < 被 Windows shell 当重定向吞掉，shell 安全修正）双双 gold f2p_passed（F2P 4/4 26.9 s / F2P 7/7 20.6 s）；可信判分链 3/9→4/9（conan/keras/haystack/pvlib）；pvlib（2 文件/3 hunks/13 行）成为下一个冷启动候选（全语料现役最小修复面）",
+    "evidence": "datasets/swebench/live-runs-r72/live-sample-ledger.json、datasets/swebench/live/gate-r68-{pvlib-python,haystack}.jsonl（adaptation_note）、reports/swebench/live-coldstart-r72-2026-10-31.md"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-72 边界与未结项：①reflex 深因定性=reflex 自身 compat 层在本机栈（Windows × py3.12.13）bug（pydantic 2.7.4 下 pydantic_v1_patch 仍崩），blocked_env 如实保留、判分链侧不再追；②gold f2p_passed 只证判分链可信 + gold 有效，不折算 agent 能力；③pvlib/haystack P2P 大头含上游截断 id，完整 resolved 不可得；④PENDING 指针只解写错 id，宿主探索策略（首轮全函数覆盖）留给 pvlib 冷启动跑实证；⑤D-046 4.1 复验、merge-audit 人工复核、Pro 单发口径、DeepSWE 余 19 条仍在账上",
+    "source": "reports/swebench/live-coldstart-r72-2026-10-31.md §2/§4、retro/next-round.md 第 32 条"
+  }
+]

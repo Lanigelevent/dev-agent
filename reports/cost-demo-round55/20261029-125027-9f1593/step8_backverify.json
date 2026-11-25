@@ -1,0 +1,455 @@
+{
+  "uncovered": [
+    {
+      "file": ".zcode-plugin/plugin.json",
+      "hunk": 1,
+      "start": 1,
+      "end": 6
+    },
+    {
+      "file": "AGENTS.md",
+      "hunk": 2,
+      "start": 79,
+      "end": 86
+    },
+    {
+      "file": "AGENTS.md",
+      "hunk": 3,
+      "start": 182,
+      "end": 188
+    },
+    {
+      "file": "AGENTS.md",
+      "hunk": 4,
+      "start": 201,
+      "end": 207
+    },
+    {
+      "file": "BASELINE.md",
+      "hunk": 5,
+      "start": 1257,
+      "end": 1286
+    },
+    {
+      "file": "README.md",
+      "hunk": 6,
+      "start": 6,
+      "end": 14
+    },
+    {
+      "file": "README.md",
+      "hunk": 7,
+      "start": 80,
+      "end": 86
+    },
+    {
+      "file": "README.md",
+      "hunk": 8,
+      "start": 177,
+      "end": 183
+    },
+    {
+      "file": "README.md",
+      "hunk": 9,
+      "start": 187,
+      "end": 193
+    },
+    {
+      "file": "README.md",
+      "hunk": 10,
+      "start": 195,
+      "end": 202
+    },
+    {
+      "file": "docs/DECISIONS.md",
+      "hunk": 11,
+      "start": 709,
+      "end": 756
+    },
+    {
+      "file": "docs/DEVELOPMENT.md",
+      "hunk": 12,
+      "start": 21,
+      "end": 28
+    },
+    {
+      "file": "docs/DEVELOPMENT.md",
+      "hunk": 13,
+      "start": 42,
+      "end": 48
+    },
+    {
+      "file": "docs/DEVELOPMENT.md",
+      "hunk": 14,
+      "start": 51,
+      "end": 57
+    },
+    {
+      "file": "docs/DEVELOPMENT.md",
+      "hunk": 15,
+      "start": 200,
+      "end": 206
+    },
+    {
+      "file": "docs/PROGRESS.md",
+      "hunk": 16,
+      "start": 8,
+      "end": 36
+    },
+    {
+      "file": "docs/PROGRESS.md",
+      "hunk": 17,
+      "start": 43,
+      "end": 51
+    },
+    {
+      "file": "docs/PROGRESS.md",
+      "hunk": 18,
+      "start": 77,
+      "end": 83
+    },
+    {
+      "file": "docs/ROADMAP.md",
+      "hunk": 19,
+      "start": 83,
+      "end": 89
+    },
+    {
+      "file": "docs/ROADMAP.md",
+      "hunk": 20,
+      "start": 92,
+      "end": 98
+    },
+    {
+      "file": "docs/ROADMAP.md",
+      "hunk": 21,
+      "start": 332,
+      "end": 359
+    },
+    {
+      "file": "docs/ROADMAP.md",
+      "hunk": 22,
+      "start": 423,
+      "end": 432
+    },
+    {
+      "file": "mcp/review_mcp.py",
+      "hunk": 23,
+      "start": 55,
+      "end": 61
+    },
+    {
+      "file": "pyproject.toml",
+      "hunk": 24,
+      "start": 1,
+      "end": 6
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/audit.jsonl",
+      "hunk": 25,
+      "start": 1,
+      "end": 10
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/checkpoint.json",
+      "hunk": 26,
+      "start": 1,
+      "end": 8
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/diff.patch",
+      "hunk": 27,
+      "start": 1,
+      "end": 4479
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/ledger-replay.json",
+      "hunk": 28,
+      "start": 1,
+      "end": 220
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/ledger-summary.json",
+      "hunk": 29,
+      "start": 1,
+      "end": 110
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/ledger-verify.json",
+      "hunk": 30,
+      "start": 1,
+      "end": 7
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/ledger.jsonl",
+      "hunk": 31,
+      "start": 1,
+      "end": 31
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/report.md",
+      "hunk": 32,
+      "start": 1,
+      "end": 38
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/run_meta.json",
+      "hunk": 33,
+      "start": 1,
+      "end": 6
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/step1_intent.json",
+      "hunk": 34,
+      "start": 1,
+      "end": 9
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/step2_collect.json",
+      "hunk": 35,
+      "start": 1,
+      "end": 7
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/step3_risk.json",
+      "hunk": 36,
+      "start": 1,
+      "end": 91
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/step4_dispatch.json",
+      "hunk": 37,
+      "start": 1,
+      "end": 16
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/step5_findings.json",
+      "hunk": 38,
+      "start": 1,
+      "end": 3
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/step6_verification.json",
+      "hunk": 39,
+      "start": 1,
+      "end": 4
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/step7_summary.json",
+      "hunk": 40,
+      "start": 1,
+      "end": 16
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/step8_backverify.json",
+      "hunk": 41,
+      "start": 1,
+      "end": 407
+    },
+    {
+      "file": "reports/ledger-demo-round54/20261029-095326-14093d/totals.json",
+      "hunk": 42,
+      "start": 1,
+      "end": 102
+    },
+    {
+      "file": "retro/events-round-54.json",
+      "hunk": 43,
+      "start": 1,
+      "end": 28
+    },
+    {
+      "file": "retro/next-round.md",
+      "hunk": 44,
+      "start": 5,
+      "end": 24
+    },
+    {
+      "file": "retro/next-round.md",
+      "hunk": 45,
+      "start": 320,
+      "end": 329
+    },
+    {
+      "file": "retro/pitfalls.json",
+      "hunk": 46,
+      "start": 194,
+      "end": 208
+    },
+    {
+      "file": "retro/pitfalls.json",
+      "hunk": 47,
+      "start": 1630,
+      "end": 1645
+    },
+    {
+      "file": "retro/pitfalls.json",
+      "hunk": 48,
+      "start": 1660,
+      "end": 1675
+    },
+    {
+      "file": "retro/round-54-candidates.md",
+      "hunk": 49,
+      "start": 1,
+      "end": 13
+    },
+    {
+      "file": "retro/round-54-report.md",
+      "hunk": 50,
+      "start": 1,
+      "end": 35
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 51,
+      "start": 20,
+      "end": 27
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 52,
+      "start": 92,
+      "end": 119
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 53,
+      "start": 241,
+      "end": 252
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 54,
+      "start": 264,
+      "end": 272
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 55,
+      "start": 290,
+      "end": 364
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 56,
+      "start": 380,
+      "end": 413
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 57,
+      "start": 418,
+      "end": 424
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 58,
+      "start": 432,
+      "end": 438
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 59,
+      "start": 442,
+      "end": 460
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 60,
+      "start": 519,
+      "end": 525
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 61,
+      "start": 530,
+      "end": 536
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 62,
+      "start": 538,
+      "end": 544
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 63,
+      "start": 549,
+      "end": 555
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 64,
+      "start": 560,
+      "end": 566
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 65,
+      "start": 581,
+      "end": 587
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 66,
+      "start": 765,
+      "end": 771
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 67,
+      "start": 774,
+      "end": 780
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 68,
+      "start": 845,
+      "end": 858
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 69,
+      "start": 868,
+      "end": 874
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 70,
+      "start": 885,
+      "end": 891
+    },
+    {
+      "file": "skills/orchestrator/scripts/runner.py",
+      "hunk": 71,
+      "start": 948,
+      "end": 959
+    },
+    {
+      "file": "skills/production-guardrails/scripts/event-ledger.py",
+      "hunk": 72,
+      "start": 1,
+      "end": 602
+    },
+    {
+      "file": "tests/test_scripts.py",
+      "hunk": 73,
+      "start": 66,
+      "end": 72
+    },
+    {
+      "file": "tests/test_scripts.py",
+      "hunk": 75,
+      "start": 1339,
+      "end": 1362
+    }
+  ],
+  "crosschecked": [
+    {
+      "finding": 0,
+      "perspective": "证据真实性",
+      "reason": "证据片段不在 diff 原文中"
+    }
+  ]
+}

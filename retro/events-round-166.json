@@ -1,0 +1,14 @@
+[
+  {
+    "type": "feature",
+    "title": "mutation-sampler 杀手分数复跑 + 盲区处方补齐（round-166，127 条②）",
+    "description": "r144 后新增 ~19 契约的杀伤力抽检（四类算子单点翻转 × 聚焦测试，各抽 10 位点）：round-gate.py kill_rate 1.0（10/10，r159/r164 新检查契约直接全杀）；doc-freshness.py 首跑 0.1（9 盲区集中 truth_values() 的 F8 块——deepswe 计数/canary/manifest 回退零直接断言，F8 信息项不判漂移使常量变异在 rc==0 端到端下天然存活）。按 r144 处方补行为断言：+2 契约逐字段断言 truth_values 提取值（canary 直读优先 manifest 回退、113/active 特判、逐行非空计数）；复跑 kill_rate 0.1→1.0。夹具两 bug 现场修复（SKILL.md 误建为目录、discover 缺 __init__.py）。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-166 任务面取舍（round-166）",
+    "description": "127 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体；②依赖刷新第十跑未到节奏（r161 后仅 5 轮，~十轮节奏）改跑 mutation-sampler 复跑。",
+    "outcome": "done"
+  }
+]

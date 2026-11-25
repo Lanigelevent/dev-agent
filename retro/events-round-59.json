@@ -1,0 +1,38 @@
+[
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段四 4.2 多语言编码（一）：agent/repo_map.py 扩到 TS/TSX/JS/Go——按扩展名分语言取语法对象并缓存；TS 的 function/箭头函数（const f = () =>）/class/interface/type/enum 与 Go 的 function_declaration/method_declaration/type_spec 全部进符号表；node_modules 在目录级剪枝（只剪子目录，仓库根不受祖先路径影响，沿用 round-58 口径）；syntax_issues 按语言取解析器，Python 保留 ast.parse 第二道网，TS/Go 单 tree-sitter 网；关键字候选与搜索的扩展名剥壳、定义行模式（export/async/public… + def/class/function/interface/type/func）同步多语言",
+    "evidence": "agent/repo_map.py（_GRAMMARS/EXT_LANG/_DEF_KINDS/_source_files/_parser_for）；tests/test_agent.py::TestMultiLang（repo map 符号、语法负向验证）；Python 既有 20 项相关契约全绿"
+  },
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段四 4.2 多语言编码（二）：agent/code-task.py 测试引擎自动识别——--test-cmd 显式覆盖 > go.mod（go test ./...）> package.json（scripts.test → npm test；否则 Node 内置测试器跑 *.test.ts/js，--experimental-strip-types）> pytest；非 pytest 引擎跑全命令、不做子集映射，manifest 新增 test_engine 字段记录实际引擎；npm 在 Windows 经 COMSPEC /c 起 npm.cmd；补丁导入自检只对 .py；搜索定义行识别支持 export function/func，// 行注释归第三档",
+    "evidence": "agent/code-task.py（_detect_test_engine/_engine_run/_run_tests/test_cmd 持久化）；tests/test_agent.py::TestMultiLang（引擎优先级、cmd 覆盖 pass/fail/skip、搜索分档、TS/Go 两条 e2e）"
+  },
+  {
+    "type": "feature",
+    "description": "多语言端到端实跑证据（阶段四 4.2 验收）：TS（node 内置测试器）与 Go（go test ./...）各一条任务走宿主协议端到端 resolved 2/2——ts-calc 1 轮 2 调用补丁 333B（sha256 92ced63b…）、go-stack 1 轮 2 调用补丁 249B（sha256 44ad8f82…），均 state=DONE、tests=pass、manifest.test_engine 命中预期引擎；宿主动作先手写由 run-bench.py 复放（n=2 合成夹具、不外推成功率）；Go 工具链 go1.23.4 取自南京大学镜像（9.2MB/s，阿里云 163KB/s 判死，华为/清华/北外/上交 404）；tree-sitter-typescript 0.23.2 与 tree-sitter-go 0.25.0（MIT）登记进 pyproject 与 licenses.json",
+    "evidence": "reports/multilang-round59/bench.json（schema=multilang-bench/1）；reports/multilang-round59/report.md；reports/multilang-round59/run-bench.py；reports/multilang-round59/tasks/*/edits.patch"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】_run_tests 的返回形状没有契约：pytest 分支的 detail 是行列表，skip 分支（仓库无测试 / 环境无 pytest）却返回裸字符串，调用方一律按列表消费（detail[0]、\"; \".join(detail)）——新增引擎分支照抄字符串形状，新契约 test_run_tests_cmd_override 首跑红，assertIn 在 detail 上只拿到单字「环」",
+    "root_cause": "返回值形状只存在于实现里、没有契约钉住；字符串恰好可下标可迭代，按列表用不报错，直到断言整条消息才暴露",
+    "countermeasure": "全部 skip 分支统一返回 [消息] 列表（引擎不可用/无引擎/无测试/无 pytest 四处）；契约断言 detail[0] 为完整消息并含「引擎 cmd」；全量套件回归",
+    "source": "agent/code-task.py（_run_tests）；tests/test_agent.py::TestMultiLang.test_run_tests_cmd_override"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】多语言实跑台 run-bench.py 首跑 bench.json 打出 resolved=0/n=2、patch_sha256 全空：manifest 里的 patch 是相对产物目录的文件名（edits.patch），驱动把它当仓根相对路径打开，补丁读成空——state=DONE、tests=pass、引擎全对，只有证据字段是空的「全绿假证据」",
+    "root_cause": "产物字段的相对基准没写死：manifest 的 patch 相对任务产物目录，DONE 输出里的 patch 却是绝对路径，两种口径混用；resolved 合取判定里补丁检查先行把问题暴露成 0，而不是静默算 resolved",
+    "countermeasure": "驱动按 task_dir 解析相对 patch；resolved 判据保持四项合取（DONE + tests=pass + 补丁含预期修复行 + 引擎匹配），修驱动不放宽判据；bench.json 记录 patch_sha256/patch_bytes 供复核",
+    "source": "reports/multilang-round59/run-bench.py；reports/multilang-round59/bench.json"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】Windows 上重跑多语言实跑台时，shutil.rmtree 清旧工作副本在 .git/objects/<sha> 上报 WinError 5 拒绝访问（文件被悬挂 git 进程或杀软短暂占用），驱动直接崩，整台 bench 一条结果都出不来",
+    "root_cause": "工作副本目录复用 + 删除无重试：Windows 文件锁是暂时态，瞬时占用不该等于任务失败；工作副本路径本身也不需要可复现（证据以产物目录为准）",
+    "countermeasure": "删除重试 3 次（间隔 0.5 秒），仍锁则改用带时间戳的唯一目录重建；证据目录保持固定路径，工作副本放 reports/_work（不入仓）",
+    "source": "reports/multilang-round59/run-bench.py（prepare_repo）"
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "repo": "<repo>\\reports\\_work\\multilang-bench\\go-stack-1793266420",
+  "task": "Stack.Size() in stack/stack.go returns one more than the number of items, so `go test ./...` fails. Fix it so all tests pass.",
+  "round": 1,
+  "history": [
+    "编辑 1 项（失败 0）；测试 pass：引擎 go（go.mod → go test ./...）; ok  \tdemo/stack\t(cached)"
+  ],
+  "edits_applied": 1,
+  "tests": "pass",
+  "blocks": [
+    {
+      "path": "stack/stack.go",
+      "search": "\treturn len(s.items) + 1",
+      "replace": "\treturn len(s.items)"
+    }
+  ],
+  "attempted": [
+    "stack/stack.go"
+  ],
+  "allow_probe": false,
+  "probe_docker": "",
+  "rank": "refs",
+  "elapsed_sec": 0.922,
+  "rounds_budget": 6,
+  "phases_mode": false,
+  "locate_rounds": 2,
+  "rework_max": 2,
+  "memory_file": "",
+  "test_cmd": "",
+  "phases": {
+    "_schema": 1,
+    "enabled": false,
+    "current": "locate",
+    "locate_rounds_used": 0,
+    "locate_rounds_max": 2,
+    "rework_count": 0,
+    "rework_max": 2,
+    "decisions": [],
+    "verdicts": [],
+    "locate_report": null,
+    "last_reasons": [],
+    "resolved": false,
+    "escalated": false,
+    "reason": ""
+  },
+  "test_engine": "go",
+  "test_scope": "引擎 go（go.mod → go test ./...）"
+}

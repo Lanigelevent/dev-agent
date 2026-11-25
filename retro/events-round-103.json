@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "verified django 系续批：3/3 blocked_data（era 适配表完全复用红利实证）",
+    "description": "gate-v103 django 三例（10914/10973/10999）全 blocked_data：10914 F2P 未收集（模块不一致）、10973 F2P 为描述文本、10999 F2P 与 base_commit 不匹配。era 适配表完全复用 r102（零新增适配，收集层面全通）。对 verified 池的修正判断：django 231 例 F2P 注释质量不一，建议按 10880 模式选批或先跑 F2P 数据质量预检。"
+  }
+]

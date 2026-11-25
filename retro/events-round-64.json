@@ -1,0 +1,35 @@
+[
+ {
+  "type": "feature",
+  "description": "round-64 agent 侧口径收口：历史最后一例未过 django-11019（3+ Media 合并误报顺序冲突）第 3 版补丁在官方容器 harness 判定 resolved——F2P 16/16、P2P 58/58、Ran 80 tests OK（6 skip），两跑 40.359 s / 45.937 s；补丁 4 955 B / 1 文件 / +36 −40 / 3 hunk；编码循环 2 轮 / 3 编辑 / 33.455 s。agent 侧 20 条口径 19/20→20/20 全绿；n=1 且任务文本带 v1 容器判分对 7 条失败测试的定位，属带反馈复修，不外推（D-030）",
+  "source": "reports/swebench/django-11019-v3-2026-10-29.md、datasets/swe-out/agent-sample/eval-r64/（gate 语料）、reports/swebench/code-review-agent.agent-diagnosis.json"
+ },
+ {
+  "type": "feature",
+  "description": "round-64 评测驱动修复：agent-sample.py 增 prune_stale_ledger（_patch-digests.json 记每例送评补丁 sha256，摘要变了/缺失就清该例 DONE 行重跑，摘要不变保留续跑），输出增 ledger_rerun；端到端复证旧台账行被清后官方容器重跑 resolved（F2P 16/16）",
+  "source": "skills/eval-harness/scripts/agent-sample.py、datasets/swe-out/agent-sample/eval-r64/_patch-digests.json"
+ },
+ {
+  "type": "test",
+  "description": "round-64 契约测试 +3：TestAgentSampleStaleLedger 钉住「补丁变了只清该例 DONE 行」「摘要缺失按变了处理」「未送评实例保留续跑」，521→524",
+  "source": "tests/test_scripts.py"
+ },
+ {
+  "type": "doc",
+  "description": "round-64 文档回填：ROADMAP §5.22 + README 状态块 round-64 沿革 + BASELINE/PROGRESS；版本 1.65.0；测试 521→524、脚本 74 不变、台账 224→225 条（open 2 / closed 199 / archived 24）",
+  "source": "docs/ROADMAP.md、README.md、BASELINE.md、docs/PROGRESS.md、retro/next-round.md"
+ },
+ {
+  "type": "confirmation",
+  "description": "django-11019 的复修任务文本含 v1 容器判分反馈（7 条失败测试名、告警期望句式、分层排序语义），且本地 clone 含实例 base 之后的完整历史、补丁与上游 commit 231b513926 逐字节一致——属「带反馈复修 + 上游对照」，非冷启动；n=1 不宣称成功率或能力上限；本地测试信号 fail（npm/eslint 引擎）如实保留、以容器 harness 为判据",
+  "source": "reports/swebench/django-11019-v3-2026-10-29.md §3、§6"
+ },
+ {
+  "type": "pitfall",
+  "category": "口径纪律",
+  "description": "【坑】同一 --out 目录换补丁复评会静默复用旧判分：gold-sample.py 对台账 state=DONE 的实例直接跳过，agent-sample 又不透传 --force——本轮 v3 补丁复评返回旧补丁的 9 过 7 失败、elapsed 14.89 s 与上一跑一字不差（harness 日志「1 instances already run, skipping… No instances to run.」），是假红；反向（先 resolved 再换坏补丁）同样可复现假绿",
+  "root_cause": "断点续跑以实例 id 为键、不看补丁内容是否变化；驱动层没有任何「台账行对应哪份补丁」的记录，复评与续跑共用同一开关",
+  "countermeasure": "agent-sample.py 增 prune_stale_ledger：<out>/_patch-digests.json 记每例上次实际送评的补丁 sha256，变了或缺失就删该例 DONE 行重跑，摘要不变保留续跑语义；输出增 ledger_rerun 便于审计；补 3 条契约（变了清/缺摘要清/没变保留）；端到端复证第二跑 ledger_rerun=[django-11019] 且容器重跑 resolved",
+  "source": "skills/eval-harness/scripts/agent-sample.py、tests/test_scripts.py、datasets/swe-out/harness/harness-run-agent-django__django-11019.log"
+ }
+]

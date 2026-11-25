@@ -1,0 +1,36 @@
+[
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段三 3.3+3.4 落地：CI 工程门禁三件套。coverage-gate.py（measure/check 两动词；固定三项测试子集 test_scripts/test_agent/test_dual_reviewer，子进程经 sitecustomize 注入 coverage.process_startup 一并采集；逐文件 + 整体基线，0.5pp 容差吸收平台漂移，基线内文件消失也判失败；基线 skills/self-iteration/coverage-baseline.json 入仓）；secret-scan.py（git ls-files 跟踪文件全量扫描，7 类凭据形态，命中即失败；文件级 allowlist 必带 reason 且可按规则限定 + 行内 secret-scan: allow 豁免，snippet 一律 <redacted>）；license-check.py（pyproject 三档依赖 vs licenses.json 注册表：import/test-only/subprocess 策略，GPL/AGPL 全禁、LGPL 仅 subprocess、MPL 仅 test-only；未登记、多余、模式不符都失败）。CI self-check workflow 接入三步（覆盖率仅在 windows-latest × 3.12 单格跑，与基线平台一致）；coverage 登记为 dev test-only 依赖（Apache-2.0）",
+    "evidence": "skills/self-iteration/scripts/coverage-gate.py、secret-scan.py、license-check.py；skills/self-iteration/coverage-baseline.json；skills/self-iteration/licenses.json、secret-allowlist.json；tests/test_scripts.py::TestCiGates（10 条）；.github/workflows/self-check.yml；reports/ci-gates-round56/"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】pyproject 运行时 dependencies 里长期躺着 hypothesis（MPL-2.0），与 AGENTS 硬约束 1 的「MIT/Apache/BSD 可嵌入」白名单不一致；G12 在 ROADMAP 挂「待总监裁定」多轮未决，直到本轮 license 门禁首跑才被逐项对账判死（import 档不允许 MPL）",
+    "root_cause": "依赖白名单只靠人读 AGENTS，pyproject 声明与真实用途（hypothesis 只出现在生成的测试文本里，运行时从不 import）之间没有机器对账入口；白名单条款本身缺「测试依赖」这一档，遇到 MPL 只能悬置",
+    "countermeasure": "裁定三档策略（D-034）：import=MIT/Apache/BSD/ISC/PSF；test-only 增 MPL-2.0；subprocess 增 LGPL；GPL/AGPL 全禁。hypothesis 从 dependencies 移入 optional.dev，pytest/coverage 同档登记；license-check.py 双向对账（未登记/多余/模式不符/许可证越界都失败）并进 CI",
+    "source": "skills/self-iteration/scripts/license-check.py 首跑；pyproject.toml vs AGENTS.md 硬约束 1；docs/ROADMAP.md G12"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】新 secret-scan.py 首次全仓扫描 8 命中，全部是「本来就该存在」的凭据形态：6 处 tests/test_agent.py 的假凭据负样例（AKIA… / api_key=super-secret-value）+ 2 处 retro 历史复盘对同一假值的文字复述——扫描器若没有豁免设计，接入即红",
+    "root_cause": "凭据扫描的阴性样例与扫描面天然重叠：脱敏测试必须写假凭据，复盘记录会复述它；只设计「命中即失败」而没有豁免通道，等于把测试资产当泄漏",
+    "countermeasure": "两条豁免通道都留证据——行内标记 secret-scan: allow（同一行/上一行）用于测试假值；文件级 allowlist 必须写 reason 且按 path+rule 限定，白名单过期在输出 allowlist_stale 里提示清理；snippet 一律 <redacted>，不把命中值原样打出来",
+    "source": "reports/_work/secret56a.json（8 命中明细）；skills/self-iteration/secret-allowlist.json；tests/test_agent.py 行内标记 6 处"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】coverage 子进程采集把测量成本抬到约 2.6×（test_dual_reviewer 单跑 50.0→131.5 秒，test_scripts 单项预计 400+ 秒），「全量套件都测一遍覆盖率」不可行；同时基线若跨平台/跨 Python 版本比对，os.name 分支与解释器差异会造成假回退",
+    "root_cause": "治理壳是子进程重负载（每个脚本一次 python 启动），coverage 的进程启动开销按子进程数线性叠加；行覆盖率对平台分支敏感，而 CI 是 3 系统 × 3 版本矩阵",
+    "countermeasure": "口径写死（D-034）：固定三项测试子集 + 子进程 sitecustomize 注入；逐文件基线 + 整体基线，0.5pp 容差；基线内文件消失算失败；CI 只在 windows-latest × 3.12 单格执行（与基线平台一致），其余格不跑覆盖率",
+    "source": "实测 test_dual_reviewer 50.0s→131.5s（含 combine/json）；skills/self-iteration/scripts/coverage-gate.py；.github/workflows/self-check.yml"
+  },
+  {
+    "category": "门禁自举",
+    "type": "pitfall",
+    "description": "【坑】round-56 覆盖率测量首跑作废，报「测试失败（test_scripts.py rc=1）」且末行为空：纯跑同子集才定位到两条自扫用例双红——新脚本 license-check.py 的 except ...: pass 被 lang-empty-catch 规则命中（自扫零误报门禁），与 coverage 采集无关",
+    "root_cause": "诊断顺序倒置：把长耗时测量当第一验证手段，未先跑纯测试；coverage-gate 的 GateError 只摘 stdout 末行（unittest 摘要与 FAIL 块都在 stderr），失败时既没有用例名也没有非空末行，表象把根因指向 instrumentation",
+    "countermeasure": "①新治理壳脚本先跑自扫两项（TestOptimizations.test_self_scan_zero_fp / TestScannerFalsePositives.test_self_scan_zero_hits）；②coverage-gate 的 GateError 同时摘 FAIL:/ERROR: 行，stdout 空时回退 stderr 末行；③sitecustomize 对外来解释器无 coverage 时静默跳过，不污染 stderr",
+    "source": "logs/r56-testscripts-plain.log（178 项 2 红，均为 lang-empty-catch 命中 license-check.py:129）；skills/self-iteration/scripts/license-check.py；skills/self-iteration/scripts/coverage-gate.py"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "type": "correction",
+    "title": "测试夹具钉死日期越过 compact-memory 30 天老化边界——两测确定性红（r184 对账轮实踩）",
+    "description": "test_compact_basic_compression / test_compact_merged_into_marker 的夹具时间戳钉死 2026-10-20，恰在 2026-11-19 越过 --max-age-days 30 边界：条目被判冷记忆删除→零合并→merged_into 断言失败。同文件 aged_deletion 测试的 recent1@2026-10-25 距越界仅剩 5 天（潜伏雷）。",
+    "root_cause": "夹具日期钉死+脚本按 now 计算老化 age——夹具会过期，同日历日越界即爆。",
+    "countermeasure": "类修复已落地：test_retro.py 8 处钉死日期改 _fresh_iso() 相对时间戳（now-N 小时），old_ts 改 2020-01-01 永久远期值；compact 5/5 复跑绿。memory_retrieval 无日期逻辑经查不涉老化（作证留档）。",
+    "source": "round-184",
+    "confidence": "observed"
+  },
+  {
+    "type": "correction",
+    "title": "test_mcp_async ledger 子资源全量负载下 1 次失败——flaky 留观",
+    "description": "test_resource_ledger_subresource 在全量 xdist -n 2 跑中 1 次失败（789+3+2），隔离复跑 3/3 全过（1.4-1.7s）。该测含 sleep(60) 假作业 + 15s running 轮询窗，全量负载下轮询窗紧张或状态迁移竞速。",
+    "root_cause": "负载型时序敏感：全量套件并发下轮询窗口内未达 running 态即 proceed 到 cancel/断言。",
+    "countermeasure": "open 留观：后续轮观察复现率；若复发则按测试隔离加固（延长窗或放宽断言），不盲改。",
+    "source": "round-184",
+    "confidence": "observed"
+  }
+]

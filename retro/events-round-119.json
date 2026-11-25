@@ -1,0 +1,26 @@
+[
+  {
+    "type": "feature",
+    "title": "round-119：依赖刷新第五跑——7 项小升 + pytest 降级拒绝",
+    "description": "清华镜像逐项核对 18 跟踪项：click 8.5.0→8.5.1、mypy-extensions 1.1.0→1.2.0、pandas 3.1.0→3.1.1、platformdirs 4.13.5→4.14.5、python-dateutil 3.0.0→4.0.0（大版本，双跑验证）、typeshed-client 2.14.0→2.15.0、tzdata 2026.5→2026.6；pytest 9.2.0→8.4.2 降级被拒（pynguin 0.48.0 安装元数据 pytest>=8.3.5,<9.0.0 触发的解析器提案，且 9.2.0 即镜像最新、单独 dry-run 无变更；pynguin 仅 isolated 档 subprocess 基线，r110 有意落地 pytest 9）；其余 11 项零升级；--refresh 复验 ruff/pytest/hypothesis 零变化",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-119：引擎矩阵零漂移复核",
+    "description": "三矩阵全新生成对比入仓 JSON：ruff 970/480/250（JSON 等价，仅尾换行差）、libcst 2/2/2（JSON 等价）、ast-grep 29（逐字节 identical）——零漂移",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-119：双跑全绿重跑（日志文件级事故补救）",
+    "description": "接手时双跑已绿（exit 0，688 项各 1 skip）但日志先按 PowerShell UTF-16 落盘、后被误判 GBK→utf-16 重写损毁两份；事故后按 r117 同款 cmd /c 口径整套重跑两遍，UTF/GBK 以 gate 可解析为准",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "round-119：套件双跑验证升级集",
+    "description": "升级 7 项（含 python-dateutil 大版本）后全量套件双跑：688 项全绿、各 1 skip、688 口径一致（logs/suite-r119-run1/2.log）；round-gate close 与 release-gate 收官校验",
+    "outcome": "done"
+  }
+]

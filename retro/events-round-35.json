@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "category": "手工",
+      "description": "消化 open 坑 791468dc0ca2（round-34 意图流水线实战三缺陷）：①intent-parse 对悬空指代（「评审那块」）出 object 维度多解读，被拒备选进 ambiguity.readings（DANGLING_RE，无显式对象命中才触发——显式对象贴指代词由对象优先级裁决，不算悬空）；②复合子句拆解——intent-parse 输出 compound_clauses 附加键（非首子句同时命中标记词与目标词表才判复合，「注意测试覆盖」不误伤），任务流水线拆解在深度档模板后追加子任务、依赖最后一个 review 任务；③collect 形状校验——回报合法形状只有按键 dict 或 {\"tasks\": 按键 dict}，列表等形状 exit 2 报错并给改法提示，--out 传目录 exit 2 不再拖到写盘 PermissionError，回报键对不上任务 id 进 unmatched_results 显式列出（不静默丢弃）",
+      "root_cause": "三键契约测试全用合成夹具，合成输入触发不了悬空指代与复合子句；collect 的输入形状校验从未存在——「未回报」语义把形状错也吞进了静默零命中",
+      "countermeasure": "检测规则先写死再看数字（DANGLING_RE / CLAUSE_SPLIT_RE / COMPOUND_TARGETS 常量）；反向验证=造违规样例确认抓得住：悬空指代样例确认多解读出现、显式对象贴词样例确认不误报、复合子句样例确认拆出、「注意测试覆盖」样例确认不误伤、列表形状与目录 --out 样例确认 exit 2、未匹配键样例确认进遗留",
+      "source": "round-35 本轮实现 + 契约测试 test_scripts.TestIntentParse +4 / test_director.TestTaskPipeline +4"
+    },
+    {
+      "category": "手工",
+      "description": "round-34 检查单第 4 条落地：「先探针后编辑」进 code-task 材料建议位（PROBE_FIRST_NOTE：授权探针时材料必带，未授权不出现——动作面里没有 probe 就许愿是误导）",
+      "root_cause": "PROBE_TEMPLATE 原文案把探针定位成「怀疑状态类缺陷时才用」，22711 实战证明「先观测再动手」应是默认姿势而非事后补救",
+      "countermeasure": "建议位与可抄样式分层：PROBE_FIRST_NOTE 立姿势，PROBE_TEMPLATE 给样式；契约断言双例（授权必有 / 未授权必无），装配点摘掉即转红",
+      "source": "round-35 本轮实现 + 契约测试 test_agent.test_material_carries_probe_first_note"
+    },
+    {
+      "category": "口径纪律",
+      "description": "本轮自踩两处被自检当场抓住：①intent-parse 新 docstring 写了字面量「task-pipeline --from-intent」，doc-drift 问 10（参数漂移）把该旗标当成 intent-parse 自身未定义参数；②README/DEVELOPMENT 计时句只改了段首计数、句中「322 项实测」没跟着改，doc-freshness F5 当场开火（run1 三失败、run2 干净复跑同位复现，排除并发编辑偶发——三失败全是真漂移）",
+      "root_cause": "docstring 是文档的活体部分——提到别的脚本的旗标会被参数漂移问归到本文档名下；计数传播按记忆改段首而漏句中，正是检查单第 11 条「历史数字必须贴着沿革标记」的变体",
+      "countermeasure": "docstring 提及其他脚本时只提名字不引旗标；计数传播改为全文件搜旧数字逐处替换（本轮 7 处 F5 全靠它兜住）。两处修后 doc-drift / freshness 双回绿——探针级回归「计数漂移立刻暴露」的设计有效",
+      "source": "round-35 开发实录（/tmp/full-suite-run2.log 三失败定位 → 修复 → doc-drift/freshness 归零）"
+    }
+  ]
+}

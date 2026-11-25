@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "gate 语料构建工具产品化：eval-harness/gate-corpus-build.py（脚本 74→75）",
+    "description": "derive（静态 F2P 推导：类上下文解析器 + test_cmds 窄化）/ refine（基线台账回填 + blocked_data/env_blocked 识别）/ notes（D-048 附录生成，fail_to_pass 缺失回退静态推导）；r81/r82 一次性脚本转正；AGENTS 清单登记；契约 +5（tests/test_gate_corpus.py），540→545。"
+  },
+  {
+    "type": "confirmation",
+    "title": "产品化当场抓出 2 处一次性数据未踩到的缺陷",
+    "description": "类上下文未在顶格 def 处重置（模块级函数会误挂类下，r81 数据恰好类方法在文件尾未触发）；缺文件裸 FileNotFoundError 改 code=2 参数错误。反例钉住 + 修复，转正价值实证。"
+  }
+]

@@ -1,0 +1,95 @@
+[
+  {
+    "type": "feature",
+    "description": "Pro 扩 10 条（仓库均衡 ansible 4 / openlibrary 3 / qutebrowser 3），同一驱动先 baseline 再 gold：基线 10/10 baseline_ok（F2P 0/32、P2P 269/269），gold 10/10 resolved（F2P 32/32、P2P 269/269），pytest 合计 38.078s → 13.563s、全流程 elapsed 61.518s → 31.688s；台账 20 行（10 实例 × baseline/gold）可复算，重跑 run_this_time=0 幂等；qutebrowser 01d1d149 判分点外残留 1 failed（test_existing_attributes[adblock-True]）如实保留。新环境差异全部走任务级字段（ansible 0fd887 PYTHONPATH=/app/lib；qutebrowser 三条 Xvfb + DISPLAY + QTWEBENGINE_DISABLE_SANDBOX + -p no:xvfb，0aa57 另加 QT_QPA_PLATFORM=offscreen），脚本零实例硬编码",
+    "evidence": "reports/swebench/pro-10-validation-2026-10-28.md；datasets/swebench/pro/gate-10.jsonl；datasets/swebench/pro-runs/pro-sample-ledger.json（不入库）"
+  },
+  {
+    "type": "feature",
+    "description": "pro-sample.py 增加 agent 补丁 predictions 通路：--patches 接收编码循环补丁目录 → 落 predictions-agent.jsonl + patch-provenance.json，与 gold 口径分开记（mode=predictions，key 独立）；补丁同过结构/完整性双闸；NODE_RE 改 (.+?) 容忍含空格参数化 node 与 - reason 后缀、lookup_node 双向后缀容忍；--force 改为无条件读回既有台账按 key 合并（单实例重跑不再覆盖其他行）。契约测试 10→15 项（含含空格 node、force 保行、predictions 造数、零 P2P 判分）",
+    "evidence": "skills/eval-harness/scripts/pro-sample.py；tests/test_pro_sample.py（15 项）"
+  },
+  {
+    "type": "feature",
+    "description": "Live 适配层代码化：新增 skills/eval-harness/scripts/live-sample.py（stdlib-only，66→67 个脚本）——本地源缓存→gitee→GitHub 降级 clone、worktree 外 venv、任务级 setup_cmds/env/test_cmds、pytest -rA 判分、--f2p-only 只记 f2p_passed（partial=True，永不折算 resolved）、blocked_source 保留样本不静默丢、子进程超时杀整棵进程树、git 禁交互；契约测试 tests/test_live_sample.py 10 项全过",
+    "evidence": "skills/eval-harness/scripts/live-sample.py；tests/test_live_sample.py；决策 D-029"
+  },
+  {
+    "type": "feature",
+    "description": "Live 10 条首评（gate-10，--no-network 只吃本地缓存）：9 条无本地源落 blocked_source 保留样本；matplotlib 单条环境适配链完整（python3 shim + meson/meson-python/pybind11/setuptools_scm/numpy + --no-build-isolation -e .）；补充样本 urllib3-3527（非基线）baseline_ok（F2P 0/3）→ gold f2p_passed（3/3，1,816 P2P 未跑，partial 口径单列）",
+    "evidence": "reports/swebench/live-10-2026-10-28.md；datasets/swebench/live-runs/live-sample-ledger.json、live-runs-extra/live-sample-ledger.json（不入库）"
+  },
+  {
+    "type": "test",
+    "description": "测试 436→451 项：pro-sample 契约 10→15（+5）、live-sample 契约新增 10 项",
+    "evidence": "tests/test_pro_sample.py；tests/test_live_sample.py"
+  },
+  {
+    "type": "doc",
+    "description": "版本 v1.52.0 三处同步（plugin.json / pyproject.toml / MCP SERVER_INFO）+ DECISIONS D-029（Live 口径：f2p_passed 部分口径不折算 resolved）+ ROADMAP §5.9 + 两份评测报告 + 脚本 66→67、测试 451 计数传播（README/AGENTS/DEVELOPMENT/PROGRESS/BASELINE/next-round）",
+    "evidence": ".zcode-plugin/plugin.json；pyproject.toml；docs/DECISIONS.md；docs/ROADMAP.md；reports/swebench/"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】台账 --force 重跑单实例时把整本台账覆盖成 1 行：pro-sample.py 与 live-sample.py 同型（写入用「本次 results」整体覆盖而非先读回合并），事后才发现 20 行只剩 1 行",
+    "root_cause": "台账写入路径默认「本次运行集 = 全量」，重跑单条样本时本次集只有 1 行；幂等语义只在 key 层面想过，没在文件持久化层面落实",
+    "countermeasure": "写台账前无条件读回既有文件、按 key=<instance_id>|<mode> 合并后写回（--force 只删目标 key 再重算）；两个驱动各加回归测试 test_force_preserves_other_ledger_rows；台账重建后以行数断言（Pro 20 行 = 10×2）作为验收口径",
+    "source": "skills/eval-harness/scripts/pro-sample.py 台账注释；tests/test_pro_sample.py；tests/test_live_sample.py"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】pytest -rA 节点解析用 \\S+ 截断含空格的参数化 node（如 test_data[Hello World! This is a test.]），qutebrowser 0833b5f6 基线被误判 baseline_unexpected；摘要行还带 - reason 后缀",
+    "root_cause": "节点 id 里可以有空格（参数化字符串），用非空白符匹配先天截断；比对逻辑也不容忍行尾 reason 后缀与双向前缀差异",
+    "countermeasure": "NODE_RE 捕获段改 (.+?) 并剥离 - reason 后缀；lookup_node 对「预期 node 是实际 node 的后缀/前缀」双向容忍；新增 test_parse_node_with_spaces_and_reason；重跑该实例回到 baseline_ok",
+    "source": "skills/eval-harness/scripts/pro-sample.py；tests/test_pro_sample.py"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】ansible 0fd887 gold F2P 0/4：镜像里 /app/lib 是源码树，但容器 python 的 dist-packages 里有同版本 ansible 遮蔽 import，必须任务级 PYTHONPATH=/app/lib",
+    "root_cause": "数据集镜像为判分装了 pip 版 ansible，sys.path 里 dist-packages 先于 /app/lib；判分点默认环境变量里没有 PYTHONPATH；单看 pytest 失败像补丁无效",
+    "countermeasure": "任务级 env 字段注入 PYTHONPATH=/app/lib（数据集适配而非脚本硬编码）；判据 upgrade：baseline_ok → gold resolved；排查 F2P 全灭时先看 import 的实际来源（python -c 'import ansible;print(ansible.__file__)'）",
+    "source": "datasets/swebench/pro/gate-10.jsonl 的 ansible 0fd887 任务级 env；pro 报告 §5"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】qutebrowser 0aa57 容器内 QtWebEngine xcb 初始化失败 rc=134（已有 Xvfb 仍不够），pytest 无 -rA 摘要 → 会被误判 prepare_failed",
+    "root_cause": "镜像内 Qt 平台插件在无真显示/特定 xcb 依赖下崩溃；Xvfb + 禁 sandbox 只覆盖了部分实例，0aa57 需要 offscreen 平台",
+    "countermeasure": "该实例任务级再加 QT_QPA_PLATFORM=offscreen；重跑 baseline_ok；结论：Qt 系容器的环境适配是实例级矩阵（DISPLAY/sandbox/平台插件三旋钮），统一命令打天下不成立",
+    "source": "datasets/swebench/pro/gate-10.jsonl；pro 报告 §5"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】Live venv 的 PATH 用相对路径拼，pytest 报「不是内部或外部命令」；pip install -e . 在 worktree 外层目录执行找不到工程（pyproject 不在 cwd）",
+    "root_cause": "Windows 下相对 PATH 条目按当前进程 cwd 解析，子进程 cwd 变了就失配；venv 原先建在 worktree 内、setup 命令 cwd 未钉在仓库根",
+    "countermeasure": "env_for 用 Path(python_bin).resolve().parent 绝对化 PATH；venv 移出 worktree、pip/setup_cmds cwd=repo_dir；两处均加契约测试（绝对 PATH、setup cwd）",
+    "source": "skills/eval-harness/scripts/live-sample.py；tests/test_live_sample.py"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】Live 驱动子进程超时后遗留 git-remote-https 子进程继续持锁拖住整轮；git 交互式凭据提示在无人值守下永久挂起",
+    "root_cause": "subprocess.run(timeout) 只杀直接子进程，Windows 不级联；git 默认会交互式要凭据",
+    "countermeasure": "Popen + 超时 taskkill /F /T /PID（POSIX os.killpg）；git 环境禁交互（GIT_TERMINAL_PROMPT=0、GIT_ASKPASS=echo）；加树杀契约测试",
+    "source": "skills/eval-harness/scripts/live-sample.py _run/_git_env；tests/test_live_sample.py"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】matplotlib Live 环境三连障：loader 固定调 meson（未装）→ 装 ninja/meson 后 --no-build-isolation 报 numpy/arrayobject.h 缺失（build isolation 的 numpy 头被删）→ setuptools_scm 调系统 python3（venv 无 python3.exe）失败",
+    "root_cause": "meson-python 可编辑安装需要完整构建工具链且在 Windows 上按 python3 名找解释器；build isolation 与 --no-build-isolation 两条路径都要显式装 build 依赖；Live 数据集 test_cmds 不会替你装这些",
+    "countermeasure": "任务级 setup_cmds 固化：venv Scripts 里复制 python3.exe shim → 清华源装 meson-python/pybind11/setuptools_scm/numpy → --no-build-isolation -e . → 装 pytest；手动复现 rc=0 后交驱动重跑；教训：Live 环境差异必须走任务级命令字段，逐层按报错补齐工具链",
+    "source": "datasets/swebench/live/gate-10.jsonl matplotlib 行 setup_cmds；live 报告 §5"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】后台任务日志重定向到不存在的输出目录直接失败（shell 先建文件后建目录的顺序问题），整轮背景跑没起来还以为在跑",
+    "root_cause": "`> logs/x.log` 在目标目录不存在时失败；后台包装把失败吞掉，只看到「任务已启动」",
+    "countermeasure": "重定向前先 mkdir -p 目录；后台任务启动后立刻查进程/日志首行，不拿「已提交」当「在跑」",
+    "source": "round-51 本机操作记录（live-runs 重跑包装命令）"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】matplotlib meson 构建的第二堵墙：wrap 子项目在 setup 期联网下载——freetype 从 savannah 仅 ~7KB/s 慢速完成，qhull 从 GitHub 直接 reset 后进入重试循环，整轮卡死在 meson setup 无编译进展",
+    "root_cause": "meson wrap 默认联网回源，国际源在受限网络下不可靠；sdist 的 subprojects/packagecache 不含 tarball（实测 matplotlib 3.10.9 sdist）；国内 PyPI/GNU 镜像都没有这两个包的原生 tarball",
+    "countermeasure": "国内源预置 + 任务级 setup_cmds 恢复：freetype 用已下载 tarball（sha256 与 wrap 文件一致 0a3c7dfb…）放入 subprojects/packagecache；qhull 用 gitee mirrors/qhull v8.0.2 浅克隆 + matplotlib packagefiles 的 meson.build 覆盖成 subprojects/qhull-8.0.2 目录（meson 见目录即跳过下载）；恢复命令由任务级 setup_cmds 执行，脚本零硬编码；GitHub 代理实测 ghfast/ghproxy 无响应、gh-proxy 498B/s 判死",
+    "source": "datasets/swebench/live/gate-10.jsonl matplotlib setup_cmds；datasets/swebench/live-cache/（不入库）；live 报告 §5"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "type": "feature",
+    "description": "ROADMAP 阶段四 4.1 子代理分解：新增 agent/phases.py 三角色状态机（locate→fix→verify，动作面按阶段收窄：locate 只读、fix 可编辑、verify 只读并回裁决），主循环只做仲裁——verify 驳回带理由回 fix 返工（默认上限 2，超限 ESCALATED rc1、resolved=false、不出补丁）、机械测试 veto（tests≠pass 时 verify 的 accept 一律改判 reject）、locate 轮数预算用尽降级进 fix；每次裁决落 phases.json 决策台账（seq/phase/decision/reason/round/tests）并随 task-meta 持久化；单循环旧模式默认不变（仅 --phases 开启）",
+    "evidence": "agent/phases.py；agent/code-task.py（阶段接线）；tests/test_agent.py::TestAgentPhases（9 项）；docs/DECISIONS.md D-036；docs/ROADMAP.md §5.16"
+  },
+  {
+    "type": "feature",
+    "description": "XL 多文件基准（跨 5 文件 6 模块 xlib 发票金额管线 + 12 测试 7F5P + 275 字符症状式任务行）：单循环与 phases 两臂同夹具实跑均 resolved、补丁逐字节相同（sha256 a2ed125f…76d1da），独立 replay 12 passed；phases 臂 4 轮 / 单循环 2 轮，决策台账 accept×3（locate/fix/verify）、locate 用 2 轮、返工 0；正式记录在 reports/xl-round58/（bench.json schema xl-bench/1 + report.md），明确 n=1 自造夹具、同宿主模型、不外推 uplift",
+    "evidence": "reports/xl-round58/bench.json；reports/xl-round58/report.md；reports/xl-round58/fix.patch；reports/xl-round58/fixture.py"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】code-task.py 续跑（--resume）不恢复 task-meta 里的 rounds_budget：命令行没显式给 --rounds 时落回默认 6，把上一段使用的更小预算静默放大——契约 test_rounds_budget_persists_across_resume 首跑红（--rounds 2 的会话续跑后 rounds 从 2 变 6，预算形同失效）",
+    "root_cause": "预算只写不读：续跑装配只信 argparse 的旧默认值，没有「CLI 未显式指定则以 task-meta 为准」的优先级规则，持久化值被默认值直接盖过",
+    "countermeasure": "续跑装配按「CLI 显式 > task-meta > 默认」取轮数预算，并在 phases.json 的轮数决策里带实际预算；契约 test_rounds_budget_persists_across_resume 钉死（--rounds 2 续跑后 rounds 仍为 2，用尽时理由为「全局轮数用尽（2 轮）」）",
+    "source": "agent/code-task.py（续跑预算装配）；tests/test_agent.py::TestAgentPhases.test_rounds_budget_persists_across_resume"
+  },
+  {
+    "category": "行为回归",
+    "description": "【坑】repo_map.py 的 SKIP_DIRS 判定用 rglob 返回的绝对路径分段：仓库本身位于 reports/、runs/ 等同名目录下时，祖先目录名命中跳过表，build_map 与 rank_candidates 双双整仓静默为空（0 符号、0 候选、不报错）——XL 夹具放在 reports/_work/xl58 下，首轮任务行候选文件区为空，只有手工列候选才继续",
+    "root_cause": "跳过规则本意是「仓库内的 vendor/构建目录」，实现却对绝对路径 parts 求交集，祖先路径不属于仓库内容；静默为空而非报错，靠下游症状才暴露",
+    "countermeasure": "两个循环都先取 rel = path.relative_to(repo).as_posix() 再按 rel 分段判 SKIP_DIRS；契约 test_repo_map_not_skipped_by_ancestor_dir_name 把仓库造在 <tmp>/reports/proj 下，要求 symbols=1、scanned=1、关键词候选非空",
+    "source": "agent/repo_map.py（build_map / rank_candidates）；tests/test_agent.py::TestRepoMapAndEdits.test_repo_map_not_skipped_by_ancestor_dir_name"
+  },
+  {
+    "category": "行为回归",
+    "description": "【坑】补丁即时校验未过改为「回滚工作树」后，round-53 的 e2e 契约 test_syntax_error_edit_is_bounced_e2e 在终稿全量首跑红：它按旧行为写重试 SEARCH（拿已被回滚的 `return a - (b` 当现状），实际工作树已回基线，SEARCH 未命中多耗一轮，第三次续跑停在 WAIT_HOST_LLM 而非 DONE——按名挑跑的定向测试完全看不出来",
+    "root_cause": "旧契约把「被拒编辑留在工作树」当成隐含前提，重试 SEARCH 写的是上一版补丁代码；产品语义一变即失效，而改动只跑定向测试、没立刻跑全量，跨套件依赖直到双跑才暴露",
+    "countermeasure": "e2e 重试改为按基线内容写 SEARCH，并新增断言「本轮编辑已回滚」必须出现在下一轮材料；全量套件作为回归判据（本轮首跑即抓到，修复后重跑双绿）",
+    "source": "tests/test_agent.py::TestAciStageTwo.test_syntax_error_edit_is_bounced_e2e；logs/suite-r58-run1.log（首跑 1 红）"
+  },
+  {
+    "category": "行为回归",
+    "description": "【坑】code-task.py 补丁即时校验未过（non_ascii / missing_change / file_missing）时只把错误反馈给模型，工作树保留本轮已应用的半成品编辑：下一轮模型按提示词「工作区每轮都从基线重建」的假设写 SEARCH，实际文件仍是脏的必然未命中，edits_applied 也跟着虚高；系统提示与实现不符",
+    "root_cause": "编辑应用与校验失败处理之间没有事务边界——apply_edits 落盘后直接 _validate_patch，失败分支只 append 错误继续下一轮；提示词还沿用「每轮从基线重建」的旧说法",
+    "countermeasure": "编辑前 _snapshot_paths 记录涉及文件原始字节（None=本轮新建），校验失败时 _restore_paths 精确回滚，并把 edits_applied / blocks_log / history 一并回退；系统提示改为「工作区保留此前已应用的编辑（本轮校验未过的编辑会自动回滚）」；契约 test_rejected_edit_is_rolled_back_before_retry（提示含「本轮编辑已回滚」、edits_applied=1、补丁不含中文注释）",
+    "source": "agent/code-task.py（_snapshot_paths / _restore_paths / 编辑分支）；tests/test_agent.py::TestAgentPhases.test_rejected_edit_is_rolled_back_before_retry"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】retro-report.py 轮号缺省自增（max 已有轮报+1）：本轮先按目标口径跑过一次轮报，随后补入第 4 条坑再重跑，脚本没有按「同一轮重写」处理，而是静默生成了 round-59 / round-60 两份幽灵轮报与候选——若照原样提交，轮次索引会凭空多出两轮",
+    "root_cause": "自增语义把「已存在的最新轮报」当作上一轮，重跑即视为新轮；--force 只保护显式 --round 的同轮覆盖，缺省路径不检测「最近一份轮报是否就是本轮」",
+    "countermeasure": "轮内补记后重跑一律显式 --round <N> --force；本次删除幽灵产物并以 --round 58 --force 重写终稿轮报；每轮只产出一份轮报、以报告头行的 open/closed 计数与台账对账",
+    "source": "skills/retro/scripts/retro-report.py（--round 缺省自增）；round-59/60 幽灵产物已删除"
+  }
+]

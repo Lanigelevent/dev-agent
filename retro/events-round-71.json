@@ -1,0 +1,17 @@
+[
+  {
+    "type": "feature",
+    "description": "round-71 判分链修复（gold 先行验证驱动）：keras-20389 gold f2p-only 判分 f2p_passed（F2P 1/1，127.0 s）——根因 conftest 缺 tensorflow 后端，setup 补 tensorflow-cpu（清华镜像），可信判分链 1/9→2/9；reflex pydantic 钉 2.7.4 后 F2P 仍 missing（依赖面不止 pydantic）继续 blocked_env；instructlab 包要求 Python <3.12（本机 3.12.13 无 3.11 供应）如实记 blocked_python 不硬凑",
+    "evidence": "datasets/swebench/live-runs-r71/live-sample-ledger.json、datasets/swebench/live/gate-r68-keras.jsonl（adaptation_note）、reports/swebench/live-coldstart-r71-2026-10-31.md"
+  },
+  {
+    "type": "feature",
+    "description": "round-71 冷启动第 4 数据点（keras-20389，修复面 1 文件/1 hunk/2 行）：attempt-1（零反馈）4 轮/1 编辑（convert_revived_tensor Unknown layer ValueError→IndexError）判分 unresolved——失败形状暴露 L702 第二处 raise（首次 read 未覆盖 700+ 区）；attempt-2（带 attempt-1 判分反馈）3 轮/2 编辑（两处 ValueError→IndexError，补丁 1 281 B）判分 **f2p_passed**（F2P 1/1，32.015 s，partial 不计 resolved）——本会话冷启动首个非 failed 数据点；口径：带反馈复修 n=1 不外推（与 D-030 的 20/20 同型），零反馈口径仍 n=3 全 failed",
+    "evidence": "datasets/swebench/live-runs-r71/coldstart-keras-20389/（attempt-2：3 轮/2 编辑/补丁 1 281 B）、coldstart-keras-20389-attempt1-partial/（归档）、live-judge-keras/live-sample-ledger.json、reports/swebench/live-coldstart-r71-2026-10-31.md"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-71 边界与未结项：①f2p_passed 为 partial 口径（keras P2P 7686 条含 8 条上游截断 id，完整 resolved 不可得），不计 resolved 不折算通过率；②attempt-2 有判分反馈参与且 PS 本身含报告者修法提示（任务偏易），n=1 不外推；③gold 先行验证两轮兑现价值（round-70 拦坏链 / round-71 修后取信），立为冷启动扩样前置检查；④宿主协议 stale-id 本轮再犯 2 次——对策持续失效，升级结构改造候选（code-task 侧 WAIT_HOST_LLM 输出加显式提示）；⑤D-046 4.1 复验、merge-audit 人工复核、Pro 单发口径、DeepSWE 余 19 条仍在账上",
+    "source": "reports/swebench/live-coldstart-r71-2026-10-31.md §2/§3/§5、retro/next-round.md 第 31 条"
+  }
+]

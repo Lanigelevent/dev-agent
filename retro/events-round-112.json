@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "P0-2 SWRBench 中立语料接入 + 确定性评审器中立首跑",
+    "description": "swrenbench-import.py（import 1000/0 坏行 + 剥头 diff 标准化器 + hunk 头 span 解析 + score 打分桥）；全量 n=1000：point_recall 0.42%（3/713）、clean 零噪声率 97.4%（15 findings/500 PR）。中立基线落袋，LLM 评审臂为下一步。"
+  },
+  {
+    "type": "test",
+    "title": "swrenbench 5 契约（映射/行号/span/打分/import）",
+    "description": "tests/test_swrenbench.py 全绿；过程中修复 _first_key 取值 bug 与 _HUNK_RE 单 @ 截断 bug（重建头畸变 @ @@）——反向验证两次抓真 bug。"
+  }
+]

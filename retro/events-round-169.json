@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "受阻轮补录操作规程入仓（round-169）",
+    "description": "DEVELOPMENT §10 增补「受阻轮补录操作规程」三步流程（重跑重写日志防 stale 误记 / 换位过闸 / 尾随 commit），r141 与 r166/167 两批先例固化；key 轮换检查 secret-scan 零命中。双跑受阻待录后按本规程补录：负载窗口恢复（qemu 进程消失实测）→ run1/run2 重跑重写日志（482.44/524.33s 全绿）→ release-gate 2.71.0 七项全绿 → close（light）。",
+    "countermeasure": "skip 组成异常解释：767 passed + 2 skipped（总 769 不变）——第二 skip 为 docker 条件门（test_agent.py:3120 无 docker 或镜像 cra-pytest:3.12；docker info 实测 daemon 未运行坐实），常驻 skip 为 DEEPSWE_RUN 环境门（test_gold_sample.py:1020）；定点 -rs 实跑定位，非套件回归。",
+    "source": "round-169"
+  }
+]

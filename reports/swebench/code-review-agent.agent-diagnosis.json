@@ -1,0 +1,298 @@
+{
+  "source_runs": [
+    "eval19",
+    "eval23",
+    "eval27",
+    "gold-v6",
+    "eval-r63",
+    "eval-r64"
+  ],
+  "instances": 20,
+  "resolved": 20,
+  "by_diagnosis": {
+    "RESOLVED": 20,
+    "F2P_MISSED": 0
+  },
+  "detail": [
+    {
+      "instance_id": "astropy__astropy-12907",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 2,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 13,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "astropy__astropy-14182",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 9,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "astropy__astropy-14365",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 8,
+        "fail": 0
+      },
+      "source": "eval-r63"
+    },
+    {
+      "instance_id": "django__django-10914",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 98,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "django__django-11019",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 16,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 58,
+        "fail": 0
+      },
+      "source": "eval-r64"
+    },
+    {
+      "instance_id": "django__django-11039",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 88,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "django__django-11049",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 8,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "django__django-12284",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 31,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "django__django-14999",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 113,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-22711",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 2,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 91,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-22835",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 24,
+        "fail": 0
+      },
+      "source": "eval27"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7220",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 11,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13241",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 54,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14087",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 3,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 172,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14092",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 3,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 212,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8506",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 14,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "sympy__sympy-13031",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 9,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "sympy__sympy-13043",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "source": "eval19"
+    },
+    {
+      "instance_id": "sympy__sympy-13146",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 34,
+        "fail": 0
+      },
+      "source": "eval23"
+    },
+    {
+      "instance_id": "sympy__sympy-13437",
+      "resolved": true,
+      "diagnosis": "RESOLVED",
+      "fail_to_pass": {
+        "pass": 1,
+        "fail": 0
+      },
+      "pass_to_pass": {
+        "pass": 15,
+        "fail": 0
+      },
+      "source": "gold-v6"
+    }
+  ]
+}

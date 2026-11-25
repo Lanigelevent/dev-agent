@@ -1,0 +1,44 @@
+[
+  {
+    "category": "手工",
+    "description": "编码循环的材料里看不见目标文件：repo 地图只扫前 300 个 .py（django 的 django/db/...、astropy 的 astropy/modeling/... 全在截断外），且文件清单按路径字母序排列再截断——7 个 SWE-bench 实例里目标文件在旧材料中出现 0/7，模型只能靠先验知识猜文件",
+    "root_cause": "材料生成只按「热度排序 + 字母序截断」，没有任何与任务文本相关的检索；build_map 的 300 文件上限让大仓的目标模块根本不在地图里",
+    "countermeasure": "agent/repo_map.py 新增 extract_keywords / rank_candidates / scan_candidates / merge_candidates：按任务关键词匹配符号定义（+10）、路径段（+2）、内容命中（+3，通用词降权）、测试文件降权（×0.7），候选文件置顶进材料。精度基线实测（datasets/swe-out/measure-candidates.py）：目标文件可见率 0/7 → 6/7（仅 sympy-13031 的 sparse.py 无法从 issue 文本命名）",
+    "source": "retro/events-round-19.json"
+  },
+  {
+    "category": "手工",
+    "description": "read 动作只给文件头 3000 字，目标函数常在窗口之外（django 的 RenameModel 类在 ~320 行、sympy 的 bell 类在 ~320 行），模型看不到要改的代码，也看不到模块 docstring 里的语义约束",
+    "root_cause": "读取策略是「文件头 + 定长截断」，与任务关键词无关；且首次提及点常早于真正的定义点（django models.py 里 RenameModel 首次出现在 129 行，类定义在 289 行）",
+    "countermeasure": "agent/repo_map.py 新增 extract_window：按关键词定位**定义点**（class/def 优先，退取首次提及），取 ±窗口并附模块 docstring；实测窗口落在 django 286-448 行（class RenameModel 在内）、sympy 319-481 行（class bell 在内）",
+    "source": "retro/events-round-19.json"
+  },
+  {
+    "category": "行为回归",
+    "description": "把 harness 工作目录从仓库根改到运行产物目录后，驱动仍给 harness 传**相对** predictions 路径，harness 在新 CWD 下找不到文件 → 整批 9 例 EVAL_FAILED（基础设施失败，不是实例失败）",
+    "root_cause": "驱动与被调程序的路径基准不一致：harness 以 --cwd 为基准运行，而 predictions 路径按调用方 CWD 解析",
+    "countermeasure": "gold-sample.py 统一把 predictions 与 cwd 解析为绝对路径后再传给 swe_run.py；新增契约测试 tests/test_gold_sample.py::TestGoldSamplePaths（断言二者均为绝对路径）",
+    "source": "retro/events-round-19.json"
+  },
+  {
+    "category": "补丁返工",
+    "description": "astropy-14365 的补丁把命令正则写成 r\"(?i:READ [TS]ERR(\\s+[0-9]+)+\" —— 少一个右括号，容器内 re.error 导致该文件 8 个测试全挂（patch 已应用但行为回归）",
+    "root_cause": "补丁里的正则/语法没有在本地先验证——被审仓库的测试要在容器里跑，本机缺依赖，只能靠肉眼过一遍",
+    "countermeasure": "用 agent/legacy_compat.py 垫片在本机导入真仓库做正则/语法的最小复现（把「补丁里的代码」当普通代码本地先跑一遍）；修正后同一实例 resolved",
+    "source": "retro/events-round-19.json"
+  },
+  {
+    "category": "手工",
+    "description": "被审仓库 sympy 1.1 要求 Python ≤3.9（from collections import Mapping），本机只有 3.12/3.14，直接导入失败；清华 PyPI 镜像对 mpmath 无匹配版本（from versions: none），国内主镜像缺包",
+    "root_cause": "被审仓库运行时约束与宿主解释器版本不匹配；国内主镜像索引未覆盖该包",
+    "countermeasure": "垫片从临时脚本升级为入库产品件 agent/legacy_compat.py（sitecustomize 经 PYTHONPATH 注入，不改被审仓库、不改全局解释器）+ 契约测试（无垫片时老式 import 必失败、有垫片必通过）；镜像按「主镜像 → 其他国内镜像 → 国际直连」降级并记录原因（AGENTS.md 下载策略增补）",
+    "source": "retro/events-round-19.json"
+  },
+  {
+    "category": "手工",
+    "description": "astropy-14182（RST 支持 header_rows）未通过：这是**新增特性**而非缺陷修复，期望输出格式无唯一解，agent 只产出「接受 header_rows + 按表头行数定位位置行」的合理实现，但与上游期望的输出格式不一致",
+    "root_cause": "特性类实例的验收标准藏在未知的上游测试期望里；issue 文本只给了一个示例输出，且 RST 表格的表头块结构有多种合法写法",
+    "countermeasure": "如实记为未通过（不粉饰）；改进候选写进下一轮检查单：材料里带上目标模块的既有测试上下文，减少「靠 harness 反馈逐条补语义」的返工轮次",
+    "source": "retro/events-round-19.json"
+  }
+]

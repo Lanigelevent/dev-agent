@@ -1,0 +1,20 @@
+{
+  "round": 0,
+  "tests": "pass",
+  "test_detail": [
+    "子集 1 项（原范围 1 项）（工作区 cra-pytest:3.12）：..                                                                       [100%]; 2 passed in 0.08s（未抽检）"
+  ],
+  "edits_applied": 2,
+  "patch_validation": {
+    "ok": true,
+    "issues": []
+  },
+  "selfcheck_broken": [],
+  "files": [
+    "calc.py",
+    "calc.py"
+  ],
+  "patch_chars": 232,
+  "has_patch": true,
+  "patch_text": "diff --git a/calc.py b/calc.py\nindex 2445407..d93e7b4 100644\n--- a/calc.py\n+++ b/calc.py\n@@ -1,6 +1,6 @@\n def add(a, b):\n-    return a - b\n+    return a + b\n \n \n def label(name):\n-    return \"Hi \" + name\n+    return \"Hello \" + name\n"
+}

@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-177：MCP 异步回归 +3 契约——Unix 信号路径/ProcessLookupError/worker_pid 回退",
+      "description": "Windows 本机无法真跑 POSIX 信号，用 mock 覆盖：getpgid→kill(SIGTERM) 语义、进程已退出→False 不抛、runner.pid 缺失回退 worker_pid；async 专项 17/17 全绿；契约 783→786。Windows 侧真作业取消证据沿用 r176 killed_pids=[49504]。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-177：runs/jobs 目录审计（只读）",
+      "description": "6 作业目录（cancelled 2 / done 4）、111 文件、185341 字节 ≈ 0.2MB；磁盘压力可忽略，阶段 C（purge）未批准不实现；未删除任何目录。依赖刷新锚点观测：r173 后第 4 轮，~10 轮节奏未到，本轮不刷新。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-177：开局与版本",
+      "description": "round-gate open --round 177 全 PASS；bump-version 2.76.0 --sync-counts（786/86/15）；doc-freshness 漂移 0；key 轮换无新命中；按 D-035 gate 绿后打并推 v2.76.0 tag。",
+      "outcome": "done"
+    }
+  ]
+}

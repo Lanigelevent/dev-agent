@@ -1,0 +1,7 @@
+[
+  {
+    "type": "feature",
+    "title": "D-051 三项裁决入账 + verified 评估报告 + xdist 前置审计",
+    "description": "总监三项裁决（选项制收集）：①e2e 提案批 B+A（xdist 列 round-100 议程，前置审计先行）；②扩样续池批「先评估 verified」；③round-100 按锚点。交付：verified-eval-r98.md（500 实例入库 hf-mirror ✓；核心发现=仓级排除在 verified 上排除 457/500，排除口径成核心裁定项，建议中档=实例级排除池 ~447/12+ 仓，开跑仍待批口径与 n 值）；proposal-xdist-audit-r98.md（4 阻塞点有条件可行：夹具单例多 worker 验证/tmpspace atexit 实测/coverage-gate 不受影响/CI 命令改造）。"
+  }
+]

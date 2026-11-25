@@ -1,0 +1,11 @@
+{
+  "rc": 1,
+  "data": {
+    "ok": false,
+    "state": "WAIT_HOST_LLM",
+    "llm_task": "<repo>\\reports\\multilang-round59\\tasks\\go-stack\\llm-tasks\\64fb6a3912e8.prompt.md",
+    "llm_response": "<repo>\\reports\\multilang-round59\\tasks\\go-stack\\llm-tasks\\64fb6a3912e8.response.md",
+    "out_dir": "<repo>\\reports\\multilang-round59\\tasks\\go-stack",
+    "note": "宿主模型：读 llm_task，按 system 约定仅输出动作 JSON 写入 llm_response，然后 --resume <repo>\\reports\\multilang-round59\\tasks\\go-stack 续跑"
+  }
+}

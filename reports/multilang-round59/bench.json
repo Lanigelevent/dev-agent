@@ -1,0 +1,74 @@
+{
+  "schema": "multilang-bench/1",
+  "round": 59,
+  "host": "host-session-model (actions pre-authored, replayed)",
+  "n": 2,
+  "resolved": 2,
+  "note": "宿主会话模型按 host 协议写动作、脚本复放；n=2，只证明TS/Go 通路可用，不外推成功率",
+  "tasks": [
+    {
+      "name": "ts-calc",
+      "language": "ts",
+      "state": "DONE",
+      "tests": "pass",
+      "test_engine": "node",
+      "expect_engine": "node",
+      "rounds": 1,
+      "edits": 1,
+      "invocations": 2,
+      "elapsed_sec": 0.972,
+      "resolved": true,
+      "patch_sha256": "92ced63b09df7559c8ac310c656b2537bc96247e6f5f679151167e40493bb6dc",
+      "patch_bytes": 333,
+      "patch_file": "tasks\\ts-calc\\edits.patch",
+      "invoke_log": [
+        {
+          "step": 0,
+          "rc": 1,
+          "state": "WAIT_HOST_LLM",
+          "tests": null,
+          "rounds": null
+        },
+        {
+          "step": 1,
+          "rc": 0,
+          "state": "DONE",
+          "tests": "pass",
+          "rounds": 1
+        }
+      ]
+    },
+    {
+      "name": "go-stack",
+      "language": "go",
+      "state": "DONE",
+      "tests": "pass",
+      "test_engine": "go",
+      "expect_engine": "go",
+      "rounds": 1,
+      "edits": 1,
+      "invocations": 2,
+      "elapsed_sec": 1.36,
+      "resolved": true,
+      "patch_sha256": "44ad8f82595cc8880ebd698762366e9f252303010ecb3cbabd1194fd74406ef3",
+      "patch_bytes": 249,
+      "patch_file": "tasks\\go-stack\\edits.patch",
+      "invoke_log": [
+        {
+          "step": 0,
+          "rc": 1,
+          "state": "WAIT_HOST_LLM",
+          "tests": null,
+          "rounds": null
+        },
+        {
+          "step": 1,
+          "rc": 0,
+          "state": "DONE",
+          "tests": "pass",
+          "rounds": 1
+        }
+      ]
+    }
+  ]
+}

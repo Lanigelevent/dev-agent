@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "round-gate close 增 suite_count_claim：收官行测试计数 vs 双跑实测（round-159，r154 误计坑 2122392940fc 对策落地）",
+    "description": "close 门新检查：收官行「测试 A→B / A 不变」终值逐跑对照双跑日志实测（passed+failed+errors+skipped），不一致 FAIL；无声明行（旧格式）PASS+note 不编造失败。四态实弹（真仓 r158 PASS 761==761 / r154 误计复刻 FAIL / 无声明 PASS / 不变式 PASS）；+4 契约（含 r154 实景反向验证复刻被拦）。复用 suite_logs 已解析的 runs，不二次 discover。",
+    "outcome": "done"
+  },
+  {
+    "type": "doc",
+    "title": "F10 判据清单下游复核（round-159，120 条②）",
+    "description": "全仓 grep 判据清单引用面：docs/DEVELOPMENT.md「F1-F9 数字对账」补 F10；其余引用仅在脚本 docstring 与轮档案（冻结不改）。AGENTS 脚本表 doc-freshness 行已于 r158 补 F10 口径。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-159 任务面取舍（round-159）",
+    "description": "120 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体。任务面=②F10 下游复核（完成）+ 台账远期候选（suite_count_claim 落地，结 r154 误计坑）。",
+    "outcome": "done"
+  }
+]

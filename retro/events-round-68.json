@@ -1,0 +1,26 @@
+[
+  {
+    "type": "feature",
+    "description": "round-68 余下七条候选基线（f2p-only 部分口径）：pdm-3237 与 conan-17092 baseline_ok（2/7），instructlab env_failed（pip -e . 构建失败待适配），pvlib/reflex/haystack/keras baseline_unexpected（根因=F2P 测试为 test_patch 新增、base 快照不可见 → missing；可行通路=gold 先行验证，round-51 matplotlib 同型）；实测七条候选 P2P 全部含上游截断 id（9–194 条，cfn-lint/matplotlib 同源）——完整 resolved 口径在本语料对所有这些实例不可得，f2p-only 是唯一可判口径；任务级适配（test_cmds 归一 python -m pytest -rA + 清华镜像 setup）记录在 gate-r68-*.jsonl 的 adaptation_note",
+    "evidence": "datasets/swebench/live-runs-r68/live-sample-ledger.json、datasets/swebench/live/gate-r68-*.jsonl、reports/swebench/live-coldstart-r68-2026-10-31.md"
+  },
+  {
+    "type": "feature",
+    "description": "round-68 第二个冷启动数据点（pdm-3237，基线可判且修复面最小 2 文件/5 hunks/75 行）：failed（0 编辑）——编码循环 11 轮探索后按预算收束；根因是 read 动作取窗只返回文件头部（builders/base.py 恒取 19–181 行），隔离构建区（195–330 行、322 行隔离环境创建点）经 9 次 search 只得单行命中，深段代码全程不可见；75 行修复面在可得材料下无法唯一确定，按预算纪律收束不盲改；宿主侧三次响应写错 id 消耗约 3 轮（协议纪律复发）",
+    "evidence": "datasets/swebench/live-runs-r68/coldstart-pdm-3237/（task-manifest.json、llm-tasks/）、reports/swebench/live-coldstart-r68-2026-10-31.md"
+  },
+  {
+    "type": "pitfall",
+    "category": "能力盲区",
+    "description": "【坑】编码循环 read 动作取窗对深文件段系统性不可达：窗口固定取文件头部（如 builders/base.py 恒取 19–181 行），目标代码在 180 行以外时（pdm-3237 隔离构建区 195–330 行）read 反复返回同一窗口、search 只给单行命中，模型拿不到修复所需的上下文——冷启动任务在深文件场景系统性不可解（11 轮探索 0 编辑）",
+    "root_cause": "repo map 的定义点取窗实现只覆盖文件头部定义（窗口切片从模块顶部起算），没有「按行区间」或「按目标符号锚定」的取窗模式；行为探针默认关闭也无兜底",
+    "countermeasure": "结构改造候选：read 动作增「行区间取窗」（--read path:start-end 或按 tree-sitter 符号锚定窗口）；改造前冷启动样本选取避开深文件修复任务（用 difficulty.files/hunks 小且目标文件小的实例）；宿主协议侧宿主响应 id 必须先查 pending 再写（round-67 纪律升级：连续两轮复发）",
+    "source": "datasets/swebench/live-runs-r68/coldstart-pdm-3237/llm-tasks/（read 两次同窗口证据）、agent/repo_map.py 取窗实现",
+    "closure": "open（结构改造候选：待 read 行区间/符号锚定取窗实现后按 D-045 复跑 pdm-3237 验证）"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-68 边界与未结项如实保留：①冷启动累计 n=2 均 failed（llama_deploy-330 传输语义不可推导 / pdm-3237 深文件段不可达），零 resolved 主张；②基线 unexpected 四条（pvlib/reflex/haystack/keras，F2P 新增型）非环境失败，gold 先行验证路径留待；③instructlab env_failed 待任务级依赖适配；④resolved 口径双重阻塞不变（官方镜像不可达 + 本语料 P2P 截断 7/7）；⑤D-046 4.1 复验、merge-audit 人工复核、Pro 固定端点「单发」口径、DeepSWE 余 19 条仍在账上",
+    "source": "reports/swebench/live-coldstart-r68-2026-10-31.md §3/§5、docs/DECISIONS.md D-045/D-046、retro/next-round.md 第 28 条"
+  }
+]

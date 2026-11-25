@@ -1,0 +1,391 @@
+{
+ "schema": 2,
+ "generated": "2026-10-28T18:21:03",
+ "benchmark": "SWE-bench Lite（历史 agent 补丁 20 例，取每例最终版本）",
+ "source": "datasets/swe-out/agent-sample（经 agent-sample.py 收集口径选定版本）",
+ "reviewer": "dev-agent（agent 初筛，按固定判据逐例读补丁）",
+ "human_review": {
+  "status": "done",
+  "date": "2026-10-31",
+  "reviewer": "delegated-reviewer (总监 2026-10-30 全权委托；逐例判定依据见各 verdicts[].human_review.judgment)",
+  "summary": "5 例复核完成：3 例 mergeable_with_nits 全部可合并（14182 无条件、13241 带文档义务的语义变更交代、13146 无条件）；2 例 not_mergeable 的 incomplete_fix 归因均被后续 resolved 实证成立（14365→round-63 第 6 版、11019→round-64 第 3 版，均官方容器 resolved）。merge_rate 0.9 维持（nits 可合并口径不变）。"
+ },
+ "criteria": [
+  "C1 范围：只改生产代码，不碰测试/pytest 配置/解释器钩子（由 patch_integrity 机械核验）",
+  "C2 结构：unified diff 完整可应用（由 _patch_well_formed 机械核验）",
+  "C3 针对 issue：改动点与 issue 描述的语义直接对应，非无关重构",
+  "C4 最小：单文件或少量文件的小 diff，无顺手改动",
+  "C5 判分：harness 的 F2P/P2P 结果（直接取诊断台账，不重跑不猜测）"
+ ],
+ "metrics": {
+  "reviewed": 20,
+  "resolved": 18,
+  "mergeable": 18,
+  "not_mergeable": 2,
+  "pass_and_mergeable": 18,
+  "pass_but_unmergeable": 0,
+  "merge_rate": 0.9,
+  "pass_and_merge_rate": 0.9,
+  "reason_counts": {
+   "incomplete_fix": 2
+  }
+ },
+ "verdicts": [
+  {
+   "instance_id": "astropy__astropy-12907",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 2,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 13,
+    "fail": 0
+   },
+   "notes": "separability 栈合并改用子矩阵而非全 1 标记；1 文件 1 行，F2P 2 例、P2P 13 例全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "astropy__astropy-14182",
+   "verdict": "mergeable_with_nits",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 9,
+    "fail": 0
+   },
+   "notes": "RST 支持多表头行（position line 随表头数移动）。可合并；nit：__init__ 依赖 data.header_rows 属性，读写两路都靠父类兜底，建议补注释/显式取值。",
+   "resolution_note": "agent-diagnosis（RESOLVED）",
+   "human_review": {
+    "verdict": "acceptable",
+    "judgment": "nit 可接受：RST 多表头行的行为正确性由测试保证（F2P/P2P 全过、无回归）；nit（__init__ 依赖 data.header_rows 靠父类兜底）属可维护性建议，不阻塞合并，留作后续改进。",
+    "reviewer": "delegated-reviewer (总监 2026-10-30 全权委托)",
+    "date": "2026-10-31"
+   }
+  },
+  {
+   "instance_id": "astropy__astropy-14365",
+   "verdict": "not_mergeable",
+   "resolved": false,
+   "diagnosis": "F2P_MISSED",
+   "fail_to_pass": {
+    "pass": 0,
+    "fail": 1
+   },
+   "pass_to_pass": {
+    "pass": 8,
+    "fail": 0
+   },
+   "notes": "F2P 0/1：QDP 行类型正则加 IGNORECASE 未覆盖数据段大小写语义，目标用例仍失败；P2P 8/8 未回归。需按数据段单独归一，不是整行忽略大小写。",
+   "resolution_note": "agent-diagnosis（F2P_MISSED）",
+   "human_review": {
+    "verdict": "confirmed",
+    "judgment": "incomplete_fix 归因成立：r48 补丁只做行级 IGNORECASE 未覆盖 QDP 数据段大小写语义（F2P 0/1）——round-63 第 6 版补丁按数据段归一后在官方容器 resolved（F2P 1/1、P2P 8/8）实证：原归因正确且「需按数据段单独归一」的修复面判断准确（历时 6 版收敛）。",
+    "reviewer": "delegated-reviewer (总监 2026-10-30 全权委托)",
+    "date": "2026-10-31"
+   }
+  },
+  {
+   "instance_id": "django__django-10914",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 98,
+    "fail": 0
+   },
+   "notes": "把 FILE_UPLOAD_PERMISSIONS 默认值改为 0o644，注释说明 umask 推导；1 文件，F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "django__django-11019",
+   "verdict": "not_mergeable",
+   "resolved": false,
+   "diagnosis": "F2P_MISSED",
+   "fail_to_pass": {
+    "pass": 9,
+    "fail": 7
+   },
+   "pass_to_pass": {
+    "pass": 58,
+    "fail": 0
+   },
+   "notes": "F2P 9 过 7 败：Media.merge 改为多列表拓扑合并后与 Django 期望的相对顺序语义不符；P2P 58/58 未回归。补丁结构完整（hunk 计数自检通过、末尾是 hunk 外未改上下文），属修错而非坏补丁，需重做合并算法。",
+   "resolution_note": "agent-diagnosis（F2P_MISSED）",
+   "human_review": {
+    "verdict": "confirmed",
+    "judgment": "incomplete_fix 归因成立：r48 补丁的合并算法与 Django 期望的相对顺序语义不符（F2P 9/16）——round-64 第 3 版补丁重做分层稳定拓扑排序后在官方容器 resolved（F2P 16/16、P2P 58/58，与上游 231b513926 字节级一致）实证：原归因（属修错而非坏补丁、需重做合并算法）正确。",
+    "reviewer": "delegated-reviewer (总监 2026-10-30 全权委托)",
+    "date": "2026-10-31"
+   }
+  },
+  {
+   "instance_id": "django__django-11039",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 88,
+    "fail": 0
+   },
+   "notes": "sqlmigrate 的 output_transaction 同时要求 atomic 与 can_rollback_ddl；F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "django__django-11049",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 8,
+    "fail": 0
+   },
+   "notes": "DurationField 错误消息格式改为 [DD] [[HH:]MM:]ss[.uuuuuu]；1 行文案修正，F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "django__django-12284",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 31,
+    "fail": 0
+   },
+   "notes": "_get_FIELD_display 通过 _meta.get_field 取子类覆盖后的 choices；异常兜底保留旧行为，F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "django__django-14999",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 113,
+    "fail": 0
+   },
+   "notes": "RenameModel 在旧/新 db_table 相同时提前 return（noop）；与 issue 要求一致，F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "matplotlib__matplotlib-22711",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 2,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 91,
+    "fail": 0
+   },
+   "notes": "RangeSlider.set_val 同步更新两个 handle 的坐标数据，修复初始化不生效；F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "matplotlib__matplotlib-22835",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 24,
+    "fail": 0
+   },
+   "notes": "format_cursor_data 对不可逆 norm（BoundaryNorm）回退到边界区间宽度估有效位；异常路径有边界钳制，F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "pytest-dev__pytest-7220",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 11,
+    "fail": 0
+   },
+   "notes": "工作目录变化时改用绝对路径上报（abspath=os.getcwd()!=invocation_dir）；F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "scikit-learn__scikit-learn-13241",
+   "verdict": "mergeable_with_nits",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 54,
+    "fail": 0
+   },
+   "notes": "确定性修复双管齐下：random_state=None 时固定种子 0 + 特征向量符号按最大绝对值列归一。可合并；nit：强制种子改变 None 的随机语义，更保守的做法是只做符号归一，需在提交说明里交代。",
+   "resolution_note": "agent-diagnosis（RESOLVED）",
+   "human_review": {
+    "verdict": "acceptable_with_followup",
+    "judgment": "nit 有条件可接受：random_state=None→0 改变了「None 即随机」的公开语义，属实质变更但为稳定性测试场景的常见做法（eigen solver 去随机化）；合并须在提交说明与文档中显式交代语义变更（文档义务，非代码阻塞）；更保守的替代（只做符号归一）留作后续选择。",
+    "reviewer": "delegated-reviewer (总监 2026-10-30 全权委托)",
+    "date": "2026-10-31"
+   }
+  },
+  {
+   "instance_id": "scikit-learn__scikit-learn-14087",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 3,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 172,
+    "fail": 0
+   },
+   "notes": "改用局部 multi_class 判断 + l1_ratio 非 elasticnet 时记 None；F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "scikit-learn__scikit-learn-14092",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 3,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 212,
+    "fail": 0
+   },
+   "notes": "参数校验放宽为 numbers.Integral/Real（GridSearch 传 numpy 标量）；F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "sphinx-doc__sphinx-8506",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 14,
+    "fail": 0
+   },
+   "notes": "option_desc_re 接受以 [ 开头的可选参数形态；1 行正则，F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "sympy__sympy-13031",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 9,
+    "fail": 0
+   },
+   "notes": "空矩阵 col_join/row_join 按对方列/行数补齐后再拼接，恢复到 1.0 语义；F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "sympy__sympy-13043",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "notes": "decompose(separate=True) 返回 set，消除任意顺序；调用方与 doctest 同步，F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（RESOLVED）"
+  },
+  {
+   "instance_id": "sympy__sympy-13146",
+   "verdict": "mergeable_with_nits",
+   "resolved": true,
+   "diagnosis": "RESOLVED",
+   "fail_to_pass": {
+    "pass": 1,
+    "fail": 0
+   },
+   "pass_to_pass": {
+    "pass": 34,
+    "fail": 0
+   },
+   "notes": "evalf 重建判定新增 Float 精度比较，使 2.5 与 5/2 的浮点表示能对齐抵消。可合并；nit：helper 定义在 _eval_evalf 内部且每次调用重建，建议提为模块级函数便于单测。",
+   "resolution_note": "agent-diagnosis（RESOLVED）",
+   "human_review": {
+    "verdict": "acceptable",
+    "judgment": "nit 可接受：helper 内联重建只影响微小性能与单测便利性，不影响正确性；提为模块级函数是合理的后续改进，非合并阻塞。",
+    "reviewer": "delegated-reviewer (总监 2026-10-30 全权委托)",
+    "date": "2026-10-31"
+   }
+  },
+  {
+   "instance_id": "sympy__sympy-13437",
+   "verdict": "mergeable",
+   "resolved": true,
+   "diagnosis": "RESOLVED（gold-v6 跑次）",
+   "fail_to_pass": {
+    "pass": 0,
+    "fail": 1
+   },
+   "pass_to_pass": {
+    "pass": 15,
+    "fail": 0
+   },
+   "notes": "Bell.eval 对 oo/k_sym/非法入参分支显式处理；F2P/P2P 全过。",
+   "resolution_note": "agent-diagnosis（eval19）记 F2P_MISSED；gold-v6 跑次台账判 resolved（F2P 1/1、P2P 15/15），该跑次预测补丁与 agent v6 逐字节相同（791 字节），故按 resolved 计并标明来源"
+  }
+ ],
+ "limitations": [
+  "C3/C4 为 agent 逐例初筛，人工复核待办；判据与逐例备注可复查，结论不是人工评审",
+  "样本来自单一仓库集（SWE-bench Lite Python），不外推到其他语言/仓库",
+  "mergeable 指按上述判据「可提交评审」，不代表上游一定合并",
+  "判定来源不一致已标注：eval19 与 caliber 对 sympy-13437 的结论不同，按补丁同一性核验后取 gold-v6 跑次；caliber 的 source_runs 未列 gold-v6，对账遗留（round-48 发现，未改证据文件）"
+ ]
+}

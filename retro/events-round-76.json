@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "description": "round-76 merge-audit 人工复核销账（round-48 挂账、next-round 第 20 条追踪 28 轮）：reports/swebench/merge-audit-r48.json schema 1→2、human_review pending→done——5 例判定：3 例 mergeable_with_nits 全部可合并（14182 无条件 / 13241 acceptable_with_followup：random_state=None→0 语义变更须文档交代 / 13146 无条件）；2 例 not_mergeable 的 incomplete_fix 归因均被后续 resolved 实证成立（14365→round-63 第 6 版官方容器 resolved、11019→round-64 第 3 版与上游字节级一致）；merge_rate 0.9 维持",
+    "evidence": "reports/swebench/merge-audit-r48.json（schema 2、verdicts[].human_review 逐例判定）、reports/merge-audit-review-r76-2026-10-31.md"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-76 在账长项盘点（按资源可达性）：①Pro 固定端点「单发」口径 blocked 确认（REVIEW_LLM_BASE_URL/REVIEW_LLM_MODEL 未配置，需总监提供端点）；②镜像面今日刷新仍不可达（hub.docker.com 连接强关、registry-1 超时）——DeepSWE 余 19 条 blocked 维持；③D-046 4.1 复验按判据未动（跨模型端点或 n≥10 预算未批）；④reflex/instructlab 保持 blocked；⑤边界：复核以「总监全权委托的 delegated-reviewer」身份执行、判定依据逐例可复查，非独立第三方评审；13241 为有条件判定（合并前文档义务须履行）",
+    "source": "reports/merge-audit-review-r76-2026-10-31.md、retro/next-round.md 第 36 条"
+  }
+]

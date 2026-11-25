@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "test",
+      "title": "round-125：precision-report.py 纯函数契约 +5（固定子集）",
+      "description": "tests/test_scripts_precision_report.py（files 命名匹配 test_scripts_*.py 自动入子集）：_load_real 无 samples（judge 直抽 recall/precision/claimed/grounded/valid_samples/weak/per_sample 三类）/ _load_real 有 samples（defect_class 覆盖矩阵按 total 降序）；_aggregate_real（空→None / 两仓合并 recall=grounded/valid precision=grounded/claimed class_coverage 合并 per_repo 透传 / 分母为 0→None）；核对真实 schema：real-corpus judge.json 的 per_sample[].sample_id 即样本 fix_commit",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-125：freshness F5 拦红→校准（694→699）",
+      "description": "新增 5 契约后 discover 699 vs 文档 694；全仓 694→699 校准 + bump v2.26.0；freshness 归零后 measure/双跑全部以最终树为准",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-125：开局闸流程偏差如实入账",
+      "description": "先改码再开 open 闸 → git_state FAIL；git stash 后 open 闸再 FAIL（未跟踪测试文件仍在树 + stash 还原文档计数造成 freshness 表象红）；git stash pop 复原 → 最终树 measure/双跑全绿、close 6/6 全绿。本条自报，不回避；下一轮纪律=先提交最终树再开 close",
+      "outcome": "done"
+    }
+  ]
+}

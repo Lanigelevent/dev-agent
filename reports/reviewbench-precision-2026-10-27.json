@@ -1,0 +1,351 @@
+{
+  "deterministic": {
+    "ok": true,
+    "mode": "reviewbench-judge",
+    "reviewer": "deterministic",
+    "recall": 0.3636,
+    "precision": 0.6667,
+    "claimed": 6,
+    "grounded": 4,
+    "claimed_but_not_grounded": 2,
+    "hits": 4,
+    "valid_samples": 11,
+    "weak_samples": 1,
+    "weak": [
+      {
+        "sample_id": "melroyanthony_healthstream-rag_34-a1d2b3e0",
+        "gt_tokens": 0,
+        "matched": []
+      }
+    ],
+    "per_sample": [
+      {
+        "sample_id": "AA-Factory_aafactory-prototype_17-a1978cb7",
+        "claimed": false,
+        "hit": false,
+        "matched": [],
+        "weak": false,
+        "golden_tp": 9
+      },
+      {
+        "sample_id": "DisciplinedSoftware_Codebase-Conversion_1-4b46d68c",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "api_key",
+          "deterministic",
+          "fortran",
+          "fortran_to_rust",
+          "provider"
+        ],
+        "weak": false,
+        "golden_tp": 30
+      },
+      {
+        "sample_id": "Hermione-Granger-1176_artifacts_24-5d880a71",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "default",
+          "extras"
+        ],
+        "weak": false,
+        "golden_tp": 4
+      },
+      {
+        "sample_id": "gagneurlab_PROTRIDER_10-b462b109",
+        "claimed": false,
+        "hit": false,
+        "matched": [],
+        "weak": false,
+        "golden_tp": 15
+      },
+      {
+        "sample_id": "github_copilot-sdk_1049-4f18d31b",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "MimeType",
+          "blockType",
+          "isError",
+          "mimeType",
+          "resRaw",
+          "resource"
+        ],
+        "weak": false,
+        "golden_tp": 13
+      },
+      {
+        "sample_id": "gtronset_tablo-legacy-m3u_30-051c9cf3",
+        "claimed": false,
+        "hit": false,
+        "matched": [],
+        "weak": false,
+        "golden_tp": 4
+      },
+      {
+        "sample_id": "jenreh_appkit_48-0c634d30",
+        "claimed": true,
+        "hit": false,
+        "matched": [
+          "outgoing"
+        ],
+        "weak": false,
+        "golden_tp": 21
+      },
+      {
+        "sample_id": "kutanti_litmusai_67-48e73983",
+        "claimed": true,
+        "hit": false,
+        "matched": [],
+        "weak": false,
+        "golden_tp": 11
+      },
+      {
+        "sample_id": "melroyanthony_healthstream-rag_34-a1d2b3e0",
+        "claimed": false,
+        "hit": null,
+        "matched": [],
+        "weak": true
+      },
+      {
+        "sample_id": "pacnpal_callis_3-27a4c218",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "USERNAME",
+          "callis",
+          "router",
+          "secret",
+          "totp_secret",
+          "username"
+        ],
+        "weak": false,
+        "golden_tp": 24
+      },
+      {
+        "sample_id": "resplab_leap_48-fced0644",
+        "claimed": false,
+        "hit": false,
+        "matched": [],
+        "weak": false,
+        "golden_tp": 12
+      },
+      {
+        "sample_id": "shartma2_TTP_v2_33-e249f90f",
+        "claimed": false,
+        "hit": false,
+        "matched": [],
+        "weak": false,
+        "golden_tp": 2
+      }
+    ],
+    "threshold": 2,
+    "note": "口径：golden tp × introduced-by-pr；recall=hits/valid_samples；precision=grounded/claimed；weak 剔除分母；双指标必须同时输出"
+  },
+  "host": {
+    "ok": true,
+    "mode": "reviewbench-judge",
+    "reviewer": "host",
+    "recall": 0.8182,
+    "precision": 0.75,
+    "claimed": 12,
+    "grounded": 9,
+    "claimed_but_not_grounded": 3,
+    "hits": 9,
+    "valid_samples": 11,
+    "weak_samples": 1,
+    "weak": [
+      {
+        "sample_id": "melroyanthony_healthstream-rag_34-a1d2b3e0",
+        "gt_tokens": 0,
+        "matched": []
+      }
+    ],
+    "per_sample": [
+      {
+        "sample_id": "AA-Factory_aafactory-prototype_17-a1978cb7",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "AsyncMock",
+          "CHAT_HISTORY",
+          "_load_avatar_infos_for_chat",
+          "aafactory",
+          "append",
+          "asyncio",
+          "avatar",
+          "avatar_info",
+          "chat_interface",
+          "history",
+          "mocker",
+          "pytest",
+          "return_value",
+          "send_request_to_open_ai",
+          "side_effect",
+          "video_path"
+        ],
+        "weak": false,
+        "golden_tp": 9
+      },
+      {
+        "sample_id": "DisciplinedSoftware_Codebase-Conversion_1-4b46d68c",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "convert",
+          "fortran",
+          "fortran_to_rust",
+          "source"
+        ],
+        "weak": false,
+        "golden_tp": 30
+      },
+      {
+        "sample_id": "Hermione-Granger-1176_artifacts_24-5d880a71",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "Policy",
+          "script"
+        ],
+        "weak": false,
+        "golden_tp": 4
+      },
+      {
+        "sample_id": "gagneurlab_PROTRIDER_10-b462b109",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "PROTRIDER",
+          "checkpoint_path",
+          "config",
+          "default",
+          "engine",
+          "out_dir"
+        ],
+        "weak": false,
+        "golden_tp": 15
+      },
+      {
+        "sample_id": "github_copilot-sdk_1049-4f18d31b",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "AIContent",
+          "ConvertAIContents",
+          "DataContent",
+          "MediaType",
+          "MimeType",
+          "Serialize",
+          "SerializeAIContent",
+          "ToolResult",
+          "append",
+          "application",
+          "binaryResults",
+          "blockType",
+          "content",
+          "contents",
+          "continue",
+          "dataContent",
+          "default",
+          "mimeType",
+          "resource",
+          "stream",
+          "textParts"
+        ],
+        "weak": false,
+        "golden_tp": 13
+      },
+      {
+        "sample_id": "gtronset_tablo-legacy-m3u_30-051c9cf3",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "AppState",
+          "_tuner_executor",
+          "_tuner_future",
+          "app_state",
+          "drain_tuner_refresh",
+          "submit",
+          "submit_tuner_refresh",
+          "timeout",
+          "tuners"
+        ],
+        "weak": false,
+        "golden_tp": 4
+      },
+      {
+        "sample_id": "jenreh_appkit_48-0c634d30",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "Diagram",
+          "changed",
+          "diagram",
+          "diagram_id",
+          "element",
+          "method",
+          "notifications",
+          "params",
+          "source"
+        ],
+        "weak": false,
+        "golden_tp": 21
+      },
+      {
+        "sample_id": "kutanti_litmusai_67-48e73983",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "ScoreVector",
+          "dimensions",
+          "safety"
+        ],
+        "weak": false,
+        "golden_tp": 11
+      },
+      {
+        "sample_id": "melroyanthony_healthstream-rag_34-a1d2b3e0",
+        "claimed": true,
+        "hit": null,
+        "matched": [],
+        "weak": true
+      },
+      {
+        "sample_id": "pacnpal_callis_3-27a4c218",
+        "claimed": true,
+        "hit": false,
+        "matched": [
+          "callis"
+        ],
+        "weak": false,
+        "golden_tp": 24
+      },
+      {
+        "sample_id": "resplab_leap_48-fced0644",
+        "claimed": true,
+        "hit": false,
+        "matched": [
+          "simulation"
+        ],
+        "weak": false,
+        "golden_tp": 12
+      },
+      {
+        "sample_id": "shartma2_TTP_v2_33-e249f90f",
+        "claimed": true,
+        "hit": true,
+        "matched": [
+          "pass_model",
+          "response",
+          "source_job_content"
+        ],
+        "weak": false,
+        "golden_tp": 2
+      }
+    ],
+    "threshold": 2,
+    "note": "口径：golden tp × introduced-by-pr；recall=hits/valid_samples；precision=grounded/claimed；weak 剔除分母；双指标必须同时输出"
+  }
+}

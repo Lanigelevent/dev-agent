@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "依赖刷新第九跑（round-161，P1-6 专属轮）：ast-grep-py 0.51.1→0.51.2",
+    "description": "12 项清华镜像 dry-run/index versions 逐项探测：11 项已最新（ruff 0.17.5 / libcst 1.9.0 / tree-sitter 0.26.1 / pytest 9.2.0 / coverage 7.17.3 / hypothesis 6.170.15 / pytest-xdist 3.8.0 / pip-audit 2.10.1 等），唯一可升 ast-grep-py 补丁级 0.51.1→0.51.2。升级后三引擎矩阵重测：astgrep 29 条逐位一致、ruff 逐位一致、libcst 内层一致（外层信封 vs 内层载荷假漂移教训：对比先认清入仓文件是哪层）；升级保留不回滚。uv.lock + requirements-lock.txt 重导出；license-check rc=0（MIT 白名单）；astgrep 18 契约冒烟全绿；双跑 459.80/573.02s 全绿 765。",
+    "outcome": "done"
+  },
+  {
+    "type": "doc",
+    "title": "引擎矩阵对比口径备忘（round-161）",
+    "description": "r136 管道直比坑（已结）的同族实测：libcst matrix 的 stdout 是外层信封 {ok, matrix}，入仓 engines/libcst-matrix.json 是内层载荷——对比必须先认清层级；astgrep/ruff 的 --out 语义是建目录写文件（不是写单文件）。教训非新增坑（纪律已固化且本轮零复发风险），仅备忘记录。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-161 任务面取舍（round-161）",
+    "description": "122 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体。任务面=②依赖刷新第九跑（专属轮纪律：除本项不做其他例行动作）。",
+    "outcome": "done"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "F2P 数据质量预检 + 10880 选批工具（f2p-quality.py）",
+    "description": "纯静态四检查（label_shape/test_patch_touch/patch_shape/fields），官方全池 500 例扫描：ok 373 / blocked 127（prose 标签 107 + 文件孤儿 22）；10880 形状选批后候选 350 例（11 仓分布）。10973 类 prose 标签（r103 实跑踩坑）现在闸前静态拦截；C2 疑点如实标需 prepare 阶段确认。"
+  },
+  {
+    "type": "test",
+    "title": "f2p-quality 7 契约（含官方 JSON 字符串 F2P 解析）",
+    "description": "tests/test_f2p_quality.py 7 项全绿；反向验证双抽样：prose 确认真数据问题（django-10097 438 标签混文本）、astropy-7336 确认 C2 疑点判定口径。"
+  }
+]

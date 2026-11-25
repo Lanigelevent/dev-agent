@@ -1,0 +1,74 @@
+diff --git a/xlib/__init__.py b/xlib/__init__.py
+index 8f185cc..467a17e 100644
+--- a/xlib/__init__.py
++++ b/xlib/__init__.py
+@@ -8,7 +8,7 @@ from xlib.validators import validate_amount
+ def parse_and_validate(text):
+     """解析并校验一笔金额。"""
+     value = parse_amount(text)
+-    return validate_amount(text)
++    return validate_amount(value)
+ 
+ 
+ __all__ = ["parse_amount", "validate_amount", "total", "render",
+diff --git a/xlib/parsers.py b/xlib/parsers.py
+index 4e8e936..8df8129 100644
+--- a/xlib/parsers.py
++++ b/xlib/parsers.py
+@@ -5,7 +5,11 @@ from decimal import Decimal, InvalidOperation
+ def parse_amount(text):
+     """'1,234.50' → Decimal('1234.50')；非法输入抛 ValueError。"""
+     cleaned = text.strip().replace(",", "")
++    negative = cleaned.startswith("(") and cleaned.endswith(")")
++    if negative:
++        cleaned = cleaned[1:-1]
+     try:
+-        return Decimal(cleaned)
++        value = Decimal(cleaned)
++        return -value if negative else value
+     except InvalidOperation:
+         raise ValueError("无法解析金额: %r" % text)
+diff --git a/xlib/report.py b/xlib/report.py
+index 951138f..0eb11ac 100644
+--- a/xlib/report.py
++++ b/xlib/report.py
+@@ -3,5 +3,8 @@ from xlib.core import as_money
+ 
+ 
+ def render(value):
+-    """Decimal('1234.5') → '1,234.50'。"""
+-    return "{:,.2f}".format(as_money(value))
++    """Accounting style: negative amounts are wrapped in parentheses."""
++    money = as_money(value)
++    if money < 0:
++        return "({:,.2f})".format(-money)
++    return "{:,.2f}".format(money)
+diff --git a/xlib/service.py b/xlib/service.py
+index d2a5b27..5fd36d1 100644
+--- a/xlib/service.py
++++ b/xlib/service.py
+@@ -6,5 +6,8 @@ def total(invoices):
+     """汇总发票金额。"""
+     result = Decimal("0")
+     for inv in invoices:
+-        result += inv["amount"]
++        if inv.get("kind") == "refund":
++            result -= inv["amount"]
++        else:
++            result += inv["amount"]
+     return result
+diff --git a/xlib/validators.py b/xlib/validators.py
+index 918f4df..c12b61e 100644
+--- a/xlib/validators.py
++++ b/xlib/validators.py
+@@ -3,7 +3,7 @@ from decimal import Decimal
+ 
+ 
+ def validate_amount(value):
+-    """拒绝负金额。"""
+-    if value < 0:
+-        raise ValueError("金额不能为负")
++    """Refunds are negative; reject more than two decimal places."""
++    if value.as_tuple().exponent < -2:
++        raise ValueError("amount must have at most two decimal places")
+     return value

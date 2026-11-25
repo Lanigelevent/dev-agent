@@ -1,0 +1,16 @@
+{
+  "change_summary": "范围 5b6adf0^..5b6adf0，文件 36，增删 +6657/-47",
+  "test_suggestions": [
+    "为 .zcode-plugin/plugin.json 补充边界用例：覆盖新增分支与错误处理",
+    "为 AGENTS.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 BASELINE.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 README.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 docs/DECISIONS.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 docs/DEVELOPMENT.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 docs/PROGRESS.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 docs/ROADMAP.md 补充边界用例：覆盖新增分支与错误处理",
+    "为 mcp/review_mcp.py 补充边界用例：覆盖新增分支与错误处理",
+    "为 pyproject.toml 补充边界用例：覆盖新增分支与错误处理"
+  ],
+  "risk": "高"
+}

@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-130：SWRBench review arm stride-50 全分布批（n=20，0 findings）",
+      "description": "全分布 20 PR（10 clean + 10 有 gt）：host 全判 []；clean 零误报 20/20；point F1=null recall=0；不外推能力；每批仅知识性能核对",
+      "outcome": "done"
+    }
+  ]
+}

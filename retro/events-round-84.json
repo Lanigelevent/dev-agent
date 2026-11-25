@@ -1,0 +1,12 @@
+[
+  {
+    "type": "confirmation",
+    "title": "gate-corpus-build 端到端演练：产品链 9/9 精确复现手工终版",
+    "description": "derive→refine(r81/r82 台账)→notes 对 gate-r80 全量重放：F2P 零失配（briefcase 13 参数化节点重建）；产品静态推导反超手工版 2 例（cfn-lint/conan——类上下文重置修复 + /test_ 路径容忍的定量增益）；notes 8/9（checkov 预期差异）。"
+  },
+  {
+    "type": "confirmation",
+    "title": "对账脚本两轮自修正（对账工具同受反例纪律约束）",
+    "description": "行尾冒号写入丢失（SyntaxError 当场暴露）；括号剥除留双空格致 6 例伪失配（语义校验改为文件 token 与 node id 分离）；9/9 复核后收敛。"
+  }
+]

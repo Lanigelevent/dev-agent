@@ -1,0 +1,11 @@
+diff --git a/stack/stack.go b/stack/stack.go
+index 582e4ba..8fe6a24 100644
+--- a/stack/stack.go
++++ b/stack/stack.go
+@@ -18,5 +18,5 @@ func (s *Stack) Pop() int {
+ }
+ 
+ func (s *Stack) Size() int {
+-	return len(s.items) + 1
++	return len(s.items)
+ }

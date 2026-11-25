@@ -1,0 +1,26 @@
+[
+  {
+    "category": "误报",
+    "description": "【坑】台账入册器把完成事件当坑：retro-ledger.py 的 _collect_events 只判断 description 非空就入册，从不看事件文件的 type 字段——round-37..42 的 feature/test/doc/confirmation 共 22 条完成事项被收成 open 坑（category=手工、无根因、无对策），open 虚高至 32，直接把 retro 队送进超预算冻结；另两条历史成功/方法记录（1336d8bf9067、b0a450995f3d）同属非坑。结构性缺陷，不是单条误录",
+    "root_cause": "入册器对事件类型零判定，且无「完成事件不入册」的契约测试；台账只按 id 去重，没有人事后核对「这些条目的根因/对策为什么全空」，漂移两周不可见",
+    "countermeasure": "规则先于数字：NON_PITFALL_EVENT_TYPES={feature,test,doc,confirmation} 白名单 + stdout 如实报 skipped_events；双向契约测试（完成事件跳过并计数 / correction 与缺 type 仍入册）；存量 22 条完成事件与 2 条经验型记录用 --archive 带理由归档，真坑逐条验证后结案",
+    "source": "skills/retro/scripts/retro-ledger.py _collect_events；reports/_work/events-round-37..42.json 的 type 分布"
+  },
+  {
+    "type": "doc",
+    "description": "台账结构整改（round-44）：22 条完成事件 + 2 条经验型记录归档（非删除，archive_note 逐条写理由）；真坑验证后结案：org-route review 路、死代码扫描、sympy-13146 RESOLVED；astropy-14365 未过保持 open",
+    "evidence": "skills/retro/scripts/retro-ledger.py --archive 新增动词；tests/test_retro.py 两项新契约；org-scorecard.py --scan retro 复算"
+  },
+  {
+    "type": "doc",
+    "description": "冻结期首要项收官：台账 open 32→4，retro 队错误预算回到 PASS，解除整改冻结；下一轮转入 DeepSWE 首次实跑（next-round 第 15 条）",
+    "evidence": "retro/pitfalls.json 计数；org-scorecard.py 输出 freeze_teams=[]"
+  },
+  {
+    "category": "行为回归",
+    "description": "【坑】5 分钟红线再次越线且非离群：401 项口径两次同负载全量 338.617s / 329.185s（logs/suite-r44-run1.log / run2.log，2026-10-28），连续两次稳定超 300s；round-43 同套件 398 项两次为 283.616 / 298.379s，+3 项测试无法解释约 35-55s 的增量",
+    "root_cause": "未定位——本轮回合并入册器/轮报与 3 项契约，理论上增量应 <5s；可能是环境负载或某条测试耗时爬升，尚未做计时画像（不在同一轮里猜）",
+    "countermeasure": "按纪律不悄悄改线：本轮如实记录并按「连续两次同负载超线」升级；下一轮先做计时画像（沿用 round-29 SNAPSHOT_IGNORE 手法逐文件计时），画像后再二选一（收敛慢测试 / 正式改线并写明理由，行为级优化需总监批准）",
+    "source": "logs/suite-r44-run1.log、logs/suite-r44-run2.log；logs/suite-r43-1.log"
+  }
+]

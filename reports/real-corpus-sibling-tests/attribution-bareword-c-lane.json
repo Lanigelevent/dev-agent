@@ -1,0 +1,180 @@
+{
+  "ok": true,
+  "verdict_rule": "truth_rate = C 路引用命中 / C 路返回；≥0.5 keep / 0<r<0.5 keep_labeled / ==0 downgrade_hint",
+  "prod_caliber": {
+    "limit": 2,
+    "max_chars": 1500
+  },
+  "repos": [
+    {
+      "modules_candidates": 900,
+      "modules_sampled": 100,
+      "modules_with_context": 75,
+      "coverage_rate": 0.75,
+      "by_lane": {
+        "A": {
+          "returns": 26,
+          "truth": 8,
+          "strict_import": 8,
+          "noise": 18,
+          "noise_reasons": {
+            "其他代码引用": 16,
+            "注释/文档串": 10,
+            "同名不同模块": 4,
+            "无引用痕迹": 2
+          },
+          "truth_rate": 0.308
+        },
+        "C": {
+          "returns": 91,
+          "truth": 20,
+          "strict_import": 15,
+          "noise": 71,
+          "noise_reasons": {
+            "其他代码引用": 48,
+            "同名不同模块": 25,
+            "注释/文档串": 12,
+            "路径/文件名串": 5
+          },
+          "truth_rate": 0.22
+        },
+        "B": {
+          "returns": 2,
+          "truth": 0,
+          "strict_import": 0,
+          "noise": 2,
+          "noise_reasons": {
+            "无引用痕迹": 2
+          },
+          "truth_rate": 0.0
+        }
+      },
+      "records": [],
+      "repo": "datasets\\swe-repos\\swe__django",
+      "seconds": 10.2,
+      "verdict": {
+        "c_returns": 91,
+        "c_truth_rate": 0.22,
+        "verdict": "keep_labeled"
+      }
+    },
+    {
+      "modules_candidates": 834,
+      "modules_sampled": 100,
+      "modules_with_context": 57,
+      "coverage_rate": 0.57,
+      "by_lane": {
+        "A": {
+          "returns": 62,
+          "truth": 48,
+          "strict_import": 48,
+          "noise": 14,
+          "noise_reasons": {
+            "无引用痕迹": 8,
+            "同名不同模块": 2,
+            "其他代码引用": 4,
+            "注释/文档串": 1
+          },
+          "truth_rate": 0.774
+        }
+      },
+      "records": [],
+      "repo": "datasets\\swe-repos\\sympy",
+      "seconds": 3.0,
+      "verdict": {
+        "c_returns": 0,
+        "verdict": "not_observed",
+        "meaning": "样本里 C 路一次都没出场——它本来只在 A/B 全空时才跑"
+      }
+    },
+    {
+      "modules_candidates": 177,
+      "modules_sampled": 100,
+      "modules_with_context": 59,
+      "coverage_rate": 0.59,
+      "by_lane": {
+        "A": {
+          "returns": 32,
+          "truth": 27,
+          "strict_import": 27,
+          "noise": 5,
+          "noise_reasons": {
+            "无引用痕迹": 1,
+            "其他代码引用": 4,
+            "注释/文档串": 2
+          },
+          "truth_rate": 0.844
+        },
+        "C": {
+          "returns": 41,
+          "truth": 26,
+          "strict_import": 26,
+          "noise": 15,
+          "noise_reasons": {
+            "其他代码引用": 14,
+            "注释/文档串": 4,
+            "路径/文件名串": 2,
+            "同名不同模块": 4
+          },
+          "truth_rate": 0.634
+        }
+      },
+      "records": [],
+      "repo": "datasets\\swe-repos\\matplotlib",
+      "seconds": 5.8,
+      "verdict": {
+        "c_returns": 41,
+        "c_truth_rate": 0.634,
+        "verdict": "keep"
+      }
+    }
+  ],
+  "aggregate": {
+    "by_lane": {
+      "A": {
+        "returns": 120,
+        "truth": 83,
+        "strict_import": 83,
+        "noise": 37,
+        "noise_reasons": {
+          "其他代码引用": 24,
+          "注释/文档串": 13,
+          "同名不同模块": 6,
+          "无引用痕迹": 11
+        },
+        "truth_rate": 0.692
+      },
+      "C": {
+        "returns": 132,
+        "truth": 46,
+        "strict_import": 41,
+        "noise": 86,
+        "noise_reasons": {
+          "其他代码引用": 62,
+          "同名不同模块": 29,
+          "注释/文档串": 16,
+          "路径/文件名串": 7
+        },
+        "truth_rate": 0.348
+      },
+      "B": {
+        "returns": 2,
+        "truth": 0,
+        "strict_import": 0,
+        "noise": 2,
+        "noise_reasons": {
+          "无引用痕迹": 2
+        },
+        "truth_rate": 0.0
+      }
+    },
+    "verdict": {
+      "c_returns": 132,
+      "c_truth_rate": 0.348,
+      "verdict": "keep_labeled"
+    },
+    "modules_sampled": 300,
+    "modules_with_context": 191,
+    "seconds": 19.0
+  }
+}

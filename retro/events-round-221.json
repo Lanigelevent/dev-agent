@@ -1,0 +1,9 @@
+[
+  {
+    "type": "feature",
+    "title": "round-221 维护轮——五检全绿 + 观察项扫描",
+    "description": "freshness/drift/structure/dead-code/secret 五检全绿，S10 真仓 110/110；MCP async 家族 27/27 通过，runs/jobs 只读盘点为 3 cancelled/4 done；CI nightly/CII/key 轮换仍为操作员观察项。",
+    "countermeasure": "独立只读复核 PASS；单次 xdist 全量 845 passed+3 skipped，550.02s，低于 600s；零代码、版本保持 2.99.0。",
+    "source": "round-221"
+  }
+]

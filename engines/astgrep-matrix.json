@@ -1,0 +1,391 @@
+{
+  "engine": "astgrep",
+  "version": "unknown",
+  "total_rules": 29,
+  "fixable_rules": 2,
+  "safe_fixable_rules": 2,
+  "fixable_codes": [
+    "no-console-log",
+    "no-debugger"
+  ],
+  "safe_fixable_codes": [
+    "no-console-log",
+    "no-debugger"
+  ],
+  "by_language": {
+    "TypeScript": 28,
+    "TypeScriptReact": 27,
+    "JavaScript": 25,
+    "JavaScriptReact": 24,
+    "Python": 1
+  },
+  "builtin_rules": [
+    {
+      "id": "no-console-log",
+      "pattern": "console.log($$$)",
+      "severity": "中",
+      "fixable": true,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "console.log 调试语句不应留在生产代码中"
+    },
+    {
+      "id": "no-debugger",
+      "pattern": "debugger",
+      "severity": "中",
+      "fixable": true,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "debugger 断点语句不应留在生产代码中"
+    },
+    {
+      "id": "no-empty-block",
+      "pattern": "{ }",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript"
+      ],
+      "description": "空块体可能是遗漏的逻辑"
+    },
+    {
+      "id": "no-var",
+      "pattern": "var $NAME = $$$",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "var 声明有函数作用域与 hoisting 陷阱，应改用 let/const"
+    },
+    {
+      "id": "no-eval",
+      "pattern": "eval($$$)",
+      "severity": "高",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "eval 执行任意代码，有注入风险"
+    },
+    {
+      "id": "print-debug",
+      "pattern": "print($$$)",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "Python"
+      ],
+      "description": "print 调试语句不应留在生产代码中（Python）"
+    },
+    {
+      "id": "js-innerhtml-assignment",
+      "pattern": "$EL.innerHTML = $VAL",
+      "severity": "高",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "innerHTML 赋值有 XSS 风险，应使用 textContent 或 sanitize"
+    },
+    {
+      "id": "js-document-write",
+      "pattern": "document.write($$$)",
+      "severity": "高",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "document.write 可被注入恶意内容，应避免使用"
+    },
+    {
+      "id": "ts-unsafe-any-cast",
+      "pattern": "$EXPR as any",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "TypeScript",
+        "TypeScriptReact"
+      ],
+      "description": "as any 绕过类型检查，应使用更精确的类型断言"
+    },
+    {
+      "id": "js-settimeout-string-arg",
+      "pattern": "setTimeout(\"$$$\", $$$)",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "setTimeout 首参为字符串等价于 eval，应使用箭头函数"
+    },
+    {
+      "id": "js-regex-injection-new",
+      "pattern": "new RegExp($$$)",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "new RegExp 动态构造正则有 ReDoS/注入风险，应使用字面量"
+    },
+    {
+      "id": "js-prototype-pollution",
+      "pattern": "JSON.parse($$$)",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "JSON.parse 结果可被 __proto__ 污染原型链，需校验"
+    },
+    {
+      "id": "js-empty-catch",
+      "pattern": "try { $$$ } catch ($E) { }",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "空 catch 块吞掉异常，应至少记录或重新抛出"
+    },
+    {
+      "id": "js-loose-equality",
+      "pattern": "$A == $B",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "宽松相等 == 有隐式类型转换，应使用严格相等 ==="
+    },
+    {
+      "id": "js-throw-string",
+      "pattern": "throw \"$$$\"",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "throw 字符串不是 Error 对象，丢失堆栈信息"
+    },
+    {
+      "id": "js-typeof-undefined",
+      "pattern": "typeof $X === \"undefined\"",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "typeof x === 'undefined' 冗长，可用 x === undefined 代替"
+    },
+    {
+      "id": "js-with-statement",
+      "pattern": "with ($$$) { $$$ }",
+      "severity": "高",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "with 语句使作用域不可预测，严格模式禁用"
+    },
+    {
+      "id": "js-void-expr",
+      "pattern": "void $$$",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "void 表达式语义模糊，应使用 undefined 显式标注"
+    },
+    {
+      "id": "js-delete-expr",
+      "pattern": "delete $$$",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "delete 操作有性能影响且在严格模式下受限"
+    },
+    {
+      "id": "js-double-not",
+      "pattern": "!!$$$",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "双重否定 !! 转布尔可用 Boolean() 更清晰"
+    },
+    {
+      "id": "js-new-array",
+      "pattern": "new Array($$$)",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "new Array() 有歧义行为，应使用数组字面量 []"
+    },
+    {
+      "id": "js-new-object",
+      "pattern": "new Object($$$)",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "new Object() 应使用对象字面量 {} 代替"
+    },
+    {
+      "id": "js-parseint-no-radix",
+      "pattern": "parseInt($X)",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "parseInt 应传基数参数避免进制歧义"
+    },
+    {
+      "id": "js-setinterval-no-clear",
+      "pattern": "setInterval($$$)",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "setInterval 返回值应保存以便 clearInterval 清理"
+    },
+    {
+      "id": "ts-empty-interface",
+      "pattern": "interface $NAME { }",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "TypeScript",
+        "TypeScriptReact"
+      ],
+      "description": "空 interface 无成员，可用类型别名或 never 代替"
+    },
+    {
+      "id": "ts-no-explicit-any",
+      "pattern": "let $NAME: any",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "TypeScript",
+        "TypeScriptReact"
+      ],
+      "description": "显式 any 绕过类型检查，应使用精确类型"
+    },
+    {
+      "id": "js-default-export-anonymous",
+      "pattern": "export default function() { $$$ }",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "匿名函数默认导出不利调试栈追踪，应具名"
+    },
+    {
+      "id": "js-label-statement",
+      "pattern": "$LABEL: $$$",
+      "severity": "低",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "标签语句罕见且降低可读性，应重构控制流"
+    },
+    {
+      "id": "js-throw-new-error",
+      "pattern": "throw $ERR",
+      "severity": "中",
+      "fixable": false,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "JavaScriptReact",
+        "TypeScriptReact"
+      ],
+      "description": "throw 应抛出 Error 对象而非裸值，保留堆栈信息"
+    }
+  ],
+  "risk_policy": "fix-dry 仅在内置规则白名单上执行；产物过五道闸"
+}

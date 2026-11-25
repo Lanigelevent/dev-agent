@@ -1,0 +1,18 @@
+{
+  "events": [
+    {
+      "category": "手工",
+      "description": "stale_patch 口径误标：收集器把「比来源更旧的空版本」也记进 newer_versions_empty，真实补丁集 20 例中 4 例（django-14999 / matplotlib-22835 / sympy-13146 / sympy-13437）被误标 stale——它们评的本来就是最新版，旧空窗只是已结案的历史痕迹",
+      "root_cause": "round-28 实现 newer_versions_empty 时只排除来源自身（e != src_dir），没有按 -vN 编号比较新旧；该字段的名字承诺「更新」，实现却是「其他」。功能落地后 27 次评测全部早于它，无任何 provenance 留档，于是误标从未被真实数据撞见——「一直没亮」与「亮了但没人看」在缺留档时无法区分",
+      "countermeasure": "修为按 -vN 编号比较（与收集键 (mtime, ver, name) 同源的确定性口径），旧空窗改记 older_versions_empty 留档不举旗；契约测试 test_older_empty_version_is_not_stale + 变异体反向验证（退回旧谓词即转红）；修复后真实补丁集 dry-run stale=[]、older 留档 4 条。教训入册：带新旧语义的字段必须有「旧版空窗不举旗」的反向样例，否则语义漂移只在真实数据上显形",
+      "source": "round-33 检查单第 7 条人为触发实测（reports/_work/stale-gate-proof/）"
+    },
+    {
+      "category": "手工",
+      "description": "Edit 工具对含大段中文的替换两次「报成功但不落盘」（agent-sample.py / repo_map.py），milestone 验证（'src_ver' in file）当场识破；另有一次本代理误把 git checkout -- 当复位命令用，冲掉未提交修复（靠留档补丁脚本 reports/_work/patch-agent-sample.py 恢复）",
+      "root_cause": "宿主桌面环境的文件编辑工具在长中文块替换上静默失效（小块替换正常）；会话内无文件系统 watcher 证据，疑与工具实现有关；git checkout 误用是本代理把「变异体复位」与「还原工作区」混为一个命令",
+      "countermeasure": "大段中文改动一律走「脚本补丁 + 当场断言锚点 count==1 + 读回验证」三件套（reports/_work/patch-*.py 模式）；变异体/复位成对脚本化（apply|restore），严禁用 git checkout 当复位——那会连未提交的真修复一起冲掉。教训同步进 ~/self-improving/corrections.md",
+      "source": "round-33 执行过程实踩（两次不落盘 + 一次误冲，均已恢复并验证）"
+    }
+  ]
+}

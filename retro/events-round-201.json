@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-02 质量指标 pytest 化——指标网格进标准套件（round-201，路线图阶段二②）",
+    "description": "DeepEval 复用评估：dry-run 实测 41 包依赖面 + live LLM 需求（G-Eval 需 judge 端点）——导入不可行（依赖膨胀+端点缺失），方案复用定型（pytest 式指标断言，同 AB-03 先例）。落地 tests/test_eval_metrics.py 三指标格进标准套件：①precision 地板（round65 固定 judge 产物 → precision-gate check，含提示面指纹检查）②trace 评测集分数（Tracer fixture → trace-export --require-score → 阈值断言——AB-01 评测集的套件内消费者，r199 勘误闭环）③评审质量门（D-053 四项在合成 findings 上正反双验）。产物缺失时 SKIP 不假红。",
+    "countermeasure": "验收口径达成：标准套件=nightly CI 出现指标单测格并与 precision 护栏并行出数；三格阈值随基线演进（PRECISION_FLOOR=0.65 / TRACE_SCORE_FLOOR=0.7）。",
+    "source": "round-201"
+  }
+]

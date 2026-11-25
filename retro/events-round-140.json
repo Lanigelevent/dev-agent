@@ -1,0 +1,14 @@
+[
+  {
+    "type": "confirmation",
+    "title": "第三方 judge 探测：三步全挡，blocked 如实记录",
+    "description": "①http://127.0.0.1:11434/api/tags 连接拒绝（服务未运行）；②ollama 二进制不存在（PATH/LocalAppData 均无）；③Docker 路径评估后放弃——ollama registry（registry.ollama.ai）无国内镜像背书，硬约束 8 镜像纪律下不盲拉模型权重。结论：第三方 judge 本轮 blocked，不冒充；REVIEW_LLM_BASE_URL=http://127.0.0.1:11434/v1 通路代码侧已就绪（provider.py loopback 白名单原生支持），条件具备时按第 101 条预案执行。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "judge 复评预案固化（条件具备即跑）",
+    "description": "第 101 条 DoD 固化：REVIEW_LLM_BASE_URL=http://127.0.0.1:11434/v1 + REVIEW_LLM_MODEL=<qwen-coder 系> + review --batch-note + judge --match semantic --out 第三方判卷目录 → 自评/第三方对照表（同 19 PR）+ 口径注记。判定口径沿用 r115/r116 rubric，第三方 judge 消除自评循环（r115 声明的乐观上限）。",
+    "outcome": "done"
+  }
+]

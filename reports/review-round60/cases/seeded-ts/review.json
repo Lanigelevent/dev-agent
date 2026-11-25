@@ -1,0 +1,172 @@
+{
+  "schema": "review-loop/1",
+  "decision": "NEED_HUMAN",
+  "threshold": 0.5,
+  "files": [
+    {
+      "path": "lib/fmt.ts",
+      "added_lines": 8
+    }
+  ],
+  "reviewers": {
+    "self": {
+      "status": "ok",
+      "findings": []
+    },
+    "astgrep": {
+      "status": "ok",
+      "findings": [
+        {
+          "file": "lib/fmt.ts",
+          "line": 3,
+          "rule": "astgrep:no-console-log",
+          "severity": "��",
+          "message": "astgrep:no-console-log: console.log ������䲻Ӧ��������������"
+        },
+        {
+          "file": "lib/fmt.ts",
+          "line": 7,
+          "rule": "astgrep:no-empty-block",
+          "severity": "��",
+          "message": "astgrep:no-empty-block: �տ����������©���߼�"
+        },
+        {
+          "file": "lib/fmt.ts",
+          "line": 2,
+          "rule": "astgrep:no-var",
+          "severity": "��",
+          "message": "astgrep:no-var: var �����к����������� hoisting ���壬Ӧ���� let/const"
+        },
+        {
+          "file": "lib/fmt.ts",
+          "line": 5,
+          "rule": "astgrep:js-empty-catch",
+          "severity": "��",
+          "message": "astgrep:js-empty-catch: �� catch ���̵��쳣��Ӧ���ټ�¼�������׳�"
+        },
+        {
+          "file": "lib/fmt.ts",
+          "line": 4,
+          "rule": "astgrep:js-loose-equality",
+          "severity": "��",
+          "message": "astgrep:js-loose-equality: ������� == ����ʽ����ת����Ӧʹ���ϸ���� ==="
+        },
+        {
+          "file": "lib/fmt.ts",
+          "line": 6,
+          "rule": "astgrep:js-throw-new-error",
+          "severity": "��",
+          "message": "astgrep:js-throw-new-error: throw Ӧ�׳� Error ���������ֵ��������ջ��Ϣ"
+        }
+      ],
+      "note": "扫描 1 文件，6 条"
+    }
+  },
+  "external_status": [
+    {
+      "name": "astgrep",
+      "status": "ok",
+      "note": "扫描 1 文件，6 条"
+    }
+  ],
+  "coverage": null,
+  "metrics": {
+    "matched": 0,
+    "union": 6,
+    "diff_rate": 1.0
+  },
+  "high_findings": [],
+  "external_only": [
+    {
+      "file": "lib/fmt.ts",
+      "line": 3,
+      "rule": "astgrep:no-console-log",
+      "severity": "��",
+      "message": "astgrep:no-console-log: console.log ������䲻Ӧ��������������"
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 7,
+      "rule": "astgrep:no-empty-block",
+      "severity": "��",
+      "message": "astgrep:no-empty-block: �տ����������©���߼�"
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 2,
+      "rule": "astgrep:no-var",
+      "severity": "��",
+      "message": "astgrep:no-var: var �����к����������� hoisting ���壬Ӧ���� let/const"
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 5,
+      "rule": "astgrep:js-empty-catch",
+      "severity": "��",
+      "message": "astgrep:js-empty-catch: �� catch ���̵��쳣��Ӧ���ټ�¼�������׳�"
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 4,
+      "rule": "astgrep:js-loose-equality",
+      "severity": "��",
+      "message": "astgrep:js-loose-equality: ������� == ����ʽ����ת����Ӧʹ���ϸ���� ==="
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 6,
+      "rule": "astgrep:js-throw-new-error",
+      "severity": "��",
+      "message": "astgrep:js-throw-new-error: throw Ӧ�׳� Error ���������ֵ��������ջ��Ϣ"
+    }
+  ],
+  "self_only": [],
+  "self_findings": [],
+  "external_findings": [
+    {
+      "file": "lib/fmt.ts",
+      "line": 3,
+      "rule": "astgrep:no-console-log",
+      "severity": "��",
+      "message": "astgrep:no-console-log: console.log ������䲻Ӧ��������������"
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 7,
+      "rule": "astgrep:no-empty-block",
+      "severity": "��",
+      "message": "astgrep:no-empty-block: �տ����������©���߼�"
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 2,
+      "rule": "astgrep:no-var",
+      "severity": "��",
+      "message": "astgrep:no-var: var �����к����������� hoisting ���壬Ӧ���� let/const"
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 5,
+      "rule": "astgrep:js-empty-catch",
+      "severity": "��",
+      "message": "astgrep:js-empty-catch: �� catch ���̵��쳣��Ӧ���ټ�¼�������׳�"
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 4,
+      "rule": "astgrep:js-loose-equality",
+      "severity": "��",
+      "message": "astgrep:js-loose-equality: ������� == ����ʽ����ת����Ӧʹ���ϸ���� ==="
+    },
+    {
+      "file": "lib/fmt.ts",
+      "line": 6,
+      "rule": "astgrep:js-throw-new-error",
+      "severity": "��",
+      "message": "astgrep:js-throw-new-error: throw Ӧ�׳� Error ���������ֵ��������ջ��Ϣ"
+    }
+  ],
+  "reasons": [
+    "自评/他评差异率 1.00 > 阈值 0.50"
+  ]
+}

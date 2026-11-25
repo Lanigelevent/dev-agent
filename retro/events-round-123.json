@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "test",
+      "title": "round-123：report-adapter.py 纳入固定五子集（新_files 收敛）",
+      "description": "test_report_adapter.py（12 条契约，0.042s）从固定子集缺口进入 DEFAULT_TESTS（五项）：report-adapter.py 覆盖 66.67%→**89.39%**（118/132）；overall 77.81→**78.08%**；按 r120/122 先例重切入仓基线（旧基线留档 reports/coverage-round123/coverage-baseline-pre-r123.json）；check 复测 PASS（regressions=0、missing=0、new_files=0）",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-123：report-adapter.py 首次进入覆盖率面（登记而非判回归）",
+      "description": "round-122 check 首次把 report-adapter.py 列 new_files（r105 接线经 runner 子进程收集，66.67%）；本轮按 r120 口径纳入子集而非以基线豁免掩盖；report-adapter.py 现 75/75 全入基线",
+      "outcome": "done"
+    }
+  ]
+}

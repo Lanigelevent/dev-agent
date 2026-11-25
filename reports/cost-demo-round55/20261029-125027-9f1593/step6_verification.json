@@ -1,0 +1,19 @@
+{
+  "adopt": [
+    {
+      "loc": "tests/test_scripts.py:756",
+      "desc": "源码出现 api_key 赋值形态",
+      "evidence": "self._record(\"script.echo\", {\"exit\": 0, \"json\": {\"api_key\": <redacted>,",
+      "severity": "高",
+      "confidence": "高",
+      "cause": "deterministic-rules cred-api-key 命中（已证事实）",
+      "fix": "按 cred-api-key 规则的标准处置修复，上下文需人工确认",
+      "dimension": "安全与敏感信息",
+      "rule_id": "cred-api-key",
+      "file": "tests/test_scripts.py",
+      "line": 756,
+      "snippet": "self._record(\"script.echo\", {\"exit\": 0, \"json\": {\"api_key\": <redacted>,"
+    }
+  ],
+  "reject": []
+}

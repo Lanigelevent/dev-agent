@@ -1,0 +1,664 @@
+{
+  "samples": [
+    {
+      "fix_commit": "e1d8025ee25a64fc3e74cc5a8ce0a1230d1fb60a",
+      "parent_rev": "b066a98bb505d197b201a3caa76921ffef58d382",
+      "summary": "Fix fingerprint verification test on PyPy 8.0.1 (#5313)",
+      "files": [
+        "test/with_dummyserver/test_socketlevel.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "fingerprint",
+        "verification",
+        "test",
+        "on",
+        "PyPy"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "单文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "e1d8025ee25a64fc3e74cc5a8ce0a1230d1fb60a"
+    },
+    {
+      "fix_commit": "b066a98bb505d197b201a3caa76921ffef58d382",
+      "parent_rev": "5ebe9bf9f691646dcabdb259ffabfc6108ded5e8",
+      "summary": "Fix Memray availability checks and enable it on Python 3.15 (#5307)",
+      "files": [
+        "changelog/5307.misc.rst",
+        "noxfile.py",
+        "pyproject.toml",
+        "uv.lock"
+      ],
+      "type_keywords": [
+        "Fix",
+        "Memray",
+        "availability",
+        "checks",
+        "and",
+        "enable"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "b066a98bb505d197b201a3caa76921ffef58d382"
+    },
+    {
+      "fix_commit": "a164d79c8cf760f222daa2dc7f67d0e1ca7fb17c",
+      "parent_rev": "089176c179a8173188bda92ab5eef796b12f57fc",
+      "summary": "Fix HTTP/2 probe cache lock leak (#5254)",
+      "files": [
+        "changelog/5206.bugfix.rst",
+        "src/urllib3/http2/probe.py",
+        "test/test_http2_probe.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "HTTP",
+        "probe",
+        "cache",
+        "lock",
+        "leak"
+      ],
+      "defect_class": "资源",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "a164d79c8cf760f222daa2dc7f67d0e1ca7fb17c"
+    },
+    {
+      "fix_commit": "ed0ed075c6b93f7c515ebd3abe9a7248507ef8c5",
+      "parent_rev": "48113e7a5fa3b98a61467afa6bcbb0f9b7ca7207",
+      "summary": "Fix several issues with IPv6 and IPv6 zone IDs (#5260)",
+      "files": [
+        "changelog/5260.bugfix.rst",
+        "src/urllib3/connectionpool.py",
+        "src/urllib3/poolmanager.py",
+        "src/urllib3/util/url.py",
+        "test/test_connectionpool.py",
+        "test/test_poolmanager.py",
+        "test/test_proxymanager.py",
+        "test/test_util.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "several",
+        "issues",
+        "with",
+        "IPv6",
+        "and"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "ed0ed075c6b93f7c515ebd3abe9a7248507ef8c5"
+    },
+    {
+      "fix_commit": "57a4c073260462a7b09f169314ffa42ad5af08fe",
+      "parent_rev": "09217b75d51f3c74d089b587f1be813b6bdfc7d7",
+      "summary": "Fix tautological assertion in test_default_pool_key_funcs_copy (#5267)",
+      "files": [
+        "changelog/5267.misc.rst",
+        "test/test_poolmanager.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "tautological",
+        "assertion",
+        "in",
+        "test",
+        "default"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "57a4c073260462a7b09f169314ffa42ad5af08fe"
+    },
+    {
+      "fix_commit": "0716e31534345dc1599ea95d903c79f276239bd8",
+      "parent_rev": "43c68c8b43a9dcb44ed2cf4ec91384ca0d46b37d",
+      "summary": "Fix loading unencrypted client keys with a password in pyOpenSSL (#5255)",
+      "files": [
+        "src/urllib3/contrib/pyopenssl.py",
+        "test/with_dummyserver/test_socketlevel.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "loading",
+        "unencrypted",
+        "client",
+        "keys",
+        "with"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "0716e31534345dc1599ea95d903c79f276239bd8"
+    },
+    {
+      "fix_commit": "3191ec385dc8f65f9a01cf143d0f40b2c759d44f",
+      "parent_rev": "7bf6c6c728a4c81a5ba710aff7cb15a58b054aa7",
+      "summary": "Fix Brotli PyPI link (#5171)",
+      "files": [
+        "docs/advanced-usage.rst"
+      ],
+      "type_keywords": [
+        "Fix",
+        "Brotli",
+        "PyPI",
+        "link",
+        "5171"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "单文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "3191ec385dc8f65f9a01cf143d0f40b2c759d44f"
+    },
+    {
+      "fix_commit": "0cb21c7b2c267df927ef8c97f28fc14c8c349d21",
+      "parent_rev": "c5d9a29182a37282032c4fe714fb28a1367658b2",
+      "summary": "Fix `emscripten(firefox)` tests (#5166)",
+      "files": [
+        "changelog/5166.misc.rst",
+        "dummyserver/app.py",
+        "noxfile.py",
+        "test/contrib/emscripten/conftest.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "emscripten",
+        "firefox",
+        "tests",
+        "5166"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "0cb21c7b2c267df927ef8c97f28fc14c8c349d21"
+    },
+    {
+      "fix_commit": "c420e267acb739917bee96e021ad9a2d27de8aae",
+      "parent_rev": "6284887af1dfc58a221d0e5690bf9a2b77213aef",
+      "summary": "Fix test failures with pytest >= 9.1 (#5094)",
+      "files": [
+        "changelog/5094.misc.rst",
+        "test/test_util.py",
+        "uv.lock"
+      ],
+      "type_keywords": [
+        "Fix",
+        "test",
+        "failures",
+        "with",
+        "pytest",
+        "5094"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "c420e267acb739917bee96e021ad9a2d27de8aae"
+    },
+    {
+      "fix_commit": "f5cf122346141b187cca0db6e6445297d336b610",
+      "parent_rev": "f4e4bc31f40f8c94c6a1f1685df28f97ff48c305",
+      "summary": "Fix port-zero handling (#5071)",
+      "files": [
+        "changelog/5071.bugfix.rst",
+        "src/urllib3/connectionpool.py",
+        "src/urllib3/poolmanager.py",
+        "src/urllib3/util/url.py",
+        "test/test_connectionpool.py",
+        "test/test_poolmanager.py",
+        "test/test_proxymanager.py",
+        "test/test_util.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "port",
+        "zero",
+        "handling",
+        "5071"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "f5cf122346141b187cca0db6e6445297d336b610"
+    },
+    {
+      "fix_commit": "b6447295fff7b38fdffc67e0df9712d60cef3cc3",
+      "parent_rev": "e8a81de5e1fe6b52dbcbdd93345560097c1e58fb",
+      "summary": "Fix `proxy_ssl_context` ignored for HTTPS forwarding proxies (#3786)",
+      "files": [
+        "changelog/2577.bugfix.rst",
+        "src/urllib3/connection.py",
+        "src/urllib3/poolmanager.py",
+        "test/with_dummyserver/test_proxy_poolmanager.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "proxy",
+        "ssl",
+        "context",
+        "ignored",
+        "for"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "b6447295fff7b38fdffc67e0df9712d60cef3cc3"
+    },
+    {
+      "fix_commit": "9f1b31d7daab252962d3400f64c3574c0ccb122f",
+      "parent_rev": "29ae1419530857dc43f5d28907da5d6fbc229739",
+      "summary": "Fix HTTPConnectionPool.urlopen raising FullPoolError (#5062)",
+      "files": [
+        "changelog/5059.bugfix.rst",
+        "src/urllib3/connectionpool.py",
+        "test/test_connectionpool.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "HTTPConnectionPool",
+        "urlopen",
+        "raising",
+        "FullPoolError",
+        "5062"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "9f1b31d7daab252962d3400f64c3574c0ccb122f"
+    },
+    {
+      "fix_commit": "104f891c9463472db0d294654f78a3c08a9f87a8",
+      "parent_rev": "bebdb9add7cc0bf83e3204af7c2a5d82776cc1c8",
+      "summary": "Fix issue number for `FutureWarning` in the changelog",
+      "files": [
+        "CHANGES.rst"
+      ],
+      "type_keywords": [
+        "Fix",
+        "issue",
+        "number",
+        "for",
+        "FutureWarning",
+        "in"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "单文件",
+      "collected_at": "2026-10-24T16:39:20+08:00",
+      "evidence_commit": "104f891c9463472db0d294654f78a3c08a9f87a8"
+    },
+    {
+      "fix_commit": "f45b0df09d8620ac6ed0491eb9362c8c87b7bc2c",
+      "parent_rev": "577193ca029872384f82c133449e0935f6d8a64b",
+      "summary": "Fix a misleading example for `ProxyManager` (#4970)",
+      "files": [
+        "src/urllib3/poolmanager.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "misleading",
+        "example",
+        "for",
+        "ProxyManager",
+        "4970"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "单文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "f45b0df09d8620ac6ed0491eb9362c8c87b7bc2c"
+    },
+    {
+      "fix_commit": "54b6f7eb0784a3e1e76e763c359d058363195319",
+      "parent_rev": "166dc208abeb9df6c8829607461381d801074195",
+      "summary": "Fix full read with `amt=None` after a partial read (#4960)",
+      "files": [
+        "changelog/3636.bugfix.rst",
+        "src/urllib3/response.py",
+        "test/test_response.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "full",
+        "read",
+        "with",
+        "amt",
+        "None"
+      ],
+      "defect_class": "空引用",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "54b6f7eb0784a3e1e76e763c359d058363195319"
+    },
+    {
+      "fix_commit": "d150cea52b37f4633a0dff4e26339c51d23d987b",
+      "parent_rev": "166f66faa5ef23e255f654e8c6b66ad8590fe630",
+      "summary": "Fix parsing behavior for ambiguous paths (#4952)",
+      "files": [
+        "changelog/3352.bugfix.rst",
+        "src/urllib3/connectionpool.py",
+        "test/test_connectionpool.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "parsing",
+        "behavior",
+        "for",
+        "ambiguous",
+        "paths"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "d150cea52b37f4633a0dff4e26339c51d23d987b"
+    },
+    {
+      "fix_commit": "fc76bcb911ef484bcfbdd8a27f002379d625d01f",
+      "parent_rev": "19caccd3dd1b0ca16b1df50a0e8227aab2de6b65",
+      "summary": "Fix readinto type hint to accept memoryview for BufferedReader compatibility (#3769)",
+      "files": [
+        "changelog/3764.bugfix.rst",
+        "src/urllib3/response.py",
+        "test/test_response.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "readinto",
+        "type",
+        "hint",
+        "to",
+        "accept"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "fc76bcb911ef484bcfbdd8a27f002379d625d01f"
+    },
+    {
+      "fix_commit": "70cecb27ca99d56aaaeb63ac27ee270ef2b24c5c",
+      "parent_rev": "41f249abe1ef3e20768588969c4035aba060a359",
+      "summary": "Fix Scorecard issues related to vulnerable dev dependencies (#3755)",
+      "files": [
+        "osv-scanner.toml",
+        "src/urllib3/http2/connection.py",
+        "test/test_http2_connection.py",
+        "uv.lock"
+      ],
+      "type_keywords": [
+        "Fix",
+        "Scorecard",
+        "issues",
+        "related",
+        "to",
+        "vulnerable"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "70cecb27ca99d56aaaeb63ac27ee270ef2b24c5c"
+    },
+    {
+      "fix_commit": "571a9b7b894cee5733c7c2cf72fa260cf1f4b660",
+      "parent_rev": "bfe8e198a13800e3ee8ef8124a8928acb170c843",
+      "summary": "Fix `HTTPResponse.read_chunked` when leftover data is present in decoder's buffer (#3736)",
+      "files": [
+        "changelog/3734.bugfix.rst",
+        "src/urllib3/response.py",
+        "test/test_response.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "HTTPResponse",
+        "read",
+        "chunked",
+        "when",
+        "leftover"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "571a9b7b894cee5733c7c2cf72fa260cf1f4b660"
+    },
+    {
+      "fix_commit": "c4167a6a60eca6d8e309acf7d0860f303c097636",
+      "parent_rev": "001a105f245d614b5e720f170655c336d576db2e",
+      "summary": "Fix running tests with Python 3.14 (#3692)",
+      "files": [
+        ".github/workflows/ci.yml",
+        "pyproject.toml",
+        "uv.lock"
+      ],
+      "type_keywords": [
+        "Fix",
+        "running",
+        "tests",
+        "with",
+        "Python",
+        "14"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "c4167a6a60eca6d8e309acf7d0860f303c097636"
+    },
+    {
+      "fix_commit": "d2847d5a6b8471f6e3a55287d6ea249375a4a9e4",
+      "parent_rev": "6aa09f09189d472bcace6de824c8857cb6e64511",
+      "summary": "Fix three zizmor warnings and add a pre-commit hook (#3679)",
+      "files": [
+        ".github/workflows/changelog.yml",
+        ".github/workflows/ci.yml",
+        ".pre-commit-config.yaml"
+      ],
+      "type_keywords": [
+        "Fix",
+        "three",
+        "zizmor",
+        "warnings",
+        "and",
+        "add"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "d2847d5a6b8471f6e3a55287d6ea249375a4a9e4"
+    },
+    {
+      "fix_commit": "62c9d1b0a4394216b93153b37f4451be3e94bd61",
+      "parent_rev": "b9a636fcb3a8fef91a0f876dbb3a468bead9dcf9",
+      "summary": "Fix `HTTPConnectionPool` when used in Emscripten with no explicit port (#3664)",
+      "files": [
+        "changelog/3664.bugfix.rst",
+        "src/urllib3/contrib/emscripten/connection.py",
+        "test/contrib/emscripten/test_emscripten.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "HTTPConnectionPool",
+        "when",
+        "used",
+        "in",
+        "Emscripten"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "62c9d1b0a4394216b93153b37f4451be3e94bd61"
+    },
+    {
+      "fix_commit": "69f6599d018d50fb4793ec625149fc46beca2573",
+      "parent_rev": "f2566737200c31694ae89053a36421f91203d758",
+      "summary": "Fix redirect handling when an integer is passed to a pool manager (#3655)",
+      "files": [
+        "changelog/3649.bugfix.rst",
+        "src/urllib3/poolmanager.py",
+        "test/with_dummyserver/test_poolmanager.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "redirect",
+        "handling",
+        "when",
+        "an",
+        "integer"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "69f6599d018d50fb4793ec625149fc46beca2573"
+    },
+    {
+      "fix_commit": "d03fe327a71d09728512217149f269763671f296",
+      "parent_rev": "11661e9bb4278e43d081f47a516e287a928c2206",
+      "summary": "Fix HTTP tunneling with IPv6 in older Python versions",
+      "files": [
+        ".github/workflows/ci.yml",
+        "changelog/3615.bugfix.rst",
+        "src/urllib3/connection.py",
+        "test/with_dummyserver/test_socketlevel.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "HTTP",
+        "tunneling",
+        "with",
+        "IPv6",
+        "in"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "d03fe327a71d09728512217149f269763671f296"
+    },
+    {
+      "fix_commit": "93ebfc12f4a86d98958d60f123f34c0745f4187a",
+      "parent_rev": "04662c9ae08c9f63fa254772d7618db65123a35e",
+      "summary": "Fix a bug with partial reads of streaming data in Emscripten (#3556)",
+      "files": [
+        "changelog/3555.bugfix.rst",
+        "src/urllib3/contrib/emscripten/response.py",
+        "test/contrib/emscripten/test_emscripten.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "bug",
+        "with",
+        "partial",
+        "reads",
+        "of"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "93ebfc12f4a86d98958d60f123f34c0745f4187a"
+    },
+    {
+      "fix_commit": "bd8355c8c255d2e135c7ca01986a02bb76c578af",
+      "parent_rev": "d86e15d05a5c1b1d6152cecda98b894d3578cbde",
+      "summary": "Fix nonexistent wheel and CORS errors in the Pyodide console",
+      "files": [
+        "noxfile.py",
+        "test/contrib/emscripten/templates/pyodide-console.html"
+      ],
+      "type_keywords": [
+        "Fix",
+        "nonexistent",
+        "wheel",
+        "and",
+        "CORS",
+        "errors"
+      ],
+      "defect_class": "空引用",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "bd8355c8c255d2e135c7ca01986a02bb76c578af"
+    },
+    {
+      "fix_commit": "716d8340b89f7d8ec549579d14e3c0a7e5f859a5",
+      "parent_rev": "7ab935c6ddd546c7d57b03c0269685c61c8e60c6",
+      "summary": "Fix PyPI publish with Core metadata 2.4 (#3531)",
+      "files": [
+        ".github/workflows/publish.yml"
+      ],
+      "type_keywords": [
+        "Fix",
+        "PyPI",
+        "publish",
+        "with",
+        "Core",
+        "metadata"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "单文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "716d8340b89f7d8ec549579d14e3c0a7e5f859a5"
+    },
+    {
+      "fix_commit": "f9d37add7983d441b151146db447318dff4186c9",
+      "parent_rev": "59bbda7e1543d2e8b4b65c3d8075152d664c43ca",
+      "summary": "Fix HTTP/1.1 debug log",
+      "files": [
+        "changelog/3489.bugfix.rst",
+        "src/urllib3/connectionpool.py",
+        "test/with_dummyserver/test_connectionpool.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "HTTP",
+        "debug",
+        "log"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "f9d37add7983d441b151146db447318dff4186c9"
+    },
+    {
+      "fix_commit": "aa668c2f96a67dba066e35452bea165ef6dcf875",
+      "parent_rev": "be24439e281eb4b87e290108898cbd674276a93e",
+      "summary": "Fix mypy error when adding to default socket options (#3448)",
+      "files": [
+        "changelog/3448.bugfix.rst",
+        "src/urllib3/util/connection.py",
+        "test/with_dummyserver/test_connectionpool.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "mypy",
+        "error",
+        "when",
+        "adding",
+        "to"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "aa668c2f96a67dba066e35452bea165ef6dcf875"
+    },
+    {
+      "fix_commit": "be24439e281eb4b87e290108898cbd674276a93e",
+      "parent_rev": "5bc41f5e1569fbdaee38daf9c82641b9702ed52a",
+      "summary": "Fix ResourceWarning on CONNECT with Python < 3.11.4 (#3252)",
+      "files": [
+        "changelog/3252.bugfix.rst",
+        "src/urllib3/connection.py",
+        "test/with_dummyserver/test_proxy_poolmanager.py",
+        "test/with_dummyserver/test_socketlevel.py"
+      ],
+      "type_keywords": [
+        "Fix",
+        "ResourceWarning",
+        "on",
+        "CONNECT",
+        "with",
+        "Python"
+      ],
+      "defect_class": "逻辑",
+      "context_type": "多文件",
+      "collected_at": "2026-10-24T16:39:21+08:00",
+      "evidence_commit": "be24439e281eb4b87e290108898cbd674276a93e"
+    }
+  ],
+  "skipped": 7,
+  "deduped": 0
+}

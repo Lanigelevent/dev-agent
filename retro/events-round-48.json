@@ -1,0 +1,67 @@
+[
+  {
+    "type": "feature",
+    "description": "补丁结构闸：deepswe-sample.py 新增 _patch_well_formed（逐 hunk 核对 @@ 声明行数与正文实际行数，拒空 hunk/非 diff 行/hunk 内空行），agent-sample 与 gold 侧共用；malformed_patch 不计 resolved、不进评测、不受 --allow-test-edits 豁免；summary 状态优先级 malformed > integrity_flagged",
+    "evidence": "skills/eval-harness/scripts/deepswe-sample.py _patch_well_formed；agent-sample.py malformed 汇总；tests/test_gold_sample.py test_malformed_patch_blocked_and_not_waivable / test_patch_well_formed_detects_truncation；决策 D-023"
+  },
+  {
+    "type": "feature",
+    "description": "成本归一报告：新增 eval-cost-report.py（自动识别 agent-sample-summary / gold-sample-ledger / deepswe-sample 结果三类产物；输出样本量/resolved/完整性拦截/结构损坏/中位耗时/中位轮数/中位编辑数/每 resolved 墙钟成本；token 在 host 后端如实 N/A）；真实报告 local7 7/7 resolved、中位 36.625s、每 resolved 63.449s",
+    "evidence": "skills/eval-harness/scripts/eval-cost-report.py；reports/evals/eval-cost-report-agent-local7-r48-2026-10-28.{md,json}；tests/test_gold_sample.py TestEvalCostReport"
+  },
+  {
+    "type": "feature",
+    "description": "成本字段打通到源头：agent/code-task.py 记录 elapsed_sec（跨 --resume 累加、写 task-meta/task-manifest），gold-sample.py 每实例整链计时；成本归一报告因此有真实墙钟可取",
+    "evidence": "agent/code-task.py TaskState.begin_session/elapsed_now/save；gold-sample.py process_instance；tests/test_agent.py TestTaskStateCost；tests/test_gold_sample.py"
+  },
+  {
+    "type": "feature",
+    "description": "合并率抽检：20 例历史 agent 补丁按固定判据 C1–C5 逐例初筛并写备注——resolved 18、可合并 18、合并率 0.9；2 例驳回均为 incomplete_fix（astropy-14365 需按数据段归一；django-11019 合并算法修错）；human_review=pending 原样随附；sympy-13437 按 gold-v6 跑次补丁 791 字节逐字节一致取 resolved 并标注对账遗留",
+    "evidence": "reports/swebench/merge-audit-r48.json；reports/_work/r48/merge-audit-material.md"
+  },
+  {
+    "type": "feature",
+    "description": "精度报告并入成本与合并率：precision-report.py 新增 --cost-report / --merge-audit（可选输入在合成语料之前校验，坏输入不付跑分成本），报告增加「成本归一（agent 侧）」「合并率抽检」两章；repro 命令由实际 argv 组装（带全本轮可选入参）",
+    "evidence": "skills/eval-harness/scripts/precision-report.py；reports/precision-report-2026-10-28.{md,json}；tests/test_scripts.py test_precision_report_rejects_bad_cost_inputs_before_scoring；决策 D-024"
+  },
+  {
+    "type": "feature",
+    "description": "SWE-bench Pro/Live 试点基线：Pro 默认 v2 的 Python 子集 10 条（实测 3 仓 4/3/3）、Live lite 10 条（10 仓各 1 条），全部 status=not_run；可行性报告记录国内镜像实测（hf-mirror 4–12 MB/s、ghcr.nju.edu.cn 16.71 MB/s vs ghcr.io 0.14 MB/s）与真实阻塞（Pro/Live 的 before_repo_set_cmd/test_cmds 字段与现有 harness 不兼容）；实跑未做、不伪造数字",
+    "evidence": "reports/swebench/pro-baseline-v1.49.0.json；live-baseline-v1.49.0.json；pro-live-feasibility-2026-10-28.md；tests/test_gold_sample.py TestProLiveBaselines；决策 D-025"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】合并率抽检把 django-11019 先判成「补丁截断」，实际结构完整（缺失的是 hunk 外未改上下文），真因是合并算法修错（F2P 9 过 7 败）",
+    "root_cause": "目测补丁尾部就下结论，没跑结构化校验；hunk 内行数与 hunk 外上下文混为一谈",
+    "countermeasure": "结构判定交给 _patch_well_formed（机器判定），人工只判语义；结论按机器结果纠正为 incomplete_fix，理由写进 verdict notes",
+    "source": "reports/swebench/merge-audit-r48.json 11019 条；round-48 抽检过程实踩"
+  },
+  {
+    "category": "评测",
+    "description": "【坑】Pro 基线与可行性报告一度写「10 条、10 个不同仓库」，实际 Python 子集只有 3 仓（4/3/3）——契约断言已按实测下限 ≥3 仓，但基线 selection_rule 与报告文字没跟着核对",
+    "root_cause": "选样规则文本按计划口径写（取 10 个不同仓库），落盘后没回头用产物统计实际仓库分布",
+    "countermeasure": "基线 selection_rule 改为实测分布并说明「跨 3 仓是下限」；报告同步更正；测试断言按数据现实写（Pro ≥3 仓、Live 每仓 1 条）",
+    "source": "reports/swebench/pro-baseline-v1.49.0.json；pro-live-feasibility-2026-10-28.md；tests/test_gold_sample.py TestProLiveBaselines"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】给 precision-report 加可选参数时重写了解析器段落，把既有的 --force 弄丢了（同日覆盖闸测试会因此转红）",
+    "root_cause": "按新增项重写整段 parser，没有逐项核对原参数清单；大段替换后只测了新分支",
+    "countermeasure": "补回 --force；同日覆盖闸的既有测试覆盖「带 --force 放行」路径，改参数后必须跑该测试类",
+    "source": "skills/eval-harness/scripts/precision-report.py；tests/test_scripts.py test_precision_report_refuses_same_day_overwrite"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】可选输入 --cost-report / --merge-audit 的校验原本排在合成语料之后，坏输入也要先付上百秒 synth+fp 才被拒",
+    "root_cause": "校验按代码段落顺序写，没有按「先便宜后昂贵」重排",
+    "countermeasure": "全部可选输入校验前移到跑分之前；新增契约测试（坏成本报告 / 坏合并率抽检各 rc=2，且错误信息直达）",
+    "source": "skills/eval-harness/scripts/precision-report.py；tests/test_scripts.py test_precision_report_rejects_bad_cost_inputs_before_scoring"
+  },
+  {
+    "category": "手工",
+    "description": "【坑】精度报告的复现命令只写 --count/--out，照着它跑出来没有成本与合并率两章——报告无法复现到同一份",
+    "root_cause": "repro 是常量模板，新增可选入参没有接进去",
+    "countermeasure": "repro 由实际 argv 组装（judge/real/cost/merge 全带上）；重生成当日报告核对复现行",
+    "source": "skills/eval-harness/scripts/precision-report.py；reports/precision-report-2026-10-28.md 复现段"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "type": "confirmation",
+    "title": "D-053 归因修正落地（round-137）",
+    "description": "r132 归因「host 文件协议不胜任此语料」修正为「执行会话未实质评审（1000/1000 全空响应）」——README 两处 + PROGRESS 两处对外口径行改因果表述，对外数字不变；r132 收官行勘误后缀；历史记录不回改。全仓 grep「不胜任」清零（剩余 4 处均在勘误引用上下文）。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "九轮升级路线登记（next-round 98-106 + D-053）",
+    "description": "全方位审查（2026-11-12）P0/P1/P2 转化为九轮排期：r137 归因修正 / r138 评审质量门禁 / r139 供应链锁定+CI 面 / r140 第三方 judge 零 key / r141 口径事实源 / r142 分级收官 / r143 沿革瘦身 / r144 变异测试抽检 / r145 host 跨平台；原第 97 条三选项分别吸收（①转 backlog、②并入 r139、③并入 r138）。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "r136 遗留台账计数漂移修正（README 两处 241/open 0 → 242/open 1）",
+    "description": "开局门前 doc-freshness 拦截：README 另有两处台账计数残留 241/open 0（上轮收官未同步），先行修正并提交（8104e38）。",
+    "outcome": "done"
+  }
+]

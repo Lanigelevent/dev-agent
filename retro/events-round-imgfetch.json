@@ -1,0 +1,16 @@
+[
+  {
+    "category": "手工",
+    "description": "镜像 CDN 对 Python-urllib UA 返回 403（bot 过滤）：同 URL curl 206、urllib 403；manifest 端点却放行 Python UA——不同端点策略不同，极易误判为「服务不可用」",
+    "root_cause": "1ms.run 的 CDN（cloudfront 系）WAF 按 UA 过滤 bot 流量，仅 blob 段启用",
+    "countermeasure": "docker-image-fetch.py 全请求带常规 UA（DEFAULT_UA=dev-agent-image-fetch/1.22.0，实测自定义 UA 过 206）；教训：跨端点判定可用性必须逐端点实测",
+    "source": "retro/events-round-imgfetch.json"
+  },
+  {
+    "category": "手工",
+    "description": "脚本 patch 静默落空：python str.replace 改代码时目标串在先前改造（BASE_SCHEME）后已变化，replace 不报错只少改——cmd_plan 的 tag-in-path 404 由此漏修，且 stub 测试用无 tag 镜像未暴露",
+    "root_cause": "批量文本替换无断言（应检查替换计数）；测试夹具未覆盖带 tag 的真实形态",
+    "countermeasure": "改代码走 Edit 工具不用 str.replace 批补；tests 以真实形态（含 :latest tag）锁定（test_plan_selects_amd64 已改用 demo/img:latest）",
+    "source": "retro/events-round-imgfetch.json"
+  }
+]

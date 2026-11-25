@@ -1,0 +1,17 @@
+[
+  {
+    "type": "doc",
+    "description": "round-45 全量套件计时画像完成：401 项单轮 318.507s（0 fail），最慢单项 14.71s、最慢 40 项合计占 65.5%，无单点异常；画像报表 reports/suite-profile-round-45.md",
+    "evidence": "reports/_work/profile-suite.json；reports/_work/profile_suite.py；reports/suite-profile-round-45.md"
+  },
+  {
+    "type": "doc",
+    "description": "测试快照瘦身：SNAPSHOT_IGNORE 排除 reports/retro/runs/llm-tasks/data，单次复制 6.01s / 77.6MB → 1.03s / 2.4MB；test_fingerprint_stable_and_sensitive 加反向断言，用例数仍 401；决策 D-016",
+    "evidence": "tests/test_scripts.py；reports/_work/measure-snapshot.json；docs/DECISIONS.md D-016"
+  },
+  {
+    "type": "doc",
+    "description": "红线结论：快照瘦身后同一份代码连续三跑 292 / 370 / 298 秒（极差 78s），总时长受负载主导；300s 红线未改，改线提案待总监批准（建议总时长降级为观测指标 + 600s 挂死护栏）；台账 fe97d747b691 保持 open",
+    "evidence": "logs/suite-r45-run1.log、logs/suite-r45-run2.log、logs/suite-r45-final.log；reports/suite-profile-round-45.md；retro/next-round.md 第 18 条"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "type": "feature",
+    "title": "org-scorecard 每轮结算恢复 + coverage 复测（round-163，维护轮）",
+    "description": "①org-scorecard 实跑恢复每轮约定（近期轮次执行痕迹缺失的约定缺口本轮补跑）：全项 PASS（approval 拒绝 0/3、retro open 0/8、research 无链接案例 0/0）+ 两项无数据如实 N/A（repair 回滚率、review 高危证据）——与 README 状态行口径一致。②coverage-gate measure 复测：overall 76.16% vs 基线 76.09%（容差 0.5pp 内，+0.07pp 微升）；check rc=0；覆盖面新文件 latency-bench.py 首次进入（80.77%，r155 落地后首次本地 measure），按 r122 先例信息登记不重切基线。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-163 任务面取舍（round-163）",
+    "description": "124 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体；②依赖刷新第十跑过早（r161 刚跑第九跑，节奏 ~10 轮）。任务面=维护轮（scorecard 恢复 + coverage 复测 + 约定缺口登记）。",
+    "outcome": "done"
+  }
+]

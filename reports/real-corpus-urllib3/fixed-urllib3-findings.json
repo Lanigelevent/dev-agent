@@ -1,0 +1,45 @@
+{
+  "samples": {
+    "e1d8025ee25a64fc3e74cc5a8ce0a1230d1fb60a": [],
+    "b066a98bb505d197b201a3caa76921ffef58d382": [],
+    "a164d79c8cf760f222daa2dc7f67d0e1ca7fb17c": [],
+    "ed0ed075c6b93f7c515ebd3abe9a7248507ef8c5": [],
+    "57a4c073260462a7b09f169314ffa42ad5af08fe": [],
+    "0716e31534345dc1599ea95d903c79f276239bd8": [
+      {
+        "rule_id": "cred-password",
+        "severity": "高",
+        "file": "test/with_dummyserver/test_socketlevel.py",
+        "line": 448,
+        "snippet": "password=<redacted>,",
+        "reason": "源码出现 password 赋值形态",
+        "sample_id": "0716e31534345dc1599ea95d903c79f276239bd8",
+        "engine": "deterministic"
+      }
+    ],
+    "3191ec385dc8f65f9a01cf143d0f40b2c759d44f": [],
+    "0cb21c7b2c267df927ef8c97f28fc14c8c349d21": [],
+    "c420e267acb739917bee96e021ad9a2d27de8aae": [],
+    "f5cf122346141b187cca0db6e6445297d336b610": [],
+    "b6447295fff7b38fdffc67e0df9712d60cef3cc3": [],
+    "9f1b31d7daab252962d3400f64c3574c0ccb122f": [],
+    "104f891c9463472db0d294654f78a3c08a9f87a8": [],
+    "f45b0df09d8620ac6ed0491eb9362c8c87b7bc2c": [],
+    "54b6f7eb0784a3e1e76e763c359d058363195319": [],
+    "d150cea52b37f4633a0dff4e26339c51d23d987b": [],
+    "fc76bcb911ef484bcfbdd8a27f002379d625d01f": [],
+    "70cecb27ca99d56aaaeb63ac27ee270ef2b24c5c": [],
+    "571a9b7b894cee5733c7c2cf72fa260cf1f4b660": [],
+    "c4167a6a60eca6d8e309acf7d0860f303c097636": [],
+    "d2847d5a6b8471f6e3a55287d6ea249375a4a9e4": [],
+    "62c9d1b0a4394216b93153b37f4451be3e94bd61": [],
+    "69f6599d018d50fb4793ec625149fc46beca2573": [],
+    "d03fe327a71d09728512217149f269763671f296": [],
+    "93ebfc12f4a86d98958d60f123f34c0745f4187a": [],
+    "bd8355c8c255d2e135c7ca01986a02bb76c578af": [],
+    "716d8340b89f7d8ec549579d14e3c0a7e5f859a5": [],
+    "f9d37add7983d441b151146db447318dff4186c9": [],
+    "aa668c2f96a67dba066e35452bea165ef6dcf875": [],
+    "be24439e281eb4b87e290108898cbd674276a93e": []
+  }
+}

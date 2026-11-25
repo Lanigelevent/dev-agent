@@ -1,0 +1,5 @@
+{
+  "ok": false,
+  "status": "ERROR",
+  "error": "语料 pin 校验失败（D-047）: 语料缺文件: diffs/nonexistent.diff"
+}

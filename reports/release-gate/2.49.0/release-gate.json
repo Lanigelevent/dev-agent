@@ -1,0 +1,202 @@
+{
+  "ok": true,
+  "check": "release-gate",
+  "partial": false,
+  "selected": [
+    "version_sync",
+    "doc_freshness",
+    "doc_drift",
+    "secret_scan",
+    "license_check",
+    "suite_double_run",
+    "git_state"
+  ],
+  "release": {
+    "version": "2.49.0",
+    "tag": "v2.49.0",
+    "branch": "main",
+    "tag_checked": true
+  },
+  "root": "<repo>",
+  "checks": [
+    {
+      "id": "version_sync",
+      "status": "PASS",
+      "version": "2.49.0",
+      "sources": [
+        {
+          "source": "pyproject.toml",
+          "path": "pyproject.toml",
+          "line": 3,
+          "value": "2.49.0",
+          "error": null,
+          "ok": true
+        },
+        {
+          "source": "review_mcp.SERVER_INFO",
+          "path": "mcp/review_mcp.py",
+          "line": 58,
+          "value": "2.49.0",
+          "error": null,
+          "ok": true
+        },
+        {
+          "source": "README 头条",
+          "path": "README.md",
+          "line": 18,
+          "value": "2.49.0",
+          "error": null,
+          "ok": true
+        },
+        {
+          "source": "DEVELOPMENT 发布口径",
+          "path": "docs/DEVELOPMENT.md",
+          "line": 292,
+          "value": "2.49.0",
+          "error": null,
+          "ok": true
+        },
+        {
+          "source": "BASELINE 最近 round",
+          "path": "docs/BASELINE-HISTORY.md",
+          "line": 2022,
+          "value": "2.49.0",
+          "error": null,
+          "ok": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "doc_freshness",
+      "script": "skills/self-iteration/scripts/doc-freshness.py",
+      "rc": 0,
+      "status": "PASS",
+      "ok": true,
+      "drift_count": 0
+    },
+    {
+      "id": "doc_drift",
+      "script": "skills/self-iteration/scripts/doc-drift.py",
+      "rc": 0,
+      "status": "PASS",
+      "ok": true
+    },
+    {
+      "id": "secret_scan",
+      "script": "skills/self-iteration/scripts/secret-scan.py",
+      "rc": 0,
+      "status": "PASS",
+      "ok": true,
+      "state": "PASS",
+      "allowlisted": [
+        {
+          "path": "retro/events-round-47.json",
+          "line": 31,
+          "rule": "assigned-credential"
+        },
+        {
+          "path": "retro/events-round-56.json",
+          "line": 16,
+          "rule": "assigned-credential"
+        },
+        {
+          "path": "retro/pitfalls.json",
+          "line": 477,
+          "rule": "assigned-credential"
+        },
+        {
+          "path": "retro/pitfalls.json",
+          "line": 1495,
+          "rule": "assigned-credential"
+        },
+        {
+          "path": "tests/test_agent.py",
+          "line": 85,
+          "rule": "assigned-credential"
+        },
+        {
+          "path": "tests/test_agent.py",
+          "line": 99,
+          "rule": "assigned-credential"
+        },
+        {
+          "path": "tests/test_agent.py",
+          "line": 104,
+          "rule": "aws-access-key"
+        },
+        {
+          "path": "tests/test_agent.py",
+          "line": 108,
+          "rule": "aws-access-key"
+        },
+        {
+          "path": "tests/test_agent.py",
+          "line": 109,
+          "rule": "aws-access-key"
+        },
+        {
+          "path": "tests/test_agent.py",
+          "line": 920,
+          "rule": "assigned-credential"
+        }
+      ]
+    },
+    {
+      "id": "license_check",
+      "script": "skills/self-iteration/scripts/license-check.py",
+      "rc": 0,
+      "status": "PASS",
+      "ok": true,
+      "state": "PASS"
+    },
+    {
+      "id": "suite_double_run",
+      "status": "PASS",
+      "mode": "reuse",
+      "expected_tests": 739,
+      "runs": [
+        {
+          "mode": "reuse",
+          "log": "logs\\suite-r147-run1.log",
+          "bytes": 1176,
+          "sha256": "d980d2bc5bd8e445",
+          "ran": 739,
+          "duration_sec": 366.72,
+          "skipped": 1,
+          "green": true
+        },
+        {
+          "mode": "reuse",
+          "log": "logs\\suite-r147-run2.log",
+          "bytes": 1176,
+          "sha256": "6bc0bfbc25bc6d46",
+          "ran": 739,
+          "duration_sec": 336.94,
+          "skipped": 1,
+          "green": true
+        }
+      ],
+      "errors": [],
+      "redline_sec": 600,
+      "redline_exceeded": [],
+      "redline_note": "600s 挂死护栏（D-052，2026-11-10 批准落地）：超时判红阻断发布；300s 观测线已废"
+    },
+    {
+      "id": "git_state",
+      "status": "PASS",
+      "branch": "main",
+      "branch_expected": "main",
+      "head": "e630c2c",
+      "clean": true,
+      "dirty": [],
+      "dirty_count": 0,
+      "tag": "v2.49.0",
+      "tag_checked": true,
+      "tag_exists": false,
+      "errors": []
+    }
+  ],
+  "failed": [],
+  "generated_at": "2026-11-14T01:25:26+08:00"
+}

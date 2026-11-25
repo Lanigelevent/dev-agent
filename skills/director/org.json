@@ -1,0 +1,284 @@
+{
+  "_comment": "组织架构 v2（科层制，对标大公司实践）：总监 → 各团队首席（lead）→ 成员技能（三层管理）；RACI 明确每类交付物谁负责/谁签字/谁咨询/谁知情；error_budget 是 SRE 式质量预算（超限整队进入整改冻结）；initiatives 是成员主观能动性注册表（事件 → 主动动作，无需上级指示，遇坑先自己伸手调组织能力）。",
+  "org": [
+    {
+      "role": "director",
+      "title": "总监",
+      "reports_to": null,
+      "lead": "org-route.py（首席幕僚）",
+      "members": [
+        "org-route.py",
+        "case-match.py",
+        "research-brief.py"
+      ],
+      "duties": [
+        "分派与指挥链",
+        "疑难升级与简报签发",
+        "案例库治理",
+        "行为级优化审批（两人规则：提案人≠批准人）"
+      ],
+      "initiatives": [
+        "每轮末尾主动跑 org-scorecard 结算各团队错误预算",
+        "case-match 未命中且同题复现 → 主动签发研究简报",
+        "行为级配置改动 → 主动要求附反向验证与精度基线结果再批"
+      ]
+    },
+    {
+      "role": "review",
+      "title": "评审团队",
+      "reports_to": "director",
+      "lead": "runner.py（评审首席：编排 0-10 步）",
+      "members": [
+        "orchestrator/scripts/runner.py",
+        "prompt-enhancement/scripts/intent-parse.py",
+        "git-change-analysis/scripts/preflight.py",
+        "git-change-analysis/scripts/edge-detect.py",
+        "risk-scoring/scripts/score.py",
+        "multi-agent-review/scripts/deterministic-rules.py",
+        "multi-agent-review/scripts/dispatch-plan.py",
+        "multi-agent-review/scripts/coverage.py",
+        "multi-agent-review/scripts/taint-cross.py"
+      ],
+      "duties": [
+        "发现清单与评审报告（只读）"
+      ],
+      "handoff": "report_path + findings",
+      "error_budget": {
+        "metric": "high_without_evidence（高危无已证事实）",
+        "threshold": 0,
+        "window": "每轮",
+        "note": "扫描器强制附证据，超限即评审判定为人工口径"
+      },
+      "initiatives": [
+        "发现凭据类高危 → 主动提示用户走审核人闸 1 进入修复链",
+        "预算击穿或 NEED_HUMAN → 主动给出缩小范围/提预算的具体建议",
+        "污点流命中 → 主动在报告标注传播链（source→sink 路径）",
+        "变更涉及多文件且命中污点流 → 主动调用 taint-cross.py 做跨文件追踪"
+      ]
+    },
+    {
+      "role": "repair",
+      "title": "修复团队",
+      "reports_to": "director",
+      "lead": "fix-apply.py（施工首席：五道闸守门）",
+      "members": [
+        "fix-plan.py",
+        "fix-patch.py",
+        "fix-apply.py"
+      ],
+      "duties": [
+        "凭工单出补丁",
+        "持批准书过五道闸落盘"
+      ],
+      "handoff": "fix-manifest.json + apply-log.json",
+      "error_budget": {
+        "metric": "rollback_ratio（回滚率）",
+        "threshold": 0.2,
+        "window": "每轮"
+      },
+      "initiatives": [
+        "施工遇阻（形态不符/回滚）→ 主动查案例库复用同类对策，不等上级指示",
+        "工单里含凭据类 → 主动声明拒绝并给出密钥管理替代方案要点",
+        "补丁被闸 2 退回 → 主动对照 reasons 逐项自检后再重新送审"
+      ]
+    },
+    {
+      "role": "approval",
+      "title": "审核人",
+      "reports_to": "director",
+      "lead": "approve-patch.py（准出首席：闸 2 六项核验）",
+      "members": [
+        "approve-plan.py",
+        "approve-patch.py"
+      ],
+      "duties": [
+        "闸 1 范围裁定（工单）",
+        "闸 2 补丁准出（批准书）"
+      ],
+      "handoff": "work-order.json + approval.json",
+      "error_budget": {
+        "metric": "rejected_per_round（每轮拒绝数）",
+        "threshold": 3,
+        "window": "每轮"
+      },
+      "initiatives": [
+        "闸 2 拒绝 → 主动附案例库复用建议，帮修复团队一次改对",
+        "同一补丁包两次被拒 → 主动升级总监并建议人工介入",
+        "工单严重度政策空放行 → 主动在批准书标注 政策=全放行 提请总监知悉"
+      ]
+    },
+    {
+      "role": "retro",
+      "title": "迭代官",
+      "reports_to": "director",
+      "lead": "retro-report.py（复盘首席：轮报与候选）",
+      "members": [
+        "retro-ledger.py",
+        "retro-report.py"
+      ],
+      "duties": [
+        "坑台账与轮报",
+        "改进候选（配置/测试/代码三选一落地）"
+      ],
+      "handoff": "pitfalls.json + round-<N>-report.md + round-<N>-candidates.md（机器产出）+ next-round.md（人工维护，report 不写）",
+      "error_budget": {
+        "metric": "open_pitfalls（未结坑数）",
+        "threshold": 8,
+        "window": "每轮"
+      },
+      "initiatives": [
+        "同 category 连续两轮新增坑 → 主动签发研究简报而非只记账",
+        "改进候选属配置可解 → 主动起草 taint-config 变更提案交总监审批",
+        "发现本轮产物有 ROLLED_BACK/REJECTED → 主动并入台账（不等手工事件）"
+      ]
+    },
+    {
+      "role": "research",
+      "title": "档案员（资料员）",
+      "reports_to": "director",
+      "lead": "research-brief.py（情报首席：简报与验收口径）",
+      "members": [
+        "research-brief.py",
+        "case-match.py",
+        "case-archive.py"
+      ],
+      "duties": [
+        "研究简报执行（宿主联网检索）",
+        "成败双轨案例详细整理归档",
+        "案例档案仓发布与推送任意 Git 远端"
+      ],
+      "handoff": "brief-<id>.md + cases.json 索引条目",
+      "error_budget": {
+        "metric": "cases_without_archive（无链接案例）",
+        "threshold": 0,
+        "window": "每轮"
+      },
+      "initiatives": [
+        "检索到权威来源 → 主动把结论入库为链接型案例并附验收口径",
+        "回滚/返工产物出现 → 主动收失败案例并写清教训（--from-artifacts）",
+        "发现既有案例与检索结论冲突 → 主动在轮报标注待复核",
+        "每轮末尾随 scorecard 主动发布档案仓（无远端则本地提交留档）"
+      ]
+    },
+    {
+      "role": "engine",
+      "title": "引擎团队",
+      "reports_to": "director",
+      "lead": "engines/（引擎首席：能力矩阵守门，Phase 2A 填充 adapter）",
+      "members": [],
+      "duties": [
+        "复用引擎适配（Ruff/LibCST/ast-grep）与能力矩阵维护",
+        "引擎修复产物经五道闸落盘（不自审自批）"
+      ],
+      "handoff": "引擎诊断与补丁（经 fix-manifest）",
+      "error_budget": {
+        "metric": "engine_clean_fp（引擎在干净样例的误报）",
+        "threshold": 0,
+        "window": "每轮"
+      },
+      "initiatives": [
+        "引擎引入前先在真实语料 clean 样本测误报率，宁可少开规则不破精度契约",
+        "LGPL 组件一律 subprocess 隔离并登记",
+        "引擎产物落盘前主动生成能力矩阵声明（规则集/风险级/语言）"
+      ]
+    }
+  ],
+  "raci": {
+    "_comment": "R=负责执行 A=唯一签字人 C=需咨询 I=知会（大公司交付物签字权模型）",
+    "发现清单与报告": {
+      "R": "review",
+      "A": "director",
+      "C": [],
+      "I": [
+        "retro"
+      ]
+    },
+    "修复工单": {
+      "R": "approval",
+      "A": "director",
+      "C": [
+        "repair"
+      ],
+      "I": [
+        "review"
+      ]
+    },
+    "补丁包": {
+      "R": "repair",
+      "A": "approval",
+      "C": [
+        "retro"
+      ],
+      "I": [
+        "director"
+      ]
+    },
+    "批准书": {
+      "R": "approval",
+      "A": "director",
+      "C": [
+        "repair"
+      ],
+      "I": [
+        "retro"
+      ]
+    },
+    "落盘提交": {
+      "R": "repair",
+      "A": "approval",
+      "C": [],
+      "I": [
+        "director",
+        "retro"
+      ]
+    },
+    "坑台账与轮报": {
+      "R": "retro",
+      "A": "director",
+      "C": [
+        "research"
+      ],
+      "I": [
+        "review",
+        "repair",
+        "approval"
+      ]
+    },
+    "案例入库": {
+      "R": "research",
+      "A": "director",
+      "C": [
+        "retro"
+      ],
+      "I": []
+    },
+    "行为级优化（配置/代码）": {
+      "R": "retro",
+      "A": "director",
+      "C": [
+        "approval",
+        "research"
+      ],
+      "I": []
+    },
+    "引擎修复产物": {
+      "R": "engine",
+      "A": "approval",
+      "C": [
+        "retro"
+      ],
+      "I": [
+        "director"
+      ]
+    }
+  },
+  "escalation": {
+    "_comment": "值班式升级链：一线（团队首席）→ 二线（总监）→ 三线（人工）。",
+    "levels": [
+      "L1 团队首席：先查案例库复用，命中即自行处理并记录",
+      "L2 总监：案例未命中或同题复发 → 签发研究简报/审批行为级优化",
+      "L3 人工：预算超限、结论不可落地、安全争议 → 转 NEED_HUMAN"
+    ],
+    "research_flow": "案例匹配 → 台账确认 → 研究简报 → 宿主联网检索 → 结论入库 → 行为级优化落地（过验证口径）"
+  }
+}

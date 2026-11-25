@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "category": "手工",
+      "description": "Windows 下 py 打印 CRLF 行尾，bash 反引号取 ID 带 \r 导致按 ID 查找失败",
+      "root_cause": "py print 输出 \r\n 与 bash 分词冲突",
+      "countermeasure": "脚本提取 ID 后必须 strip()，或改用文件传递"
+    }
+  ]
+}

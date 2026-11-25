@@ -1,0 +1,11 @@
+[
+  {
+    "type": "correction",
+    "title": "bash heredoc 嵌套转义损毁测试文件——r186 两处 SyntaxError 即时暴露（r187 自报）",
+    "description": "r186 用 bash heredoc 向 tests/test_round_gate.py 追加含 \\n 转义的 python 源码块时，嵌套转义塌缩成字面换行，两处 unterminated string literal（pytest 收集即报错，未进提交）；改用 Edit 工具重写后 38 passed。同类坑渊源：宿主 Edit 大段中文静默失效（daf1a5fc2f9f，已归档）与套件日志字节事故（r122）同属「大段程序化写入」风险面。",
+    "root_cause": "bash heredoc → python 字符串 → 写入源码的三层转义嵌套，\\\\n 在外层被消费成真换行。",
+    "countermeasure": "已固化：程序化写源码一律用 Edit/Write 工具（不经 bash heredoc）；写入后立即跑语法收集或目标测试验证再提交（本次两处均被收集期 SyntaxError 拦截，未污染提交历史）。",
+    "source": "round-187",
+    "confidence": "observed"
+  }
+]

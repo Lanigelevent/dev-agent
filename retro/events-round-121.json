@@ -1,0 +1,26 @@
+[
+  {
+    "type": "feature",
+    "title": "round-121：权威文档第八元字段补齐（D-050 尾项）——不是权威两处",
+    "description": "BASELINE.md / GLOSSARY.md 补「不是权威」元字段（契约变更裁定 → DECISIONS.md、命令用法 → 06-operations、术语实体权威 → BASELINE/AGENTS、版本沿革 → BASELINE-HISTORY）；冻结层（BASELINE-HISTORY/ROADMAP-HISTORY）审计后维持不动（INDEX 冻结纪律：不回改历史）",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "round-121：doc-structure 第八元字段强制",
+    "description": "doc-structure.py META_FIELDS 增「不是权威」；全仓扫描 19 文件 meta_fields 全 PASS；契约 +1（test_not_authority_meta_red 反向红例），test_doc_structure 14/14 绿",
+    "outcome": "done"
+  },
+  {
+    "type": "feature",
+    "title": "round-121：DECISIONS.md 决策索引目录表（D-001..D-051）",
+    "description": "头部插入 ID|摘要|轮次/版本 目录表（52 条，D-049 提案/裁决两条区分标注「第 2 条」）；标题自带 round/version 信息机械抽取入表，其余标注「—」（见正文头注）；只追加索引块，历史条目未改",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-121：freshness F5 再次拦红并校准（+1 契约）",
+    "description": "新增 1 契约 → discover 689 vs 文档 688，套件首跑双红（两跑一致），doc-freshness F5 当场拦住；688→689 全仓校准 + bump 2.22.0，重跑双跑全绿（413.339 / 412.213 秒，各 1 skip）",
+    "outcome": "done"
+  }
+]

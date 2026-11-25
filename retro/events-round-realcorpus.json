@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "category": "手工",
+      "description": "GitHub 直连被重置（Connection was reset），真实语料克隆改走 Gitee 镜像",
+      "root_cause": "网络环境对 github.com 的限制",
+      "countermeasure": "真实语料策展统一走 Gitee 镜像 mirrors/<repo>，逐仓验证可用性"
+    },
+    {
+      "category": "手工",
+      "description": "collect-samples --limit 0 语义是第一个样本即 break 而非不限",
+      "root_cause": "哨兵值 0 与「不限」语义冲突（len>=0 恒真）",
+      "countermeasure": "全量采集传显式大数；哨兵值语义在 docstring 里写清"
+    },
+    {
+      "category": "手工",
+      "description": "gitee.com/mirrors/jinja2 镜像不存在，克隆失败要求认证",
+      "root_cause": "并非所有上游仓库都有官方 Gitee 镜像",
+      "countermeasure": "策展阶段逐仓验证；失败仓进入失败案例双轨"
+    },
+    {
+      "category": "手工",
+      "description": "评测窗口 12→36 个月经两人规则变更（提案 retro/批准 director），collect 验证 19→30",
+      "root_cause": "",
+      "countermeasure": "行为级配置变更沿用 _governance 式留痕：提案、批准、验证三件齐全"
+    }
+  ]
+}

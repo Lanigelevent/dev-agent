@@ -1,0 +1,10 @@
+{"ts": "2026-10-29T12:50:35+08:00", "step": "step2", "actor": "taint-cross", "input_ref": null, "finding_id": null, "output_summary": "跨文件流 0 条（摘要 118）", "basis": null, "disposition": "采纳"}
+{"ts": "2026-10-29T12:50:40+08:00", "step": "step4", "actor": "dispatcher", "input_ref": null, "finding_id": null, "output_summary": "正确性与逻辑缺陷: 0 项（正确性与逻辑缺陷 完成；已下发误报模式 0 条）", "basis": null, "disposition": "None"}
+{"ts": "2026-10-29T12:50:41+08:00", "step": "step4", "actor": "dispatcher", "input_ref": null, "finding_id": null, "output_summary": "跨文件影响: 0 项（跨文件影响 完成；已下发误报模式 0 条）", "basis": null, "disposition": "None"}
+{"ts": "2026-10-29T12:50:41+08:00", "step": "step4", "actor": "dispatcher", "input_ref": null, "finding_id": null, "output_summary": "回退风险与影响面: 0 项（回退风险与影响面 完成；已下发误报模式 0 条）", "basis": null, "disposition": "None"}
+{"ts": "2026-10-29T12:50:41+08:00", "step": "step4", "actor": "dispatcher", "input_ref": null, "finding_id": null, "output_summary": "测试覆盖: 0 项（测试覆盖 完成；已下发误报模式 0 条）", "basis": null, "disposition": "None"}
+{"ts": "2026-10-29T12:50:41+08:00", "step": "step4", "actor": "dispatcher", "input_ref": null, "finding_id": null, "output_summary": "性能与资源: 0 项（性能与资源 完成；已下发误报模式 0 条）", "basis": null, "disposition": "None"}
+{"ts": "2026-10-29T12:50:42+08:00", "step": "step4", "actor": "dispatcher", "input_ref": null, "finding_id": null, "output_summary": "安全与敏感信息: 1 项（安全与敏感信息 完成；已下发误报模式 0 条）", "basis": null, "disposition": "None"}
+{"ts": "2026-10-29T12:50:42+08:00", "step": "step4", "actor": "dispatcher", "input_ref": null, "finding_id": null, "output_summary": "意图一致性: 0 项（意图与范围一致，无偏差发现）", "basis": null, "disposition": "None"}
+{"ts": "2026-10-29T12:50:43+08:00", "step": "step8", "actor": "backverify", "input_ref": null, "finding_id": null, "output_summary": "动态补审额度使用 1/2，未覆盖 hunk 74 个", "basis": null, "disposition": "None"}
+{"ts": "2026-10-29T12:50:44+08:00", "step": "step10", "actor": "runner", "input_ref": null, "finding_id": null, "output_summary": "双闸通过，交付 run 20261029-125027-9f1593", "basis": null, "disposition": "采纳"}

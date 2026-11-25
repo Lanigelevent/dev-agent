@@ -1,0 +1,30 @@
+[
+ {
+  "type": "feature",
+  "description": "round-62 评审精度护栏落地：eval-harness/precision-gate.py（run/check 两动词）在 ReviewBench 固定 12 样例上跑 deterministic 评审器，四项对账 = precision ≥0.65 / ≥基线−0.01 / valid_samples 一致 / reviewer 一致；基线入仓 precision-baseline.json（0.6667 / 0.3636，与 round-36 同值，D-042）；真语料 PASS、四类反向验证均判红、缺语料 rc2",
+  "source": "skills/eval-harness/scripts/precision-gate.py、skills/eval-harness/precision-baseline.json、reports/precision-gate-round62/"
+ },
+ {
+  "type": "test",
+  "description": "round-62 契约测试 +4：TestPrecisionGate（PASS 形状 / 四类失败各一 / 缺输入 code2 / 基线形状），514→518",
+  "source": "tests/test_scripts.py"
+ },
+ {
+  "type": "doc",
+  "description": "round-62 文档回填：ROADMAP §5.20 + DECISIONS D-042；版本 1.63.0；脚本 73→74、测试 514→518",
+  "source": "docs/ROADMAP.md、docs/DECISIONS.md"
+ },
+ {
+  "type": "confirmation",
+  "description": "精度护栏语料 datasets/reviewbench 不入库，门禁在本地/发布签核跑、不进 CI；缺语料 code=2 明示，不伪造 PASS",
+  "source": "docs/DECISIONS.md D-042"
+ },
+ {
+  "type": "pitfall",
+  "category": "口径纪律",
+  "description": "【坑】precision 护栏的反向样例只改了 floor 到 0.9，却把 judge precision 设成 0.60：同时跌破趋势线（基线 0.6667−0.01），断言期望 failed 只有 precision_floor，实际两条齐发，测试首跑即红",
+  "root_cause": "同一指标被 floor 与 trend 两项检查共用；反向样例设计时只盯着目标检查，忘了相邻检查的阈值也会被同一数值触发",
+  "countermeasure": "反向样例按「只越一条线」设计（precision 0.66：floor 0.9 失败、0.66 ≥ 0.6567 趋势通过）；断言 failed 精确等于目标检查 id，防止多条齐发被误当通过",
+  "source": "tests/test_scripts.py TestPrecisionGate.test_each_guardrail_fires；round-62 实跑"
+ }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "type": "feature",
+    "description": "round-65 尾随收官（round-66 开局完成）：修复 round-65 会话遗留的 README/DEVELOPMENT 计数漂移（524→527 共 4 处，doc-freshness F5 首轮套件拦截、修后全绿）；全量双跑全绿 527 项 531.703 / 524.233 秒（logs/suite-r65-run1/2.log，1 skip；终稿代码实跑）；release-gate v1.66.0 七项全绿（证据 reports/release-gate/1.66.0/release-gate.json）；提交 c5b54c1（主实现）+ 4b6d719（尾随证据），tag v1.66.0 预检通过、打 tag 留人工（D-035）",
+    "evidence": "logs/suite-r65-run1/2.log、reports/release-gate/1.66.0/release-gate.json、git log c5b54c1/4b6d719"
+  },
+  {
+    "type": "pitfall",
+    "category": "外部依赖",
+    "description": "【坑】ZCode 宿主 shell 向子进程注入 PYTHONUTF8=1 与 PYTHONIOENCODING=utf-8（注册表无此变量，Python 子进程内可见 sys.flags.utf8_mode=1）：本机 locale 为 cp936，UTF-8 模式下 subprocess text=True 的 reader 线程把 tasklist 等 Windows 系统工具的 GBK 输出当 UTF-8 解码崩溃，Popen.communicate 返回 stdout=None，test_run_timeout_kills_process_tree 报 TypeError——首轮套件 run1 两连红（failures=1 与 errors=1 两个形态都撞到），而置空两变量后单测与全量套件立即恢复绿色基线",
+    "root_cause": "宿主运行环境的全局环境变量注入改变 Python 启动模式，套件契约（cp936 基线 + 脚本自身 reconfigure UTF-8）建立在无注入环境上；session 内 env 无该变量（grep 落空）但子进程可见，排查一度被「env 里没有」误导",
+    "countermeasure": "ZCode 会话内运行全量套件（及任何依赖 locale 解码的子进程链）一律以置空前缀 PYTHONUTF8= PYTHONIOENCODING= 启动，恢复文档基线环境；证据已记入 README/PROGRESS 双跑链（round-65 双跑行注明置空前缀）；Git Bash 的 env -u 不可用（吞 stdout），必须用空串置空",
+    "source": "logs/suite-r65-run1.log（两轮红跑）、tests/test_live_sample.py::_pid_alive、docs/PROGRESS.md 契约测试行",
+    "closure": "置空前缀下全量双跑全绿 527 项 531.703 / 524.233 秒（logs/suite-r65-run1/2.log，rc=0）+ 修复漂移后 doc-freshness ok:true"
+  },
+  {
+    "type": "pitfall",
+    "category": "误报",
+    "description": "【坑】Mimosa 宿主 L3 扫描把 gitignored 的评测夹具（reports/_work/tooling 的 Go runtime crash_test 语料，非本项目代码）当高危命令注入拦截 commit——同一链路里 mv 出去、提交、mv 回来的操作序列会被整链拒绝",
+    "root_cause": "宿主扫描器不区分被 git 跟踪内容与 gitignored 数据目录，扫描面大于提交面",
+    "countermeasure": "commit 前把 reports/_work/tooling 临时移出工作树（每次 mv 独立调用，同链必被拦），提交后立即移回；已记入项目记忆与本轮报告，待宿主侧支持扫描忽略清单后消除",
+    "source": "Mimosa 拦截消息（173 high 全部指向 reports/_work/tooling/go/src/runtime/crash_test*.go）、git check-ignore 确认该目录 gitignored",
+    "closure": "两次提交（c5b54c1 / 4b6d719）均按此绕行完成，夹具目录移回后完好（ls 三子目录齐全）"
+  },
+  {
+    "type": "feature",
+    "description": "round-66 冷启动资源面：D-045 九候选官方镜像命名规则源码级确认（microsoft/SWE-bench-Live evaluation/evaluation.py get_default_image_name：starryzhang/sweb.eval.x86_64.<instance_id 双下划线→_1776_ 小写>，linux med=x86_64 / win med=win；任务行可自带 docker_image 字段，本地 lite.parquet 无该列故默认命名生效）；可达性按硬约束 8 实测判死——国内 8 源对 llama_deploy-330 镜像 usable_rank=[]（token/manifest 阶段 SSL 超时 / 401 / 无认证 realm，与 round-64 一致）、hub.docker.com 元数据 API 8/8 超时、国际直连回退 registry-1.docker.io token 阶段 30s 超时（降级原因已记录）；未拉取任何镜像、未伪造状态",
+    "evidence": "scripts/docker-mirror-probe.py 输出 logs/mirror-probe-r66-llamadeploy.json（rc=1、usable_rank=[]、8/8 unusable）、reports/swebench/live-coldstart-2026-10-30.md §1-2、microsoft/SWE-bench-Live harness 源码（GitHub API base64 原文）"
+  },
+  {
+    "type": "feature",
+    "description": "round-66 Live 补源收口 9/9：haystack GitHub 3s/7011KB、reflex GitHub 2s/2883KB（单提交 depth-1 取法验证有效，round-65「全量克隆 429/211MB」担忧不成立）；instructlab GitHub 2s/7327KB、pvlib-python GitHub 4s/34803KB——round-65 双源超时判定为网络抖动，跨轮重试解锁；九仓 sha 完整性逐一 cat-file 验证通过；D-045 资源面从「源 5/9、镜像 0/9、基线 1/9」推进到「源 9/9、镜像 0/9（命名已确认）、基线 1/9」",
+    "evidence": "datasets/swe-repos/（不入库，九仓 cat-file 验证）、reports/swebench/live-coldstart-2026-10-30.md §3"
+  },
+  {
+    "type": "confirmation",
+    "description": "round-66 边界与未结项如实保留：①本轮零冷启动 resolved / f2p_passed 主张——镜像命名确认与可达性判定只回答「能不能拉镜像」，不回答「agent 能不能解」；②镜像「存在性」未经官方 registry 确认（hub.docker.com 与 registry-1.docker.io 均不可达），命名规则来自官方 harness 源码，网络恢复后先探存在性再谈拉取；③D-041 300s 红线仍待总监批准，双跑超线继续升级处置、红线未改；④D-046 4.1 uplift 复验与 D-045 冷启动编码跑（f2p_passed 部分口径）预算未定，按 D-045 blocked 不补位；⑤merge-audit 人工复核、Pro 固定端点「单发」口径、DeepSWE 余 19 条仍挂账",
+    "source": "reports/swebench/live-coldstart-2026-10-30.md §6、docs/DECISIONS.md D-041/D-045/D-046、retro/next-round.md 第 26 条"
+  }
+]

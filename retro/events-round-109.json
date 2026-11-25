@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "CI nightly 切 xdist（D-051 批 A 落地，四轮顺延后执行）",
+    "description": "pytest -n 2 全量双验证：301.23s / 268.94s 全绿（629 passed + 1 skipped），对顺序 ~470-485s 提速约 43%；self-check.yml nightly 命令切 python -m pytest tests -n 2 -q，deps += pytest-xdist。PR smoke 口径不变（unittest 清单，D-049 A）。本地闸证据链保持顺序双跑（unittest 格式解析兼容）。"
+  },
+  {
+    "type": "doc",
+    "title": "round-110 依赖刷新盘点先行",
+    "description": "已装真值实测 12 项（ruff 0.17.4 / libcst 1.9.0 / pytest 8.4.2 / pytest-xdist 3.8.0 / hypothesis 6.170.15 / coverage 7.17.2 / tree-sitter 系 / ast-grep-py 0.51.1 / pyarrow 26.0.0）；最新版探测两路受挫如实记录：清华 /pypi/json 快照滞后（报旧于已装）、pypi.org 直连元数据 3 分钟超时（慢即判死）——r110 改 pip install --dry-run 走镜像实测。"
+  }
+]

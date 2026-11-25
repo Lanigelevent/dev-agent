@@ -1,0 +1,183 @@
+{
+  "version": "v1.49.0",
+  "created": "2026-10-28",
+  "benchmark": "SWE-bench Pro default/test（v2 schema，642 例）",
+  "source": {
+    "dataset": "ScaleAI/SWE-bench_Pro",
+    "revision": "2d52cb3df914a3fcf80c7f66738b3a88ae37fc50",
+    "file": "data/default/test-00000-of-00001.parquet",
+    "bytes": 6511689,
+    "sha256": "1067f72c1f43bbc578276888625db3b836cebb535546c9eaf824c5d5dd104a7f",
+    "mirror": "hf-mirror.com（国内镜像优先，硬约束 8）"
+  },
+  "selection_rule": "仅 repo_language=python（237 例）；Python 子集实测仅 3 个仓库（ansible/ansible、internetarchive/openlibrary、qutebrowser/qutebrowser），按仓库轮转各取一例直至凑满 10 条（实际分布 4/3/3）——跨 3 仓是数据集实测下限，不是选样偏好；仓库内按 instance_id 升序取首例。确定性可复算。",
+  "environment": {
+    "images": "ghcr.io/scaleapi/swe-bench_pro-v2:<instance_id>（数据集 docker_image 字段）",
+    "reachability": "国内镜像 ghcr.nju.edu.cn 探针可用（round-48 manifest HTTP 200 / 首层 8MB 16.71 MB/s；round-50 对 openlibrary/qutebrowser 两条按 tag 复测 5.13/5.38 MB/s，均 usable）；round-50 两条整镜像已实测拉取（1021.3 MiB/35 s、713.6 MiB/20 s）；ghcr.io 直连 0.14 MB/s（慢 119 倍，仅作回退并记录降级）。"
+  },
+  "contamination_note": "Pro 为 2025 后新基准（自报抗污染），但仓库公开、补丁公开；本项目只报自有实跑样本，不外推。",
+  "harness_validation": {
+    "round": "round-49 单条 → round-50 3 仓 3 条（gold 对照）",
+    "report": "reports/swebench/pro-3repo-validation-2026-10-28.md",
+    "driver": "skills/eval-harness/scripts/pro-sample.py（stdlib-only；状态机 + 补丁双闸 + 台账续跑 + 任务级环境适配）",
+    "caliber": "gold 补丁驱动的判分链路验证；不是 agent 侧 resolved，不折算通过率",
+    "instances": [
+      {
+        "instance_id": "instance_ansible__ansible-0ea40e09d1b35bcb69ff4d9cecf3d0defa4b36e8-v30a923fb5c164d6cd18280c02422f75e611e8fb2",
+        "repo": "ansible/ansible",
+        "image": "ghcr.nju.edu.cn/scaleapi/swe-bench_pro-v2（本地 digest sha256:af7d28fe6608951bf88e39b6a24d5574dcd1b5b82a6c983147666289f8014f18；711.2 MiB / 35.025 s）",
+        "baseline": "仅应用 test_patch：1 failed / 15 passed（F2P 未过、P2P 全过）→ baseline_ok",
+        "gold": "test_patch + gold patch：16 passed；F2P 1/1、P2P 15/15 → resolved"
+      },
+      {
+        "instance_id": "instance_internetarchive__openlibrary-00bec1e7c8f3272c469a58e1377df03f955ed478-v13642507b4fc1f8d234172bf8129942da2c2ca26",
+        "repo": "internetarchive/openlibrary",
+        "image": "ghcr.nju.edu.cn/scaleapi/swe-bench_pro-v2（manifest sha256:03205f63224d992c930df7a2b898353d9d3dface4ab4d921eebc73dc909c1ba6；1021.3 MiB / 35 s）",
+        "baseline": "5 failed / 15 passed（F2P 0/5、P2P 15/15）→ baseline_ok",
+        "gold": "20 passed；F2P 5/5、P2P 15/15 → resolved"
+      },
+      {
+        "instance_id": "instance_qutebrowser__qutebrowser-01d1d1494411380d97cac14614a829d3a69cecaf-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+        "repo": "qutebrowser/qutebrowser",
+        "image": "ghcr.nju.edu.cn/scaleapi/swe-bench_pro-v2（manifest sha256:7fd32c336a00…；713.6 MiB / 20 s）",
+        "baseline": "4 failed / 94 passed / 5 skipped（F2P 0/3、P2P 46/46）→ baseline_ok",
+        "gold": "1 failed / 97 passed / 5 skipped（F2P 3/3、P2P 46/46 → resolved；残留失败 test_existing_attributes[adblock-True] 不在判分点内）"
+      }
+    ],
+    "ledger": "datasets/swebench/pro-runs/pro-sample-ledger.json（gate 语料，不入库）；重跑 run_this_time=0 证明幂等",
+    "environment_adaptation": "qutebrowser 需任务级 pre_test_cmd（常驻 Xvfb :99）+ env（DISPLAY / QTWEBENGINE_DISABLE_SANDBOX）+ pytest_args（-p no:xvfb）"
+  },
+  "status": "not_run",
+  "instances": [
+    {
+      "instance_id": "instance_ansible__ansible-0ea40e09d1b35bcb69ff4d9cecf3d0defa4b36e8-v30a923fb5c164d6cd18280c02422f75e611e8fb2",
+      "repo": "ansible/ansible",
+      "base_commit": "f7234968d241d7171aadb1e873a67510753f3163",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_ansible__ansible-0ea40e09d1b35bcb69ff4d9cecf3d0defa4b36e8-v30a923fb5c164d6cd18280c02422f75e611e8fb2",
+      "dockerhub_tag": "ansible.ansible-ansible__ansible-0ea40e09d1b35bcb69ff4d9cecf3d0defa4b36e8-v30a923fb5c164d6cd18280c02422f75e611e8fb2",
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 15,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instance_internetarchive__openlibrary-00bec1e7c8f3272c469a58e1377df03f955ed478-v13642507b4fc1f8d234172bf8129942da2c2ca26",
+      "repo": "internetarchive/openlibrary",
+      "base_commit": "02f647f7d525286b6e3a661133c3772649e585cd",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_internetarchive__openlibrary-00bec1e7c8f3272c469a58e1377df03f955ed478-v13642507b4fc1f8d234172bf8129942da2c2ca26",
+      "dockerhub_tag": "internetarchive.openlibrary-internetarchive__openlibrary-00bec1e7c8f3272c469a58e1377df03f955ed478-v13642507b4fc1f8d234172bf81299",
+      "fail_to_pass_count": 5,
+      "pass_to_pass_count": 15,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instance_qutebrowser__qutebrowser-01d1d1494411380d97cac14614a829d3a69cecaf-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+      "repo": "qutebrowser/qutebrowser",
+      "base_commit": "71451483f4f380c2f70f6e5b28025af79b1168e5",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_qutebrowser__qutebrowser-01d1d1494411380d97cac14614a829d3a69cecaf-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+      "dockerhub_tag": "qutebrowser.qutebrowser-qutebrowser__qutebrowser-01d1d1494411380d97cac14614a829d3a69cecaf-v2ef375ac784985212b1805e1d0431dc8f1b3c",
+      "fail_to_pass_count": 3,
+      "pass_to_pass_count": 46,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+      "repo": "ansible/ansible",
+      "base_commit": "016b7f71b10539c90ddbb3246f19f9cbf0e65428",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+      "dockerhub_tag": "ansible.ansible-ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+      "fail_to_pass_count": 4,
+      "pass_to_pass_count": 26,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instance_internetarchive__openlibrary-03095f2680f7516fca35a58e665bf2a41f006273-v8717e18970bcdc4e0d2cea3b1527752b21e74866",
+      "repo": "internetarchive/openlibrary",
+      "base_commit": "46bcf7c30178f53ef427a5840c4b24717ed79fb0",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_internetarchive__openlibrary-03095f2680f7516fca35a58e665bf2a41f006273-v8717e18970bcdc4e0d2cea3b1527752b21e74866",
+      "dockerhub_tag": "internetarchive.openlibrary-internetarchive__openlibrary-03095f2680f7516fca35a58e665bf2a41f006273-v8717e18970bcdc4e0d2cea3b15277",
+      "fail_to_pass_count": 2,
+      "pass_to_pass_count": 1,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instance_qutebrowser__qutebrowser-0833b5f6f140d04200ec91605f88704dd18e2970-v059c6fdc75567943479b23ebca7c07b5e9a7f34c",
+      "repo": "qutebrowser/qutebrowser",
+      "base_commit": "def864adc8b19bdbc506919270d8ff1408b4faac",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_qutebrowser__qutebrowser-0833b5f6f140d04200ec91605f88704dd18e2970-v059c6fdc75567943479b23ebca7c07b5e9a7f34c",
+      "dockerhub_tag": "qutebrowser.qutebrowser-qutebrowser__qutebrowser-0833b5f6f140d04200ec91605f88704dd18e2970-v059c6fdc75567943479b23ebca7c07b5e9a7f",
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 9,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instance_ansible__ansible-106909db8b730480615f4a33de0eb5b710944e78-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "repo": "ansible/ansible",
+      "base_commit": "3fffddc18305f4d910774b57bc90e14456e7a15b",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_ansible__ansible-106909db8b730480615f4a33de0eb5b710944e78-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "dockerhub_tag": "ansible.ansible-ansible__ansible-106909db8b730480615f4a33de0eb5b710944e78-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "fail_to_pass_count": 4,
+      "pass_to_pass_count": 5,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+      "repo": "internetarchive/openlibrary",
+      "base_commit": "1e32ae3ec085dc3ab8611b88b56baf6354fa0762",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+      "dockerhub_tag": "internetarchive.openlibrary-internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda",
+      "fail_to_pass_count": 7,
+      "pass_to_pass_count": 119,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instance_qutebrowser__qutebrowser-0aa57e4f7243024fa4bba8853306691b5dbd77b3-v5149fcda2a9a6fe1d35dfed1bade1444a11ef271",
+      "repo": "qutebrowser/qutebrowser",
+      "base_commit": "e8a7c6b257478bd39810f19c412f484ada6a3dc6",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_qutebrowser__qutebrowser-0aa57e4f7243024fa4bba8853306691b5dbd77b3-v5149fcda2a9a6fe1d35dfed1bade1444a11ef271",
+      "dockerhub_tag": "qutebrowser.qutebrowser-qutebrowser__qutebrowser-0aa57e4f7243024fa4bba8853306691b5dbd77b3-v5149fcda2a9a6fe1d35dfed1bade1444a11ef",
+      "fail_to_pass_count": 4,
+      "pass_to_pass_count": 33,
+      "status": "not_run",
+      "resolved": null
+    },
+    {
+      "instance_id": "instance_ansible__ansible-11c1777d56664b1acb56b387a1ad6aeadef1391d-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "repo": "ansible/ansible",
+      "base_commit": "e1daaae42af1a4e465edbdad4bb3c6dd7e7110d5",
+      "language": "python",
+      "hard": false,
+      "docker_image": "ghcr.io/scaleapi/swe-bench_pro-v2:instance_ansible__ansible-11c1777d56664b1acb56b387a1ad6aeadef1391d-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "dockerhub_tag": "ansible.ansible-ansible__ansible-11c1777d56664b1acb56b387a1ad6aeadef1391d-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 0,
+      "status": "not_run",
+      "resolved": null
+    }
+  ]
+}

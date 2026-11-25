@@ -1,0 +1,9 @@
+[
+  {
+    "category": "手工",
+    "description": "新增脚本只登记 AGENTS 清单不够：doc-drift 行为覆盖问只认 tests/test_scripts.py 的点名（SCRIPTS 注册表），测试放独立新文件 test_gold_sample.py 也算未覆盖——三处注册点（AGENTS 清单/test_scripts 点名/文档计数）第一次跑齐才发现",
+    "root_cause": "新脚本的「被测」契约锚定单文件（tests_text=test_scripts.py），与测试实际可分散多文件的现实不一致",
+    "countermeasure": "gold-sample.py 已登记 SCRIPTS 注册表（行为覆盖转绿）；改进候选：doc-drift 行为覆盖问扫描 tests/ 全目录而非单文件（下轮候选，避免再踩）",
+    "source": "retro/events-round-gold16.json"
+  }
+]

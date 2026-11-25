@@ -1,0 +1,49 @@
+{
+  "repo": "<repo>\\reports\\_work\\workspace-round60\\container\\repo",
+  "task": "修复 calc.py：add 应为加法、label 应输出 Hello 前缀；跑仓库测试验证",
+  "round": 1,
+  "history": [
+    "编辑 2 项（失败 0）；测试 pass：子集 1 项（原范围 1 项）（工作区 cra-pytest:3.12）：..                                                                       [100%]; 2 passed in 0.08s（未抽检）"
+  ],
+  "edits_applied": 2,
+  "tests": "pass",
+  "blocks": [
+    {
+      "path": "calc.py",
+      "search": "    return \"Hi \" + name",
+      "replace": "    return \"Hello \" + name"
+    }
+  ],
+  "attempted": [
+    "calc.py"
+  ],
+  "allow_probe": false,
+  "probe_docker": "",
+  "rank": "refs",
+  "elapsed_sec": 3.422,
+  "rounds_budget": 6,
+  "phases_mode": false,
+  "locate_rounds": 2,
+  "rework_max": 2,
+  "memory_file": "",
+  "test_cmd": "",
+  "phases": {
+    "_schema": 1,
+    "enabled": false,
+    "current": "locate",
+    "locate_rounds_used": 0,
+    "locate_rounds_max": 2,
+    "rework_count": 0,
+    "rework_max": 2,
+    "decisions": [],
+    "verdicts": [],
+    "locate_report": null,
+    "last_reasons": [],
+    "resolved": false,
+    "escalated": false,
+    "reason": ""
+  },
+  "workspace": "container:cra-pytest:3.12",
+  "test_engine": "pytest",
+  "test_scope": "子集 1 项（原范围 1 项）（工作区 cra-pytest:3.12）：..                                                                       [100%]; 2 passed in 0.08s（未抽检）"
+}

@@ -1,0 +1,9 @@
+[
+  {
+    "type": "correction",
+    "title": "影子 init 延迟修复——首个 fix 轮（wt 物理存在后）+ 缺省 on 恢复（round-204，路线图阶段二③完形）",
+    "description": "r203 根因链闭合后实施定案修复：shadow init 从循环前置（wt 不存在 → bare init）延迟到首个 fix 轮（wt 已由 worktree add 物理创建后）+ core.bare=false/core.worktree 钉住（r202 已有防护保留）；缺省 --shadow-checkpoints 恢复 on。验收：code-task 上下文 6/6 绿（locate 拒绝编辑 + fix e2e + shadow 单测四条）。",
+    "countermeasure": "验收=缺省 on + code-task 全链 e2e 绿（本轮达成）；台账 open 条（bare 判定）在修复落地后可结案。",
+    "source": "round-204"
+  }
+]

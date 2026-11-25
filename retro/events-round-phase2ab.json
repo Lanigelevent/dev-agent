@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "category": "手工",
+      "description": "tree-sitter 0.26 API 变更：Node 无 .kind，用 .grammar_name；cursor 遍历改递归 _walk 生成器",
+      "root_cause": "凭旧版记忆写代码未实测当前版本 API",
+      "countermeasure": "agent 层新依赖先在 .venv 实测属性面（dir(node)）再写"
+    },
+    {
+      "category": "手工",
+      "description": "code-task 的 SEARCH/REPLACE 块模板漏了 >>>>>>> REPLACE 结尾行，全部编辑被解析器拒绝",
+      "root_cause": "模板 5 段拼接少一段；解析器报错信息准确但循环继续烧轮数",
+      "countermeasure": "块格式模板与解析器同文件互测；edit_formats 单测先红后绿"
+    },
+    {
+      "category": "手工",
+      "description": "test_scripts.run() 自动前缀全局解释器，误传 VENV_PY 当脚本参数导致 agent 层测试全崩",
+      "root_cause": "run() 签名约定（script 为第一参）与 agent 层双解释器需求冲突",
+      "countermeasure": "agent 层用独立 venv_run() 直调 .venv 解释器；治理壳继续用 run()"
+    },
+    {
+      "category": "手工",
+      "description": "Ruff rule --all JSON 含 code=None 的未编号规则，sorted() 崩 TypeError",
+      "root_cause": "官方 JSON 有空码条目",
+      "countermeasure": "过滤 code 非空再统计"
+    },
+    {
+      "category": "误报",
+      "description": "Ruff 默认集在合成语料 120 文件命中 84 处（模板样式问题）——证实引擎发现进修复链而非评审管线的决策正确",
+      "root_cause": "lint 类发现对评审口径是噪音",
+      "countermeasure": "引擎只进修复链（经五道闸），评审管线保持确定性+LLM 双意见"
+    }
+  ]
+}

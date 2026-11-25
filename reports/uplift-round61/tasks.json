@@ -1,0 +1,66 @@
+{
+ "version": 1,
+ "corpus_note": "公开上游仓库真实提交；题目只给诉求，实现隐藏；测试补丁开跑前种入两臂",
+ "tasks": [
+  {
+   "id": "click-nosuchcommand",
+   "mirror": "reports/_work/click-mirror",
+   "base_commit": "19fd4d6e18bc9fce451f92f422696b11169faa57",
+   "target_commit": "831c8f0948af519e45b90801d7430ff25451f972",
+   "test_patch": "tasks/click-nosuchcommand/test.patch",
+   "problem_file": "tasks/click-nosuchcommand/problem.md",
+   "pythonpath": "src",
+   "source_files": [
+    "src/click/__init__.py",
+    "src/click/core.py",
+    "src/click/exceptions.py",
+    "src/click/parser.py"
+   ],
+   "test_files": [
+    "tests/test_commands.py",
+    "tests/test_options.py"
+   ],
+   "xl_note": "源文件 4 + 测试 2 = 6 文件（上游提交另含 CHANGES.rst）",
+   "f2p": [
+    "tests/test_commands.py::test_suggest_possible_commands[pause-Did you mean 'push'?]",
+    "tests/test_commands.py::test_suggest_possible_commands[decline-(Did you mean one of: 'declare', 'refine'?)]",
+    "tests/test_options.py::test_unknown_options[--foo]",
+    "tests/test_options.py::test_unknown_options[-f]",
+    "tests/test_options.py::test_suggest_possible_options[--cat-Did you mean '--count'?]",
+    "tests/test_options.py::test_suggest_possible_options[--bounds-(Did you mean one of: '--bound', '--count'?)]",
+    "tests/test_options.py::test_suggest_possible_options[--bount-(Did you mean one of: '--bound', '--count'?)]"
+   ],
+   "p2p": [
+    "tests/test_commands.py",
+    "tests/test_options.py"
+   ]
+  },
+  {
+   "id": "tomlkit-dotted-key",
+   "mirror": "reports/_work/scratch-tomlkit",
+   "base_commit": "b5da6c945aa00bf818f89d2fbd434bc3c2c949e2",
+   "target_commit": "0561e5de20fdbdf6dfc50f3c4261c88604f15901",
+   "test_patch": "tasks/tomlkit-dotted-key/test.patch",
+   "problem_file": "tasks/tomlkit-dotted-key/problem.md",
+   "pythonpath": null,
+   "source_files": [
+    "tomlkit/api.py",
+    "tomlkit/container.py",
+    "tomlkit/items.py",
+    "tomlkit/parser.py"
+   ],
+   "test_files": [
+    "tests/test_api.py"
+   ],
+   "xl_note": "源文件 4 + 测试 1 = 5 文件",
+   "f2p": [
+    "tests/test_api.py::test_add_dotted_key"
+   ],
+   "p2p": [
+    "tests"
+   ],
+   "submodule_src": "reports/_work/uplift-r61/_submodules/toml-test-27837d38",
+   "submodule_dest": "tests/toml-test"
+  }
+ ]
+}

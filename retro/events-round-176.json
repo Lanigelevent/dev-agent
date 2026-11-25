@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-176：D-052 扩面提案阶段 B 批准并落地——cancel + 配置白名单透传",
+      "description": "用户授权「按你推荐的步骤推进」= 总监显式批准阶段 B（提案人≠批准人红线以用户授权满足）。实现：mcp/review_mcp.py 新增第 15 工具 code_review_cancel（32hex 守卫、runner.pid 进程树终止 taskkill /T /F、cancelled 状态不被 worker 覆写、event-ledger job.cancel 摘要）；submit 放开 budget+config_path 共存，3 键白名单（max_review_minutes≤120 / max_total_rounds≤64 / max_verification_rounds≤5）写沙箱 agent.json，越界/未知/凭据键丢弃并回显 ignored_keys。+5 契约（14 条 async 全绿），工具数 14→15、契约 778→783。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-176：真作业冒烟——running 取消杀进程树 + 后续 submit 正常 done step=10",
+      "description": "reports/mcp-cancel-smoke-r176.md：15 工具；job A running → cancel → state=cancelled、killed_pids=[49504]（首跑因 pid 落盘竞态为空，已修 runner.pid 先落盘再报 running 并加契约断言）、ledger_ok=true、2s 后状态不被覆写、resource 可读；job B 重新 submit → done step=10 exit 0。阶段 C（purge 留存）仍未批准，不实现。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-176：D-052 判定粒度勘误（item 137② 附带完成）",
+      "description": "DECISIONS D-052 增加维护决定：「连续 3 轮 >540s」统一按双跑中位判定（单跑抖动不代表整轮变慢，单跑 >600s 已有硬护栏），r166–r168 按此不触线（r168 中位 531.0）；不改阈值、不改 D-041 文意、历史窗口不回改。",
+      "outcome": "done"
+    }
+  ]
+}

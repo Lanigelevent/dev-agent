@@ -1,0 +1,33 @@
+{
+  "ok": true,
+  "matrix": {
+    "engine": "libcst",
+    "version": "libcst 1.9.0 (.venv 实测)",
+    "target": "python",
+    "total_codemods": 2,
+    "fixable_codemods": 2,
+    "safe_fixable_codemods": 2,
+    "fixable_codes": [
+      "ref-eq-none",
+      "ref-in-keys"
+    ],
+    "safe_fixable_codes": [
+      "ref-eq-none",
+      "ref-in-keys"
+    ],
+    "codemods": {
+      "ref-eq-none": {
+        "desc": "x == None → x is None；x != None → x is not None（PEP 8，保序；None 字面量求值无副作用）",
+        "safety": "safe",
+        "note": "重载 __eq__ 特判 None 的病态类型不在语义等价保证内，闸五回归兜底"
+      },
+      "ref-in-keys": {
+        "desc": "k in d.keys() → k in d（dict.keys() 视图成员与 dict 成员等价）",
+        "safety": "safe",
+        "note": "仅单目标比较、无参 .keys() 调用才变换"
+      }
+    },
+    "risk_policy": "fix-dry 仅产出 diff 不落盘；产物经 fix-patch 混合修复与五道闸；闸五按引擎复扫（修复码消失且 after_codes ⊆ before_codes）",
+    "engine_clean_fp": "clean-fp 子命令口径；干净样例误报计入错误预算"
+  }
+}

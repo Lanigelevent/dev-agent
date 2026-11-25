@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-134：D-041 触线复盘 writeup——证据矩阵 r110..r134",
+      "description": "退出线复盘：r111–r117 窝口 7 连（中位 461.3→600.3）、r126–r131 窝口 6 连（r126 450.334 擦线起），两组均触线 D-041「连续 3 轮 >450s」且零处置留痕；600s 挂死护栏被实证贯穿两次且仍为绿（r115 run2 703.774s OK、r117 run2 650.172s OK，release-gate REDLINE_SEC=300 观测 + 无 timeout 包裹）；环比中位 >20% 实证一次未归因（r114→r115 +20.9%）；r132/r133/r134 回落解除窗口。处置提案 = D-052（450s→540s 触发线 + 600s timeout 强制执行 + 触线 writeup 当轮交付），状态：待总监裁决；本轮不改任何阈值/代码/release-gate。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-134：开局 key 轮换检查——tracked 文件零真实凭据",
+      "description": "开局检查单第 1 条：git ls-files 全量 grep（sk-/AKIA/ghp_/hf_/私钥头/xox 等形态）→ 命中 5 条全为误报或已知契约夹具（tests/test_agent.py 3 条带 secret-scan: allow；swebench 报告 2 条命中 logs/task-astropy 路径形态假阳性）；release-gate v2.35.0 secret_scan PASS；round-85 历史明文事件已轮换。结论：本轨迹无需轮换；若任何 key 曾在对话明文出现，需用户侧确认轮换。",
+      "outcome": "done"
+    }
+  ]
+}

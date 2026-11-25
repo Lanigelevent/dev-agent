@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-131：SWRBench review arm stride-20 × 50（n=100 累计）",
+      "description": "stride 20 选样 50 PR 完整 host 判卷：findings 全 0；judge fn=25（PR 级）/ fn=31（point 级）；clean 25/25 零误报。按 host 文件协议判卷 50/50 全部 []；非能力宣称，n=100 仅是流水线贯通验证，与官方 n=1000 口径不等价。",
+      "outcome": "done"
+    }
+  ]
+}

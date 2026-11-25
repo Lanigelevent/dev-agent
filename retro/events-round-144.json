@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "自研变异采样器 mutation-sampler.py（第 85 脚本，round-144）",
+    "description": "mutmut Windows 不可用（issue #397）→ stdlib AST 方案：四类算子单点翻转 × 聚焦测试 → 杀手分数；原文件 finally 恢复。RQG 实弹 38 位点抽 10 kill_rate 0.8（line 39 配置回退分支为盲区候选）。+5 契约。",
+    "outcome": "done"
+  }
+]

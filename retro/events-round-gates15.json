@@ -1,0 +1,16 @@
+[
+  {
+    "category": "手工",
+    "description": "移植 trigger-audit 首跑即抓到匹配器假红（MUST 26/27：单关键词「评审」嵌在超长分段被 24 字截断规则排除）与 21 个真口语盲区——源仓的判别力自检方法论（MUST 未过先调规则别改 description）直接避免了照盲区乱补词",
+    "root_cause": "匹配器粒度与 description 写法耦合：中文长分段无标点时单关键词取不出来",
+    "countermeasure": "extract_pool 长分段再按括号/箭头/斜杠子切（已在 trigger-audit.py 落地）；MUST/SOFT 判别力自检保留为每次体检前置（--self-check 已进 CI）",
+    "source": "retro/events-round-gates15.json"
+  },
+  {
+    "category": "手工",
+    "description": "doc-freshness 门禁首跑抓到 3 处真实漂移（README/DEVELOPMENT 写 51 个脚本实际 53）与 2 处测试计数漂移（200→207）——此前同类同步全靠人工 grep，v1.24.0 前一直存在静默过期窗口",
+    "root_cause": "数字型文档内容无对账机制；加脚本/加测试后计数必然变化，人工同步必漏",
+    "countermeasure": "doc-freshness.py 入 CI（F1-F6 判据 + 历史值跳过）；本轮已修正全部漂移并把「测试数=discover 收集数」锁进 test_real_repo_freshness_green（探针级回归）",
+    "source": "retro/events-round-gates15.json"
+  }
+]

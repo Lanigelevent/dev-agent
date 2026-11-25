@@ -1,0 +1,16 @@
+[
+  {
+    "category": "手工",
+    "description": "libcst 适配器凭旧版记忆写 API：PositionMetadataProvider 实为 PositionProvider、Call 无独立 keywords 属性（kwargs 在 args 带 keyword 字段）、顶层类体继承 cst.CSTTransformer 与惰性导入冲突——三连 AttributeError 靠逐跑暴露",
+    "root_cause": "与台账 9d3895093194（tree-sitter API 变更）同根因：凭记忆写第三方 API 未先实测属性面",
+    "countermeasure": "既有对策（agent/engines 层新依赖先在 .venv 实测 dir() 再写）再次生效；本轮已实测修正并通过 8 项测试；该教训第三次复发，升级为结构候选：新引擎接入前置检查单加一行「先跑 import + dir() 探针脚本」",
+    "source": "retro/events-round-libcst.json"
+  },
+  {
+    "category": "手工",
+    "description": "libcst_fix_text 的 codes 参数对串做 ','.join——fix-patch 按串传入被逐字符拆成 r,e,f,…（e2e 首跑才暴露，单元层因直传列表未覆盖）",
+    "root_cause": "照抄 ruff_fix_text 的 select 语义（串或列表均可）时未对齐参数契约，库函数内部假设了列表",
+    "countermeasure": "lib 函数入参兼容 str/list（tests/test_engines.py 全链 e2e 锁定）；教训：镜像既有库函数签名时，参数契约注释写进 docstring",
+    "source": "retro/events-round-libcst.json"
+  }
+]

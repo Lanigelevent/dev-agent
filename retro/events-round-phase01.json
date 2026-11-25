@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "category": "误报",
+      "description": "LLM 评审材料（step4 material）未脱敏：prompt 文件里 password= 字面量明文可见，违反硬约束 5 精神（产物含明文凭据形态）",
+      "root_cause": "material 直接取自 ctx[diff] 原文，只有 finding 级 snippet 走 redact",
+      "countermeasure": "下一轮把 material 过 redact() 再进 prompt（llm/provider 调用前）"
+    },
+    {
+      "category": "手工",
+      "description": "中途 resume 历史缺陷：产物摘要形状≠内存形状（step2_collect.json 的 files 是计数，内存是列表），宿主模式踩出三连崩溃",
+      "root_cause": "断点只存展示用产物，从未有中途续跑的真实用例",
+      "countermeasure": "resume-state.json 形状保真回灌（v1.15.0 已修）；教训：resume 能力必须有中途打断的真测试"
+    },
+    {
+      "category": "手工",
+      "description": "调研称 Ruff 有 Python API（ruff.lint），实测 pip 包只有 find_ruff_bin——无库 API",
+      "root_cause": "二手资料未实测",
+      "countermeasure": "引擎接入前先在 .venv 实测 API 面（已确认走 subprocess+JSON，与 LGPL 隔离同款模式）"
+    },
+    {
+      "category": "手工",
+      "description": "Edit 工具做纯空行微调时误删 def 行尾换行，def 与函数体合并成语法错误",
+      "root_cause": "old_string 含尾换行的小编辑风险",
+      "countermeasure": "无实质变更不提交编辑；插入方法用带上下文的完整块"
+    },
+    {
+      "category": "手工",
+      "description": "host 协议每维度各一问（提示词含维度名），首轮测试假设单轮填答错",
+      "root_cause": "协议设计时未写明征询粒度",
+      "countermeasure": "SKILL.md 已写明可能多次 WAIT/续跑；测试改循环填答（上限 8）"
+    }
+  ]
+}

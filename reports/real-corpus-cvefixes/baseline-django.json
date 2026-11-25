@@ -1,0 +1,130 @@
+{
+  "samples": [
+    {
+      "fix_commit": "9305c0e12d43c4df999c3301a1f0c742264a657e",
+      "parent_rev": "3e0857041b6bfc9deef392315c978abede706c92",
+      "repo_url": "https://github.com/django/django",
+      "local_repo": "django__django",
+      "files": [
+        "django/contrib/auth/tests/urls.py",
+        "django/contrib/auth/tests/views.py",
+        "django/contrib/auth/views.py",
+        "django/http/__init__.py"
+      ],
+      "cve_ids": [
+        "CVE-2012-4520"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "9305c0e12d43c4df999c3301a1f0c742264a657e"
+    },
+    {
+      "fix_commit": "ae3535169af804352517b7fea94a42a1c9c4b762",
+      "parent_rev": "09a5f5aabe27f63ec8d8982efa6cef9bf7b86022",
+      "repo_url": "https://github.com/django/django",
+      "local_repo": "django__django",
+      "files": [
+        "django/contrib/auth/tests/test_views.py",
+        "django/utils/http.py"
+      ],
+      "cve_ids": [
+        "CVE-2013-6044"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "ae3535169af804352517b7fea94a42a1c9c4b762"
+    },
+    {
+      "fix_commit": "cbe6d5568f4f5053ed7228ca3c3d0cce77cf9560",
+      "parent_rev": "ae3535169af804352517b7fea94a42a1c9c4b762",
+      "repo_url": "https://github.com/django/django",
+      "local_repo": "django__django",
+      "files": [
+        "django/contrib/admin/widgets.py",
+        "tests/admin_widgets/tests.py"
+      ],
+      "cve_ids": [
+        "CVE-2013-4249"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "cbe6d5568f4f5053ed7228ca3c3d0cce77cf9560"
+    },
+    {
+      "fix_commit": "316bc3fc9437c5960c24baceb93c73f1939711e4",
+      "parent_rev": "710e11d076b9e5ef3e3b486dfb70bb55b788691c",
+      "repo_url": "https://github.com/django/django",
+      "local_repo": "django__django",
+      "files": [
+        "django/utils/formats.py",
+        "tests/i18n/tests.py"
+      ],
+      "cve_ids": [
+        "CVE-2015-8213"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "316bc3fc9437c5960c24baceb93c73f1939711e4"
+    },
+    {
+      "fix_commit": "c5544d289233f501917e25970c03ed444abbd4f0",
+      "parent_rev": "f43291639bb968001df4719c4e69269bd8a3162b",
+      "repo_url": "https://github.com/django/django",
+      "local_repo": "django__django",
+      "files": [
+        "django/utils/http.py",
+        "tests/utils_tests/test_http.py"
+      ],
+      "cve_ids": [
+        "CVE-2016-2512"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "c5544d289233f501917e25970c03ed444abbd4f0"
+    },
+    {
+      "fix_commit": "67b46ba7016da2d259c1ecc7d666d11f5e1cfaab",
+      "parent_rev": "c5544d289233f501917e25970c03ed444abbd4f0",
+      "repo_url": "https://github.com/django/django",
+      "local_repo": "django__django",
+      "files": [
+        "django/contrib/auth/hashers.py",
+        "tests/auth_tests/test_hashers.py"
+      ],
+      "cve_ids": [
+        "CVE-2016-2513"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "67b46ba7016da2d259c1ecc7d666d11f5e1cfaab"
+    },
+    {
+      "fix_commit": "eb31d845323618d688ad429479c6dda973056136",
+      "parent_rev": "6b178a3e930f72069f3cda2e6a09d1b320fc09ec",
+      "repo_url": "https://github.com/django/django",
+      "local_repo": "django__django",
+      "files": [
+        "django/contrib/postgres/aggregates/general.py",
+        "django/contrib/postgres/aggregates/mixins.py",
+        "tests/postgres_tests/test_aggregates.py"
+      ],
+      "cve_ids": [
+        "CVE-2020-7471"
+      ],
+      "defect_class": "cve",
+      "evidence_commit": "eb31d845323618d688ad429479c6dda973056136"
+    }
+  ],
+  "sample_ids": [
+    "316bc3fc9437c5960c24baceb93c73f1939711e4",
+    "67b46ba7016da2d259c1ecc7d666d11f5e1cfaab",
+    "9305c0e12d43c4df999c3301a1f0c742264a657e",
+    "ae3535169af804352517b7fea94a42a1c9c4b762",
+    "c5544d289233f501917e25970c03ed444abbd4f0"
+  ],
+  "metrics": {
+    "recall": 0.2,
+    "hits": 1,
+    "precision": 1.0,
+    "claimed": 1,
+    "grounded": 1,
+    "valid_samples": 5,
+    "weak_samples": 0
+  },
+  "recorded": "2026-10-25",
+  "note": "run-regression 缺省子集（fix_commit 排序前 5）实测记录； recalling pipeline=deterministic-rules（无模型）"
+}

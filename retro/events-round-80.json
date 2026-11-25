@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "D-045 语料扩面离线部分：新批次 n=9 冻结入仓（gate-r80-batch.jsonl）",
+    "description": "lite.parquet 300 实例 − 暴露（gate 并集 11 + matplotlib 仓库级 12 + urllib3 1）= 池 278 → 健康过滤（problem/test_patch/test_cmds 非空）→ 按仓分组组内 id 升序取首，九仓各 1 条；problem/test_patch sha256（16 hex）冻结；协议 v4 + D-048 就位声明；确定性选法无难度筛选。"
+  },
+  {
+    "type": "confirmation",
+    "title": ">450s 四连归因观测完成：负载主导、非代码回归、红线不动",
+    "description": "r76-79 双跑 457-629s + 闸内 424-779s；同代码时段波动 90-290s（r79 pytest 551 vs 闸内 unittest 424）；与 r45 画像一致无单点慢测试异常；契约自然增长 527→538 贡献有限；600s 挂死护栏未触发。"
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "round": 0,
+  "tests": "pass",
+  "test_detail": [
+    "引擎 node（Node 内置测试器（1 个 *.test.*））",
+    "# tests 3",
+    "# suites 0",
+    "# pass 3",
+    "# fail 0",
+    "# cancelled 0",
+    "# skipped 0",
+    "# todo 0",
+    "# duration_ms 102.7877"
+  ],
+  "edits_applied": 1,
+  "patch_validation": {
+    "ok": true,
+    "issues": []
+  },
+  "selfcheck_broken": [],
+  "files": [
+    "lib/calc.ts"
+  ],
+  "patch_chars": 333,
+  "has_patch": true,
+  "patch_text": "diff --git a/lib/calc.ts b/lib/calc.ts\nindex 74160fe..b642399 100644\n--- a/lib/calc.ts\n+++ b/lib/calc.ts\n@@ -1,5 +1,5 @@\n export function clamp(value: number, lo: number, hi: number): number {\n-  if (value < lo) return hi;\n-  if (value > hi) return lo;\n+  if (value < lo) return lo;\n+  if (value > hi) return hi;\n   return value;\n }\n"
+}

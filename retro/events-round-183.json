@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-183：CI nightly 全量口径复核——600s 护栏双侧生效、无漂移",
+      "description": "reports/ci-nightly-audit-r183.md：ubuntu nightly GNU timeout 600（self-check.yml:51）；windows nightly subprocess.run(timeout=600)→exit 124 判红（:57-62，r139 强化，旧文档「仅 job-level 45min 兜底」已是历史口径）；release-gate REDLINE_SEC=600 + redline_note（:78,351）；cron 0 19 * * *；--require-hashes requirements-lock.txt；nightly 门禁面逐项在册（doc-structure/CVE/pip-audit/latency SLO 等）。零代码、版本不增、对外口径不变。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-183：开局与版本",
+      "description": "round-gate open --round 183 全 PASS；版本保持 v2.79.0 不增；key 轮换无新命中；light 收官。",
+      "outcome": "done"
+    }
+  ]
+}

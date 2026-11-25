@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "P0-3 GitHub 集成闭环：github-poster.py + Action workflow 模板",
+    "description": "github-poster.py（pr-kit review-comments.json → REST POST /pulls/{n}/comments；commit_id 自动取 PR head；token 只走环境变量；422 如实计失败不静默；429/5xx 一次重试；端点白名单=公网 https 或回环；dry-run 不联网）。.github/workflows/review.yml：Action 模式（pull_request + /review 评论触发，permissions pull-requests write，不自建 App）。"
+  },
+  {
+    "type": "test",
+    "title": "poster 4 契约（载荷/422/dry-run/token/白名单）",
+    "description": "环回假服务器真实 POST 验证载荷与 Bearer 头；tests/test_github_poster.py 全绿。"
+  }
+]

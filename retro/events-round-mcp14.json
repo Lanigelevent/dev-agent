@@ -1,0 +1,9 @@
+[
+  {
+    "category": "手工",
+    "description": "新增 MCP 工具只登记了 TOOLS 目录（tools/list 可见）漏注册 _TOOL_HANDLERS（tools/call 报「未知工具」）——两处注册点靠 tools/list 契约测试只抓到一半，tools/call 路径 e2e 才暴露",
+    "root_cause": "工具注册分散两处（目录与分发表），无单一事实源；tools/list 断言不覆盖 call 路径",
+    "countermeasure": "本轮 test_interop 增 refactor 工具的 scan+fix-dry 真调用用例（call 路径已覆盖）；后续新增工具在 DEVELOPMENT §5 新增 MCP 工具 checklist 明示两处注册点",
+    "source": "retro/events-round-mcp14.json"
+  }
+]

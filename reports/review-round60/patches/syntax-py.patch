@@ -1,0 +1,10 @@
+diff --git a/pkg/agg.py b/pkg/agg.py
+index 1111111..2222222 100644
+--- a/pkg/agg.py
++++ b/pkg/agg.py
+@@ -1,2 +1,5 @@
++def broken(:
++
++
+ def total(items):
+     return sum(items)

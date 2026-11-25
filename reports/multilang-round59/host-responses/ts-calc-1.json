@@ -1,0 +1,11 @@
+{
+  "action": "edit",
+  "edits": [
+    {
+      "path": "lib/calc.ts",
+      "search": "  if (value < lo) return hi;\n  if (value > hi) return lo;",
+      "replace": "  if (value < lo) return lo;\n  if (value > hi) return hi;"
+    }
+  ],
+  "summary": "clamp 上下界返回写反了：低于下界应返回 lo，高于上界应返回 hi"
+}

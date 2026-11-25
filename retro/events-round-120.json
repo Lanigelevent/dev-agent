@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "round-120：覆盖率常态出数——coverage-gate 首次常态实测与基线重切",
+    "description": "接 r85 P2-8 余项：measure（三子集）→ check 判 REGRESSION（overall 77.69 vs 77.78 在容差内）：llm/provider.py 94.25→83.11（r118 SSRF 加固净增 ~150 语句，子集不含新 SSRF 契约测试）；runner.py −1.44pp（r105 report-adapter 接线）；doc-freshness.py −0.6pp。扩容 DEFAULT_TESTS 为四项（test_provider_ssrf.py），重测 overall 77.85%（+0.07pp），provider.py 95.27%（+1.02pp）；按 round-89 先例重切入仓基线（旧基线留档 reports/coverage-round120/coverage-baseline-pre-r120.json）；check 复测 PASS",
+    "outcome": "done"
+  },
+  {
+    "type": "test",
+    "title": "round-120：gate 代码改动后套件双跑验证",
+    "description": "coverage-gate.py DEFAULT_TESTS/help 文案修改后全量套件双跑：688 项全绿、各 1 skip（453.019 / 406.188 秒，logs/suite-r120-run1/2.log）；round-gate close 与 release-gate 收官",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-120：两项如实入账未处理漂移",
+    "description": "runner.py（85.22%）与 doc-freshness.py（83.23%）相对 2026-11-06 基线的漂移经标注来源（r105 report-adapter 接线 / F5 行数移位）后维持原位，不擅自改行为代码或放宽 0.5pp 容差；如需收敛转各自模块补测试或下一轮基线一并裁定",
+    "outcome": "done"
+  }
+]

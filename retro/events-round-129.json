@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-129：SWRBench review arm smoke 全链路通（n=10）",
+      "description": "swrenbench-import.py review --corpus datasets/swrenbench/swr-slim.jsonl --stride 100 --limit 10 --all-pending；宿主判卷 10/10=[]；全套机械对账 judgen（mechanical 口径，PR 级 fn=5/point 级 fn=7，clean 5/5 零误报）；管线端到端通，不外推",
+      "outcome": "done"
+    },
+    {
+      "type": "feature",
+      "title": "round-129：SWRBench 全量 n=1000 续跑预算已批（round-126 后总监裁定）",
+      "description": "总监答复：宿主评阅预算已批（SWRBench 全量 n=1000），续跑；携带本轮 smoke 作为执行入口样本；全量判卷清洗按 stride 多轮消化",
+      "outcome": "done"
+    }
+  ]
+}

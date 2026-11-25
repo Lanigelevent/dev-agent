@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "540s 触发线观察裁决跑——间歇信号解除（round-162，123 条②）",
+    "description": "r162 双跑 465.85/475.57s 双双回落 540s 线内：越线序列 r160 两跑（557/581）+ r161 run2（573）为间歇型、被 r161 run1（459.80）打断，未成三连——按 r161 登记的观察口径不提级、阈值不动（D-052：总监裁决前不改阈值；本次无需提级）。观察解除。",
+    "outcome": "done"
+  },
+  {
+    "type": "doc",
+    "title": "双新检查首周观察收口（round-162）",
+    "description": "F10（r158 落地）：r159/160/161 三轮开局门 doc-freshness 全 PASS、零误报、唯一实证触发为 r158 单元反向验证与 r157 事故复刻；suite_count_claim（r159 落地）：r159/160/161 三轮 close 全 PASS（765==[765,765]×3），佐证 close 门活性（r160 pitfalls_reconcile 真拦格式错误）。两个机械对账检查首周零误报，观察收口。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-162 任务面取舍（round-162）",
+    "description": "123 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体。任务面=②观察收口轮（540s 裁决跑 + 双新检查收口，零代码变更 + 版本交付）。",
+    "outcome": "done"
+  }
+]

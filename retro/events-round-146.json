@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "OpenSSF Scorecard 整改（round-146）",
+    "description": "4 处 Actions SHA 钉定（ls-remote 权威 SHA）+ self-check permissions 收敛 + SBOM 20 组件 + SAST 自查（astgrep 安全族扫自身仓，安全族零命中；r151 补 103 文件 0 错误完整性）。",
+    "outcome": "done"
+  }
+]

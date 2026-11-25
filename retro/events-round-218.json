@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-14 沙箱可行性评估 + RouteLLM 读设计——阶段三收官轮（round-218）",
+    "description": "AB-14：可行性评估完成暂不实施——威胁面已覆盖（五道闸唯一落盘入口+批准书绑定+worktree 分支隔离；容器档即得 OS 级隔离）、平台错位（Landlock=Linux 先行，本机 Windows 无等效物；Job Objects 不限 FS 写）；实施条件备档（Linux 部署+容器档不够用→按 Codex 三档语义实现 Landlock profile 装载器）。RouteLLM：读设计完成不采纳（宿主协议零成本无路由可省+项目已放缓退场跟踪纪律）。**阶段三七项全终局（4 落地+3 评估性终局）；吸收列表 27 项+RouteLLM 零悬置**。",
+    "countermeasure": "reports/ab14-sandbox-routellm-r218.md 阶段三总清点表。",
+    "source": "round-218"
+  }
+]

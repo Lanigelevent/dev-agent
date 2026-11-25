@@ -1,0 +1,14 @@
+[
+  {
+    "type": "feature",
+    "title": "供应链锁定：uv.lock + 哈希锁定 CI 安装 + dependabot",
+    "description": "uv.lock（107 包全图解析）+ requirements-lock.txt（uv export --hash --no-emit-project --extra dev，20 直接依赖全 sha256）；self-check.yml 改 pip install --require-hashes；依赖漂移（typescript/go 缺项）随锁清零；dependabot pip+github-actions weekly；windows nightly 增 python 600s 包装（D-052 精修）。",
+    "outcome": "done"
+  },
+  {
+    "type": "pitfall",
+    "title": "锁解析回退 pytest 8.4.2（精确约束方未定位）",
+    "description": "uv lock 在 isolated extra 全图（semgrep 30+ 依赖树/pynguin）解析下把 pytest 回退到 8.4.2（venv 实跑 9.2.0；--upgrade 亦然；单包独立解析 9.2.0 正常）。套件双版本均全绿（r110 迁移验证），差异如实记录；精确约束方未定位，r140+ 候选 tool.uv override-dependencies 强制 pytest>=9 后重锁。",
+    "outcome": "pitfall"
+  }
+]

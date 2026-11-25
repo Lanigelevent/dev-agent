@@ -1,0 +1,49 @@
+[
+  {
+    "type": "confirmation",
+    "description": "总监 2026-10-30 会话内声明「后续全权交由你负责推进」——发布动作（D-035）与 D-041 批准在本授权范围内执行：tag v1.66.0（c5b54c1）与 v1.67.0（adb6641）按各自 release-gate 七项全绿证据落附注 tag（仓库首批 tag，D-035 发布动作首次实际执行）；D-041 按提案方案 2 批准（300s 降观测线、600s 硬挂死护栏 timeout 600 包裹、单测 60s 保留、升级触发=连续 3 轮 >450s 或单项超线、环比中位 >20% 须归因；release-gate 侧 redline_sec=300 保留为观测线不动、代码侧改动留待下次代码轮随契约一起动）",
+    "evidence": "git tag -l、docs/DECISIONS.md D-041（执行口径段）、BASELINE.md 测试预算段、retro/next-round.md 第 9 条"
+  },
+  {
+    "type": "feature",
+    "description": "round-67 D-045 首个冷启动编码数据点（llama_deploy-330）：任务文本仅 problem_statement（108 字符，零反馈——不带 F2P/P2P 名称、判分反馈；e2e basic_hitl 目录在 base 快照零命中经循环内搜索确认）；宿主文件协议驱动编码循环（CRA_LLM_PROVIDER=host），两次尝试（第 1 次 6 轮预算耗尽 0 编辑——宿主响应节奏问题；D-045 允许的 1 次整轮重试用于第 2 次，--rounds 12）；第 2 次尝试 7 轮 / 1 编辑 / 仓库套件 pass，补丁 1 171 B / 1 文件 / +13 行（SessionClient.send_event：以当前任务 agent_id 为目标注入后续任务的最小实现）；判分 live-sample --mode predictions --f2p-only 123.468 s：F2P 2 条全败（test_run_client TypeError / test_run_client_async AssertionError）→ **failed**（D-045 四态如实记录，不计 resolved/f2p_passed）",
+    "evidence": "datasets/swebench/live-runs-r67/coldstart-llama_deploy-330/（manifest/edits.patch/llm-tasks/）、datasets/swebench/live-runs-r67/live-judge/work/2fcf73a62b7c/test.log、reports/swebench/live-coldstart-run-2026-10-30.md"
+  },
+  {
+    "type": "confirmation",
+    "description": "cold-start 失败形状与边界（n=1 不外推）：任务难度字段 5 文件/17 hunks/128 行——完整修复面是控制面事件路由改造（客户端+控制面+服务多端），宿主只产出单文件最小实现；45 分钟墙钟预算被宿主文件协议往返延迟大幅突破（编辑轮之间每跳含宿主思考与文件落盘），≤20 编辑只用 1、≤1 重试已用；零反馈设计的候选面无法从 base 快照材料唯一确定（控制面无事件端点、ActionTypes 无事件类型、send_event 全仓零命中）——与带反馈口径 20/20 并列呈现，正好校准「带反馈复修 ≠ 冷启动解题」的外推边界",
+    "evidence": "datasets/swebench/live/gate-r65-llamadeploy.jsonl（difficulty 字段）、datasets/swebench/live-runs-r67/live-judge/live-sample-ledger.json、docs/DECISIONS.md D-045"
+  },
+  {
+    "type": "pitfall",
+    "category": "手工",
+    "description": "【坑】宿主文件协议驱动编码循环时，宿主响应节奏过慢耗尽默认 6 轮预算：第 1 次尝试把 6 轮全部花在 read/search 探索上，0 编辑收束——每次宿主响应间隔含多步思考与文件写盘，编码循环的轮数预算不是为「每轮数十秒宿主往返」设计的",
+    "root_cause": "宿主既当编排器又当模型，响应延迟远高于 API 端点；未在开局就显式给足轮数（--rounds 默认 6），且探索未设步数止损",
+    "countermeasure": "宿主协议跑编码循环必须显式 --rounds（建议 12，仍受 D-045 ≤45min/≤20 编辑约束）；宿主响应纪律=首轮定向搜索、第二轮内编辑，探索不超过 2 轮；若再遇预算耗尽按 D-045 记 blocked 不刷重试",
+    "source": "datasets/swebench/live-runs-r67/coldstart-llama_deploy-330-attempt1-rounds-exhausted/task-meta.json（rounds 6 / edits 0）、round-67 会话过程",
+    "closure": "第 2 次尝试以 --rounds 12 + 果断响应 7 轮完成 1 编辑并收束（datasets/swebench/live-runs-r67/coldstart-llama_deploy-330/task-manifest.json）"
+  },
+  {
+    "type": "pitfall",
+    "category": "行为回归",
+    "description": "【坑】round-65 新加的 node_id 前置体检不尊重 --f2p-only 判分范围：matplotlib-28933 的 P2P 含 219 条上游截断 id（如 test_bad_afm[nope\nreally），f2p-only 只判 F2P、P2P 与判分无关，却被体检把整条通路 0.0s 拦死——round-51 的 matplotlib 结案复验命令连带失灵，且两轮收口（round-66/67 前半程）都没跑结案命令全量复验，回归漏网",
+    "root_cause": "体检函数以「任务声明全集」为扫描范围而不是「实际判分集合」；收口检查单缺「结案命令全量复验」这一步（round-59 起结案口径的惯例在连续两轮被跳过）",
+    "countermeasure": "node_id_problems 增 f2p_only 参数、范围对齐判分集合（run_one 与 dry-run 两处调用点同步）；契约 test_node_check_scopes_to_judged_ids 钉住三态（f2p_only+坏P2P 放行 / dry-run 计 0 / 坏 F2P 仍拦）；astropy 闭坑命令的时代绑定断言 resolved==19 改为 >=19 下限不变式；结案复验进 next-round 检查单（第 28 条）",
+    "source": "datasets/swebench/live-runs/live-sample-ledger.json（matplotlib malformed_node_ids 行）、scripts/verify-closure-commands.py 输出（2 violations）、round-67 会话",
+    "closure": "契约 test_node_check_scopes_to_judged_ids 绿（12/12 模块内）+ matplotlib 结案命令逐字复跑取绿 + verify-closure 全量复验 0 violations"
+  },
+  {
+    "type": "test",
+    "description": "round-67 契约 +1（527→528）：test_node_check_scopes_to_judged_ids——f2p_only 时 P2P 坏 id 不判 malformed（放行到取源阶段）、dry-run 计划 node_id_problems 按 f2p_only 计 0、F2P 坏 id 仍立即判红",
+    "evidence": "tests/test_live_sample.py::TestLiveSample.test_node_check_scopes_to_judged_ids"
+  },
+  {
+    "type": "pitfall",
+    "category": "外部依赖",
+    "description": "【坑】多轮高强度评测（venv 创建 + pytest 判分 × 多实例）后，Windows 机器进入进程孵化退化态：全量套件非确定性挂起——同一天三次形态（test_dual_reviewer setUpModule ERROR 后无进展 / test_engines 单测挂住 / 子进程 rc=3221225794 DLL 初始化失败），与代码改动无关（改动模块单跑 12/12 绿）；期间一次并发跑结案复验加重负载，600s 护栏按 D-041 新语义完成首次实战击杀（rc=124 而非无限挂死）",
+    "root_cause": "违反「跑之前确认没有并发重负载」硬规矩：把套件与结案命令全量复验并行；机器数小时高负载后进入退化态，进程孵化间歇失败",
+    "countermeasure": "全量双跑与任何重量级评测命令严格串行、跑前确认 0 python 进程；挂起按 D-041 由 timeout 600 击杀处置（护栏有效性首证）；退化态处理=清场静置后独占重跑，不逐个调试抖动测试",
+    "source": "logs/suite-r67-run1.log（rc=124 两轮）、round-67 会话过程、$TEMP/hang-diag.log",
+    "closure": "清场独占后双跑全绿 528 项 375.515 / 396.820 秒（logs/suite-r67-run1/2.log，1 skip；round-48 以来首次 300s 线内双跑）"
+  }
+]

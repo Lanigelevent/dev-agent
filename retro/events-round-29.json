@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "category": "转人工",
+      "description": "全量套件里有两条测试用 shutil.copytree 把整个工作树复制进临时目录（本仓 datasets/ 与 .venv/ 体积巨大），单跑 tests/test_scripts.py 耗时 512–528 秒，全量逼近 8 分钟；慢的形状像「代码回归」，实际是夹具在拷盘",
+      "root_cause": "测试夹具需要「一份真实仓库快照」来跑仓级门禁脚本，但复制时没有忽略清单，把非源码的大目录一起拖进了每次运行；这条成本从项目早期就在，只是以前没人给套件计时",
+      "countermeasure": "给两处夹具加共享的 SNAPSHOT_IGNORE（__pycache__/.git/.venv/datasets/logs/.tmp-sympy-ref/node_modules/egg-info/.idea 等），复制只带源码；全量实测从 512–528 秒降到约 222–244 秒（4 分钟级）",
+      "source": "round-29 全量计时实跑（tests/test_scripts.py::snapshot_repo）"
+    },
+    {
+      "category": "误报",
+      "description": "邻近测试三路映射的 B 路（模块路径段 ↔ tests/<app>/）在真实 django 形状上从来没触发过：泛化模块名（base.py → test_base.py）在 A 路先命中一堆同名噪声，A 只要有命中就直接返回，B 永远轮不到——「三路映射」实际只有一路半在跑",
+      "root_cause": "find_sibling_tests 的取舍写成「A 有命中就返回」，没有区分「A 的命中是具体名字还是泛化名」；django 那种 base.py/utils.py 泛化名会稳定制造跨 app 的同名噪声，于是 B 的强证据（路径段）被弱证据（名字）短路",
+      "countermeasure": "scripts/sibling-test-bench.py 建立可复算的命中率口径（7 例合成语料 + 逐例通道归因 + 噪声必须带标注），先把缺陷量化成数字；再在 repo_map.py 里区分 a_specific/a_ambiguous，泛化名多目录命中时让位给 B，并把名字泛化命中显式标注「按名字泛化命中」",
+      "source": "round-29 邻近测试命中率实测（scripts/sibling-test-bench.py）"
+    },
+    {
+      "category": "行为回归",
+      "description": "跑 retro-report.py 出 round-29 轮报时，脚本按「已有轮报文件数 + 1」自增轮号；retro/ 归档缺 round-9-report.md（27 个文件），于是算出 28 并把真实存在的 retro/round-28-report.md 原地覆盖，靠 git checkout 才恢复",
+      "root_cause": "轮号自增用了「个数」而不是「最大值」，隐含假设归档连续无缺口；本仓归档实际有缺轮（round-9 从未落盘），这个假设早就破了，只是从没在缺轮目录上跑过自增路径",
+      "countermeasure": "retro-report.py 的缺省轮号改为 max(已有轮号)+1（新增 _next_round），并在 docstring 里写明「不是文件数 + 1」与这次的实踩；tests/test_retro.py::test_report_round_survives_gap_in_archive 造 round-1+round-3 缺 round-2 的归档，断言下一轮=4 且 round-3 正文逐字节不变；把 _next_round 改回 len+1 后该断言立刻失败（3 != 4），判别力已验证",
+      "source": "round-29 轮报生成实跑（覆盖 round-28 后 git 还原）"
+    }
+  ]
+}

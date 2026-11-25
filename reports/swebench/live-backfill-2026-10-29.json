@@ -1,0 +1,78 @@
+{
+  "schema": "live-backfill/1",
+  "round": 65,
+  "version": "1.66.0",
+  "date": "2026-10-29",
+  "source_policy": "gitee 优先 -> GitHub 回退；单源 150s 上限，慢即判死（硬约束 8），每次降级记原因",
+  "seeding": [
+    {"repo": "llama_deploy", "instance": "run-llama__llama_deploy-330",
+     "gitee": {"result": "MISS", "secs": 10, "rc": 128, "reason": "镜像无此仓"},
+     "github": {"result": "OK", "secs": 58}, "kb": 2043, "outcome": "ready"},
+    {"repo": "pdm", "instance": "pdm-project__pdm-3237",
+     "gitee": {"result": "MISS", "secs": 150, "rc": 124, "reason": "超时"},
+     "github": {"result": "OK", "secs": 85}, "kb": 2979, "outcome": "ready"},
+    {"repo": "conan", "instance": "conan-io__conan-17092",
+     "gitee": {"result": "MISS", "secs": 150, "rc": 124, "reason": "超时"},
+     "github": {"result": "OK", "secs": 37}, "kb": 1487, "outcome": "ready"},
+    {"repo": "keras", "instance": "keras-team__keras-20389",
+     "gitee": {"result": "OK", "secs": 2}, "github": {"result": "unused"},
+     "kb": 1595, "outcome": "ready"},
+    {"repo": "cfn-lint", "instance": "aws-cloudformation__cfn-lint-3749",
+     "gitee": {"result": "MISS"}, "github": {"result": "OK", "secs": 73},
+     "kb": 2699, "outcome": "ready"},
+    {"repo": "instructlab", "instance": "instructlab__instructlab-2526",
+     "gitee": {"result": "MISS", "secs": 27, "rc": 128, "reason": "镜像无此仓"},
+     "github": {"result": "MISS", "secs": 150, "rc": 124, "reason": "超时"},
+     "outcome": "blocked"},
+    {"repo": "pvlib-python", "instance": "pvlib__pvlib-python-2249",
+     "gitee": {"result": "MISS", "secs": 150, "rc": 124, "reason": "超时"},
+     "github": {"result": "MISS", "secs": 151, "rc": 124, "reason": "超时"},
+     "outcome": "blocked"}
+  ],
+  "not_attempted": [
+    {"repo": "haystack", "instance": "deepset-ai__haystack-8489",
+     "reason": "全量克隆 429 MB；单 sha depth-1 取法待单独评估"},
+    {"repo": "reflex", "instance": "reflex-dev__reflex-4087",
+     "reason": "全量克隆 211 MB；同上"}
+  ],
+  "excluded": [
+    {"instance": "matplotlib__matplotlib-28933",
+     "reason": "仓库级历史暴露（agent 口径 matplotlib-22711/22835 与 gold 多例），按 D-045 剔除"}
+  ],
+  "cfn_lint": {
+    "state": "malformed_node_ids",
+    "bad_node_ids": 329,
+    "declared": {"fail_to_pass": 3, "pass_to_pass": 1223},
+    "before_fix": {"state": "baseline_unexpected", "elapsed_sec": 192.312,
+                   "pytest_summary": "6 failed, 1666 passed, 4 deselected in 153.68s",
+                   "p2p_passed": 894, "p2p_missing": 329,
+                   "note": "6 条失败均不在该实例 P2P 清单内；329 missing 全部由截断 id 造成"},
+    "after_fix": {"state": "malformed_node_ids", "elapsed_sec": 0.0,
+                  "note": "开跑前体检括号闭合，不建环境不跑套件"},
+    "adapter_change": "live-sample.py node_id_problems + failed_states + dry_run 计划字段",
+    "contract_test": "tests/test_live_sample.py::test_truncated_node_ids_fail_fast"
+  },
+  "llama_deploy": {
+    "v1": {"state": "baseline_unexpected", "elapsed_sec": 194.625,
+           "f2p": "2/2 FAILED（基线预期）", "p2p": "114/117 passed + 3 missing",
+           "missing_reason": "aiokafka / aio_pika 未装，skipif 用例整体跳过"},
+    "v2": {"state": "baseline_ok", "elapsed_sec": 81.828,
+           "pytest_summary": "3 failed, 117 passed, 10 warnings in 66.42s",
+           "f2p": "2/2 FAILED（基线预期）", "p2p": "117/117 passed, 0 missing",
+           "setup_change": "setup_cmds 补 aio-pika aiokafka",
+           "failing_not_in_judge": ["tests/services/test_workflow_service.py::test_hitl_workflow_service"]}
+  },
+  "capability_claims": {
+    "cold_start_resolved_claims": 0,
+    "note": "本轮只推进源就位与基线可判性；resolved 口径仍阻塞于未曝光官方镜像与国内 docker 源 usable_rank=[]（round-64）"
+  },
+  "evidence": [
+    "logs/seed-live-sources.log",
+    "logs/live-cfnlint-baseline.json", "logs/live-cfnlint-baseline2.json",
+    "logs/live-cfnlint-nodecheck.json",
+    "logs/live-llamadeploy-baseline.json", "logs/live-llamadeploy-baseline2.json",
+    "datasets/swebench/live-runs-r65/live-sample-ledger.json",
+    "datasets/swebench/live-runs-r65/work/945ca629c037/test.log",
+    "datasets/swebench/live-runs-r65/work/d3c94e6f310f/test.log"
+  ]
+}

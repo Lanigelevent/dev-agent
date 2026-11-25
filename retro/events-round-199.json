@@ -1,0 +1,18 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-01 trace 评分回挂 + 评测集导出器（round-199，路线图阶段二①，第 87 号脚本）",
+    "description": "落地：①agent/trace.py 增 score() 记录（Langfuse score 模型本地 JSONL 形态：trace_id/observation_id/name/value/data_type/comment/timestamp）；②trace-export.py（第 87 号脚本）：trace JSONL → 评测集（schema trace-eval-set/1：逐会话 span/llm/token/cost 聚合 + score 明细 + --require-score 质检）。勘误（诚实口径）：吸收列表 AB-01 验收原写「被 run-samples.py 消费」——schema 核查 trace 会话与评审缺陷样本不同构，消费者勘误为 judge 重跑路径（AB-02 集成）。复用优先：Langfuse SDK（MIT）不引（live server+重依赖），scheme 复用同字段语义。",
+    "countermeasure": "首跑揭两处漂移即修（F5 README 叙述位计数惯例款 + doc-drift Q10 docstring 示例含未实现 --min-score——新脚本入仓前三检纪律再实证）；计数声明误计（+5 实为 +4）被 suite_count_claim 拦截勘误。",
+    "source": "round-199"
+  },
+  {
+    "type": "correction",
+    "title": "收官链漏 events 文件三犯（r195/r198/r199）——close 门 retro_artifacts 三次拦截兜底有效",
+    "description": "本轮第三次在收官链漏写 events-round-N.json（r195/r198/r199 三犯），三次均被 close 门 retro_artifacts 正确拦截；同轮 suite_count_claim 又拦计数误计（声明 809 实测 808）。两闸均为既有机检，拦截有效但流程前移可免返工。",
+    "root_cause": "收官链把 events 撰写放在 close 之前而非与收官行同批；计数声明凭推算不实测。",
+    "countermeasure": "固化收官链顺序：**events 与收官行同批撰写（收官链第 0 步）** → 双跑 → release-gate → close；计数声明一律以双跑实测为准（suite_count_claim 机械对账兜底已三验）。",
+    "source": "round-199",
+    "confidence": "observed"
+  }
+]

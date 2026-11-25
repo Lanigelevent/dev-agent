@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-13 Hooks 拦截器对照审计——已对齐零缺口（round-205，路线图阶段二④）",
+    "description": "五道闸 vs Claude Code Hooks 逐面状态机映射：能力覆盖 4/5，唯一差距（改写返回）是有意排除——审核分立硬约束（闸面改写=变相自审自批）+ 补丁 sha256 不可变 + REJECTED→重出路径已存在。AB-12/AB-13/AB-15 三审计同类结论：已有对齐零缺口，不需改动。",
+    "countermeasure": "审计产物 reports/ab13-hooks-audit-r205.md；Claude Code Hooks 5 模式（改写/阻断/逐工具审批/TodoWrite/三级权限）映射——四项已有对应，一项有意排除。",
+    "source": "round-205"
+  }
+]

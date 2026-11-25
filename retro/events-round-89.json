@@ -1,0 +1,12 @@
+[
+  {
+    "type": "feature",
+    "title": "coverage-gate 拆分连带回归修复 + 防再犯契约",
+    "description": "round-88 拆分后 coverage-gate DEFAULT_TESTS/scope.tests 仍指 test_scripts.py，check 实测 rc=2（rc=5 空采集）——CI 覆盖率单格将在下轮必红。修复：DEFAULT_TESTS 改 glob（test_scripts_*.py 一个模式收拢 8 拆分文件，夹具每进程一次不膨胀）+ docstring 同步；契约 +1（DEFAULT_TESTS 模式必须命中真实测试文件）。"
+  },
+  {
+    "type": "feature",
+    "title": "覆盖率重定基线 + 常态出数证据",
+    "description": "measure 重跑出数：overall 79.34→77.78、文件 57→74（旧基线 2026-10-29 后新增源文件入集：round-gate/bump-version/gate-run/code_task 包等，分母扩大非回退）；基线按条款显式重定（scope.tests 同步新布局），check live 实测 PASS；证据 reports/coverage-round89/measured.json。measure 首跑反手抓住本轮自己的计数漂移（+1 契约后 586 vs 文档 585，真仓 freshness 门拦下）——当场传播。"
+  }
+]

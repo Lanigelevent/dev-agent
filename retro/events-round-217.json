@@ -1,0 +1,15 @@
+[
+  {
+    "type": "feature",
+    "title": "AB-06 提示优化循环落地——prompt-optimizer.py 第 90 号脚本（round-217，阶段三⑤，版本 2.97.0）",
+    "description": "评估器驱动的提示优化循环（DSPy Optimizer 同型思想，读设计不装库）：plan 机械展开变体矩阵（prompt-watch 3 监视面 × detail/order/style 三维度 = 21 变体）；evaluate 评估协议（无评审臂 → blocked_no_judge 不冒充已评；有臂 → judge 任务经宿主协议下发——HostLLMPending 文件进出零 key 面）；adopt 采纳闸——precision ≥ 护栏地板 0.65 且 ≥ baseline 不许降（吸收列表验收原文），通过以新指纹固化静态 md 变体回主流程（AB-03 指纹纪律沿用）。",
+    "countermeasure": "skills/eval-harness/scripts/prompt-optimizer.py + 5 契约（tests/test_prompt_optimizer.py：矩阵展开/采纳含指纹/下降双理由拒绝/无基线 blocked_no_baseline/无臂不冒充已评）+ SKILL.md 登记 + BASELINE 行数基线 459→481 + AGENTS 清单 90 + 版本 2.97.0。烟测实证：good 0.70≥0.6667 ADOPTED+指纹、bad 0.60<0.65 REJECTED 双理由。",
+    "source": "round-217"
+  },
+  {
+    "type": "confirmation",
+    "title": "dead-code-scan 未用导入拦截实证（round-217）",
+    "description": "run1 翻红 2 例：prompt-optimizer.py 未用导入（importlib/uuid——最终设计未消费）。检查器机械抓出后移除，31+ 测试全绿；连续第二轮死代码面拦截实证（r216 死函数/r217 未用导入），CI 自净有效。",
+    "countermeasure": "移除两导入；双跑重启全绿。"
+  }
+]

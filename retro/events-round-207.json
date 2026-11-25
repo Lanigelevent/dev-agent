@@ -1,0 +1,9 @@
+[
+  {
+    "type": "doc",
+    "title": "AB-04 Harbor 三件套概念映射——已对齐零缺口，改名 ROI 不值（round-207，路线图阶段二⑥）",
+    "description": "评测链所有脚本已按 prepare→run→judge 三动词结构组织——与 Harbor 的 task/solver/validator 三件套同型对齐（reports/ab04-harbor-mapping-r207.md）。命名差异仅是动词名选择，不构成功能差距；文件改名 ROI 不值打破引用面。矩阵并行是真实差距但当前评测量未达需要并行的规模（留观察）。与 AB-07/12/13/15/17/21 七审计同类：已对齐零缺口。",
+    "countermeasure": "审计产物 reports/ab04-harbor-mapping-r207.md；三件套概念映射终局（不再重议）；矩阵并行留观察（评测量增长后启动）。",
+    "source": "round-207"
+  }
+]

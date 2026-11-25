@@ -1,0 +1,8 @@
+[
+  {
+    "type": "feature",
+    "title": "astgrep 适配器 WinError 206 修复（payload 文件传输）",
+    "description": "_run_astgrep 此前把整个源文件+29 规则 JSON 走 argv（Windows 32767 字符上限），7 个大文件扫描必炸；改临时 payload 文件传输后 103 文件全量 0 错误、134 findings（补齐 27 条同型 print-debug）。18 契约全绿、矩阵逐位一致（传输层变更不影响结果）。",
+    "outcome": "done"
+  }
+]

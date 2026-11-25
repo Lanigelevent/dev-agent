@@ -1,0 +1,20 @@
+[
+  {
+    "type": "feature",
+    "title": "台账清账轮：五坑逐项取证结案（round-160）",
+    "description": "5 个未结坑逐项以仓内可验证证据结案：①release-gate._parse_suite 契约（r152 +6，tests 实证 7 处触达）；②uv lock pytest 压回（r149 override 落地，uv.lock 实证 overrides 条款 + 9.2.0）；③前置校验判卷集口径（r138 当轮已纠正，D-053 检查实装为纯判空不改判卷 order，实证 557/792）；④双跑判红宿主负载（裁决 A 已执行 + D-052 红线护栏 + r157-159 三轮 6 跑全绿 <600s 未复发）；⑤libcst 管道直比（坑文自录无需改码，对策固化为纪律，五轮零复发）。台账 249 / open 0 / closed 225 / archived 24——开册以来首次清零。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "suite_count_claim 首轮实战观察（round-160，121 条②）",
+    "description": "r159 close 门新检查首用即 PASS（声明 765 == 实测 [765, 765]），收官门七项全过；检查产出（claimed/measured）入 close JSON 供审计。",
+    "outcome": "done"
+  },
+  {
+    "type": "confirmation",
+    "title": "round-160 任务面取舍（round-160）",
+    "description": "121 条①MCP 异步作业：D-055 仍待总监裁决跳过；③操作员项不属智能体。任务面=②suite_count_claim 观察（完成）+ 台账清账轮（五坑结案，open 0）。",
+    "outcome": "done"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "type": "feature",
+    "description": "ACI 阶段二 2.1–2.5 全部落地：repo map 增文件级 import 图 + 个性化 PageRank（--rank graph，默认 refs，repo_map.py 暴露 build_import_graph/personalized_pagerank/graph_rank）；search 由遍历序改为「定义>引用>注释 → 与候选文件路径距离 → 路径/行号」排序（先收 10×max_hits 再取前 40）；新增只读 list 动作（限深≤3、≤200 项、剪运行产物、符号链接不跟随、路径必须落在工作区）；测试子集按改动文件走 A/B 两路映射（C 路关闭），子集失败回退全量，1/3 确定性抽检再跑全量、未抽检明确标注；编辑后 tree-sitter ERROR 节点 + ast.parse 双网语法校验（非末轮退回重做，收束前再查一次）。新增 9 项契约测试（TestAciStageTwo），含宿主协议两轮「坏补丁退回→改对 DONE」端到端",
+    "evidence": "agent/repo_map.py；agent/code-task.py；tests/test_agent.py::TestAciStageTwo（9 项 OK）；scripts/aci-retrieval-bench.py"
+  },
+  {
+    "category": "能力盲区",
+    "description": "【坑】图排序的种子被命名空间泛词淹没：任务文本里的仓库名（如 django）按路径段匹配会把半棵树变成 PPR 种子，个性化退化成均匀分布，图邻居排序失去区分度",
+    "root_cause": "graph_rank 的路径段种子没有频次上限；django 仓里路径含 django 的文件占多数，seed 集过大时重启分布近乎均匀",
+    "countermeasure": "路径段命中的关键词若匹配文件数 >30 直接跳过、不作为种子；已有候选（关键词打分产生）仍是种子。修改后重跑基准（前两轮结果作废）",
+    "source": "agent/repo_map.py::graph_rank；scripts/aci-retrieval-bench.py --rank 对比；round-53 执行过程"
+  },
+  {
+    "category": "行为回归",
+    "description": "【坑】tree-sitter 的 ERROR 恢复对两类坏语法失明：多个空格的缩进错误与缩进不齐的截断 def（10 个变异坏样本只抓 8 个），若只靠 has_error 会有语法破坏漏进补丁",
+    "root_cause": "tree-sitter 为容错解析会把错误缩进当作可恢复结构，根节点不标 has_error；CPython 解析器对此类必报 SyntaxError",
+    "countermeasure": "syntax_issues 加 ast.parse 第二道网（只查本次编辑过的 .py，避免老语法误报）；变异语料 10/10 且 0 假阳性，单元测试用 bad_indent.py 反向锁定",
+    "source": "agent/repo_map.py::syntax_issues；tests/test_agent.py::test_syntax_issues_flags_broken_python_only；scripts/aci-retrieval-bench.py BROKEN_SNIPPETS"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】真实语料基准在运行中两次被代码修改作废：第一次跑着跑着发现图种子泛词问题改了 graph_rank，第二次又给 _run_tests 加了抽检——被测代码变了，跑出的数字不再对应最终实现，只能 TaskStop 后重跑",
+    "root_cause": "长跑基准与功能开发交叉进行，没有先冻结被测实现；基准脚本自身也在改（种子阈值、抽检），结果与被测版本失去一致性",
+    "countermeasure": "长跑前先冻结被测文件（git diff 记录）并自测脚本；运行中只做只读审查；任何生产代码改动都作废当前跑次并重跑，不拿混合版本的数字写报告",
+    "source": "reports/aci-round53-bench.log（三轮运行痕迹）；round-53 执行过程"
+  },
+  {
+    "category": "测试",
+    "description": "【坑】Windows 非管理员创建符号链接报 WinError 1314，list 越界测试里「不得跟随符号链接」的断言在 CI/本机环境不一致",
+    "root_cause": "Windows 创建 symlink 需要 SeCreateSymbolicLinkPrivilege（管理员或开发者模式），普通用户进程直接失败",
+    "countermeasure": "测试里 try/except 捕获创建失败，仅在符号链接真正建立时断言「不跟随」；仍保留 ../ 与绝对路径越界两类必断言，路径越界判据不受影响",
+    "source": "tests/test_agent.py::test_list_tree_bounded_and_jailed；round-53 执行过程"
+  },
+  {
+    "category": "口径纪律",
+    "description": "【坑】README 新写的「新增 9 项测试」被 doc-freshness F5 当成测试总数（任何「N 项」都按用例数核对），全量套件第一跑因此红一条（test_real_repo_freshness_green，346.990s，failures=1）",
+    "root_cause": "F5 判据是「N 项」= unittest 用例数，不区分「新增 N 项测试」这类增量表述；写文档按中文习惯用了「项」，门禁按总数解释",
+    "countermeasure": "增量表述改「N 条用例（451→460）」，紧跟历史标记；「N 项」只留给总数口径。改后 doc-freshness 0 漂移，全量套件重跑复验",
+    "source": "logs/suite-r53-run1-fail.log（346.990s）；README.md round-53 段；skills/self-iteration/scripts/doc-freshness.py F5 正则"
+  }
+]
