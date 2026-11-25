@@ -28,7 +28,7 @@
 
 | 指针 | 权威范围 |
 |---|---|
-| [<host-memory>/memory/MEMORY.md](../../<host-memory>/memory/MEMORY.md) | 项目长期记忆（本地资产不入库；按日追加） |
+| 本地会话记忆 | 由宿主维护，不在公开仓分发 |
 | [retro/pitfalls.json](../../retro/pitfalls.json) | 坑台账真值 |
 | [docs/GLOSSARY.md](../GLOSSARY.md) | 术语表权威源 |
 | [docs/INDEX.md](../INDEX.md) | 文档树内索引与取代关系 |
