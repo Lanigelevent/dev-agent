@@ -2119,3 +2119,13 @@
 - 修复：策略哈希改规范形（解码→CRLF→LF→哈希；内容篡改仍必命中）；回归测试锁定 CRLF/LF 同哈希（+1 契约，893→894）；重 pin。
 - 导出脚本教训：字节面哈希不得跨换行形态；公开仓同步后必须本地克隆复现 smoke 面再推。
 - **full 双跑 248.44/232.99 秒**（`logs/suite-r238-run1/2.log`，892 passed + 2 skip ×2 双绿）。台账 272 / open 5 / closed 243 / archived 24。
+### 5.202 round-239（v2.105.0 不增版本）：公开仓同步收尾与存量红面登记（零代码 light）
+- 公开仓同步完成：内容至 r238（1474 文件、3 处定向替换+通用用户路径脱敏、logs/.workbuddy unlink 规则），通道 A×3 + 通道 B×1（git 443 间歇重置走 API 增量上传器 sync_delta_da.py 实例化）；smoke 契约面 208/208 全绿（克隆仓预验+CI 双证）。
+- 本轮三修：CVE=setuptools 日鲜通告（PYSEC-2026-3447/GHSA-xmj3-9gf7-h52w）前置升级；mcp-scan=windows pwsh `rm -f` 参数歧义钉 bash；interop=r238 规范哈希。内部 self-check.yml 同步两处 CI 修补。
+- 存量红面如实登记：nightly 全量面 11-25 晚起环境资产缺失型必红（testgen×4 需 pytest / refactor×1 需 .venv / ledger-closure×1 需 host-memory / astgrep×3 runner 特有）——早于本次同步，非同步引入；修复候选（nightly 装 dev 依赖或测试面环境分层）登记待 r240 裁定。
+- **light 单跑全绿 273.76 秒**（`logs/suite-r239-run1.log`，892 passed + 2 skip）。台账 273 / open 6 / closed 243 / archived 24。
+### 5.203 round-240（v2.105.0 不增版本）：双仓社区规范化与 README 加强（零代码 light）
+- README 陈旧引用修正：badge/唯一源行 2.102.0→2.105.0（bump-version 六处口径外的漂移点）、TL;DR 90→93 scripts、发版口径行 2.101.0→2.105.0；贡献节接入社区文件三指针。
+- 社区五件套新增：CONTRIBUTING.md（环境搭建/本地验证/分层依赖硬边界/提交规范）、SECURITY.md（支持版本/私有报告渠道/治理面承诺范围/已知安全机制）、CODE_OF_CONDUCT.md（Covenant v2.1 中文节选）、.github/PULL_REQUEST_TEMPLATE.md、.github/ISSUE_TEMPLATE（bug/feature/config）。
+- 许可决策维持不变：README 明示「未授予开源许可」（公开可见≠可再分发）；是否授开源许可（Apache-2.0/MIT/维持全权利保留）留总监独立裁定。
+- **light 单跑全绿 267.05 秒**（`logs/suite-r240-run1.log`，892 passed + 2 skip）。台账 273 / open 6 / closed 243 / archived 24。

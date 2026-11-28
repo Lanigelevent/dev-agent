@@ -1,6 +1,6 @@
 # dev-agent · 治理先行的代码智能体
 
-[![Version](https://img.shields.io/badge/version-2.102.0-green.svg)](.zcode-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-2.105.0-green.svg)](.zcode-plugin/plugin.json)
 [![CI](https://github.com/Lanigelevent/dev-agent/actions/workflows/self-check.yml/badge.svg)](https://github.com/Lanigelevent/dev-agent/actions/workflows/self-check.yml)
 [![License](https://img.shields.io/badge/license-%E6%9C%AA%E6%8E%88%E4%BA%88%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF-lightgrey.svg)](#贡献方式与许可)
 
@@ -20,7 +20,7 @@
 
 **English TL;DR** — a governance-first code agent: every review conclusion is backed by reproducible
 evidence; every patch to the reviewed repository requires an approver's signed authorization and passes
-five gates plus behavior regression; failures roll back. Ships 13 skills / 90 scripts, 16 MCP tools,
+five gates plus behavior regression; failures roll back. Ships 13 skills / 93 scripts, 16 MCP tools,
 a deterministic 38-rule review arm, and SWE-bench / ReviewBench evaluation drivers with honest sample
 denominators and partial-caliber accounting.
 
@@ -57,12 +57,12 @@ denominators and partial-caliber accounting.
 
 | 维度 | 现值 | 权威出处 |
 |---|---|---|
-| 版本号（唯一源） | `2.102.0` | [.zcode-plugin/plugin.json](.zcode-plugin/plugin.json)；`pyproject.toml` / MCP `serverInfo.version` / 本页 / [BASELINE.md](BASELINE.md) 同步 |
-| 契约测试 | **894 项**（892 passed + 2 skipped） | `python -m unittest discover -s tests`；最近实跑 （） |
+| 版本号（唯一源） | `2.105.0` | [.zcode-plugin/plugin.json](.zcode-plugin/plugin.json)；`pyproject.toml` / MCP `serverInfo.version` / 本页 / [BASELINE.md](BASELINE.md) 同步 |
+| 契约测试 | **894 项**（892 passed + 2 skipped） | `python -m unittest discover -s tests`；最近实跑 `logs/suite-r238-run1.log`（`logs/suite-r238-run1.log`） |
 | 治理壳 | **13 个技能 × 93 个脚本** | `skills/`，计数由 `doc-freshness.py` 对账 |
 | MCP 服务器 | **16 个工具**（含异步 `submit/status/cancel/purge`） | `mcp/review_mcp.py`，stdio JSON-RPC 2.0（协议 2025-06-18） |
 | 引擎矩阵 | Ruff **973/482/250**、ast-grep **29/2/2**、LibCST **2/2/2** | `engines/*-matrix.json`，落盘产物逐项比对 |
-| 坑台账 | **272 条，open 5 / closed 243 / archived 24** | `retro/pitfalls.json`，`retro-ledger.py` 机械维护 |
+| 坑台账 | **273 条，open 6 / closed 243 / archived 24** | `retro/pitfalls.json`，`retro-ledger.py` 机械维护 |
 | 评审精度基线 | ReviewBench deterministic precision **0.6667**（地板 0.65，n=12 小样本） | `skills/eval-harness/precision-baseline.json` |
 | 评测口径 | agent 侧 **20/20**；对外硬规则臂 **0.42%**；宿主评审臂 **unavailable**（n=1000 recall=0，D-053 归因）；部分口径与 blocked 单列 | [docs/PROGRESS.md](docs/PROGRESS.md)、[docs/DECISIONS.md](docs/DECISIONS.md) |
 | 最近发布 | tag `v2.101.0` 已签发；release-gate 七项全绿 | `reports/release-gate/2.101.0/release-gate.json` |
@@ -330,7 +330,7 @@ ReviewBench、SWRBench、CVEfixes、精度与成本归一）；所有结论都�
   本页头条 / [DEVELOPMENT.md](docs/DEVELOPMENT.md) / [BASELINE.md](BASELINE.md) 六处同步。
 - 逐版变更与过程证据见 [docs/BASELINE-HISTORY.md](docs/BASELINE-HISTORY.md) 与
   [docs/ROADMAP-HISTORY.md](docs/ROADMAP-HISTORY.md)；本页不维护逐版流水。
-- 当前版本 `2.101.0`；tag 由人工签发，release-gate 只做只读签核。
+- 当前版本 `2.105.0`；tag 由人工签发，release-gate 只做只读签核。
 
 ---
 
@@ -355,7 +355,9 @@ ReviewBench、SWRBench、CVEfixes、精度与成本归一）；所有结论都�
 
 ## 贡献方式与许可
 
-欢迎问题与讨论；提交使用 Conventional Commits。提交前按「我要改代码」一节跑门禁与反向验证；
+开发与提交流程见 [CONTRIBUTING.md](CONTRIBUTING.md)（环境搭建、本地验证、提交规范与治理边界）；
+行为准则见 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)；安全漏洞请勿走公开 issue，报告渠道见
+[SECURITY.md](SECURITY.md)。提交使用 Conventional Commits；提交前按「我要改代码」一节跑门禁与反向验证；
 结构性改动先立 ADR，新依赖先批准再登记 `pyproject.toml` 与许可证跟踪。
 
 本项目当前为**内部项目公开可见，但未授予任何使用、修改或分发许可**。公开可见不等于获得授权；

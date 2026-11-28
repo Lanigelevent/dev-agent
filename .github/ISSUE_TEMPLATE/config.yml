@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安全问题报告
+    url: https://github.com/Lanigelevent/dev-agent/security/advisories/new
+    about: 请勿在公开 issue 披露可利用细节，走私有安全渠道（见 SECURITY.md）

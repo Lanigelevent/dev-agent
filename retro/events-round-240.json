@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "category": "confirmation",
+      "description": "双仓社区规范化：README 四处陈旧引用修正（badge/唯一源 2.102.0→2.105.0、TL;DR 90→93 scripts、发版口径行）+ 贡献节接入社区文件；新增 CONTRIBUTING/SECURITY/CODE_OF_CONDUCT（Covenant v2.1 节选）/PR 模板/issue 模板（bug/feature/config）五件套；许可维持既有「未授予开源许可」决策不变（是否授开源许可留总监独立裁定）",
+      "source": "round-240 社区规范化",
+      "type": "confirmation"
+    }
+  ]
+}

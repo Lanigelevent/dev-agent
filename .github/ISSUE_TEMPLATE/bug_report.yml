@@ -1,0 +1,49 @@
+name: 缺陷报告（Bug）
+description: 报告项目自身的功能缺陷或行为异常
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请附最小复现（目标仓库 + 变更范围 + 实跑命令）。本项目只认可复算的证据；
+        版本号取 README「当前状态」表或 `.zcode-plugin/plugin.json`。
+  - type: input
+    id: version
+    attributes:
+      label: 版本号
+      placeholder: "2.105.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: 平台
+      options:
+        - Windows
+        - Linux
+        - macOS（未官方支持，欢迎报告）
+        - CI（GitHub Actions / Gitea）
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤与实跑命令
+      placeholder: |
+        1. python skills/orchestrator/scripts/runner.py --repo ... --range ...
+        2. 观察到 ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为与实际行为
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 证据（stdout JSON / 日志摘录，含脱敏说明）
+      placeholder: 贴出关键 JSON 与退出码；凭据形态请先脱敏为 <redacted>
+    validations:
+      required: true

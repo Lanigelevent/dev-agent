@@ -1,0 +1,29 @@
+name: 功能建议（Feature）
+description: 提议新能力、新引擎适配或工作流改进
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 要解决的具体问题
+      placeholder: 不谈方案，先说清楚「哪件事现在做不了或很痛苦」
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案
+      description: 含落点模块（skills/*/scripts、engines/、agent/、llm/、mcp/）与硬约束符合性
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 已考虑的替代方案与现有能力的差距
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: 约束自检
+      options:
+        - label: 我已确认该建议不违反分层依赖策略（治理壳 stdlib-only / LGPL subprocess / GPL 禁入）
+        - label: 我已确认该建议不放松五道闸与精度护栏（≥0.65 地板）

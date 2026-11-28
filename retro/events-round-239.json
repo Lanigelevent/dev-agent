@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "category": "correction",
+      "description": "公开仓 nightly 全量面存量红（早于本次同步，11-25 晚起三夜必红）：testgen×4 需 pytest、refactor×1 需 .venv（libcst）、ledger-closure×1 需 host-memory、astgrep×3 runner 特有——环境资产缺失型；smoke 契约面（push 即跑）208/208 全绿",
+      "root_cause": "nightly 全量口径（D-051）与 CI runner 环境资产不匹配：dev 依赖（pytest）与项目 .venv、宿主记忆文件均不在 runner 上",
+      "countermeasure": "本轮已修三项（CVE=setuptools 日鲜通告前置升级；mcp-scan=pwsh rm -f 钉 bash；interop=规范哈希 r238）；存量面登记修复候选（nightly 装 dev 依赖或测试面环境分层）待 r240 裁定；同步机制补通道 B 上传器实例（sync_delta_da.py）与 unlink/userpath 脱敏规则固化",
+      "source": "round-239 公开仓同步收尾",
+      "type": "correction"
+    }
+  ]
+}
