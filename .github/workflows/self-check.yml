@@ -90,6 +90,7 @@ jobs:
         # 扫描器钉小版本（非 hash 锁——扫描器独立于被测依赖面，权衡如实记录）；
         # 发现已知 CVE 即非零退出，nightly 红。本地等价：.venv/Scripts/pip-audit.exe -l
         run: |
+          python -m pip install -U "setuptools>=84.1.0"  # r239: 日鲜通告 PYSEC-2026-3447/GHSA-xmj3-9gf7-h52w，runner 自带 79.0.1 撞报
           python -m pip install "pip-audit==2.10.1"
           python -m pip_audit --desc
       - name: scan 延迟 SLO 门禁（r155：run+check 全链，p95 逐档断言）
