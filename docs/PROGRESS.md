@@ -8,16 +8,16 @@
 
 本文件只保留**当前值**；历史轮次不再在本文累抄，避免与两份 HISTORY 和轮报形成多源。
 
-## 当前快照（round-243 收官）
+## 当前快照（round-244 收官）
 
 | 项 | 当前值 | 真值来源 |
 |---|---|---|
-| 版本 | 2.106.0 | `.zcode-plugin/plugin.json` |
+| 版本 | 2.107.0 | `.zcode-plugin/plugin.json` |
 | 契约测试 | 894 项（892 passed + 2 skip） | `unittest discover -s tests` |
 | 最近全量 | 230.51/227.83 秒 full 双跑，低于 540s 触发线与 600s 硬护栏 | `logs/suite-r235-run1/2.log` |
 | 治理壳 | 13 个技能 × 93 个脚本 | `skills/` |
 | MCP | 16 个工具 | `mcp/review_mcp.py` |
-| 坑台账 | 274 条（open 7 / closed 243 / archived 24） | `retro/pitfalls.json` |
+| 坑台账 | 275 条（open 8 / closed 243 / archived 24） | `retro/pitfalls.json` |
 | 评测口径 | agent 侧 20/20；对外硬规则臂 0.42%；宿主评审臂 unavailable（n=1000 recall=0，D-053 归因）；部分口径与 blocked 单列 | `reports/swebench/`、`docs/BASELINE-HISTORY.md` |
 | SRE 预算 | 全项 PASS；无数据项如实 N/A | `org-scorecard.py` |
 | 覆盖率 | 以 `coverage-gate.py check` 当场结果为准，不在文档手抄 | `coverage-baseline.json` |

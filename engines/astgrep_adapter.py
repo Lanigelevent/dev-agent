@@ -360,6 +360,7 @@ def _astgrep_available():
 
 _SCAN_SCRIPT = r"""
 import sys, json
+sys.stdout.reconfigure(encoding="utf-8")
 from ast_grep_py import SgRoot
 
 payload = json.load(open(sys.argv[1], encoding="utf-8"))
@@ -390,6 +391,7 @@ print(json.dumps(findings, ensure_ascii=False))
 
 _FIX_SCRIPT = r"""
 import sys, json
+sys.stdout.reconfigure(encoding="utf-8")
 from ast_grep_py import SgRoot
 
 payload = json.load(open(sys.argv[1], encoding="utf-8"))
@@ -435,10 +437,14 @@ def _run_astgrep(script, source, lang, rules, timeout=30):
     try:
         fd.write(payload)
         fd.close()
+        import os as _os
+        child_env = dict(_os.environ)
+        child_env["PYTHONIOENCODING"] = "utf-8"
         p = subprocess.run(
             [_venv_python(), "-c", script, fd.name],
             shell=False, capture_output=True, text=True,
-            encoding="utf-8", errors="replace", timeout=timeout)
+            encoding="utf-8", errors="replace", timeout=timeout,
+            env=child_env)
     except (OSError, subprocess.TimeoutExpired) as exc:
         return 1, None, str(exc)[:300]
     finally:

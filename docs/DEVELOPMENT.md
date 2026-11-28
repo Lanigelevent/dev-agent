@@ -287,7 +287,7 @@ python skills/orchestrator/scripts/github-poster.py --repo owner/name --pr 42 --
 
 ## 8. 版本与发布流程
 
-1. 版本唯一事实源是 `.zcode-plugin/plugin.json` 的 `version`（当前 2.106.0）；
+1. 版本唯一事实源是 `.zcode-plugin/plugin.json` 的 `version`（当前 2.107.0）；
    **同步六处版本 + 计数真值一律跑 `skills/self-iteration/scripts/bump-version.py --root . --set X.Y.Z [--apply] [--sync-counts]`**
    （`pyproject.toml` / `mcp/review_mcp.py SERVER_INFO` / README 头条 / 本文发布口径 /
    PROGRESS 版本行；缺省干跑出计划，`--apply` 落盘、校验失败零写入）；

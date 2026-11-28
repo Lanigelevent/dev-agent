@@ -2145,3 +2145,8 @@
 - P1-1 Dockerfile（python:3.12-slim + uv --extra dev --frozen）+ 本地构建成功 + 容器四项冒烟全过（治理壳 help/astgrep 扫描/MCP 握手/894 收集）——分发面与容器档真机验证双补（README 诚实清单扣减项）。
 - P0-1（宿主臂端点）/PyPI 发布凭据两项留总监资源，未动。
 - **full 双跑 303.39/290.15 秒**（`logs/suite-r243-run1/2.log`，892 passed + 2 skip ×2 双绿）。台账 274 / open 7 / closed 243 / archived 24。
+### 5.207 round-244（v2.107.0）：astgrep×3 runner 根因修复与阻断面恢复
+- r243 诊断步采集到根因：适配器子进程 print 中文规则描述（ensure_ascii=False）时，runner 默认 cp1252 编码失败（本地 GBK 可编）→ rc=2 → coverage-gate 测量作废。完整解释「本地绿/CI 红」全部现象。
+- 三层修复：子脚本 reconfigure(encoding=utf-8)（S10 自防御惯例）+ 子环境 PYTHONIOENCODING=utf-8 + os 局部名别名（修复过程踩 UnboundLocalError 一次——finally import os 使 os 函数局部化的教训入册）。
+- 本地引擎测 14/14 全绿；coverage-gate 步恢复阻断面（继续验证 r244 根因修复的 CI 实证由本轮 CI run 给出）。
+- **full 双跑 334.19/316.36 秒**（`logs/suite-r244-run1/2.log`，892 passed + 2 skip ×2 双绿）。台账 275 / open 8 / closed 243 / archived 24。

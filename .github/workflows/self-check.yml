@@ -74,9 +74,8 @@ jobs:
       - name: Skill 触发词覆盖度体检
         run: python skills/self-iteration/scripts/trigger-audit.py --skills-root skills --probes skills/self-iteration/probes.json --self-check --cross
       - name: 覆盖率基线对账（仅 windows-latest × 3.12，基线平台对齐）
-        # r241：runner 特有 astgrep×3 稳定差异（签名跨三次 run 一致，本地/克隆全绿），
-        # 按移植任务口径暂移出阻断面；诊断与回收登记 next-round 条目 204①。
-        continue-on-error: true
+        # r244 根因修复后恢复阻断：runner cp1252 编不出中文规则描述（astgrep 子进程
+        # 未钉编码）→ 三层修复（子脚本 reconfigure + 子环境 PYTHONIOENCODING + os 别名）。
         if: matrix.os == 'windows-latest' && matrix.python-version == '3.12'
         run: python skills/self-iteration/scripts/coverage-gate.py check --root .
       - name: astgrep×3 runner 诊断（r243 条目 206①：全文 pytest 输出 + 适配器裸扫对照）

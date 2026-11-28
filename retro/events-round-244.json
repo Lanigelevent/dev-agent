@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "category": "correction",
+      "description": "astgrep×3 runner 失败根因闭环：CI 诊断步采集到裸扫输出——astgrep 子进程 print 中文规则描述时 runner 默认 cp1252 编码失败（本地 GBK 可编码所以绿），rc=2 连锁 coverage-gate 作废",
+      "root_cause": "engines/astgrep_adapter.py 子进程三处未钉编码：子脚本 print 中文（ensure_ascii=False）+ 子环境未设 PYTHONIOENCODING + 函数内 finally import os 使 os 成局部名（修复时踩 UnboundLocalError 一次）",
+      "countermeasure": "三层修复：子脚本 reconfigure(encoding=utf-8)（S10 惯例）+ 子环境 PYTHONIOENCODING=utf-8 + os 别名 _os；本地引擎测 14/14 全绿；coverage-gate 步恢复阻断面（同轮自证）",
+      "source": "round-244 astgrep 根因修复",
+      "type": "correction"
+    }
+  ]
+}

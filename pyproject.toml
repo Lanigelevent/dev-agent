@@ -1,6 +1,6 @@
 [project]
 name = "dev-agent"
-version = "2.106.0"
+version = "2.107.0"
 description = "全能代码智能体（治理先行）：评审/修复/重构/测试生成与编码循环，复用成熟开源引擎，一切写操作经五道闸"
 requires-python = ">=3.11"
 license = "Apache-2.0"
