@@ -70,7 +70,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 PROTOCOL_VERSION = "2025-06-18"
-SERVER_INFO = {"name": "dev-agent", "version": "2.104.0"}
+SERVER_INFO = {"name": "dev-agent", "version": "2.105.0"}
 RUN_TIMEOUT = 600
 FAST_TIMEOUT = 60
 APPLY_TIMEOUT = 300

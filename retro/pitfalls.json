@@ -2063,6 +2063,15 @@
       "status": "open"
     },
     {
+      "id": "e483da475e30",
+      "category": "correction",
+      "description": "公开仓 CI 六矩阵全红（smoke 清单 test_interop 服务器无响应）——根因：tools-policy.json 内部工作树为 CRLF（r234 写盘未钉 newline），mcp-selfscan 策略哈希对原始字节→公开仓 LF 检出哈希变→policy_drift→启动自检拒服务",
+      "root_cause": "字节级哈希跨换行形态不健壮；写盘未钉 newline='' 使 CRLF 进入被哈希面",
+      "countermeasure": "策略哈希改规范形（解码→CRLF→LF→哈希，r238）；回归测试锁定 CRLF/LF 同哈希+篡改必命中；导出脚本此后对策略面文件钉 newline",
+      "source": "round-238 公开仓同步",
+      "status": "open"
+    },
+    {
       "id": "02dbdd04bfbf",
       "category": "口径纪律",
       "description": "【坑】precision 护栏的反向样例只改了 floor 到 0.9，却把 judge precision 设成 0.60：同时跌破趋势线（基线 0.6667−0.01），断言期望 failed 只有 precision_floor，实际两条齐发，测试首跑即红",

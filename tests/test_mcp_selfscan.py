@@ -79,6 +79,19 @@ class TestSelfscan(unittest.TestCase):
             self.assertFalse(ok)
             self.assertTrue(any(x["id"] == "policy_drift" for x in drifts))
 
+    def test_policy_hash_canonical_across_eol(self):
+        """r238 回归：CRLF 工作树与 LF 检出同哈希（公开 CI 拒服务根因）；篡改仍必命中。"""
+        mod = _load_selfscan()
+        with tempfile.TemporaryDirectory() as td:
+            crlf = Path(td) / "crlf.json"
+            lf = Path(td) / "lf.json"
+            body = chr(123) + chr(34) + "k" + chr(34) + ": " + chr(34) + "v" + chr(34) + chr(125)
+            crlf.write_bytes((body + chr(10)).replace(chr(10), chr(13) + chr(10)).encode("utf-8"))
+            lf.write_bytes((body + chr(10)).encode("utf-8"))
+            self.assertEqual(mod._policy_hash_bytes(crlf), mod._policy_hash_bytes(lf))
+            lf.write_bytes((body + chr(10) + chr(125)).replace(chr(123), chr(91), 1).encode("utf-8"))
+            self.assertNotEqual(mod._policy_hash_bytes(crlf), mod._policy_hash_bytes(lf))
+
     def test_missing_pin_rc1(self):
         with tempfile.TemporaryDirectory() as td:
             root = _make_repo(Path(td) / "repo")

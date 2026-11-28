@@ -1,8 +1,8 @@
 {
-  "bundle_sha256": "3d85a0452a133ad42feff196b99a8a9b9b06df0df7930b1ec6e7f50e9f45fac1",
-  "generated_at": "2026-11-28T04:06:02",
+  "bundle_sha256": "7ef180f4f7fddcd972d2815242406e55051144499d73856b369da7f1ecd3cb5f",
+  "generated_at": "2026-11-28T08:02:58",
   "note": "由 mcp-selfscan.py pin 生成；与 TOOLS/policy 改动同 commit",
-  "policy_sha256": "8d18b6ec7af1cab8f8980526390c389ea8982e7d69b05ff0b41d02c088b355d4",
+  "policy_sha256": "d437a1b36beb2746280227dec35ab560ee2e1a8054c2d32d41c3ef76893617c6",
   "schema": "tools-pin/v1",
   "tools": {
     "code_review_apply": "5855d5320292de2dc2c0bae0e918aeaa42deb160282e94a6816a164b8a440796",

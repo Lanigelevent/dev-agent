@@ -2418,3 +2418,4 @@ v2.4.0）：version 升 **2.4.0**（bump-version 单命令），测试 **609
 2026-11-28 round-233 收尾（v2.102.0）：version 升 **2.102.0**（bump-version 单命令 + sync-counts），契约 **849→873**（+24：9 selfscan/policy + 15 provider 边界）、脚本 **90→91**（mcp-selfscan.py）、工具 **16 不变**。
 2026-11-28 round-234 收尾（v2.103.0）：version 升 **2.103.0**（bump-version 单命令 + sync-counts），契约 **873→884**（+11：8 pii + 3 端点链）、脚本 **91→92**（pii-scan.py）、工具 **16 不变**。
 2026-11-28 round-235 收尾（v2.104.0）：version 升 **2.104.0**（bump-version 单命令 + sync-counts），契约 **884→893**（+9：5 选择器 + 4 归档臂）、脚本 **92→93**（test-select.py）、工具 **16 不变**。
+2026-11-28 round-238 收尾（v2.105.0）：version 升 **2.105.0**（bump-version 单命令 + sync-counts），契约 **893→894**（+1 规范哈希回归）、脚本 **93 不变**、工具 **16 不变**。公开仓同步触发 CI 全红→规范哈希修复（见 events-round-238）。

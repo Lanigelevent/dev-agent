@@ -4,7 +4,7 @@
 [![CI](https://github.com/Lanigelevent/dev-agent/actions/workflows/self-check.yml/badge.svg)](https://github.com/Lanigelevent/dev-agent/actions/workflows/self-check.yml)
 [![License](https://img.shields.io/badge/license-%E6%9C%AA%E6%8E%88%E4%BA%88%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF-lightgrey.svg)](#贡献方式与许可)
 
-**版本 2.104.0** ｜ Python 治理壳 **≥3.11，纯标准库** ｜ 引擎层 **3.12 `.venv`** ｜ Windows / Linux
+**版本 2.105.0** ｜ Python 治理壳 **≥3.11，纯标准库** ｜ 引擎层 **3.12 `.venv`** ｜ Windows / Linux
 
 > **创建日期**：2026-10-24 ｜ **当前状态**：维护中
 > **所有者**：总监 + 迭代官 ｜ **主导模式**：参考
@@ -58,11 +58,11 @@ denominators and partial-caliber accounting.
 | 维度 | 现值 | 权威出处 |
 |---|---|---|
 | 版本号（唯一源） | `2.102.0` | [.zcode-plugin/plugin.json](.zcode-plugin/plugin.json)；`pyproject.toml` / MCP `serverInfo.version` / 本页 / [BASELINE.md](BASELINE.md) 同步 |
-| 契约测试 | **893 项**（891 passed + 2 skipped） | `python -m unittest discover -s tests`；最近实跑 [logs/suite-r235-run1.log](logs/suite-r235-run1.log) |
+| 契约测试 | **894 项**（892 passed + 2 skipped） | `python -m unittest discover -s tests`；最近实跑 [logs/suite-r238-run1.log](logs/suite-r238-run1.log) |
 | 治理壳 | **13 个技能 × 93 个脚本** | `skills/`，计数由 `doc-freshness.py` 对账 |
 | MCP 服务器 | **16 个工具**（含异步 `submit/status/cancel/purge`） | `mcp/review_mcp.py`，stdio JSON-RPC 2.0（协议 2025-06-18） |
 | 引擎矩阵 | Ruff **973/482/250**、ast-grep **29/2/2**、LibCST **2/2/2** | `engines/*-matrix.json`，落盘产物逐项比对 |
-| 坑台账 | **271 条，open 4 / closed 243 / archived 24** | `retro/pitfalls.json`，`retro-ledger.py` 机械维护 |
+| 坑台账 | **272 条，open 5 / closed 243 / archived 24** | `retro/pitfalls.json`，`retro-ledger.py` 机械维护 |
 | 评审精度基线 | ReviewBench deterministic precision **0.6667**（地板 0.65，n=12 小样本） | `skills/eval-harness/precision-baseline.json` |
 | 评测口径 | agent 侧 **20/20**；对外硬规则臂 **0.42%**；宿主评审臂 **unavailable**（n=1000 recall=0，D-053 归因）；部分口径与 blocked 单列 | [docs/PROGRESS.md](docs/PROGRESS.md)、[docs/DECISIONS.md](docs/DECISIONS.md) |
 | 最近发布 | tag `v2.101.0` 已签发；release-gate 七项全绿 | `reports/release-gate/2.101.0/release-gate.json` |

@@ -2114,3 +2114,8 @@
 - 总监会话内授权代裁三项（授权语「剩余的三项全部授权你代为决定」）：D-054=方案 C 终局（presidio/garak/traceloop-sdk/deepeval 四项条件激活，不进 pyproject/licenses.json）；依赖刷新第十九跑=接受不提前（下一锚点约 r244，裁定写入 reports/dep-refresh-19-proposal-r236.md）；批次四=backlog 维持不点名激活（E2B/repomix/GEPA/inspector/harbor/OpenLLMetry 各自条件见 ROADMAP 阶段 5 处置段）。
 - 阶段 5 至此收口：批次一+二 8 项全落地（r233-r235，44 条契约）；批次三/四按可证伪条件处置。
 - **light 单跑全绿 317.62 秒**（`logs/suite-r237-run1.log`，891 passed + 2 skip）。台账 271 / open 4 / closed 243 / archived 24。
+### 5.201 round-238（v2.105.0）：公开仓同步 hotfix——自扫描规范哈希
+- 公开仓 CI 六矩阵全红（smoke 清单 test_interop 服务器无响应）——本地克隆复现实锤：tools-policy.json 内部工作树 CRLF（r234 写盘未钉 newline）vs 公开仓 LF 检出，mcp-selfscan 策略哈希对原始字节 → policy_drift+bundle_drift → 启动自检拒服务。
+- 修复：策略哈希改规范形（解码→CRLF→LF→哈希；内容篡改仍必命中）；回归测试锁定 CRLF/LF 同哈希（+1 契约，893→894）；重 pin。
+- 导出脚本教训：字节面哈希不得跨换行形态；公开仓同步后必须本地克隆复现 smoke 面再推。
+- **full 双跑 248.44/232.99 秒**（`logs/suite-r238-run1/2.log`，892 passed + 2 skip ×2 双绿）。台账 272 / open 5 / closed 243 / archived 24。

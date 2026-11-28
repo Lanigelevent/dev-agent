@@ -70,6 +70,16 @@ def _tool_hash(tool):
 
 
 def _policy_hash_bytes(policy_path):
+    """策略文件规范哈希：解码后按 LF 规范化再哈希（git 换行规范化不产生假漂移；
+    内容篡改仍必命中）。
+    """
+    raw = policy_path.read_bytes()
+    text = raw.decode("utf-8", errors="replace")
+    text = text.replace(chr(13) + chr(10), chr(10))
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+
     """策略文件原始字节 sha256（篡改任意字节即漂移）。"""
     return hashlib.sha256(policy_path.read_bytes()).hexdigest()
 
