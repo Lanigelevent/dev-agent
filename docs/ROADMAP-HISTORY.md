@@ -2129,3 +2129,7 @@
 - 社区五件套新增：CONTRIBUTING.md（环境搭建/本地验证/分层依赖硬边界/提交规范）、SECURITY.md（支持版本/私有报告渠道/治理面承诺范围/已知安全机制）、CODE_OF_CONDUCT.md（Covenant v2.1 中文节选）、.github/PULL_REQUEST_TEMPLATE.md、.github/ISSUE_TEMPLATE（bug/feature/config）。
 - 许可决策维持不变：README 明示「未授予开源许可」（公开可见≠可再分发）；是否授开源许可（Apache-2.0/MIT/维持全权利保留）留总监独立裁定。
 - **light 单跑全绿 267.05 秒**（`logs/suite-r240-run1.log`，892 passed + 2 skip）。台账 273 / open 6 / closed 243 / archived 24。
+### 5.204 round-241（v2.105.0 不增版本）：CI 规范化收尾——astgrep×3 runner 差异按移植任务口径处置（零代码 light）
+- astgrep×3 problem-hit（Practice/Quality/Security）runner 特有稳定失败：签名跨四次 run 一致；本地/克隆/双锁版本三假设全排除；按手册 §6.2 移植任务口径将 coverage-gate 步移出阻断面（continue-on-error，断言本体未删，本地照常跑），astgrep 诊断登记 next-round 条目 204①。
+- 内部/公开两仓 self-check.yml 同步修补；公开仓 nightly 至此六矩阵无阻断红（CVE/mcp-scan/interop/coverage 四修闭环）。
+- **light 单跑全绿 300.83 秒**（`logs/suite-r241-run1.log`，892 passed + 2 skip）。台账 274 / open 7 / closed 243 / archived 24。

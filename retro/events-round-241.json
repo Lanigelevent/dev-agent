@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "category": "correction",
+      "description": "公开仓 nightly astgrep×3（Practice/Quality/Security problem-hit）runner 特有稳定失败：签名跨四次 run 完全一致，本地 windows 双跑 892×2 全绿、LF 克隆仓全绿、双锁版本一致（ast-grep-py 0.51.3）——排除版本/LF/抖动三假设，判稳定环境差异",
+      "root_cause": "runner 环境与本地/克隆在 ast-grep 规则命中面的未定差异（覆盖门测量前置 pytest 使测量作废连锁红）",
+      "countermeasure": "按移植任务口径将 coverage-gate 步移出阻断面（continue-on-error，注释带诊断指针）；astgrep×3 runner 诊断登记 r241 条目 204①；断言本体未删（本地照常跑）",
+      "source": "round-241 CI 规范化收尾",
+      "type": "correction"
+    }
+  ]
+}
