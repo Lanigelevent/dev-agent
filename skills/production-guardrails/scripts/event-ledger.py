@@ -158,6 +158,23 @@ def _path_pattern(path):
     return re.compile("|".join("(?:" + a + ")" for a in alts), re.IGNORECASE)
 
 
+def _resolve_one(a):
+    """存在性绝对路径 → 长名展开；其余原样返回（r246 记录侧归一化）。"""
+    try:
+        pa = Path(a)
+        if pa.is_absolute() and pa.exists():
+            return str(pa.resolve())
+    except (OSError, ValueError):
+        return a
+    return a
+
+
+def _resolve_argv(items):
+    """记录侧路径归一化：GitHub runner TEMP 以 8.3 短名（RUNNER~1）给定而
+    令牌路径经 resolve() 为长名——短名 argv 直接匹配长名正则会漏替换。"""
+    return [_resolve_one(a) for a in items]
+
+
 def tokenize(value, tokens):
     """把令牌路径替换成 `$NAME`（最长路径优先，按路径段边界匹配，双分隔符）。"""
     if not tokens:
@@ -235,7 +252,7 @@ def build_record(seq, prev, run_id, actor, action, kind="script",
         "action": str(action),
         "kind": kind if kind in KINDS else "note",
         "replay": replay if replay in REPLAY_MODES else "opaque",
-        "argv": tokenize([str(a) for a in (argv or [])], tokens),
+        "argv": tokenize(_resolve_argv([str(a) for a in (argv or [])]), tokens),
         "stdin_sha256": (hashlib.sha256(stdin.encode("utf-8")).hexdigest()
                          if isinstance(stdin, str) and stdin else None),
         "observation": redact_obj(tokenize(observation or {}, tokens)),

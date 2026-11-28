@@ -2159,4 +2159,4 @@
 - CI 采证定位：断言失败在账本 $REPO 令牌化——GitHub runner TEMP 以 8.3 短名（RUNNER~1）给定，记录侧 argv 持短名，Path.resolve() 展开长名，_path_pattern 长名正则不命中短名记录（本地 TEMP 无短名别名，不可复现）。
 - 修复：event-ledger.py 新增 _path_variants()（ctypes GetShort/GetLongPathNameW 双向互转，nt 守卫）+ _path_pattern 组合正则；本地短名/长名双形态令牌化验证全过；TestLedgerTokenize 三测回归（+1 文件类，契约 894→897）。
 - 承接链：r244 astgrep 修复（runner 实证）→ r245 本测剥出 → r246 根因闭环；coverage-gate 阻断面恢复待本轮 CI 实证后下轮执行。
-- **full 双跑 300.23/289.13 秒**（`logs/suite-r246-run1/2.log`，895 passed + 2 skip ×2 双绿；二轮 3 红于死代码 unused_import wintypes——清除后双绿）。台账 277 / open 10 / closed 243 / archived 24。
+- **full 双跑 280.71/295.62 秒**（`logs/suite-r246b-run1/2.log`，895 passed + 2 skip ×2 双绿；二轮 2 SUBFAIL=自扫空 except 块——_resolve_one 重构消除）。台账 277 / open 10 / closed 243 / archived 24。
