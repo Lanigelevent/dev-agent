@@ -1,0 +1,15 @@
+.git
+.venv
+logs
+reports
+retro
+runs
+datasets
+bench
+__pycache__
+**/__pycache__
+*.pyc
+.mimosa
+.gitea
+c
+ci-ws

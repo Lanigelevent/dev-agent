@@ -23,6 +23,7 @@ host 宿主模型后端（桌面端会话内推荐，零 API key）：提示词�
 
 本模块是库，无退出码；HostLLMPending 由编排器转 WAIT_HOST_LLM（退出码 1）。
 """
+from collections.abc import Callable
 import hashlib
 import ipaddress
 import json
@@ -56,7 +57,8 @@ class _SSRFRejected(Exception):
     """SSRF 白名单拒绝（重定向跳转违规）；不可重试，立即返回错误。"""
 
 
-def _endpoint_error(raw_url, resolve=False):
+def _endpoint_error(raw_url: str,
+                    resolve: bool = False) -> str | None:
     """SSRF 白名单检查（:97-110 同源逻辑，初连与重定向逐跳复用）。
 
     返回 None=放行；否则错误文案（含「白名单拒绝」）。回环端点豁免
@@ -153,7 +155,7 @@ def _read_capped(r, cap):
     return b"".join(chunks)
 
 
-def select(env=None):
+def select(env: dict | None = None) -> str:
     """决定当前后端：显式指定 > openai 环境完备 > none。"""
     env = os.environ if env is None else env
     mode = (env.get("CRA_LLM_PROVIDER") or "").strip().lower()
@@ -164,13 +166,15 @@ def select(env=None):
     return "none"
 
 
-def task_id(system, user):
+def task_id(system: str, user: str) -> str:
     """幂等任务 id：同一提示词（同一评审材料）跨重跑不变。"""
     return hashlib.sha256(
         (system + "\x00" + user).encode("utf-8")).hexdigest()[:12]
 
 
-def complete(system, user, base_dir=None, args=None, on_tokens=None):
+def complete(system: str, user: str, base_dir: str | None = None,
+             args: dict | None = None,
+             on_tokens: "Callable[[int], None] | None" = None) -> tuple[str | None, dict]:
     """统一入口：返回 (text|None, meta)；host 等待时抛 HostLLMPending。"""
     mode = select()
     if mode == "none":
@@ -180,7 +184,8 @@ def complete(system, user, base_dir=None, args=None, on_tokens=None):
     return _openai_fallback(system, user, args or {}, on_tokens)
 
 
-def _host_complete(system, user, base_dir):
+def _host_complete(system: str, user: str,
+                   base_dir: str | None) -> tuple[str, dict]:
     base = Path(base_dir) if base_dir else Path.cwd() / "llm-tasks"
     base.mkdir(parents=True, exist_ok=True)
     tid = task_id(system, user)
@@ -199,7 +204,10 @@ def _host_complete(system, user, base_dir):
     raise HostLLMPending(tid, str(prompt), str(response))
 
 
-def _openai_complete(system, user, args, on_tokens, base_url=None, model=None, api_key=None):
+def _openai_complete(system: str, user: str, args: dict | None,
+                     on_tokens: "Callable[[int], None] | None",
+                     base_url: str | None = None, model: str | None = None,
+                     api_key: str | None = None) -> tuple[str | None, dict]:
     base_url = base_url if base_url is not None else os.environ.get("REVIEW_LLM_BASE_URL", "")
     model = model if model is not None else os.environ.get("REVIEW_LLM_MODEL", "")
     parsed = urllib.parse.urlparse(base_url)
@@ -302,11 +310,12 @@ def _endpoint_chain():
     return kept
 
 
-def _mask(base_url):
+def _mask(base_url: str) -> str:
     return re.sub(r"https://([^/@]+)@", "https://***@", base_url)[:60]
 
 
-def _openai_fallback(system, user, args, on_tokens):
+def _openai_fallback(system: str, user: str, args: dict | None,
+                     on_tokens: "Callable[[int], None] | None") -> tuple[str | None, dict]:
     """端点链依次尝试；每端点失败 stderr 记录降级原因，全部失败如实降级。
 
     熔断语义不变（_openai_complete 内自检自记）；链级只在全灭时返回
@@ -338,7 +347,7 @@ CIRCUIT_COOLDOWN_SECONDS = 300
 _CIRCUIT = {"fails": 0, "opened_at": 0.0}
 
 
-def _circuit_check():
+def _circuit_check() -> str | None:
     """熔断开启期间快失败；返回错误文案或 None（放行）。"""
     if _CIRCUIT["fails"] < CIRCUIT_THRESHOLD:
         return None
@@ -350,7 +359,7 @@ def _circuit_check():
         _CIRCUIT["fails"], left)
 
 
-def _circuit_record_failure():
+def _circuit_record_failure() -> None:
     _CIRCUIT["fails"] += 1
     if _CIRCUIT["fails"] == CIRCUIT_THRESHOLD:
         _CIRCUIT["opened_at"] = time.monotonic()
@@ -359,12 +368,13 @@ def _circuit_record_failure():
                 _CIRCUIT["fails"], CIRCUIT_COOLDOWN_SECONDS) + chr(10))
 
 
-def _circuit_record_success():
+def _circuit_record_success() -> None:
     if _CIRCUIT["fails"]:
         _CIRCUIT["fails"] = 0
 
 
-def trim_tool_result(text, max_chars=20000, max_lines=500):
+def trim_tool_result(text: str, max_chars: int = 20000,
+                     max_lines: int = 500) -> tuple[str, bool, int, int]:
     """工具结果回填裁剪（M2 统一助手）：双阈值保头部，返回 (头, 是否裁剪, 总字符, 总行数)。
 
     纯函数不写文件；外置落盘由调用方（materials._truncate_for_history 等）负责。
@@ -385,7 +395,7 @@ def trim_tool_result(text, max_chars=20000, max_lines=500):
 
 
 # ---- M3 结构化输出回填重试（批次一 M3，round-233）----
-def _extract_json(text):
+def _extract_json(text: str | None) -> tuple[object | None, str | None]:
     """宽松 JSON 提取：剥代码围栏后解析；返回 (obj, None) 或 (None, 原因)。"""
     if not text or not str(text).strip():
         return None, "空响应"
@@ -402,8 +412,11 @@ def _extract_json(text):
         return None, "非 JSON 响应: %s" % str(exc)[:120]
 
 
-def complete_json(system, user, base_dir=None, args=None, on_tokens=None,
-                  validate=None, repair_rounds=1):
+def complete_json(system: str, user: str, base_dir: str | None = None,
+                  args: dict | None = None,
+                  on_tokens: "Callable[[int], None] | None" = None,
+                  validate: "Callable[[object], bool] | None" = None,
+                  repair_rounds: int = 1) -> tuple[object | None, dict]:
     """complete + JSON 提取/校验 + 失败回填重试（M3）。
 
     返回 (obj, meta)；失败时 obj=None，meta["unparsed"]= 原因（如实计数，

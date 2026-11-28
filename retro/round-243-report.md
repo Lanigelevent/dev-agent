@@ -1,0 +1,36 @@
+# 复盘轮报 round-243
+
+open 7 / closed 243 / archived 24
+
+## 分类统计
+
+- 手工：167
+- 口径纪律：23
+- 评测：20
+- 行为回归：19
+- 误报：14
+- correction：8
+- 能力盲区：5
+- 补丁返工：4
+- 外部依赖：4
+- 测试：3
+- 转人工：2
+- 能力缺口：2
+- 门禁自举：2
+- 自迭代盲区：1
+
+## 未结坑明细
+
+| ID | 类别 | 坑 | 根因 | 对策 | 来源 |
+|---|---|---|---|---|---|
+| 08dac21110f8 | correction | 命令文本传输损坏在本轮继续：新文件 Write 注入乱串 5 处（mcp-selfscan.py 3、tests 2）、 | 长命令与含反斜杠转义的命令文本在传输层被注入乱串；≤15 行数据件 + 短命令拼 | 新文件一律走「数据分件 Write + 垃圾标记探针 + 短命令装配 + py_ | round-233 编辑链 |
+| 3f336902c7e8 | correction | 公开仓 nightly astgrep×3（Practice/Quality/Security problem-hit） | runner 环境与本地/克隆在 ast-grep 规则命中面的未定差异（覆盖门 | 按移植任务口径将 coverage-gate 步移出阻断面（continue-o | round-241 CI 规范化收尾 |
+| 58aca3522aad | correction | 传输损坏继续（mt1 数据件 6 处自注标记）——清洗后零残留；选择器顶层包名碎片跨模块碰撞（test_other 误选 | mod.split('.')[0] 顶层片段在同包多模块场景产生假交集；同包碰撞 | 匹配键改为模块全名+后缀链（pkg.calc → {pkg.calc, calc | round-235 编辑链 |
+| 619744008fae | correction | 公开仓 nightly 全量面存量红（早于本次同步，11-25 晚起三夜必红）：testgen×4 需 pytest、r | nightly 全量口径（D-051）与 CI runner 环境资产不匹配：d | 本轮已修三项（CVE=setuptools 日鲜通告前置升级；mcp-scan= | round-239 公开仓同步收尾 |
+| 8451a0894bb1 | correction | 编辑链连续 5 处单字/乱串错误（§4 标题错字、G17 重号、5.1 行混入乱串、表头错字、G17 证据列错字）——大 | 长行内容经 Edit 工具下发时高频单字损坏；已验「python -c + 断言 | 文档增补一律走「python -c + 断言 + 回读核验」确定性路径，禁长行  | round-232 编辑链 |
+| aa7eeb091cb3 | correction | 传输损坏继续（数据件 2 处：f5t 乱串、pii luhn 累加行丢失）——但全被探针/编译/selftest 拦截于 | 长命令与多行数据件在传输层仍偶发注入/丢行；数据分件+探针+编译+selftes | 维持数据分件装配纪律；新引擎类脚本必须带 --selftest 反向样例 ver | round-234 编辑链 |
+| e483da475e30 | correction | 公开仓 CI 六矩阵全红（smoke 清单 test_interop 服务器无响应）——根因：tools-policy. | 字节级哈希跨换行形态不健壮；写盘未钉 newline='' 使 CRLF 进入被 | 策略哈希改规范形（解码→CRLF→LF→哈希，r238）；回归测试锁定 CRLF | round-238 公开仓同步 |
+
+## 改进候选（按 权重×数量 排序）
+
+- **correction：7 个未结坑** — 纳入下一轮改进候选

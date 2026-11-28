@@ -2138,3 +2138,10 @@
 - 贡献默认口径：为项目贡献的代码按 Apache-2.0 提交（LICENSE 附录说明）；依赖白名单口径不变（AGENTS 硬约束 1）。
 - 历史记录（ROADMAP-HISTORY §5.203「留总监裁定」行）不回改，本条为裁定承接。
 - **light 单跑全绿 306.38 秒**（`logs/suite-r242-run1.log`，892 passed + 2 skip）。台账 274 / open 7 / closed 243 / archived 24。
+### 5.206 round-243（v2.106.0）：短板优化四件——CI 诊断步/英文快速开始/类型注解/Docker 分发实证
+- P0-2 CI astgrep×3 诊断步（windows 3.12，continue-on-error）：全文 pytest --tb=long + 适配器对两问题夹具裸扫对照，进双仓工作流；容器内 ast-grep 正常命中（js-throw-string）——CI 失败确证 windows-runner 特有。
+- P1-4 README 英文 Quick Start 节（What/Requirements/三命令/Docs 指针）——UX/文档单语短板第一步。
+- P1-2 provider.py 14 函数返回注解全量（Callable import；行为中性，174 关联测绿）——类型注解起步批。
+- P1-1 Dockerfile（python:3.12-slim + uv --extra dev --frozen）+ 本地构建成功 + 容器四项冒烟全过（治理壳 help/astgrep 扫描/MCP 握手/894 收集）——分发面与容器档真机验证双补（README 诚实清单扣减项）。
+- P0-1（宿主臂端点）/PyPI 发布凭据两项留总监资源，未动。
+- **full 双跑 303.39/290.15 秒**（`logs/suite-r243-run1/2.log`，892 passed + 2 skip ×2 双绿）。台账 274 / open 7 / closed 243 / archived 24。

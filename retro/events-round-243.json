@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "category": "confirmation",
+      "description": "短板优化四件落地：①CI astgrep×3 诊断步（全文 pytest + 适配器裸扫对照，双仓工作流）②README 英文 Quick Start 节 ③provider.py 14 函数类型注解全量（174 关联测绿）④Dockerfile+本地构建+容器四项冒烟全过（治理壳/引擎/MCP/894 收集；ast-grep 在 linux 容器正常命中——CI 失败确证 windows-runner 特有）",
+      "source": "round-243 短板优化",
+      "type": "confirmation"
+    }
+  ]
+}

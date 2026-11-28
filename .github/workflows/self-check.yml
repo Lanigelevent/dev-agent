@@ -79,6 +79,13 @@ jobs:
         continue-on-error: true
         if: matrix.os == 'windows-latest' && matrix.python-version == '3.12'
         run: python skills/self-iteration/scripts/coverage-gate.py check --root .
+      - name: astgrep×3 runner 诊断（r243 条目 206①：全文 pytest 输出 + 适配器裸扫对照）
+        if: matrix.os == 'windows-latest' && matrix.python-version == '3.12'
+        continue-on-error: true
+        run: |
+          python -m pytest tests/test_scripts_engines.py -k "problem" --tb=long -q
+          python engines/astgrep_adapter.py scan --file tests/fixtures/astgrep-quality/problem-practice.js
+          python engines/astgrep_adapter.py scan --file tests/fixtures/astgrep-security/problem-security.js
       - name: 凭据形态扫描
         run: python skills/self-iteration/scripts/secret-scan.py --root .
       - name: 依赖许可证清单校验

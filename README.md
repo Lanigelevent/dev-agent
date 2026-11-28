@@ -4,7 +4,7 @@
 [![CI](https://github.com/Lanigelevent/dev-agent/actions/workflows/self-check.yml/badge.svg)](https://github.com/Lanigelevent/dev-agent/actions/workflows/self-check.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-**版本 2.105.0** ｜ Python 治理壳 **≥3.11，纯标准库** ｜ 引擎层 **3.12 `.venv`** ｜ Windows / Linux
+**版本 2.106.0** ｜ Python 治理壳 **≥3.11，纯标准库** ｜ 引擎层 **3.12 `.venv`** ｜ Windows / Linux
 
 > **创建日期**：2026-10-24 ｜ **当前状态**：维护中
 > **所有者**：总监 + 迭代官 ｜ **主导模式**：参考
@@ -23,6 +23,35 @@ evidence; every patch to the reviewed repository requires an approver's signed a
 five gates plus behavior regression; failures roll back. Ships 13 skills / 93 scripts, 16 MCP tools,
 a deterministic 38-rule review arm, and SWE-bench / ReviewBench evaluation drivers with honest sample
 denominators and partial-caliber accounting.
+
+---
+
+## Quick Start (English)
+
+**What it is** — a governance-first code review & repair agent. Every write to the
+reviewed repository goes through an approver-signed authorization and five gates
+(approval sha256 binding / clean tree / HEAD match / git-apply precheck / behavior
+regression); any failure rolls back automatically.
+
+**Requirements** — governance shell: Python >= 3.11 (stdlib only); engine layer &
+full test suite: Python 3.12 venv (uv-locked).
+
+```bash
+git clone https://github.com/Lanigelevent/dev-agent.git
+cd dev-agent
+uv sync
+# read-only review (deterministic, no LLM key needed):
+python skills/orchestrator/scripts/runner.py --repo <target-repo> --range main..feature
+# MCP stdio server (16 tools):
+.venv/Scripts/python.exe mcp/review_mcp.py      # Windows
+python mcp/review_mcp.py                        # Linux/macOS
+```
+
+**Docs** — architecture & commands: [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md);
+contracts & compatibility: [BASELINE.md](BASELINE.md); hard constraints:
+[AGENTS.md](AGENTS.md); contributing: [CONTRIBUTING.md](CONTRIBUTING.md).
+Primary documentation is Chinese; this section is the maintained English entry point.
+
 
 ---
 

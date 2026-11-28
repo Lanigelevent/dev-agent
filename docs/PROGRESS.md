@@ -8,11 +8,11 @@
 
 本文件只保留**当前值**；历史轮次不再在本文累抄，避免与两份 HISTORY 和轮报形成多源。
 
-## 当前快照（round-241 收官）
+## 当前快照（round-243 收官）
 
 | 项 | 当前值 | 真值来源 |
 |---|---|---|
-| 版本 | 2.105.0 | `.zcode-plugin/plugin.json` |
+| 版本 | 2.106.0 | `.zcode-plugin/plugin.json` |
 | 契约测试 | 894 项（892 passed + 2 skip） | `unittest discover -s tests` |
 | 最近全量 | 230.51/227.83 秒 full 双跑，低于 540s 触发线与 600s 硬护栏 | `logs/suite-r235-run1/2.log` |
 | 治理壳 | 13 个技能 × 93 个脚本 | `skills/` |
