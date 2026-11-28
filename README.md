@@ -58,7 +58,7 @@ denominators and partial-caliber accounting.
 | 维度 | 现值 | 权威出处 |
 |---|---|---|
 | 版本号（唯一源） | `2.102.0` | [.zcode-plugin/plugin.json](.zcode-plugin/plugin.json)；`pyproject.toml` / MCP `serverInfo.version` / 本页 / [BASELINE.md](BASELINE.md) 同步 |
-| 契约测试 | **894 项**（892 passed + 2 skipped） | `python -m unittest discover -s tests`；最近实跑 [logs/suite-r238-run1.log](logs/suite-r238-run1.log) |
+| 契约测试 | **894 项**（892 passed + 2 skipped） | `python -m unittest discover -s tests`；最近实跑 （） |
 | 治理壳 | **13 个技能 × 93 个脚本** | `skills/`，计数由 `doc-freshness.py` 对账 |
 | MCP 服务器 | **16 个工具**（含异步 `submit/status/cancel/purge`） | `mcp/review_mcp.py`，stdio JSON-RPC 2.0（协议 2025-06-18） |
 | 引擎矩阵 | Ruff **973/482/250**、ast-grep **29/2/2**、LibCST **2/2/2** | `engines/*-matrix.json`，落盘产物逐项比对 |
