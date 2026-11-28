@@ -3,7 +3,7 @@
   "data": {
     "ok": true,
     "state": "DONE",
-    "patch": "<repo>\\reports\\multilang-round59\\tasks\\go-stack\\edits.patch",
+    "patch": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\multilang-round59\\tasks\\go-stack\\edits.patch",
     "tests": "pass",
     "rounds": 1,
     "edits": 1,

@@ -34,8 +34,8 @@
   {
     "category": "手工",
     "description": "【坑】写记忆时把项目记忆误指到用户级 auto-memory（两处同名 MEMORY.md），Edit 报 0 命中才发现路径不对",
-    "root_cause": "MEMORY.md 同时存在于用户 scope 与项目 <host-memory>/memory/，操作时只凭文件名未按项目根解析绝对路径",
+    "root_cause": "MEMORY.md 同时存在于用户 scope 与项目 .workbuddy/memory/，操作时只凭文件名未按项目根解析绝对路径",
     "countermeasure": "记忆写入先按项目根拼路径并用 Read 确认行数/内容再 Edit；用户级 auto-memory 不承载项目状态",
-    "source": "round-47 执行过程实踩（<user-home>/<host-memory>/memory vs <host-memory>/memory）"
+    "source": "round-47 执行过程实踩（C:/Users/<user>/.qoder-cn/memory vs .workbuddy/memory）"
   }
 ]

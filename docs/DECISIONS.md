@@ -1480,3 +1480,22 @@
   2. B. 归因修正为「执行质量无保障」+ 门禁对策（review-quality-gate，r138 排期）——代价=对外数字不变（0.42% 唯一对外裁定维持），只改因果表述；承认执行侧流程缺陷；历史记录不回改（勘误后缀模式）。
 - **决策**：采纳 B（总监 2026-11-12 批准）。
 - **代价与影响**：①README 两处 + PROGRESS 两处对外口径行改因果表述，数字不动；②历史记录（events/ROADMAP-HISTORY/批次报告）不回改；③r138 落地 review-quality-gate 后，宿主臂全量评测预算恢复须持门禁通过凭证；④round-132 未登记 DECISIONS 的缺口由本条补齐。
+
+
+## D-054 引擎层新依赖批准清单提案：presidio / garak / traceloop-sdk / deepeval（round-232 立案，待总监裁决）
+
+- **日期**：2026-11-28（round-232；提案人=宿主代理，批准=总监（待裁决），提案人≠批准人保持）
+- **状态**：提案（待总监裁决；本轮不实施——本轮仅入册计划与提案，零代码）
+- **背景**：ROADMAP §6 阶段 5 批次三（引擎层新依赖四项）须按硬约束 1 经总监批准并登记 licenses.json 与 pyproject；批次一/二全部 stdlib 自研零新依赖，不受本提案影响。§3.1 对标矩阵与调研快照（2026-11-25~27）为能力与许可证依据。
+- **选项**：A. 批准全部四依赖（presidio、garak、traceloop-sdk、deepeval）→ licenses.json 注册表 + pyproject optional-deps 落位，代价=引擎层依赖面 +4、需跟进上游漂移面；B. 只批 garak（Apache-2.0，subprocess 面，零 import 风险）先行，其余三项维持 stdlib 路线；C. 全部不批，stdlib 版先行（批次一/二不受阻），依赖面零增长。
+- **建议（不构成批准）**：C 先行 + B 并入 r236 依赖刷新锚点轮一并裁定；A 视批次二落地效果评估再议。
+- **限制**：治理壳禁第三方 import（硬约束 1）；serena/inspector NOASSERTION 落地前必核 LICENSE；GPL/AGPL 禁入维持；MPL 仅 dev 侧（D-034 口径）；许可证为调研快照值，批准前以官方 LICENSE 复核。
+- **证据**：docs/ROADMAP.md §3.1 对标矩阵（10 行）；《AI开源项目汇总》991 项索引快照（2026-11-25~27）；2026-11-28 审查报告（W1-W10）。
+
+## D-054（第 2 条）｜裁决：方案 C 全部不批 + 四项条件激活（round-237，v2.104.0 不增版本）
+
+- **日期**：2026-11-28（round-237；提案人=宿主代理，批准=总监会话内授权代裁——授权语「剩余的三项全部授权你代为决定」，两人规则纸面保持：本条即裁决依据实录）
+- **状态**：已裁定（方案 C 终局；四项转条件激活观察项，不进 pyproject/licenses.json）
+- **裁决**：①presidio 不引入——stdlib pii-scan（M7）已覆盖结构化 PII 面（身份证/手机号/邮箱/银行卡校验位+熵兜底）且反向验证全过，NER 自由文本面留条件激活（出现评审材料自由文本 PII 泄漏实证时再议）；②garak 不引入（暂）——本机无 openai 端点（host 臂 unavailable 维持），红队无靶，条件激活=端点实配后按 subprocess CI job 落地（Apache-2.0 零 import）；③traceloop-sdk 不引入——trace.py 已输出 Langfuse 兼容 JSONL（自托管免 SDK），条件激活=出现外部 OTel 网关接入需求；④deepeval 不引入——precision-gate/review-quality-gate/SWE-bench 套件已覆盖受测面，条件激活=现有门禁覆盖不足实证。
+- **理由**：批次一/二 stdlib 版全部落地且反向验证全过（44 条新契约），依赖面零增长；四项各有可证伪的激活条件——不以「将来可能用」换即时依赖重量（硬约束 1 的精神：新增依赖须有真实理由）。
+- **影响**：批次三按方案 C 终局；ROADMAP §6 阶段 5 批次三标记条件激活（见本条）；licenses.json/pyproject 不动；批次一至五验收线不变。

@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-227：全仓口径与计数季度对账——两处前向漂移已修",
+      "description": "reports/count-caliber-audit-r227.md：版本真值 2.101.0 六处一致；计数 849/90/16/266 一致（doc-freshness 漂移 0）。修正 PROGRESS 当前快照 848→849 项、mcp/review_mcp.py 模块 docstring 14→16 工具并补列 cancel/purge（不影响工具行为）。tag 核对：v2 系列 71 个，缺 v2.98/v2.99 但两版无 release-gate 证据，按 D-035 不打 tag 为正确行为，不补打。对外口径 0.42% + 宿主臂 unavailable 不变。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-227：开局与版本",
+      "description": "round-gate open --round 227 全 PASS；版本保持 2.101.0 不增；依赖锚点 r226 后第 1 轮未到；MCP cancel/D-052 观察项本轮双跑未再现；key 轮换无新命中。",
+      "outcome": "done"
+    }
+  ]
+}

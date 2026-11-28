@@ -10,8 +10,8 @@
   "missing": [],
   "new_files_count": 0,
   "new_files": [],
-  "baseline": "<repo>\\skills\\self-iteration\\coverage-baseline.json",
-  "measured_from": "<repo>\\reports\\ci-gates-round56\\coverage-measured.json",
+  "baseline": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\skills\\self-iteration\\coverage-baseline.json",
+  "measured_from": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\ci-gates-round56\\coverage-measured.json",
   "files_measured": 57,
   "files_in_baseline": 57
 }

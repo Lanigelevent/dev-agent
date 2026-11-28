@@ -16,7 +16,7 @@
     "branch": "task/round-219-maintenance",
     "tag_checked": false
   },
-  "root": "<repo>",
+  "root": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent",
   "checks": [
     {
       "id": "version_sync",

@@ -2,7 +2,7 @@
   "round": 0,
   "tests": "pass",
   "test_detail": [
-    "引擎 cmd（<repo>\\.venv\\Scripts\\python.exe -m pytest -q）",
+    "引擎 cmd（C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\.venv\\Scripts\\python.exe -m pytest -q）",
     ".                                                                        [100%]",
     "1 passed in 0.34s"
   ],

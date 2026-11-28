@@ -1,6 +1,6 @@
 {
   "schema": "review-bench/1",
-  "ocr_exe": "<repo>\\reports\\_work\\tooling\\ocr\\node_modules\\.bin\\ocr.cmd",
+  "ocr_exe": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\_work\\tooling\\ocr\\node_modules\\.bin\\ocr.cmd",
   "cases": [
     {
       "id": "clean-ts",

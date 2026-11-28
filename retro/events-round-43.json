@@ -60,7 +60,7 @@
   {
     "category": "手工",
     "description": "【运维】工作区清理：30 个一次性脚本 + 4 个被测试灌入假路径的记忆/测试 JSONL 移出仓库（Temp/dev-agent-round43-oneoff/，可恢复不删除）；gate 语料（skills/eval-harness/data/）与运行时记忆（retro/agent-memory.jsonl）加入 .gitignore",
-    "source": "git status 清点；<user-home>/AppData/Local/Temp/dev-agent-round43-oneoff/；.gitignore"
+    "source": "git status 清点；C:/Users/<user>/AppData/Local/Temp/dev-agent-round43-oneoff/；.gitignore"
   },
   {
     "category": "手工",

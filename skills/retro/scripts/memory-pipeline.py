@@ -95,6 +95,26 @@ def _decide_arm_status(argv_decider):
     return "deterministic", "ready"
 
 
+def _supersede(entries, entry_id, reason):
+    """M8 归档臂：标记 superseded（保留原文，不删除）——mem0 DELETE 语义的
+    保守落地（与 compact-memory 老化层分工：本臂按显式指令归档，老化层按
+    预算自动清理）。返回 (ok, entries)；未命中 id → (False, entries)。"""
+    import time as _t
+    ok = False
+    for e in entries:
+        if e.get("id") == entry_id and not e.get("superseded"):
+            e["superseded"] = True
+            e["superseded_reason"] = str(reason or "")[:300]
+            e["superseded_ts"] = _t.strftime("%Y-%m-%dT%H:%M:%S", _t.gmtime())
+            ok = True
+    return ok, entries
+
+
+def _live(entries):
+    """活记忆过滤：superseded 条目不参与比对与检索（保留原文在 store）。"""
+    return [e for e in entries if not e.get("superseded")]
+
+
 def _merge_decide(facts, entries):
     """确定性合并决策：同 namespace 内 TF-IDF cosine 对照。
 
@@ -109,7 +129,7 @@ def _merge_decide(facts, entries):
     spec.loader.exec_module(mod)
     decisions = []
     ns_entries = {}
-    for e in entries:
+    for e in _live(entries):
         ns_entries.setdefault(str(e.get("namespace") or "agent"),
                               []).append(e)
     for fact in facts:
@@ -227,6 +247,10 @@ def main():
     pp.add_argument("--store", required=True)
     pp.add_argument("--events", required=True)
     pp.add_argument("--namespace", default="agent")
+    sup = sub.add_parser("supersede")
+    sup.add_argument("--store", required=True)
+    sup.add_argument("--entry-id", required=True)
+    sup.add_argument("--reason", required=True)
     argv = parser.parse_args()
     store = Path(argv.store)
     if argv.cmd in ("plan", "add"):
@@ -271,6 +295,16 @@ def main():
                "note": "自写决策提示（宿主/LLM 消费面；结果经 "
                        "add --decider llm 臂回灌）"})
         return 0
+    if argv.cmd == "supersede":
+        entries = _load_store(store)
+        ok, entries = _supersede(entries, argv.entry_id, argv.reason)
+        if not ok:
+            _emit({"ok": False, "error": "entry_id 未命中或已归档: %s" % argv.entry_id})
+            return 1
+        _store_write(store, entries)
+        _emit({"ok": True, "cmd": "supersede", "entry_id": argv.entry_id,
+               "store_entries": len(entries)})
+        return 0
     if argv.cmd == "retrieve":
         spec = importlib.util.spec_from_file_location(
             "memory_retrieval",
@@ -279,6 +313,10 @@ def main():
         spec.loader.exec_module(mod)
         result = mod.retrieve(store, argv.query, top_k=argv.top_k,
                               min_score=argv.min_score)
+        sup_ids = {e.get("id") for e in _load_store(store) if e.get("superseded")}
+        result["hits"] = [h for h in (result.get("hits") or [])
+                          if h.get("id") not in sup_ids]
+        result["superseded_filtered"] = True
         _emit(result)
         return 0
     _emit({"ok": False, "error": "未知子命令: %s" % argv.cmd})

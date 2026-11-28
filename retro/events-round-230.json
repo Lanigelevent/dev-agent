@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-230：依赖刷新第十八跑提前提案写案（只读实测，待裁定）",
+      "description": "reports/dep-refresh-18-proposal-r230.md：清华镜像 dry-run 11 个直接依赖，8 项无变化、3 项仅非跟踪传递升级（pyyaml 6.0.4 / packaging 26.4，按 r220/r226 先例拒绝）；与 r226 相比无新增直接漂移。建议不提前跑第十八跑，维持原锚点约 r236；本轮只写案，不改依赖/版本/口径。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-230：开局与版本",
+      "description": "round-gate open --round 230 全 PASS；版本保持 2.101.0 不增；MCP cancel/D-052 观察随双跑；key 轮换无新命中；light 收官。",
+      "outcome": "done"
+    }
+  ]
+}

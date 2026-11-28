@@ -1,0 +1,25 @@
+{
+  "bundle_sha256": "3d85a0452a133ad42feff196b99a8a9b9b06df0df7930b1ec6e7f50e9f45fac1",
+  "generated_at": "2026-11-28T04:06:02",
+  "note": "由 mcp-selfscan.py pin 生成；与 TOOLS/policy 改动同 commit",
+  "policy_sha256": "8d18b6ec7af1cab8f8980526390c389ea8982e7d69b05ff0b41d02c088b355d4",
+  "schema": "tools-pin/v1",
+  "tools": {
+    "code_review_apply": "5855d5320292de2dc2c0bae0e918aeaa42deb160282e94a6816a164b8a440796",
+    "code_review_approve": "9b6a8b10496641548f36ed7cfad912017df3f7197561bc6743d947c44d433bf2",
+    "code_review_cancel": "ae8242ac7d47878318f4d8814c38c19af5832053c2be70d23de36ce22ae5745b",
+    "code_review_coding": "f55e6d9174520c0e1839dd29d8a0f4e008c8cf84d794126853ff699ac6c67aba",
+    "code_review_director": "b0eadab22d4a6a93d5291881723b4ceb5d333ccc1a88ac1adf9e1b38323c37e1",
+    "code_review_feedback": "8b6e040c45c5f2efea9c94cec8a58c6cec2cb6846b6cda26686fa523df533c6f",
+    "code_review_fix": "db7a61b0e19473ff929f58430f17888f60a6c233e76f7465f481bdb27f03d16e",
+    "code_review_plan": "4894f7229808f2d2fe44b5e4d5372d92a657b9c91f0facb87faf576b48a9d547",
+    "code_review_purge": "230e1abb84beb7d3d7469ff5f067cbd149ff5dd5e3a8d13b123b85b71b83e189",
+    "code_review_refactor": "9a38a29c63ba046f02acb08338159fce6cb96cde3e85d72e7cdee9979566db59",
+    "code_review_retro": "0e26cff10ce0f9f3573c3810c4102215474c08a6e57d0bb3583742d80be9dfe9",
+    "code_review_run": "96fb879b755545bd4b534607719dde0a99fe793c6444f374d880c3fd04592861",
+    "code_review_scan": "63420bbed49a77dc14809a452ad6390c0f33f687a09056ba727a22b58073c955",
+    "code_review_status": "a00468946291dba28cfa62f635ab605fca9a8278ccb4eb1517eeb282d6ac4264",
+    "code_review_submit": "eb0e652a4e4f4bce68ec4b6aecf92c45d9e9d03e6e4e2ae44e6c2774d2f4f2bf",
+    "code_review_testgen": "5e05519d3807fc3b6beafe01108344eb06fda4400092aafa50c12e1858fe326b"
+  }
+}

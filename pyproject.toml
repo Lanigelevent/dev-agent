@@ -1,6 +1,6 @@
 [project]
 name = "dev-agent"
-version = "2.99.0"
+version = "2.104.0"
 description = "全能代码智能体（治理先行）：评审/修复/重构/测试生成与编码循环，复用成熟开源引擎，一切写操作经五道闸"
 requires-python = ">=3.11"
 # 依赖白名单（AGENTS.md 硬约束 1）：MIT/Apache/BSD 可嵌入；MPL-2.0 仅 test-only（D-022）；LGPL 组件一律 subprocess 隔离（不入本表）

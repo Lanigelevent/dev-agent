@@ -198,7 +198,7 @@ runner.py 把本主流程代码化：预算四参数（分钟/轮数/查证轮�
 每步写断点、--resume 续跑、误报模式库下发到派发、--feedback 驳回项回流、
 交付双闸失败即 NEED_HUMAN。LLM 端点走白名单校验（公网 https 或本地回环）。
 
-## 脚本清单（90 个）
+## 脚本清单（93 个）
 
 | skill | 脚本 | 用途 | 主流程接入 |
 | --- | --- | --- | --- |
@@ -222,6 +222,9 @@ runner.py 把本主流程代码化：预算四参数（分钟/轮数/查证轮�
 | production-guardrails | cost-ledger.py | 统一成本账本（totals.json cost 块 + C1–C8 预算对账） | 全程 |
 | production-guardrails | checkpoint.py | 断点读写与续跑校验 | 全程 |
 | production-guardrails | human-gate.py | 人工介入门 | 步骤 0、2、6 |
+| production-guardrails | mcp-selfscan.py | MCP 16 工具清单哈希固化与漂移拒服务（pin/check；启动比对+CI 门禁） | CI 门禁（r233） |
+| production-guardrails | pii-scan.py | PII 出站脱敏闸（身份证/手机号/邮箱/银行卡校验位+熵兜底，selftest 反向样例） | CI 门禁（r234） |
+| repair | test-select.py | 变更感知测试选择器（直接证据法+后缀链，空集回退全量；供 fix-apply 闸五 auto 档消费） | 修复阶段（r235） |
 | production-guardrails | report-check.py | 报告模板校验 | 步骤 10 |
 | production-guardrails | schema-check.py | 8 个产物 schema 校验 | 步骤 10 |
 | production-guardrails | manifest_args.py | 读取 agent.json 的 args | 各脚本 |
@@ -284,7 +287,7 @@ runner.py 把本主流程代码化：预算四参数（分钟/轮数/查证轮�
 | retro | retro-report.py | 轮报 + 下一轮改进候选（真仓强制 --round N：缺省自动编号在真仓被护栏拒绝，r156） | 复盘阶段 |
 | retro | memory_retrieval.py | 记忆检索（TF-IDF + cosine，供 few-shot 注入） | 编码循环 |
 | retro | compact-memory.py | 记忆压缩与老化（TF-IDF 聚类 + 冷记忆清理） | 复盘阶段 |
-| retro | memory-pipeline.py | 记忆三级管线（抽取→合并决策→检索；UPDATE/ADD 双臂，AB-20） | 编码循环 |
+| retro | memory-pipeline.py | 记忆三级管线（抽取→合并决策→检索；UPDATE/ADD/supersede 三臂，AB-20+M8 归档臂保留原文） | 编码循环 |
 | director | org-route.py | 科层调度：分派/RACI/能动性下发 | 全程 |
 | director | case-match.py | 案例库 v2：链接型档案匹配与入库 | 全程 |
 | director | research-brief.py | 疑难杂症研究简报（检索由宿主联网） | 全程 |

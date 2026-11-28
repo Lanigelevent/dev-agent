@@ -1484,7 +1484,7 @@
 - **台账**：无新坑；241 / open 8 / closed 209 不变。
 - **证据**：reports/workspace-coverage-r126.md；reports/coverage-round126/measured.json；`logs/suite-r126-run1/2.log`；tests/test_agent.py（+12、134 例）。
 ### 5.85 round-127（v2.29.0）：README 按参考仓标准重构（自动化报告生成系统）——新门面（契约 713 不变）
-- **重构依据**：`<external-reference>\README.md`（v2026.11.10.0027 发版 README）。目标：把 dev-agent 的 README 从「项目备忘」升级为「访客/新维护者入口」——一句话 hero + 能力边界（先读）+ 按角色选读 + 架构调用链（不是目录树）+ ADR 表 + 配置单一事实源 + 门禁/ADR/已知限制诚实清单 + 排障速查。
+- **重构依据**：`C:\Users\<user>\Desktop\自动化报告生成系统\README.md`（v2026.11.10.0027 发版 README）。目标：把 dev-agent 的 README 从「项目备忘」升级为「访客/新维护者入口」——一句话 hero + 能力边界（先读）+ 按角色选读 + 架构调用链（不是目录树）+ ADR 表 + 配置单一事实源 + 门禁/ADR/已知限制诚实清单 + 排障速查。
 - **只留常青真值**：不抄逐版发版流水、不抄行数/rule 数这类数字（守卫现取）；逐版口径指向 docs/PROGRESS.md / BASELINE-HISTORY.md；本页 grep-exclude 漂移检测。
 - **安全章节升级**：五道闸落盘 / 审核人闸 1 2 双签 / SSRF 白名单（302 逐跳复验）/ secret-scan 基线对账 / license-check 三档许可——逐项如实写清，不营销化。
 - **门禁**：doc-structure PASS（19/19）、doc-drift PASS（15/15）、freshness 漂移 0；契约 713 不变、脚本 83 不变。
@@ -2023,3 +2023,94 @@
 - **观察项**：MCP async 家族 27/27；runs/jobs 3 cancelled/4 done；CI nightly/CII/key 轮换仍待操作员。
 - **轻量收官**：单次 xdist 全量 845 passed + 3 skipped，**550.02 秒**；独立复核 PASS。
 - **台账**：无新坑（266 / open 0 / closed 242 / archived 24 不变）。
+### 5.185 round-222（v2.99.0 不增版本）：冗余备份与无用文件清理（用户授权全权删除，零代码 light）
+- **清理**（reports/cleanup-r222.md）：删除全部 gitignored 临时/缓存——`reports/_work`（历史评测 worktree/venv/.pyc，首轮 rmtree 部分清理 + `git clean -ffdX` 收尾，约 4.6 GB）、
+  `logs/r94-dbg` / `r96-goldref` / `v99-dbg`（46.6 MB）、`.pytest_cache` / `.ruff_cache` / `.hypothesis` / `corpus`、源码 `__pycache__` 25 处；受控文件零备份形态、测试无路径依赖。
+- **保留**：`logs/suite-*.log` 与双跑账本、`runs/jobs` 哈希链、`datasets/`（129 GB 评测缓存，重下代价高）、`.venv/`、`.mimosa/` 审计账本、`retro/archive-repo/` 档案、`skills/eval-harness/data/` 语料。
+- **磁盘盘点**：项目总计 129.49 GB，`datasets/` 占 129.02 GB（swe-out 98.2 / swebench 25.7 / imagecache 2.3 / swe-repos 2.1 GB）；已在回复中给用户"可清理 vs 保留"清单，未擅自删数据集。
+- **验证**：清理后 doc-freshness 漂移 0、session-probe 全绿；light 单跑首跑 1 例偶发失败（`test_cancel_running_job` pid 竞态，单测复测通过，失败日志留档 `logs/suite-r222-run1-first-failed.log`），清理完成后重跑全绿 **285.38 秒**（`logs/suite-r222-run1.log`，846 passed + 2 skip）。
+- **版本 2.99.0 / 848 契约 / 90 脚本 / 16 工具不变**；对外口径不变（0.42% / 宿主臂 unavailable）。台账 266 / open 0 / closed 242 / archived 24。分支 `task/round-219-maintenance` 本地提交，不自动合并/不推送。
+### 5.186 round-223（v2.100.0）：历史评测缓存清理 120.5GB + pid 竞态加固（849 契约）
+- 用户裁定三连：①删 120.50GB（swe-out 四目录 98.05GB + swebench pro-runs 15.01GB + live-runs 系列 8.44GB，229,102 文件）；保留索引/pro-work/live-cache/verified-runs/swe-repos/imagecache 等（reports/cleanup-datasets-r223.md）。
+- ②pid 竞态定位加固（reports/pid-race-r223.md）：r222 首跑失败发生在清理与套件并发期间；清理后 xdist 连续 5 跑 27/27 + 单测全绿，未复现稳定竞态（观测≠因果）；事实加固=`_cancel_tool` 在 status=running 且 runner.pid 暂不可见时有界等待 2s 再回退 worker_pid，+1 契约（28/28），契约 848→849。
+- ③收官后推送任务分支并合并 main（待本轮提交/闸后执行）；按 D-035 gate 绿后在 main 打并推 v2.100.0 tag。
+- **版本 2.100.0**（bump-version 单命令 + sync-counts：849/90/16）；工具数/对外口径不变（0.42% / 宿主臂 unavailable）。
+- **双跑全绿 384.80 / 360.07 秒**（`logs/suite-r223-run1/2.log`，pytest xdist，各 847 passed + 2 skip；< 540s 触发线、< 600s 护栏）。台账 266 / open 0 / closed 242 / archived 24。
+### 5.187 round-224（v2.100.0 不增版本）：剩余 datasets 二次盘点（零代码 light）
+- reports/dataset-remaining-audit-r224.md：项目 8.99GB、`datasets/` 8.54GB；
+  **保留** imagecache 2.30GB（镜像铁律+脚本引用）、swe-repos 2.09GB（sibling-test/aci-retrieval/live-sample 引用）、
+  pro-work 1.64GB（Pro 重跑就位）、live-cache 0.35GB、swrenbench/reviewbench/根索引；
+  **可清候选约 2GB**（verified-runs v99/v103/v107/v108 0.97 + swe-work 0.64 + live-extra/work 0.22 + swe-out harness/单题 0.16）——未删除，待用户裁定（上轮裁定不覆盖）。
+- 无脚本硬编码依赖旧产物路径（所有评测 `--out` 均 required，grep 覆盖 31 处）；零代码、版本不增、对外口径不变（0.42% / 宿主臂 unavailable）。
+- 附带观察：依赖锚点 r220 第十六跑后第 4 轮未到；pid 竞态本轮双跑未再现（killed_pids 断言全绿），不新增坑。
+- **light 单跑全绿 266.08 秒**（`logs/suite-r224-run1.log`，847 passed + 2 skip）。台账 266 / open 0 / closed 242 / archived 24。
+### 5.188 round-225（v2.100.0 不增版本）：评测口径季度对账（零代码 light）
+- **0.42% 复算成立**：v2.100.0 重跑 `score --limit 1000` → point_recall **0.0042**（3/713）、clean_zero_noise **0.974**；与 README/PROGRESS 唯一对外数字逐位一致，r184 score 同值。
+- 宿主臂口径稳定：n=1000 recall=0 与 D-053 归因（执行质量非协议缺陷）一致；契约 778→849、脚本 86→90、工具 16 的增长均为工具/治理层，不外推评审能力；无勘误需要。
+- 证据可用性如实：原始 host judge.json 已随 r222/r223 清理删除，结论以入仓轮次记录为准（reports/eval-caliber-audit-r225.md）。
+- 范围外：剩余约 2GB 缓存待裁定；依赖刷新锚点 r220 后第 5 轮未到。
+- **light 单跑全绿 279.36 秒**（`logs/suite-r225-run1.log`，847 passed + 2 skip）。台账 266 / open 0 / closed 242 / archived 24。
+### 5.189 round-226（v2.101.0）：剩余缓存清理 1.92GB + 依赖刷新第十七跑（849 契约不变）
+- 用户裁定 item 189①：删除 verified-runs v99/v103/v107/v108（0.947GB）、swe-work（0.642GB）、live-runs-extra/live-work（0.171GB）、swe-out harness/单题（0.160GB），合计 1.92GB / 216,155 文件；保留 imagecache/swe-repos/pro-work/live-cache/语料/根索引（reports/cleanup-datasets-r226.md）。
+- 依赖刷新第十七跑：清华镜像一次命中零降级；11 个直接依赖 8 项 no changes，pyyaml 6.0.4 / packaging 26.4 非跟踪传递升级按 r220 先例拒绝；三引擎矩阵零漂移（ruff 973/482/250、astgrep 29/2/2、libcst deep-equal）；click/pandas/tzdata 已不在 pyproject，不在 tracker 面。
+- 版本 2.101.0（bump-version 单命令 + sync-counts：849/90/16）；按 D-035 gate 绿后打并推 v2.101.0 tag。
+- 双跑全绿 259.69 / 250.52 秒（`logs/suite-r226-run1/2.log`，pytest xdist，各 847 passed + 2 skip；< 540s/< 600s）。
+- 对外口径不变（0.42% / 宿主臂 unavailable）；台账 266 / open 0 / closed 242 / archived 24。
+### 5.190 round-227（v2.101.0 不增版本）：全仓口径与计数季度对账（零代码 light）
+- reports/count-caliber-audit-r227.md：版本真值 2.101.0 六处一致；计数 849/90/16/13、台账 266（open 0）一致（doc-freshness 漂移 0）；对外口径 0.42% + 宿主臂 unavailable 不变。
+- 修正两处前向漂移：PROGRESS 当前快照 848→849 项；mcp/review_mcp.py 模块 docstring 14→16 工具并补列 cancel/purge（不影响工具行为）。
+- tag 核对：v2 系列 71 个，缺 v2.98/v2.99 但两版无 release-gate 证据，按 D-035 不打 tag 为正确行为，不补打。
+- 依赖锚点 r226 后第 1 轮未到；MCP cancel/D-052 观察项未再现。
+- **light 单跑全绿 290.07 秒**（`logs/suite-r227-run1.log`，847 passed + 2 skip）。台账 266 / open 0 / closed 242 / archived 24。
+### 5.191 round-228（v2.101.0 不增版本）：对外口径与门禁面季度复核（零代码 light）
+- 门禁面交叉复核（reports/gate-surface-audit-r228.md）：release-gate 2.101.0 七项全绿、expected_tests=849、redline_sec=600；两份 suite 日志 sha256 与 gate 记录逐位一致；CI nightly 十项步骤（ubuntu timeout 600 / windows subprocess timeout=600→124 / timeout-minutes 45 / --require-hashes / doc-structure / secret / license / latency SLO / pip-audit）齐备。
+- 口径漂移修正：README / PROGRESS「评测口径」行补回宿主评审臂 **unavailable**（n=1000 recall=0，D-053 归因），恢复用户早前裁定；数字未改、doc-freshness 漂移 0。
+- 观察项：MCP cancel pid 竞态未再现；D-052 本轮 246.89s 线内；依赖刷新锚点 r226 后第 2 轮未到。
+- **light 单跑全绿 246.89 秒**（`logs/suite-r228-run1.log`，847 passed + 2 skip）。台账 266 / open 0 / closed 242 / archived 24。
+### 5.192 round-229（v2.101.0 不增版本）：项目体积与缓存终盘（零代码 light）
+- reports/disk-final-audit-r229.md：总量 7.07GB（三轮清理释放约 122.4GB）；datasets 6.60GB 剩余项（imagecache 2.30 / swe-repos 2.09 / pro-work 1.64 / live-cache 0.35 GB）全有脚本引用或镜像铁律约束，.mimosa 282MB 为审计账本——结论：无可安全删除项，停止清理。
+- 依赖锚点 r226 后第 3 轮未到；MCP cancel/D-052 观察项本轮双跑未再现（259.00 秒，线内）。
+- **light 单跑全绿 259.00 秒**（`logs/suite-r229-run1.log`，847 passed + 2 skip）。版本/契约/脚本/工具与对外口径不变；台账 266 / open 0 / closed 242 / archived 24。
+### 5.193 round-230（v2.101.0 不增版本）：依赖刷新第十八跑提前提案（零代码 light）
+- reports/dep-refresh-18-proposal-r230.md：清华镜像只读 dry-run 11 个直接依赖，8 项无变化、3 项仅非跟踪传递升级（pyyaml 6.0.4 / packaging 26.4，按 r220/r226 先例拒绝）；与 r226 相比无新增直接漂移。
+- 建议：**不提前跑第十八跑**，维持原锚点约 r236；本轮只写案、待总监裁定，不改依赖/版本/口径。
+- 依赖锚点、MCP cancel 竞态、D-052 触发线随双跑观察未再现。
+- **light 单跑全绿 268.94 秒**（`logs/suite-r230-run1.log`，847 passed + 2 skip）。台账 266 / open 0 / closed 242 / archived 24。
+### 5.194 round-231（v2.101.0 不增版本）：依赖刷新第十八跑裁定——不提前（零代码 light）
+- 用户裁定接受 r230 提案：11 个直接依赖无新增直接漂移，**不提前跑第十八跑**，维持原锚点约 r236；若批准新增依赖/镜像缺包/安全公告再临时提前。裁定写入 reports/dep-refresh-18-proposal-r230.md。
+- 关注项：MCP cancel 竞态与 D-052 触发线随双跑未再现；本轮零代码、不改依赖/版本/口径。
+- **light 单跑全绿 265.96 秒**（`logs/suite-r231-run1.log`，847 passed + 2 skip；后台首次命令解析失败已重跑，非测试失败）。台账 266 / open 0 / closed 242 / archived 24。
+### 5.195 round-232（v2.101.0 不增版本）：开源对标强化计划入册（零代码 light）
+- 开源调研（991 项索引 A/B/I 三方向，2026-11-25~27 快照）→ ROADMAP §3.1 对标矩阵（10 行）+ §4 G16-G23 + §6 阶段 5（5.1-5.10+阶段出口）+ §9 三项 + §11 来源两条；DECISIONS D-054 提案（引擎层新依赖批准清单，待总监裁决、本轮不实施）。
+- 编辑链 5 处单字/乱串错误如实入册：对策=python -c+断言+回读确定性路径（后半程插入零返工）；收官套件首跑红于 PROGRESS 台账行未刷新（266 vs 267）——已知坑变体（预置漂移起跑），顺序对策=先改齐真值行再起套件。
+- 关注项：MCP cancel 竞态与 D-052 触发线随单跑观察未再现；本轮零代码、不改依赖/版本/口径。
+- **light 单跑全绿 264.06 秒**（`logs/suite-r232-run1.log`，847 passed + 2 skip；首跑红于真值行漂移已重跑，非测试失败）。台账 268 / open 2 / closed 242 / archived 24。
+### 5.196 round-233（v2.102.0）：阶段 5 批次一 P0 落地——MCP 自治理与 LLM 循环边界
+- M1 `mcp-selfscan.py`（production-guardrails，脚本 90→91）：TOOLS 16 工具名/描述/Schema + tools-policy.json 的 sha256 固化入 `mcp/tools-pin.json`；serve() 启动比对漂移拒服务（fail-closed）+ CI self-check 新步骤；4 类漂移（篡改/缺失/多余/pin 损坏）反向验证入契约。
+- M4 `mcp/tools-policy.json`：三级清单 auto×14 / gated×2（apply、purge 自带闸）；未知工具 fail-closed；deny 拦截经 _POLICY_CACHE 注入反向验证。
+- M2 `llm/provider.py`：`trim_tool_result` 统一裁剪助手（双阈值保头部）+ 跨调用连续失败熔断（threshold=3、冷却 300s、stderr 降级记录、成功复位）。
+- M3 `complete_json` 回填重试（损坏/校验失败→错误回填重试 1 次→仍失败如实 unparsed）；D-053 全空 [] 语义锁定测试；reviewbench-eval 宿主臂接线（_parse_host_response 拆分为 _obj_from_text/_host_items_from_obj 组合）。
+- 24 条新契约全绿（9 selfscan/policy + 15 provider 边界）；评审器/判分面零改动（precision 基线结构性不回退）；CI self-check 增 MCP 自扫描步；BASELINE 互操作契约增工具自治理段。
+- 传输损坏继续（新文件 Write 5 处、长命令 2 处）——对策升级「数据分件装配」零损坏（1 条 correction 入账，open 2 维持）；r232 顺序坑结案（414a3d5f26f0，验收=本轮真值行先齐再跑）。
+- **full 双跑 248.20/239.50 秒**（`logs/suite-r233-run1/2.log`，871 passed + 2 skip ×2 双绿；首跑轮 3 红于真值行未齐、次跑 1 红于进程内 argparse 污染——rc 测试改子进程面 + 两测试文件改 unittest 兼容后双绿，F5 真值 873 对齐）。台账 269 / open 2 / closed 243 / archived 24。
+### 5.197 round-234（v2.103.0）：阶段 5 批次二前半——PII 出站闸与 LLM 端点降级链
+- M7 `pii-scan.py`（production-guardrails，脚本 91→92）：privacy-filter 三层（预过滤+正则+校验/熵兜底）——cn_id（GB 11643 校验位）/cn_phone（边界断言）/email/bank_card（Luhn）+ entropy 可疑段；命中即脱敏 `<pii:rule>`；--selftest 反向样例 verb 入 CI self-check（selftest 实证抓住 luhn 累加行丢失）。
+- M5 端点降级链（llm/provider.py）：REVIEW_LLM_ENDPOINTS JSON 数组优先、单端点 env 回退；每端点 SSRF 白名单逐个复验（违规剔除并记录）；主备依次降级、降级必记 stderr、全灭如实 degraded=true；_openai_complete 参数化（base_url/model/api_key 显式可传）。
+- 11 条新契约全绿（8 pii + 3 链）；secret-scan 语义不变（测试锁定凭据不归 pii 面）；评审器/判分面零改动（precision 结构性不回退）。
+- 死代码两红（unused_import hashlib + --root 死参数）——拆除并同步 CI 步/测试/docstring（Q10 参数漂移抓到）；传输损坏 2 处全被 selftest/compile 拦于提交前（1 条 correction 入账，open 3 维持）。
+- **full 双跑 244.89/250.94 秒**（`logs/suite-r234-run1/2.log`，882 passed + 2 skip ×2 双绿）。台账 270 / open 3 / closed 243 / archived 24。
+### 5.198 round-235（v2.104.0）：阶段 5 批次二后半——变更感知测试选择与记忆归档臂
+- M6 `test-select.py`（repair，脚本 92→93）：直接证据法（变更 .py 模块全名+后缀链匹配测试 import/引用 + 顶层符号）；空集回退全量（不冒充「无受影响测试」）；fix-apply 闸五 auto 档接线（缺省 full 语义不变；argv 作用域勘误由闸五链路测试群抓回）。
+- M8 memory-pipeline supersede 归档臂：显式指令归档（保留原文不删除，与 compact-memory 老化层分工）；live 过滤进比对语料与检索结果；未命中/重复归档如实 rc=1。
+- 9 条新契约全绿（5 选择器双向断言 + 4 归档臂）；选择器顶层包名碎片跨模块碰撞由双向契约抓住改后缀链（1 条 correction 入账，open 4 维持）。
+- Q10 参数漂移两连抓（AGENTS 行与 docstring 各一处 --test-mode 归属错位）——文档措辞纪律：脚本 docstring 不得写「别的脚本的参数字面量」。
+- **full 双跑 230.51/227.83 秒**（`logs/suite-r235-run1/2.log`，891 passed + 2 skip ×2 双绿）。台账 271 / open 4 / closed 243 / archived 24。
+### 5.199 round-236（v2.104.0 不增版本）：依赖刷新第十九跑提案（零代码 light）
+- reports/dep-refresh-19-proposal-r236.md：uv 只读探测 11 直接依赖零新增直接漂移；hypothesis 6.170.17→6.170.23 为传递升级（非跟踪），packaging/pyyaml 同属非跟踪传递——按 r220/r226/r230 先例拒绝。
+- 建议不提前执行第十九跑；下一锚点建议约 r244；批次三（D-054 待批）或镜像缺包/安全公告时再临时提前。
+- 关注项：MCP cancel 竞态与 D-052 触发线随双跑观察未再现；本轮零代码。
+- **light 单跑全绿 232.27 秒**（`logs/suite-r236-run1.log`，891 passed + 2 skip）。台账 271 / open 4 / closed 243 / archived 24。
+### 5.200 round-237（v2.104.0 不增版本）：三项代裁落笔（零代码 light）
+- 总监会话内授权代裁三项（授权语「剩余的三项全部授权你代为决定」）：D-054=方案 C 终局（presidio/garak/traceloop-sdk/deepeval 四项条件激活，不进 pyproject/licenses.json）；依赖刷新第十九跑=接受不提前（下一锚点约 r244，裁定写入 reports/dep-refresh-19-proposal-r236.md）；批次四=backlog 维持不点名激活（E2B/repomix/GEPA/inspector/harbor/OpenLLMetry 各自条件见 ROADMAP 阶段 5 处置段）。
+- 阶段 5 至此收口：批次一+二 8 项全落地（r233-r235，44 条契约）；批次三/四按可证伪条件处置。
+- **light 单跑全绿 317.62 秒**（`logs/suite-r237-run1.log`，891 passed + 2 skip）。台账 271 / open 4 / closed 243 / archived 24。

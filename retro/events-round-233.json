@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "category": "correction",
+      "description": "命令文本传输损坏在本轮继续：新文件 Write 注入乱串 5 处（mcp-selfscan.py 3、tests 2）、长命令串内换行损坏 2 处（review_mcp/_startup_selfscan、llm 接线桩）；对策升级为「数据分件（≤15 行 Write）+ 探针 + 短命令装配 + py_compile」，该路径零损坏",
+      "root_cause": "长命令与含反斜杠转义的命令文本在传输层被注入乱串；≤15 行数据件 + 短命令拼接全程零损坏",
+      "countermeasure": "新文件一律走「数据分件 Write + 垃圾标记探针 + 短命令装配 + py_compile」；禁长命令携带反斜杠转义",
+      "source": "round-233 编辑链",
+      "type": "correction"
+    }
+  ]
+}

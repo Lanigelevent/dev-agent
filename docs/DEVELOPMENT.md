@@ -27,7 +27,7 @@ uv sync
 uv sync --extra isolated
 ```
 
-- 全量测试：**848 项**（845 passed + 3 conditional skip），预算 60 秒/断言；最近全量 550.02 秒（`logs/suite-r221-run1.log`）。历史时长与逐轮沿革见 `docs/BASELINE-HISTORY.md` 与 `logs/`。
+- 全量测试：**893 项**（891 passed + 2 skipped），预算 60 秒/断言；最近全量 230.51/227.83 秒 full 双跑（`logs/suite-r235-run1/2.log`）。历史时长与逐轮沿革见 `docs/BASELINE-HISTORY.md` 与 `logs/`。
   **解释器必须选对**：`tests/test_agent.py` 会 import 引擎层
   `agent/repo_map.py`（tree-sitter 系），用全局 python 跑会出现 14 例
   `ModuleNotFoundError: tree_sitter_python`——那是环境错，不是代码回归。
@@ -39,7 +39,7 @@ uv sync --extra isolated
 ## 2. 仓库布局
 
 ```
-skills/              治理壳主体：13 个技能 × 90 个脚本，每技能 SKILL.md + scripts/
+skills/              治理壳主体：13 个技能 × 93 个脚本，每技能 SKILL.md + scripts/
   approval/            审核人（闸 1 范围裁定 / 闸 2 补丁准出）
   code-review/         ZCode 总入口技能
   director/            总监（org-route / case-match / research-brief / org-scorecard / case-archive）
@@ -233,7 +233,7 @@ datasets/ runs/ logs/ corpus/  评测与运行产物（.gitignore，不入库）
   行为探针开关两侧、临时快照生命周期、结案口径抽取与实跑、落盘历史轮转、stdin UTF-8
   契约（GBK 复现旋钮 + 复现判真 + 四处变异复验）、上下文工程与记忆（稳定前缀 /
   输出外置 / 历史压缩 / Tracer / few-shot 注入 / 记忆压缩）、DeepSWE 驱动器
-  退出码、事件账本哈希链与重放对账（篡改/首差异/令牌化）等，共 848 项。
+  退出码、事件账本哈希链与重放对账（篡改/首差异/令牌化）等，共 893 项。
 - 运行：`.venv/Scripts/python -m unittest discover -s tests`（必须在项目根跑，discover 以
   tests/ 为 top-level；解释器选择见 §1）。
 - **评测双指标契约**：judge 汇总必须同时输出 recall 与 precision，只报一个视为
@@ -287,7 +287,7 @@ python skills/orchestrator/scripts/github-poster.py --repo owner/name --pr 42 --
 
 ## 8. 版本与发布流程
 
-1. 版本唯一事实源是 `.zcode-plugin/plugin.json` 的 `version`（当前 2.99.0）；
+1. 版本唯一事实源是 `.zcode-plugin/plugin.json` 的 `version`（当前 2.104.0）；
    **同步六处版本 + 计数真值一律跑 `skills/self-iteration/scripts/bump-version.py --root . --set X.Y.Z [--apply] [--sync-counts]`**
    （`pyproject.toml` / `mcp/review_mcp.py SERVER_INFO` / README 头条 / 本文发布口径 /
    PROGRESS 版本行；缺省干跑出计划，`--apply` 落盘、校验失败零写入）；
@@ -313,7 +313,7 @@ python skills/orchestrator/scripts/github-poster.py --repo owner/name --pr 42 --
   `coverage-gate.py measure --root . --out skills/self-iteration/coverage-baseline.json`
   （固定五项测试子集：test_scripts_*.py / test_agent.py / test_dual_reviewer.py / test_provider_ssrf.py / test_report_adapter.py——r120 起含 SSRF 安全契约、r123 起含报告适配器契约；全量套件不测覆盖率，实测 2.6× 成本，D-034）。
 - 仓库内不入库：`.venv/ datasets/ runs/ logs/ corpus/ reports/_work/
-  retro/archive-repo/ <host-memory>/（项目记忆，本地资产）/ 缓存/`
+  retro/archive-repo/ .workbuddy/（项目记忆，本地资产）/ 缓存/`
   （见 `.gitignore`）；`retro/archive-repo` 是功能性本地档案仓，留在磁盘。
 
 ## 10. 已知坑与运维要点

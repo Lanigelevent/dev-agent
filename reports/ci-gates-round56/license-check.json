@@ -1,8 +1,8 @@
 {
   "ok": true,
   "state": "PASS",
-  "root": "<repo>",
-  "registry": "<repo>\\skills\\self-iteration\\licenses.json",
+  "root": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent",
+  "registry": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\skills\\self-iteration\\licenses.json",
   "declared": {
     "import": [
       "ruff",

@@ -387,6 +387,15 @@ doc-drift.py 的行数基线问与硬编码行数问按本表核对实际行数�
   rel/codes；mode=fix-dry 需 repo+rel+out，可选 codes；子进程经
   VENV_PYTHON 调 engines/libcst_adapter.py（libcst 仅 .venv），退出码 1
   不算工具错误）；落盘仍走修复链，本工具只产发现与补丁建议。
+- LLM 端点降级链（v2.103.0，批次二 M5）：REVIEW_LLM_ENDPOINTS（JSON 数组
+  [{base_url,model,api_key?}...]）优先，缺省回退单端点 env；每端点过 SSRF
+  白名单（违规剔除并 stderr 记录）；主端点失败依次降级备选，降级必记原因
+  （与下载策略同口径），全灭如实 degraded=true。
+- 工具自治理（v2.102.0，批次一 M1/M4）：TOOLS 16 工具名/描述/Schema 与
+  tools-policy.json 的 sha256 固化入 mcp/tools-pin.json（mcp-selfscan.py
+  pin/check）；服务器启动与 CI self-check 比对，漂移即拒服务（fail-closed）；
+  tools-policy.json 三级清单（auto×14 / gated×2=apply、purge 自带闸；未知
+  工具一律拒绝）。清单演进须与 pin 同 commit。
 - isError 语义：脚本退出码 2 → isError true；退出码 1（NEED_HUMAN）不是错误。
 - 子进程：显式参数列表 + shell=False，脚本目标白名单常量，超时 run 600s 其余 60s。
 - dsh 接线为声明式：interop/deepseek-harness/cordis.yml.example 用官方

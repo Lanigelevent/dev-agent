@@ -3,7 +3,7 @@
   "data": {
     "ok": true,
     "state": "DONE",
-    "patch": "<repo>\\reports\\multilang-round59\\tasks\\ts-calc\\edits.patch",
+    "patch": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\multilang-round59\\tasks\\ts-calc\\edits.patch",
     "tests": "pass",
     "rounds": 1,
     "edits": 1,

@@ -974,7 +974,7 @@
       "description": "【运维】工作区清理：30 个一次性脚本 + 4 个被测试灌入假路径的记忆/测试 JSONL 移出仓库（Temp/dev-agent-round43-oneoff/，可恢复不删除）；gate 语料（skills/eval-harness/data/）与运行时记忆（retro/agent-memory.jsonl）加入 .gitignore",
       "root_cause": "",
       "countermeasure": "",
-      "source": "git status 清点；<user-home>/AppData/Local/Temp/dev-agent-round43-oneoff/；.gitignore",
+      "source": "git status 清点；C:/Users/<user>/AppData/Local/Temp/dev-agent-round43-oneoff/；.gitignore",
       "status": "closed",
       "closure_note": "git status 无一次性脚本与被污染 JSONL；skills/eval-harness/data/ 与 retro/agent-memory.jsonl 在 .gitignore；移出目录保留 Temp 可恢复"
     },
@@ -1230,11 +1230,11 @@
       "id": "99f06d6f1632",
       "category": "手工",
       "description": "【坑】写记忆时把项目记忆误指到用户级 auto-memory（两处同名 MEMORY.md），Edit 报 0 命中才发现路径不对",
-      "root_cause": "MEMORY.md 同时存在于用户 scope 与项目 <host-memory>/memory/，操作时只凭文件名未按项目根解析绝对路径",
+      "root_cause": "MEMORY.md 同时存在于用户 scope 与项目 .workbuddy/memory/，操作时只凭文件名未按项目根解析绝对路径",
       "countermeasure": "记忆写入先按项目根拼路径并用 Read 确认行数/内容再 Edit；用户级 auto-memory 不承载项目状态",
-      "source": "round-47 执行过程实踩（<user-home>/<host-memory>/memory vs <host-memory>/memory）",
+      "source": "round-47 执行过程实踩（C:/Users/<user>/.qoder-cn/memory vs .workbuddy/memory）",
       "status": "closed",
-      "closure_note": "复跑：grep -c \"dev-agent\" <host-memory>/memory/MEMORY.md（=1，项目级 MEMORY.md 按项目根绝对路径命中，非用户级 auto-memory）。"
+      "closure_note": "复跑：grep -c \"dev-agent\" .workbuddy/memory/MEMORY.md（=1，项目级 MEMORY.md 按项目根绝对路径命中，非用户级 auto-memory）。"
     },
     {
       "id": "9d3895093194",
@@ -2015,6 +2015,52 @@
       "source": "round-34 收官全量计时（reports/_work/run-suite-once.py 三次实跑）",
       "status": "closed",
       "closure_note": "round-44 改造口径：计时沿革在 README；grep -c \"230.239\" README.md → 1（round-35 同负载两次一致 230.239 / 225.174 秒，331 项口径，2026-10-27）。红线不改：round-34 的 300.5/305.7 判为负载抬高（同轮 371s 离群同源），round-35 两次一致 225-230s 自然解除；再越线按检查单第 9 条第③款升级"
+    },
+    {
+      "id": "08dac21110f8",
+      "category": "correction",
+      "description": "命令文本传输损坏在本轮继续：新文件 Write 注入乱串 5 处（mcp-selfscan.py 3、tests 2）、长命令串内换行损坏 2 处（review_mcp/_startup_selfscan、llm 接线桩）；对策升级为「数据分件（≤15 行 Write）+ 探针 + 短命令装配 + py_compile」，该路径零损坏",
+      "root_cause": "长命令与含反斜杠转义的命令文本在传输层被注入乱串；≤15 行数据件 + 短命令拼接全程零损坏",
+      "countermeasure": "新文件一律走「数据分件 Write + 垃圾标记探针 + 短命令装配 + py_compile」；禁长命令携带反斜杠转义",
+      "source": "round-233 编辑链",
+      "status": "open"
+    },
+    {
+      "id": "414a3d5f26f0",
+      "category": "correction",
+      "description": "收官套件首跑红于 PROGRESS 坑台账行未刷新（266 vs 台账真值 267）→ test_real_repo_freshness_green 1 failed——仓面一致性必须先于套件",
+      "root_cause": "已知坑 release-gate-suite-format（双跑期间仓面只读）的变体：不是 mid-run 改仓面，而是带着预置漂移起跑（改了 pitfalls 未同步 PROGRESS 真值行）",
+      "countermeasure": "收官顺序固定为「先改齐全部真值行（PROGRESS 台账行/快照头）→ 再起套件 → 后写回填与收官行（只写不被 F 检查的时间行）」",
+      "source": "round-232 收官链",
+      "status": "closed",
+      "closure_note": "r233 全程按「先齐真值行（PROGRESS/README 台账行+版本+计数）再起套件」执行；bump-version 后 doc-freshness 即绿，双跑前无预置漂移"
+    },
+    {
+      "id": "58aca3522aad",
+      "category": "correction",
+      "description": "传输损坏继续（mt1 数据件 6 处自注标记）——清洗后零残留；选择器顶层包名碎片跨模块碰撞（test_other 误选）由契约测试双向断言抓住，改后缀链匹配",
+      "root_cause": "mod.split('.')[0] 顶层片段在同包多模块场景产生假交集；同包碰撞是设计缺陷非实现笔误",
+      "countermeasure": "匹配键改为模块全名+后缀链（pkg.calc → {pkg.calc, calc}）；契约测试必须双向断言（受影响必入 + 无关必斥）",
+      "source": "round-235 编辑链",
+      "status": "open"
+    },
+    {
+      "id": "8451a0894bb1",
+      "category": "correction",
+      "description": "编辑链连续 5 处单字/乱串错误（§4 标题错字、G17 重号、5.1 行混入乱串、表头错字、G17 证据列错字）——大段/长行 Edit 高频损坏在 ≤20 行小块下仍复现",
+      "root_cause": "长行内容经 Edit 工具下发时高频单字损坏；已验「python -c + 断言 + 回读核验」路径零损坏",
+      "countermeasure": "文档增补一律走「python -c + 断言 + 回读核验」确定性路径，禁长行 Edit；大段内容分块（≤3 行/块）分批落",
+      "source": "round-232 编辑链",
+      "status": "open"
+    },
+    {
+      "id": "aa7eeb091cb3",
+      "category": "correction",
+      "description": "传输损坏继续（数据件 2 处：f5t 乱串、pii luhn 累加行丢失）——但全被探针/编译/selftest 拦截于提交前；pii-scan 的 selftest 反向样例（非法 Luhn 必不命中）恰好抓住累加行丢失，反向验证自证有效",
+      "root_cause": "长命令与多行数据件在传输层仍偶发注入/丢行；数据分件+探针+编译+selftest 是当前最稳对策",
+      "countermeasure": "维持数据分件装配纪律；新引擎类脚本必须带 --selftest 反向样例 verb（本轮实证其拦截价值）",
+      "source": "round-234 编辑链",
+      "status": "open"
     },
     {
       "id": "02dbdd04bfbf",

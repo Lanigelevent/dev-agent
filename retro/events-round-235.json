@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "category": "correction",
+      "description": "传输损坏继续（mt1 数据件 6 处自注标记）——清洗后零残留；选择器顶层包名碎片跨模块碰撞（test_other 误选）由契约测试双向断言抓住，改后缀链匹配",
+      "root_cause": "mod.split('.')[0] 顶层片段在同包多模块场景产生假交集；同包碰撞是设计缺陷非实现笔误",
+      "countermeasure": "匹配键改为模块全名+后缀链（pkg.calc → {pkg.calc, calc}）；契约测试必须双向断言（受影响必入 + 无关必斥）",
+      "source": "round-235 编辑链",
+      "type": "correction"
+    }
+  ]
+}

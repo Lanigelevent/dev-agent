@@ -1,6 +1,6 @@
 {
   "engine": "agent",
-  "repo": "<repo>\\reports\\_work\\multilang-bench\\go-stack-1793266420",
+  "repo": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\_work\\multilang-bench\\go-stack-1793266420",
   "task": "Stack.Size() in stack/stack.go returns one more than the number of items, so `go test ./...` fails. Fix it so all tests pass.",
   "rounds": 1,
   "edits": 1,

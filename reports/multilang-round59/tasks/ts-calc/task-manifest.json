@@ -1,6 +1,6 @@
 {
   "engine": "agent",
-  "repo": "<repo>\\reports\\_work\\multilang-bench\\ts-calc-1793266418",
+  "repo": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\_work\\multilang-bench\\ts-calc-1793266418",
   "task": "The clamp() helper in lib/calc.ts returns the wrong bound when the value is outside [lo, hi]; the Node tests in lib/calc.test.ts fail. Fix the implementation so all tests pass.",
   "rounds": 1,
   "edits": 1,

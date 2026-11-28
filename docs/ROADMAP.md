@@ -78,6 +78,26 @@ coding agent 产品里很少同时具备。
 - **评测必须防作弊、报成本、看合并**：只报 pass@1 会被 conftest 钩子和
   数据污染同时欺骗；只说「通过测试」会被「不可合并」打脸。
 
+### 3.1 开源项目库对标（2026-11-28 调研快照）
+
+> 来源：《AI开源项目汇总》991 项索引（2026-11-25~27 GitHub API 快照），
+> 筛 A（执行循环）/B（工具接入）/I（安全合规）三方向；星标与许可证为
+> 快照参考值（观测≠因果），落地前以官方 LICENSE 复核。处置落 §4
+> G16-G23 与 §6 阶段 5。
+
+| # | 对标对象 | 他们的做法 | 我们的现状 | 吸收方式 | 来源 |
+|---|---|---|---|---|---|
+| 1 | pi-mono / opencode（MIT） | 循环边界三件套：终止判定统一、工具结果回填裁剪、失败熔断降级 | `llm/provider.py` 257 行单端点、无降级链 | stdlib 自研补齐（批次一 M2、批次二 M5） | A 方向 |
+| 2 | mem0（Apache-2.0） | `add()`：抽取事实→与存量比对→ADD/UPDATE/DELETE/归档 | memory-pipeline AB-20 仅 UPDATE/ADD 双臂且默认关 | stdlib 补比对与归档臂（批次二 M8） | A 方向 |
+| 3 | instructor（MIT） | 校验失败→错误信息回填重试闭环 | JSON mode 默认关；宿主臂曾全空响应（D-053） | **stdlib 自研版**（`llm/` 属治理壳禁第三方 import），批次一 M3 | A 方向 |
+| 4 | agent-scan（Apache-2.0） | 工具描述哈希跨会话固化，防 rug-pull 篡改 | 16 工具（`mcp/review_mcp.py` TOOLS）无自扫描/防篡改 | stdlib 自研 mcp-selfscan（批次一 M1） | B 方向 |
+| 5 | codex（Apache-2.0） | 内核层工具分级：自动/需审批/禁止 | 仅子进程目标白名单+超时 | 三级清单入仓+执行层拦截（批次一 M4） | A 方向 |
+| 6 | presidio / privacy-filter（MIT） | PII 出站脱敏：预过滤+正则+熵兜底 | secret-scan 仅 7 条凭据规则、无个人信息面 | stdlib pii-scan（批次二 M7）；presidio 引擎层待批（D-054） | I 方向 |
+| 7 | garak / PyRIT（Apache-2.0/MIT） | 探针化 LLM 端点红队（注入/越狱探针库） | 无 LLM 端点红队 | garak subprocess CI job 待批（D-054）；注入启发式 stdlib 自研（批次二择机） | I 方向 |
+| 8 | defender（Apache-2.0） | 工具输出回灌 LLM 前注入扫描（本地分类器 <10ms） | 无 | stdlib 启发式进 MCP 响应管道（借设计自研，批次二择机） | I 方向 |
+| 9 | codebase-memory-mcp（MIT） | 变更感知测试选择：diff→被改符号→import 反查→最小必跑子集 | fix-apply 闸五 pytest 全量跑（编码循环侧 ACI 阶段二已有 A/B 映射） | stdlib 自研提速闸五（批次二 M6） | B 方向 |
+| 10 | repomix / serena / E2B / GEPA / deepeval / OpenLLMetry / harbor / inspector | 借设计或外部进程：整仓脱敏快照/符号级编辑/microVM 沙箱/反思式提示优化/评测面扩充/OTel 双写/任务格式统一/协议一致性测试 | — | 批次四 backlog；许可落地前核（serena/inspector NOASSERTION 必核） | A/B 方向 |
+
 ## 4. 差距清单（按优先级）
 
 | ID | 优先级 | 差距 | 证据 | 影响 | 本轮处置 |
@@ -97,6 +117,14 @@ coding agent 产品里很少同时具备。
 | G13 | P2 | 300s 红线缺画像后的语义决策 | `reports/suite-profile-round-45.md` | 计时噪声被当回归 | **已改线**（D-041，2026-10-30；D-052，2026-11-10：升级触发线 450s→540s；600s 升格为 release-gate 判红挂死护栏，CI nightly ubuntu `timeout 600` / Windows job timeout-minutes: 45 兜底） |
 | G14 | P2 | 无子代理分解 | code-task 单循环 | XL 任务上下文压力 | 阶段 4 |
 | G15 | P2 | 多语言仅 ast-grep 扫描，编码侧 Python-only | `repo_map.py` 只解析 Python | TS/Go 任务无法进编码循环 | 阶段 4 |
+| G16 | P0 | MCP 16 工具无清单哈希固化与分级门控 | BASELINE.md:391、`mcp/review_mcp.py:142` TOOLS | 自身即攻击面，无防篡改/分级 | 阶段 5 批次一（M1/M4） |
+| G17 | P0 | LLM 供应层无循环边界三件套与多端点降级链 | `llm/provider.py` 257 行、host 臂 token 计 0（BASELINE.md:357） | 循环失控/成本不可观测 | 阶段 5 批次一（M2）+批次二（M5） |
+| G18 | P0 | 结构化输出无「校验失败→错误回填重试」闭环 | 宿主臂曾全空响应（BASELINE.md:360-361、D-053） | 大预算零产出黑洞无防复发 | 阶段 5 批次一（M3） |
+| G19 | P1 | 无 PII 出站脱敏面 | secret-scan 仅 7 条凭据规则、无个人信息面 | 个人信息出域风险 | 阶段 5 批次二（M7） |
+| G20 | P1 | 无端点红队与工具输出注入防护 | 无 garak/defender 类机制 | 注入/越狱无探测与拦截 | 阶段 5 批次二（启发式）+批次三（garak 待批，D-054） |
+| G21 | P1 | fix-apply 闸五 pytest 全量跑，无变更感知测试选择 | 修复链第五闸行为回归 | 大仓回归慢 | 阶段 5 批次二（M6；编码循环侧 ACI 阶段二已有 A/B 映射） |
+| G22 | P2 | 记忆无比对决策/归档臂 | memory-pipeline AB-20 仅 UPDATE/ADD | 误报模式库膨胀/失活 | 阶段 5 批次二（M8） |
+| G23 | P2 | 无默认运行时沙箱 | §1 自评「缺少运行时沙箱的默认化」、AB-14「评估完成暂不实施」 | 不可信补丁验证无隔离 | 维持 AB-14 结论，登记观察项，总监重启才动 |
 
 ## 5. 逐轮回填（已分卷）
 
@@ -211,6 +239,47 @@ sha256 相同，D-038）；remote 档仅接口与假壳契约，code-task 显式
 样例集 8/8 符合预期、端到端门禁 2/2（n=8 自产夹具，只证机制与判定口径，
 不外推评审准确率，D-039）。阶段四四项全部交付（4.1 留 uplift 未证）。
 
+### 阶段 5（round 233–236）：开源对标强化——P0 门控与边界、P1 深化
+
+| 项 | 动作 | 验收标准 | 风险/依赖 |
+|---|---|---|---|
+| 5.1 M1 | `mcp-selfscan.py`（production-guardrails）：TOOLS 16 工具名/描述/Schema 的 sha256 固化入 `mcp/tools-pin.json`，CI/启动比对，漂移拒服务 | 篡改样例必命中（反向验证）；漂移 rc=1；self-check 接线 | 工具清单演进时 pin 文件须同轮刷新 |
+| 5.2 M2 | `llm/provider.py` 循环边界三件套：终止判定统一、工具结果回填裁剪（超限外置 tool-outputs/）、连续失败熔断+降级记录 | 熔断样例必命中；裁剪外置可查；行为级→precision-gate 基线不回退（≥0.65 地板） | host 臂成本仍 N/A；D-053 门禁语义不变 |
+| 5.3 M3 | 结构化输出回填重试（`llm/` stdlib 版）：解析/校验失败→错误回填重试 1 次→仍失败如实计 unparsed | 全空响应样例：重试后有产出或如实 unparsed；D-053 门禁语义不变 | 重试入预算逐次扣减 |
+| 5.4 M4 | 工具分级门控：`mcp/tools-policy.json` 三级清单入仓，执行层按级拦截，审批级无批准书拒执行 | 审批级无批准书拒执行（反向样例）；清单与 TOOLS 键一致 | 与 M1 pin 范式同构；清单演进须同轮刷新 |
+| 5.5 M5 | 多端点 fallback 链：配置化多端点轮换+降级记录（口径与下载策略同源） | 降级原因必记、路径可复算；端点白名单校验不放松 | host 臂成本仍 N/A |
+| 5.6 M6 | 变更感知测试选择（stdlib ast+git diff→受影响测试子集→闸五提速） | 受影响测试样例必选入；漏测率 0（每次抽检对照全量金标准） | 映射准确性；子集过 ≠ 闸五过 |
+| 5.7 M7 | pii-scan.py（privacy-filter 三层：预过滤+正则+熵兜底） | PII 样例必命中；secret-scan 语义不变；CI 接线 self-check | 与 secret-scan 费责边界（凭据 vs 个人信息） |
+| 5.8 M8 | 记忆比对臂：抽取→与存量比对→ADD/UPDATE/DELETE/归档（mem0 思想 stdlib 强化 memory-pipeline） | 比对决策可复算；归档不丢原文；AB-20 默认关维持 | 默认关维持 |
+| 5.9 | 批次三（待 D-054 批准，建议并入 r236 依赖刷新锚点轮一并裁定）：presidio（MIT）/garak（Apache-2.0 subprocess）/traceloop-sdk（Apache-2.0）/deepeval（Apache-2.0 dev 侧）→ licenses.json + pyproject optional-deps 落位 | D-054 批准后落位；license-check 三档 PASS | 总监裁决；serena（NOASSERTION）未核不入 |
+| 5.10 | 批次四 backlog（借设计）：E2B microVM（AB-14 维持暂不实施）/repomix 整仓脱敏快照（D-031 终局不重议）/GEPA（AB-06 底座升级）/inspector 协议一致性测试/harbor 任务格式/OpenLLMetry 全量观测 | 登记为 backlog，总监点名才动 | 许可落地前核 |
+
+**阶段出口**：批次一 P0 四项（M1-M4）落盘 + 门禁全绿 + 反向验证全命中；
+precision-gate 基线不回退（≥0.65 地板）；SRE 预算未超（EXCEEDED 则整改
+冻结只修质量）。批次二/三各自验收口径见表内；批次三须持 D-054 批准书
+（提案人≠批准人）方可动 pyproject/licenses.json。
+
+**阶段五进度（round-233 批次一收口，v2.102.0）**：5.1 ✅ `mcp-selfscan.py`
+（pin/check 双动词 + serve() 启动比对漂移拒服务 + CI self-check 步骤；篡改/
+缺失/多余/pin 损坏 4 类漂移反向验证入契约，9 条测试）；5.2 ✅ 循环边界
+（`trim_tool_result` 统一裁剪助手 + 跨调用连续失败熔断 threshold=3/冷却
+300s + stderr 降级记录；6 条裁剪 + 3 条熔断契约）；5.3 ✅ `complete_json`
+回填重试（损坏/校验失败→错误回填重试 1 次→仍失败如实 unparsed；D-053 全空
+[] 语义锁定测试；reviewbench-eval 宿主臂接线）；5.4 ✅ `tools-policy.json`
+三级清单（auto×14/gated×2=apply、purge 自带闸；未知工具 fail-closed；deny
+拦截反向验证）。批次一四项 24 条新契约全绿；M2/M3 行为级反向验证=评审器/
+判分面零改动（precision 基线结构性不回退，host 臂 unavailable 维持）；
+批次二（M5-M8）与批次三（D-054 待批）留后续轮。
+
+**阶段五批次三/四处置（round-237 裁决，D-054 第 2 条）**：批次三=方案 C 终局
+（四依赖条件激活：presidio=自由文本 PII 泄漏实证；garak=openai 端点实配；
+traceloop-sdk=外部 OTel 网关需求；deepeval=现有门禁覆盖不足实证）；批次四
+维持 backlog 不点名激活——E2B（AB-14 维持暂缓）、repomix（D-031 边界不破）、
+GEPA（AB-06 底座升级候选）、inspector/harbor/OpenLLMetry（协议回归/终端任务
+面/外部观测需求各自出现时再议）。**阶段 5 至此收口**：批次一+二 8 项全落地
+（r233-r235，44 条契约），批次三/四按上述条件处置。
+
+
 ## 7. 度量体系（North Star 与护栏）
 
 **North Star（能力）**
@@ -256,6 +325,9 @@ sha256 相同，D-038）；remote 档仅接口与假壳契约，code-task 显式
    scaffold、同判分口径，报告标 N/A 而不是估算。
 5. **Windows 特有路径**：CRLF、盘符挂载、权限锁已在 round-46 踩过；
    新工具（search/list/graph）必须带路径归一与越界检查。
+6. **Windows 编码链**：cp936/GBK stdin、CRLF/LF 补丁、UTF-16 日志坑（8cfbcaf7d227、bb6ebd590d5e）；阶段 5 新脚本一律沿用既有对策：PYTHONUTF8/PYTHONIOENCODING 置空纪律、补丁 LF、stdout 单 JSON + utf-8 reconfigure（S10）。
+7. **MCP async 家族 flaky 留观**：cancel/status 竞速三例三因（r184/r190/r197），`test_purge_guards` 第 5 例仍在留观（next-round.md）；阶段 5 新增 MCP 面（M1/M4）不新增竞速面，pin/清单演进须与 TOOLS 同轮刷新，防 pin 漂移误报。
+8. **D-053 门禁语义保持**：M3 回填重试不改变 review-quality-gate 与 D-053 门禁语义（全空响应仍判红）；重试产物仍过 findings-check 七要素校验。
 
 ## 10. 维护与验收
 
@@ -281,6 +353,8 @@ sha256 相同，D-038）；remote 档仅接口与假壳契约，code-task 显式
 - 评审工具精度与复现差异：[五款工具对比](https://www.jdon.com/94308-ai-code-review-tools-benchmarks-and-comparison.html)、
   [独立基准综述](https://screencli.sh/blog/best-ai-pr-review-tools-2026)、
   [Open Code Review 讨论](https://news.ycombinator.com/item?id=48406358)
+- 开源项目库对标来源：《AI开源项目汇总》（991 项索引，2026-11-25~27 GitHub API 快照）A/B/I 三方向；本轮对标矩阵（§3.1）与批次设计以该快照为准，星标/许可证为快照参考值。
+- 2026-11-28 审查报告：W1-W10 弱点矩阵与四批强化路线（§3.1/§4 G16-G23/§6 阶段 5 即其入册形态）。
 
 > 版权与使用：以上仅作技术路线参考；未复制其代码或语料。厂商自报数字
 > 已在正文标注「自报」，不并入本项目能力结论。

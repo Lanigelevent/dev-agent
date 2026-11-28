@@ -1,0 +1,30 @@
+{
+  "events": [
+    {
+      "category": "doc",
+      "description": "ROADMAP §3.1 开源对标矩阵（10 行）+ §4 G16-G23 + §6 阶段 5（5.1-5.10+阶段出口）+ §9 三项 + §11 两条来源入册（开源对标强化计划）",
+      "type": "doc"
+    },
+    {
+      "category": "doc",
+      "description": "DECISIONS D-054 提案入册：引擎层新依赖批准清单（presidio/garak/traceloop-sdk/deepeval），待总监裁决、本轮不实施",
+      "type": "doc"
+    },
+    {
+      "category": "correction",
+      "description": "编辑链连续 5 处单字/乱串错误（§4 标题错字、G17 重号、5.1 行混入乱串、表头错字、G17 证据列错字）——大段/长行 Edit 高频损坏在 ≤20 行小块下仍复现",
+      "root_cause": "长行内容经 Edit 工具下发时高频单字损坏；已验「python -c + 断言 + 回读核验」路径零损坏",
+      "countermeasure": "文档增补一律走「python -c + 断言 + 回读核验」确定性路径，禁长行 Edit；大段内容分块（≤3 行/块）分批落",
+      "source": "round-232 编辑链",
+      "type": "correction"
+    },
+    {
+      "category": "correction",
+      "description": "收官套件首跑红于 PROGRESS 坑台账行未刷新（266 vs 台账真值 267）→ test_real_repo_freshness_green 1 failed——仓面一致性必须先于套件",
+      "root_cause": "已知坑 release-gate-suite-format（双跑期间仓面只读）的变体：不是 mid-run 改仓面，而是带着预置漂移起跑（改了 pitfalls 未同步 PROGRESS 真值行）",
+      "countermeasure": "收官顺序固定为「先改齐全部真值行（PROGRESS 台账行/快照头）→ 再起套件 → 后写回填与收官行（只写不被 F 检查的时间行）」",
+      "source": "round-232 收官链",
+      "type": "correction"
+    }
+  ]
+}

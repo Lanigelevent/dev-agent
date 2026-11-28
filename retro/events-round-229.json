@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-229：项目体积与缓存终盘（零代码 light）",
+      "description": "实测总量 7.07GB（两轮清理共释放约 122.4GB）。datasets 6.60GB：imagecache 2.30GB（硬约束 8 + docker-image-fetch/pro-sample/gold-sample 引用）、swe-repos 2.09GB（sibling-test-realbench/aci-retrieval-bench/live-sample 直接引用）、swebench/pro-work 1.64GB（Pro 重跑就位）、live-cache 350MB；其余 <100MB。非数据集：.mimosa 282MB 审计账本、.venv 104MB、logs 47MB（suite 日志）。结论：无可安全删除项，剩余均为有引用或审计证据。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-229：开局与版本",
+      "description": "round-gate open --round 229 全 PASS；版本保持 2.101.0 不增；依赖锚点 r226 后第 3 轮未到；MCP cancel/D-052 观察随双跑；key 轮换无新命中。",
+      "outcome": "done"
+    }
+  ]
+}

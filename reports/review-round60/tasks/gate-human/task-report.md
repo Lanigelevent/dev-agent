@@ -12,4 +12,4 @@
 - 转人工原因：自评/他评差异率 1.00 > 阈值 0.50
 
 ## 历史
-- 编辑 1 项（失败 0）；测试 pass：引擎 cmd（<repo>\.venv\Scripts\python.exe -m pytest -q）; .                                                                        [100%]; 1 passed in 0.34s
+- 编辑 1 项（失败 0）；测试 pass：引擎 cmd（C:\Users\<user>\Desktop\agent\dev-agent\.venv\Scripts\python.exe -m pytest -q）; .                                                                        [100%]; 1 passed in 0.34s

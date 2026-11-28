@@ -1,6 +1,6 @@
 {
   "engine": "agent",
-  "repo": "<repo>\\reports\\_work\\workspace-round60\\local\\repo",
+  "repo": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\_work\\workspace-round60\\local\\repo",
   "task": "修复 calc.py：add 应为加法、label 应输出 Hello 前缀；跑仓库测试验证",
   "rounds": 1,
   "edits": 2,

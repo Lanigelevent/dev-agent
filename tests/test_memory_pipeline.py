@@ -121,3 +121,73 @@ class TestMemoryPipeline(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def _load_module():
+    spec = importlib.util.spec_from_file_location("memory_pipeline_t", SCRIPT)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _store(path, rows):
+    path = Path(path)
+    path.write_text(
+        "\n".join(json.dumps(e, ensure_ascii=False) for e in rows) + "\n",
+        encoding="utf-8")
+    return path
+
+
+class TestSupersedeArm(unittest.TestCase):
+    """M8 归档臂（round-235）：supersede 保留原文、live 排除、未命中如实。"""
+
+    def _rows(self):
+        return [
+            {"id": "e1", "namespace": "agent", "task": "t", "ts": "2026-01-01",
+             "summary": "编码循环补丁生成失败因为 git add -N 缺失", "seen": 1},
+            {"id": "e2", "namespace": "agent", "task": "t", "ts": "2026-01-01",
+             "summary": "无关记忆条目内容", "seen": 1},
+        ]
+
+    def test_supersede_marks_and_preserves(self):
+        with tempfile.TemporaryDirectory() as td:
+            mod = _load_module()
+            p = _store(Path(td) / "m.jsonl", self._rows())
+            entries = mod._load_store(p)
+            ok, entries2 = mod._supersede(entries, "e1", "被 r235 对策取代")
+            self.assertTrue(ok)
+            self.assertTrue(entries2[0].get("superseded"))
+            self.assertTrue(entries2[0].get("summary"))
+            self.assertEqual(entries2[0].get("superseded_reason"), "被 r235 对策取代")
+
+    def test_live_excludes_superseded(self):
+        with tempfile.TemporaryDirectory() as td:
+            mod = _load_module()
+            p = _store(Path(td) / "m.jsonl", self._rows())
+            entries = mod._load_store(p)
+            _ok, entries2 = mod._supersede(entries, "e1", "r")
+            live = mod._live(entries2)
+            self.assertEqual([e.get("id") for e in live], ["e2"])
+
+    def test_miss_and_double_archive_honest(self):
+        with tempfile.TemporaryDirectory() as td:
+            mod = _load_module()
+            p = _store(Path(td) / "m.jsonl", self._rows())
+            entries = mod._load_store(p)
+            ok, _e = mod._supersede(entries, "e9", "x")
+            self.assertFalse(ok)
+            _ok2, entries2 = mod._supersede(entries, "e1", "r")
+            ok3, _e3 = mod._supersede(entries2, "e1", "r2")
+            self.assertFalse(ok3)
+
+    def test_merge_corpus_uses_live_only(self):
+        with tempfile.TemporaryDirectory() as td:
+            mod = _load_module()
+            p = _store(Path(td) / "m.jsonl", self._rows())
+            entries = mod._load_store(p)
+            _ok, entries2 = mod._supersede(entries, "e1", "r")
+            facts = [{"id": "f1", "namespace": "agent", "task": "t",
+                      "summary": "无关记忆条目内容", "ts": "2026-01-02"}]
+            decisions = mod._merge_decide(facts, entries2)
+            upd = [d for d in decisions if d.get("action") == "UPDATE"]
+            self.assertTrue(all(d.get("target_id") != "e1" for d in upd))

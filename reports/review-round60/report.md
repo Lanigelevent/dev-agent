@@ -28,6 +28,6 @@
 | threshold-probe | PASS | PASS | 1.0 | 0/2 | 0/2 | 同缺陷补丁抬阈值到 1.01 → 放行；证明判定由差异率数字驱动 |
 | cmd-reviewer | NEED_HUMAN | NEED_HUMAN | 1.0 | 0/3 | 0/3 | 第三方命令评审器接入并计入他评（自评无对应发现） |
 
-OCR 可执行：<repo>\reports\_work\tooling\ocr\node_modules\.bin\ocr.cmd
+OCR 可执行：C:\Users\<user>\Desktop\agent\dev-agent\reports\_work\tooling\ocr\node_modules\.bin\ocr.cmd
 
 每个样例的完整 review.json 在 cases/<id>/ 下，可复算。

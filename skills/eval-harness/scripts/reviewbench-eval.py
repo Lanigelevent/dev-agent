@@ -246,23 +246,16 @@ def _run_deterministic(diff_path, errors):
     return [dict(f, engine="deterministic") for f in data.get("findings", [])]
 
 
-def _parse_host_response(raw):
-    """宿主响应 → findings 列表（容忍代码栅栏与前后杂讯，同 runner 口径）。"""
-    cleaned = re.sub(r"^```(?:json)?|```$", "", (raw or "").strip(),
-                     flags=re.M).strip()
-    try:
-        obj = json.loads(cleaned)
-    except ValueError:
-        m = re.search(r"\[[\s\S]*\]", cleaned)
-        if not m:
-            return None
-        try:
-            obj = json.loads(m.group(0))
-        except ValueError:
-            return None
+def _host_items_from_obj(obj):
+    """obj → findings 列表或 None（dict 取 findings 键，list 直取）。"""
     if isinstance(obj, dict):
         obj = obj.get("findings")
     return obj if isinstance(obj, list) else None
+
+
+def _host_findings_valid(obj):
+    """complete_json 校验器：宿主 findings 必须是 list（或 dict 包装）。"""
+    return isinstance(obj, (list, dict))
 
 
 def mode_run(argv):
@@ -299,8 +292,9 @@ def mode_run(argv):
             truncated = len(material) > argv.max_chars
             user = HOST_USER_TMPL % material[:argv.max_chars]
             try:
-                raw, meta = provider.complete(HOST_SYSTEM, user,
-                                              base_dir=out_dir / "llm-tasks")
+                obj, meta = provider.complete_json(HOST_SYSTEM, user,
+                                                   base_dir=out_dir / "llm-tasks",
+                                                   validate=_host_findings_valid)
             except provider.HostLLMPending as pending:
                 findings_path.write_text(
                     json.dumps({"samples": grouped, "reviewer": argv.reviewer,
@@ -315,7 +309,7 @@ def mode_run(argv):
                        "done_samples": sorted(grouped),
                        "note": "宿主填写响应文件后原样重跑即续（幂等 id 缓存）"})
                 return 1
-            items = _parse_host_response(raw)
+            items = _host_items_from_obj(obj)
             if items is None:
                 errors.append("host 响应不可解析（记零 findings）: %s" % pr_key)
                 items = []

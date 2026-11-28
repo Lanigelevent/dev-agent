@@ -1,0 +1,22 @@
+{
+  "schema": "tools-policy/v1",
+  "note": "工具分级门控清单（阶段 5 批次一 M4，round-233）。auto=直接执行；gated=自带闸（confirm/批准书），策略层放行、以工具内闸为准；deny=拒绝执行。未知工具一律 fail-closed 拒绝。清单演进须与 TOOLS/pin 同轮刷新（mcp-selfscan.py pin 同 commit）。",
+  "tools": {
+    "code_review_run": "auto",
+    "code_review_scan": "auto",
+    "code_review_plan": "auto",
+    "code_review_feedback": "auto",
+    "code_review_approve": "auto",
+    "code_review_fix": "auto",
+    "code_review_retro": "auto",
+    "code_review_director": "auto",
+    "code_review_testgen": "auto",
+    "code_review_coding": "auto",
+    "code_review_refactor": "auto",
+    "code_review_apply": "gated",
+    "code_review_submit": "auto",
+    "code_review_status": "auto",
+    "code_review_cancel": "auto",
+    "code_review_purge": "gated"
+  }
+}

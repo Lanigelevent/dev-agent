@@ -15,7 +15,7 @@ insert:
       serverName: code-review
       transport: stdio
       command: py
-      args: ['-3', '<repo>/mcp/review_mcp.py']
+      args: ['-3', 'C:/Users/<user>/Desktop/agent/dev-agent/mcp/review_mcp.py']
       env:
         PYTHONIOENCODING: utf-8
       toolCallTimeoutMs: 600000
@@ -24,4 +24,4 @@ insert:
 # 原生工具插件形态（apply/inject/defineTool，见同目录 README.md
 # 「原生工具插件」一节）的 insert 块形如：
 #   - id: dev-agent
-#     name: <repo>/interop/deepseek-harness/src/index.ts
+#     name: C:/Users/<user>/Desktop/agent/dev-agent/interop/deepseek-harness/src/index.ts

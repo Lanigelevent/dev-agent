@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-226：任务①剩余缓存清理 1.92GB",
+      "description": "用户裁定 item 189①：删除 verified-runs-v99/v103/v107/v108（0.947GB）、swe-work（0.642GB）、live-runs-extra/live-work（0.171GB）、swe-out harness/单题（0.160GB），合计 1.92GB / 216,155 文件；保留 imagecache/swe-repos/pro-work/live-cache/语料/根索引；证据 reports/cleanup-datasets-r226.md。清理与套件未并发。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-226：任务②依赖刷新第十七跑",
+      "description": "清华镜像一次命中零降级；11 个直接依赖 dry-run：8 项 no changes，pyyaml/packaging 非跟踪传递升级被拒（r220 先例）；三引擎矩阵零漂移（ruff 973/482/250、astgrep 29/2/2、libcst deep-equal）；reports/dep-refresh-r226.md。bump-version 2.101.0 --sync-counts（849/90/16）；doc-freshness 漂移 0。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-226：开局与收官准备",
+      "description": "round-gate open --round 226 全 PASS；key 轮换无新命中；用户授权两项合并本轮执行；按 D-035 gate 绿后打并推 v2.101.0 tag。",
+      "outcome": "done"
+    }
+  ]
+}

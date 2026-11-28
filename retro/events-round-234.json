@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "category": "correction",
+      "description": "传输损坏继续（数据件 2 处：f5t 乱串、pii luhn 累加行丢失）——但全被探针/编译/selftest 拦截于提交前；pii-scan 的 selftest 反向样例（非法 Luhn 必不命中）恰好抓住累加行丢失，反向验证自证有效",
+      "root_cause": "长命令与多行数据件在传输层仍偶发注入/丢行；数据分件+探针+编译+selftest 是当前最稳对策",
+      "countermeasure": "维持数据分件装配纪律；新引擎类脚本必须带 --selftest 反向样例 verb（本轮实证其拦截价值）",
+      "source": "round-234 编辑链",
+      "type": "correction"
+    }
+  ]
+}

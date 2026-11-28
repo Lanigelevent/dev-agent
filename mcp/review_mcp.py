@@ -3,10 +3,10 @@
 """MCP stdio 服务器：把代码评审能力暴露为 Model Context Protocol 工具。
 
 传输形态：stdin/stdout 上的换行分隔 JSON-RPC 2.0（MCP stdio 规范）。
-协议版本：2025-06-18；serverInfo.name = dev-agent；14 个工具均声明 annotations（readOnlyHint/destructiveHint/openWorldHint，2025-06-18 口径）。
+协议版本：2025-06-18；serverInfo.name = dev-agent；16 个工具均声明 annotations（readOnlyHint/destructiveHint/openWorldHint，2025-06-18 口径）。
 只读保证：所有工具最终只调用评审脚本（对被审仓库只读），不写入仓库。
 
-工具（14 个）：评审四工具 + 审核人一工具 + 修复两工具 + 迭代官一工具 + 总监一
+工具（16 个）：评审四工具 + 审核人一工具 + 修复两工具 + 迭代官一工具 + 总监一
 工具 + 测试生成一工具 + 编码循环一工具；落盘必须持审核人批准书且显式
 confirm（任何一方不得自审自批）。
 - code_review_run     编排评审  -> runner.py            （--repo/--range 或 --resume）
@@ -35,6 +35,8 @@ confirm（任何一方不得自审自批）。
                        宿主协议；不直接写被审仓库，补丁走修复链）
 - code_review_submit  异步提交评审作业 -> runs/jobs/<uuid4>（立即返回 job_id）
 - code_review_status  轮询作业状态 -> {state, step, progress, findings_url}
+- code_review_cancel  取消 queued/running 作业 -> 杀进程树 + cancelled + 账本摘要
+- code_review_purge   清理终态作业目录 -> confirm + 单 id + 终态三重闸 + 中央账本摘要
                        （作业独立于 stdio 连接存活；重连凭 job_id 续查）
 资源：review://jobs/{job_id}（只读作业产物 result.json / status.json）
 
@@ -51,6 +53,7 @@ code_review_apply 非 0 退出码均视为错误（含回滚态 ROLLED_BACK）�
 子进程纪律：显式参数列表 + shell=False；命令不拼接字符串。
 """
 
+import importlib.util
 import json
 import atexit
 import contextlib
@@ -67,7 +70,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 PROTOCOL_VERSION = "2025-06-18"
-SERVER_INFO = {"name": "dev-agent", "version": "2.99.0"}
+SERVER_INFO = {"name": "dev-agent", "version": "2.104.0"}
 RUN_TIMEOUT = 600
 FAST_TIMEOUT = 60
 APPLY_TIMEOUT = 300
@@ -116,6 +119,9 @@ def _reap_detached():
         if proc.poll() is not None:
             _wait_bounded(proc, 1)
             _DETACHED_JOBS.remove(proc)
+
+
+_POLICY_CACHE = {}
 
 
 def _shutdown_detached():
@@ -820,6 +826,13 @@ def _cancel_tool(args):
                            % data.get("state"))
     killed = []
     pid_path = job_dir / "runner.pid"
+    # 加固：status=running 后 pid 文件可能在跨进程/高并发下晚一瞬可见；
+    # 有界等待 2s 再回退 worker_pid，避免误判「没有可终止的 runner」。
+    if not pid_path.exists() and data.get("state") == "running":
+        for _ in range(20):
+            if pid_path.exists():
+                break
+            time.sleep(0.1)
     if pid_path.exists():
         try:
             pid = int(pid_path.read_text(encoding="utf-8").strip())
@@ -1251,6 +1264,23 @@ def _err(mid, code, message):
     return {"jsonrpc": "2.0", "id": mid, "error": {"code": code, "message": message}}
 
 
+def _policy_level(name):
+    """工具分级门控（tools-policy.json，批次一 M4）。
+
+    返回 auto|gated|deny；未知工具与文件缺失/损坏一律 deny（fail-closed）。
+    清单演进须与 TOOLS/pin 同轮刷新（mcp-selfscan.py pin 同 commit）。
+    """
+    if name not in _POLICY_CACHE:
+        path = Path(__file__).resolve().parent / "tools-policy.json"
+        try:
+            d = json.load(open(path, encoding="utf-8"))
+            levels = d.get("tools") or {}
+        except (OSError, ValueError):
+            levels = {}
+        _POLICY_CACHE[name] = levels.get(name, "deny")
+    return _POLICY_CACHE[name]
+
+
 def _handle(msg):
     method = msg.get("method")
     mid = msg.get("id")
@@ -1271,6 +1301,10 @@ def _handle(msg):
         if handler is None:
             return _ok(mid, _tool_error("未知工具: %s" % name))
         arguments = params.get("arguments") or {}
+
+        level = _policy_level(name)
+        if level == "deny":
+            return _ok(mid, _tool_error("工具分级门控拒绝（deny/未知工具）: %s" % name))
         if not isinstance(arguments, dict):
             return _ok(mid, _tool_error("arguments 必须为对象"))
         try:
@@ -1301,7 +1335,29 @@ def _write(obj):
         sys.stderr.write("stdout 管道已断开，停止写出响应\n")
 
 
+def _startup_selfscan():
+    """启动自扫描（批次一 M1）：TOOLS/policy 哈希漂移即拒服务（fail-closed）。
+
+    自扫描脚本缺失或 pin 漂移均拒绝启动；job-worker 路径不经过此处。
+    """
+    root = Path(__file__).resolve().parents[1]
+    script = root / "skills/production-guardrails/scripts/mcp-selfscan.py"
+    try:
+        spec = importlib.util.spec_from_file_location("mcp_selfscan", script)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+    except OSError:
+        sys.stderr.write("MCP 自扫描脚本缺失，拒绝启动" + chr(10))
+        raise SystemExit(1)
+    ok, drifts, computed = mod.check(root)
+    if not ok:
+        for d in drifts:
+            sys.stderr.write("MCP 自扫描漂移: %s %s" % (d.get("id"), d.get("tool", d.get("detail", ""))) + chr(10))
+        raise SystemExit(1)
+
+
 def serve():
+    _startup_selfscan()
     for line in sys.stdin:
         line = line.strip()
         if not line:

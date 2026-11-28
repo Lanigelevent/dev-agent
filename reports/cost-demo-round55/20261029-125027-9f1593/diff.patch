@@ -117,7 +117,7 @@ index 0b53c88..47cd78c 100644
 -tests/               契约级断言集（460 项，含端到端与反向验证）
 +tests/               契约级断言集（462 项，含端到端与反向验证）
  reports/  retro/     评测报告与复盘台账（含结案证据档案）
- <host-memory>/memory/   项目记忆（MEMORY.md 索引 + 按日追加；本地资产，不入库）
+ .workbuddy/memory/   项目记忆（MEMORY.md 索引 + 按日追加；本地资产，不入库）
  datasets/ runs/ logs/ 评测数据与运行产物（.gitignore，不入库）
 @@ -195,8 +195,8 @@ datasets/ runs/ logs/ 评测数据与运行产物（.gitignore，不入库）
  
@@ -523,7 +523,7 @@ index 0000000..d7692ac
 +-tests/               契约级断言集（451 项，含端到端与反向验证）
 ++tests/               契约级断言集（460 项，含端到端与反向验证）
 + reports/  retro/     评测报告与复盘台账（含结案证据档案）
-+ <host-memory>/memory/   项目记忆（MEMORY.md 索引 + 按日追加；本地资产，不入库）
++ .workbuddy/memory/   项目记忆（MEMORY.md 索引 + 按日追加；本地资产，不入库）
 + datasets/ runs/ logs/ 评测数据与运行产物（.gitignore，不入库）
 +@@ -195,7 +195,7 @@ datasets/ runs/ logs/ 评测数据与运行产物（.gitignore，不入库）
 + 

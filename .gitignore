@@ -13,7 +13,7 @@ datasets/
 corpus/
 pynguin-report/
 reports/_work/
-<host-memory>/
+.workbuddy/
 *.log
 
 # DeepSWE gate 评测语料：只在本机构建，任务内容不得入库（索引/基线除外）

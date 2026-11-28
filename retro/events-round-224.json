@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-224：剩余 datasets 二次盘点（零代码 light）",
+      "description": "reports/dataset-remaining-audit-r224.md：项目 8.99GB、datasets 8.54GB；保留 imagecache 2.30GB（镜像铁律/脚本引用）、swe-repos 2.09GB（sibling-test/aci-retrieval/live-sample 直接引用）、pro-work 1.64GB（Pro 重跑就位）、live-cache/swrenbench/reviewbench/根索引；可清候选约 2GB（verified-runs 四轮 0.97 + swe-work 0.64 + live-extra/work 0.22 + swe-out harness/单题 0.16），未删除、待用户裁定（上轮裁定不覆盖）。所有评测脚本 --out 均 required，无旧产物硬编码依赖。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-224：开局与版本",
+      "description": "round-gate open --round 224 全 PASS；main b283a32 与 origin 同步；版本保持 2.100.0 不增；依赖锚点 r220 后第 4 轮未到；pid 竞态本轮双跑观察；key 轮换无新命中。",
+      "outcome": "done"
+    }
+  ]
+}

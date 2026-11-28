@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-223：历史评测缓存确认删除 120.50GB",
+      "description": "用户确认删除：swe-out 四目录（gold-expand30/expand/gold-sample/expand-cache-private 共 98.05GB）+ swebench pro-runs（15.01GB）+ live-runs 及 r65/r67/r68/r70/r71/r72（8.44GB），合计 120.50GB / 229,102 文件；保留 swe-out 根索引、pro-work、live-cache、verified-runs、swe-repos、imagecache、swe-work、swrenbench、reviewbench。证据 reports/cleanup-datasets-r223.md；doc-freshness 漂移 0、deepswe_data_present=true。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-223：pid 竞态定位与有界等待加固 +1 契约",
+      "description": "定位：r222 首跑失败发生在清理（删 __pycache__/reports/_work）与套件并发期间；清理完成后 xdist 连续 5 跑（27/27）与单测均绿，未能复现稳定竞态。加固事实依据：cancel 在 status=running 后若 runner.pid 尚未可见会直接回退 worker_pid；现加有界等待 2s（20×0.1s）再回退，+1 契约 test_cancel_waits_for_runner_pid（延迟 0.4s 落 pid 仍被捕获），async 28/28；契约 848→849。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-223：开局与版本",
+      "description": "round-gate open --round 223 全 PASS（提交缓存清理证据后）；bump-version 2.100.0 --sync-counts（849/90/16）；doc-freshness 漂移 0；key 轮换无新命中。用户裁定：推送任务分支并合并 main（在本轮收官后执行）。",
+      "outcome": "done"
+    }
+  ]
+}

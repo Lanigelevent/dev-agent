@@ -3,9 +3,9 @@
   "data": {
     "ok": false,
     "state": "WAIT_HOST_LLM",
-    "llm_task": "<repo>\\reports\\multilang-round59\\tasks\\ts-calc\\llm-tasks\\25a2047eddc7.prompt.md",
-    "llm_response": "<repo>\\reports\\multilang-round59\\tasks\\ts-calc\\llm-tasks\\25a2047eddc7.response.md",
-    "out_dir": "<repo>\\reports\\multilang-round59\\tasks\\ts-calc",
-    "note": "宿主模型：读 llm_task，按 system 约定仅输出动作 JSON 写入 llm_response，然后 --resume <repo>\\reports\\multilang-round59\\tasks\\ts-calc 续跑"
+    "llm_task": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\multilang-round59\\tasks\\ts-calc\\llm-tasks\\25a2047eddc7.prompt.md",
+    "llm_response": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\multilang-round59\\tasks\\ts-calc\\llm-tasks\\25a2047eddc7.response.md",
+    "out_dir": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\multilang-round59\\tasks\\ts-calc",
+    "note": "宿主模型：读 llm_task，按 system 约定仅输出动作 JSON 写入 llm_response，然后 --resume C:\\Users\\ZCX\\Desktop\\agent\\dev-agent\\reports\\multilang-round59\\tasks\\ts-calc 续跑"
   }
 }

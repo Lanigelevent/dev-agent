@@ -23,6 +23,7 @@
 """
 import argparse
 import hashlib
+import importlib.util
 import json
 import subprocess
 import sys
@@ -225,6 +226,15 @@ def _verify(repo, files):
     return None, details
 
 
+def _load_test_select():
+    """邻接装载 test-select.py（M6 选择器；连字符文件名走 importlib）。"""
+    here = Path(__file__).resolve().parent
+    spec = importlib.util.spec_from_file_location("test_select", here / "test-select.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
 def _detect_tests(repo):
     """发现仓库测试：tests/ 目录或根下 test_*.py。"""
     found = []
@@ -235,11 +245,20 @@ def _detect_tests(repo):
     return found
 
 
-def _run_repo_tests(repo):
-    """闸五之行为回归：执行仓库测试。返回 (status: pass|fail|skip, detail)。"""
+def _run_repo_tests(repo, selected=None):
+    """闸五之行为回归：执行仓库测试。返回 (status: pass|fail|skip, detail)。
+
+    selected=None/空 → 全量（fail-safe：选择器空集不冒充「无受影响测试」）；
+    selected 非空 → 子集 pytest（M6 auto 档，失败语义不变）。
+    """
     if not _detect_tests(repo):
         return "skip", "仓库未发现 test_*.py 测试"
-    proc = subprocess.run([sys.executable, "-m", "pytest", "-q", str(repo)],
+    cmd = [sys.executable, "-m", "pytest", "-q"]
+    if selected:
+        cmd = cmd + [str(s) for s in selected]
+    else:
+        cmd = cmd + [str(repo)]
+    proc = subprocess.run(cmd,
                           shell=False, capture_output=True, text=True,
                           encoding="utf-8", errors="replace", timeout=600,
                           cwd=str(repo))
@@ -249,8 +268,6 @@ def _run_repo_tests(repo):
         return "skip", "环境无 pytest，无法执行行为回归"
     tail = [l for l in (proc.stdout or "").strip().splitlines() if l][-12:]
     return "fail", tail or [(proc.stderr or "")[:300]]
-
-
 HISTORY_LIVE_MAX = 50
 HISTORY_ARCHIVE_NAME = "apply-log-history.archived.jsonl"
 
@@ -402,7 +419,7 @@ def _check_approval(approval_path, manifest):
     return None
 
 
-def _do_apply(repo, manifest, approval_path):
+def _do_apply(repo, manifest, approval_path, test_mode="full"):
     files = manifest.get("files", [])
     if not files:
         _emit({"ok": False, "state": "PROPOSED", "error": "清单无可应用补丁"})
@@ -447,7 +464,12 @@ def _do_apply(repo, manifest, approval_path):
     error, details = _verify(repo, files)
     tests_status, tests_detail = ("skip", "未执行")
     if error is None:
-        tests_status, tests_detail = _run_repo_tests(repo)
+        if test_mode == "auto":
+            _ts = _load_test_select()
+            sel, _chg = _ts.select_tests(repo, files)
+            tests_status, tests_detail = _run_repo_tests(repo, selected=sel)
+        else:
+            tests_status, tests_detail = _run_repo_tests(repo)
         if tests_status == "fail":
             error = "行为回归失败：仓库测试未通过"
     if error:
@@ -547,6 +569,8 @@ def main():
                         help="审核人批准书 approval.json（--apply 时必填）")
     parser.add_argument("--apply", action="store_true", help="真正落盘（缺省仅预检）")
     parser.add_argument("--undo", action="store_true", help="撤销已落盘的修复分支")
+    parser.add_argument("--test-mode", choices=["full", "auto"], default="full",
+                    help="闸五测试面：full=全量（缺省）；auto=变更感知子集（空集回退全量）")
     argv = parser.parse_args()
     repo = Path(argv.repo).resolve()
     mp = Path(argv.manifest)
@@ -579,7 +603,8 @@ def main():
                "files": manifest.get("files", []),
                "note": "预检通过；落盘需审核人批准书 + --apply"})
         return 0
-    return _do_apply(repo, manifest, approval_path)
+    return _do_apply(repo, manifest, approval_path,
+                    test_mode=argv.test_mode)
 
 
 if __name__ == "__main__":

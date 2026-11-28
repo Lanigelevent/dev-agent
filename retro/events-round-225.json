@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-225：评测口径季度对账——0.42% 复算成立、无勘误",
+      "description": "v2.100.0 环境重跑 swrenbench-import.py score --limit 1000：point_recall 0.0042（3/713）、clean_zero_noise 0.974，与 README/PROGRESS 唯一对外数字逐位一致；r184 score-r184.json 同值。宿主臂 n=1000 recall=0 与 D-053 因果表述（执行质量非协议缺陷）一致。契约 778→849（新增脚本 90、MCP 异步 16 工具）均为工具/治理层，不外推评审能力。证据 reports/eval-caliber-audit-r225.md。原始 host judge.json 已在 r222/r223 清理中删除，结论以入仓轮次记录为准（如实）。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-225：开局与版本",
+      "description": "round-gate open --round 225 全 PASS；版本保持 v2.100.0 不增；剩余 2GB 缓存待裁定、依赖锚点未到；key 轮换无新命中；light 收官。",
+      "outcome": "done"
+    }
+  ]
+}

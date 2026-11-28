@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-231：依赖刷新第十八跑裁定——不提前，维持约 r236 锚点",
+      "description": "用户裁定接受 r230 提案建议：11 个直接依赖无新增直接漂移，不提前跑第十八跑；维持原锚点约 r236，若批准新增依赖/镜像缺包/安全公告再临时提前。裁定已写入 reports/dep-refresh-18-proposal-r230.md；本轮零代码、不改依赖/版本/口径。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-231：开局与观察",
+      "description": "round-gate open --round 231 全 PASS；版本保持 2.101.0 不增；MCP cancel/D-052 观察随双跑未再现；key 轮换无新命中；light 收官。后台首次命令解析失败（非测试失败）已用同命令重跑全绿。",
+      "outcome": "done"
+    }
+  ]
+}

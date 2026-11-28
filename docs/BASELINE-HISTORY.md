@@ -2374,3 +2374,47 @@ v2.4.0）：version 升 **2.4.0**（bump-version 单命令），测试 **609
 - **观察项**：MCP async 家族 27/27；runs/jobs 3 cancelled/4 done；CI nightly/CII/key 轮换仍待操作员。
 - **轻量收官**：单次 xdist 全量 845 passed + 3 skipped，550.02 秒；独立复核 PASS。
 - **台账**：无新坑（266 / open 0 / closed 242 / archived 24 不变）。
+2026-11-26 round-222（v2.99.0 不增版本）：冗余备份与无用文件清理（用户授权，零代码 light）。
+- 删除 gitignored 临时/缓存：reports/_work（约 4.6GB）、logs 三个调试目录（46.6MB）、.pytest_cache/.ruff_cache/.hypothesis/corpus、源码 __pycache__ 25 处；受控文件零删除。证据 reports/cleanup-r222.md。
+- 保留 datasets（129GB）/ logs suite / runs/jobs 账本 / .mimosa / .venv / 档案与语料；磁盘盘点回复含可清理与保留清单。
+- light 单跑首跑 1 例偶发失败（pid 竞态，日志留档），清理后重跑全绿 285.38 秒（logs/suite-r222-run1.log，846 passed + 2 skip）；doc-freshness 漂移 0、session-probe 全绿。
+- 版本/契约/脚本/工具与对外口径不变；台账 266 / open 0 / closed 242 / archived 24；任务分支本地提交，不合并/不推送。
+2026-11-26 round-223 收尾（v2.100.0）：version 升 **2.100.0**（bump-version 单命令 + sync-counts），契约 **848→849**（+1）、脚本 **90 不变**、工具 **16 不变**。
+- 用户裁定①删除历史评测缓存 120.50GB（swe-out 四目录 + swebench pro-runs/live-runs 系列，229,102 文件；reports/cleanup-datasets-r223.md）。
+- 裁定②pid 竞态定位加固：r222 首跑失败与清理并发重合，清理后 5×xdist 全绿未复现；runner.pid 落盘延迟加有界等待 2s +1 契约（reports/pid-race-r223.md）。
+- 裁定③本轮收官后推送分支并合并 main，按 D-035 打 v2.100.0 tag。
+- 双跑全绿 384.80 / 360.07 秒（logs/suite-r223-run1/2.log，各 847 passed + 2 skip）；对外口径不变；台账 266 / open 0 / closed 242 / archived 24。
+2026-11-26 round-224（v2.100.0 不增版本）：剩余 datasets 二次盘点（零代码 light）。
+- 8.99GB 总量、datasets 8.54GB；保留 imagecache/swe-repos/pro-work/live-cache/语料/索引；可清候选约 2GB（verified-runs 四轮/swe-work/live 小产物/swe-out harness），未删待用户裁定。脚本 --out 全 required，无旧产物硬编码依赖。
+- light 单跑全绿 266.08 秒（logs/suite-r224-run1.log，847 passed + 2 skip）；pid 竞态未再现；依赖锚点未到。
+- 版本/契约/脚本/工具与对外口径不变（2.100.0/849/90/16）；台账 266 / open 0 / closed 242 / archived 24。
+2026-11-26 round-225（v2.100.0 不增版本）：评测口径季度对账（零代码 light）。
+- 0.42% 复算成立：point_recall 0.0042（3/713）、clean_zero_noise 0.974，与 README/PROGRESS 一致；宿主臂 unavailable + D-053 因果表述稳定；契约 849 的增长均为工具/治理层不外推。
+- 原始 host judge.json 已随清理删除，结论以入仓轮次记录为准（reports/eval-caliber-audit-r225.md）。
+- light 单跑全绿 279.36 秒（logs/suite-r225-run1.log，847 passed + 2 skip）；剩余 2GB 缓存待裁定、依赖锚点未到。
+- 版本/契约/脚本/工具与对外口径不变；台账 266 / open 0 / closed 242 / archived 24。
+2026-11-26 round-226 收尾（v2.101.0）：version 升 **2.101.0**（bump-version 单命令 + sync-counts），契约 **849 不变**、脚本 **90 不变**、工具 **16 不变**。*、脚本 **90 不变**、工具 **16 不变**。
+- 用户裁定：再删历史评测缓存 1.92GB / 216,155 文件（verified-runs 四轮 / swe-work / live 小产物 / swe-out harness）；保留镜像/仓库/Pro-work/语料。
+- 依赖刷新第十七跑：清华镜像零降级；11 直接依赖 8 项无变化，拒 pyyaml/packaging 传递升级；三引擎矩阵零漂移（reports/dep-refresh-r226.md）。
+- 双跑全绿 259.69 / 250.52 秒（logs/suite-r226-run1/2.log，各 847 passed + 2 skip）；按 D-035 gate 绿后打并推 v2.101.0 tag。
+- 对外口径不变；台账 266 / open 0 / closed 242 / archived 24。
+2026-11-26 round-228（v2.101.0 不增版本）：对外口径与门禁面季度复核（零代码 light）。
+- release-gate 2.101.0 七项全绿、expected_tests=849/redline_sec=600；两份 suite 日志 sha256 与 gate 记录逐位一致；CI nightly 十项步骤齐备。
+- 修正 README/PROGRESS 评测口径行：补回宿主评审臂 unavailable（n=1000 recall=0，D-053 归因），数字未改、doc-freshness 漂移 0。
+- light 单跑全绿 246.89 秒（logs/suite-r228-run1.log，847 passed + 2 skip）；MCP cancel/D-052 观察未再现、依赖锚点未到。
+- 版本/契约/脚本/工具与对外口径不变；台账 266 / open 0 / closed 242 / archived 24。
+2026-11-26 round-229（v2.101.0 不增版本）：项目体积与缓存终盘（零代码 light）。
+- 实测 7.07GB（三轮清理释放约 122.4GB）；datasets 6.60GB 剩余项均有脚本引用/镜像约束，.mimosa 282MB 审计账本；无可安全删除项，停止清理（reports/disk-final-audit-r229.md）。
+- light 单跑全绿 259.00 秒（logs/suite-r229-run1.log，847 passed + 2 skip）；依赖锚点未到、观察项未再现。
+- 版本/契约/脚本/工具与对外口径不变；台账 266 / open 0 / closed 242 / archived 24。
+2026-11-26 round-230（v2.101.0 不增版本）：依赖刷新第十八跑提前提案写案（零代码 light）。
+- 清华镜像只读 dry-run 11 直接依赖：8 项无变化，pyyaml/packaging 非跟踪传递升级按先例拒绝；与 r226 无新增直接漂移；建议不提前，维持锚点约 r236（reports/dep-refresh-18-proposal-r230.md）。
+- light 单跑全绿 268.94 秒（logs/suite-r230-run1.log，847 passed + 2 skip）；观察项未再现。
+- 版本/契约/脚本/工具与对外口径不变；台账 266 / open 0 / closed 242 / archived 24。
+2026-11-26 round-231（v2.101.0 不增版本）：依赖刷新第十八跑裁定——不提前（零代码 light）。
+- 用户接受 r230 提案：11 直接依赖无新增直接漂移，维持约 r236 锚点；若新增依赖/镜像缺包/安全公告再临时提前（reports/dep-refresh-18-proposal-r230.md）。
+- light 单跑全绿 265.96 秒（logs/suite-r231-run1.log，847 passed + 2 skip；后台首次命令解析失败已重跑）；观察项未再现。
+- 版本/契约/脚本/工具与对外口径不变；台账 266 / open 0 / closed 242 / archived 24。
+2026-11-28 round-233 收尾（v2.102.0）：version 升 **2.102.0**（bump-version 单命令 + sync-counts），契约 **849→873**（+24：9 selfscan/policy + 15 provider 边界）、脚本 **90→91**（mcp-selfscan.py）、工具 **16 不变**。
+2026-11-28 round-234 收尾（v2.103.0）：version 升 **2.103.0**（bump-version 单命令 + sync-counts），契约 **873→884**（+11：8 pii + 3 端点链）、脚本 **91→92**（pii-scan.py）、工具 **16 不变**。
+2026-11-28 round-235 收尾（v2.104.0）：version 升 **2.104.0**（bump-version 单命令 + sync-counts），契约 **884→893**（+9：5 选择器 + 4 归档臂）、脚本 **92→93**（test-select.py）、工具 **16 不变**。

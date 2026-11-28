@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "category": "confirmation",
+      "description": "依赖刷新第十九跑只读探测完成：11 直接依赖零新增直接漂移，hypothesis 传递升级按先例拒绝；提案落 reports/dep-refresh-19-proposal-r236.md 待总监裁定",
+      "source": "round-236",
+      "type": "confirmation"
+    }
+  ]
+}

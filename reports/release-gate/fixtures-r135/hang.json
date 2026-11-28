@@ -11,7 +11,7 @@
     "branch": "main",
     "tag_checked": true
   },
-  "root": "<repo>",
+  "root": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent",
   "checks": [
     {
       "id": "suite_double_run",
@@ -21,7 +21,7 @@
       "runs": [
         {
           "mode": "reuse",
-          "log": "<user-home>\\AppData\\Local\\Temp\\opencode\\r135-fixtures\\hang-1.log",
+          "log": "C:\\Users\\ZCX\\AppData\\Local\\Temp\\opencode\\r135-fixtures\\hang-1.log",
           "bytes": 14533,
           "sha256": "55e66edda46338a5",
           "ran": 713,
@@ -31,7 +31,7 @@
         },
         {
           "mode": "reuse",
-          "log": "<user-home>\\AppData\\Local\\Temp\\opencode\\r135-fixtures\\ok-2.log",
+          "log": "C:\\Users\\ZCX\\AppData\\Local\\Temp\\opencode\\r135-fixtures\\ok-2.log",
           "bytes": 14540,
           "sha256": "567a99bc8129cd2e",
           "ran": 713,

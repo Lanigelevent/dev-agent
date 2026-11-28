@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-222：冗余备份与无用文件清理（用户授权全权删除）",
+      "description": "删除全部 gitignored 临时/缓存：reports/_work（历史评测 worktree/venv/.pyc，约 4.6GB）、logs/r94-dbg/r96-goldref/v99-dbg（46.6MB）、.pytest_cache/.ruff_cache/.hypothesis/corpus、源码 __pycache__ 25 处。受控文件零备份形态、tests 无路径依赖；保留 logs/suite-*.log、runs/jobs 账本、datasets、.venv、.mimosa 账本、retro/archive-repo、eval-harness/data。清理后 doc-freshness 漂移 0、session-probe 全绿。证据 reports/cleanup-r222.md。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-222：开局与分支",
+      "description": "round-gate open --round 222 全 PASS；当前分支 task/round-219-maintenance（HEAD ea4a07e，版本 2.99.0、848 契约、90 脚本、16 工具），origin/main 仍在 0fd58d8；清理为本地提交，不自动合并分支、不推送，待用户裁定。",
+      "outcome": "done"
+    }
+  ]
+}

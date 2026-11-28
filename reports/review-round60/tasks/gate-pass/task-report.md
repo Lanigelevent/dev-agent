@@ -11,4 +11,4 @@
 - 评审器：ruff=ok, astgrep=ok
 
 ## 历史
-- 编辑 1 项（失败 0）；测试 pass：引擎 cmd（<repo>\.venv\Scripts\python.exe -m pytest -q）; .                                                                        [100%]; 1 passed in 0.50s
+- 编辑 1 项（失败 0）；测试 pass：引擎 cmd（C:\Users\<user>\Desktop\agent\dev-agent\.venv\Scripts\python.exe -m pytest -q）; .                                                                        [100%]; 1 passed in 0.50s

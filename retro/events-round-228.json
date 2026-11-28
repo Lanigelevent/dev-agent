@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "type": "confirmation",
+      "title": "round-228：对外口径与门禁面季度复核——gate/日志/CI 全对齐，口径漂移已修",
+      "description": "reports/gate-surface-audit-r228.md：release-gate 2.101.0 七项全绿、expected_tests=849/redline_sec=600；两份 suite 日志 sha256 与 gate 记录逐位一致；CI nightly 十项步骤在册。修正 README/PROGRESS 评测口径行省略宿主臂 unavailable 的漂移（按用户早前裁定补回 n=1000 recall=0 + D-053 归因），数字未改、doc-freshness 漂移 0。",
+      "outcome": "done"
+    },
+    {
+      "type": "confirmation",
+      "title": "round-228：开局与观察项",
+      "description": "round-gate open --round 228 全 PASS；版本保持 2.101.0 不增；MCP cancel pid 竞态未再现、D-052 双跑 246.89s 线内、依赖锚点 r226 后第 2 轮未到；key 轮换无新命中。",
+      "outcome": "done"
+    }
+  ]
+}

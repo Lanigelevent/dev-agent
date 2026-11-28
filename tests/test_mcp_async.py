@@ -476,6 +476,34 @@ time.sleep(60)
         self.assertIn(job_id, central)
 
 
+    # 28) cancel 对 runner.pid 落盘延迟的有界等待（加固契约）
+    def test_cancel_waits_for_runner_pid(self):
+        job_id = "d" * 32
+        job_dir = self.jobs / job_id
+        job_dir.mkdir()
+        (job_dir / "job.json").write_text(json.dumps({"worker_pid": 111}),
+                                          encoding="utf-8")
+        MCP._status_write(job_dir, "running", progress=0.1)
+
+        def late_pid():
+            time.sleep(0.4)
+            (job_dir / "runner.pid").write_text("222", encoding="utf-8")
+
+        thread = threading.Thread(target=late_pid)
+        thread.start()
+        try:
+            with mock.patch.object(MCP, "_kill_pid", return_value=True) as kill:
+                resp = MCP._cancel_tool({"job_id": job_id})
+        finally:
+            thread.join(timeout=5)
+        data = json.loads(resp["content"][0]["text"])
+        self.assertFalse(resp["isError"])
+        self.assertEqual(data["killed_pids"], [222])
+        kill.assert_called_once_with(222)
+        self.assertEqual(json.loads((job_dir / "status.json").read_text(
+            encoding="utf-8"))["state"], "cancelled")
+
+
 class TestMcpAsyncSilentSpawn(unittest.TestCase):
     """r188：异步作业 spawn 静默化——CREATE_NO_WINDOW（nt）替代 DETACHED_PROCESS。
     根因：DETACHED_PROCESS 令 worker 无控制台，runner 等子孙 spawn 控制台程序时

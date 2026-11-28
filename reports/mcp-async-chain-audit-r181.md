@@ -12,4 +12,4 @@
 - doc AGENTS.md                          says16=True
 - doc docs/DEVELOPMENT.md                says16=True
 - doc docs/02-architecture/README.md     says16=True
-- doc <host-memory>/memory/MEMORY.md        says16=True
+- doc .workbuddy/memory/MEMORY.md        says16=True

@@ -17,7 +17,7 @@
     "branch": "main",
     "tag_checked": true
   },
-  "root": "<repo>",
+  "root": "C:\\Users\\ZCX\\Desktop\\agent\\dev-agent",
   "checks": [
     {
       "id": "version_sync",
