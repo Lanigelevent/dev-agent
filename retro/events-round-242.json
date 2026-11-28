@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "category": "confirmation",
+      "description": "许可决策落地：总监裁定 Apache-2.0——LICENSE 全文入仓（含附录 Copyright 2026 Lanigelevent）、pyproject 增 license 字段、README 四处口径切换（badge/状态表/边界表/贡献许可节），「未授予」引用清零；贡献代码默认按 Apache-2.0 提交口径入册",
+      "source": "round-242 许可决策",
+      "type": "confirmation"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/badge/version-2.105.0-green.svg)](.zcode-plugin/plugin.json)
 [![CI](https://github.com/Lanigelevent/dev-agent/actions/workflows/self-check.yml/badge.svg)](https://github.com/Lanigelevent/dev-agent/actions/workflows/self-check.yml)
-[![License](https://img.shields.io/badge/license-%E6%9C%AA%E6%8E%88%E4%BA%88%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF-lightgrey.svg)](#贡献方式与许可)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 **版本 2.105.0** ｜ Python 治理壳 **≥3.11，纯标准库** ｜ 引擎层 **3.12 `.venv`** ｜ Windows / Linux
 
@@ -66,7 +66,7 @@ denominators and partial-caliber accounting.
 | 评审精度基线 | ReviewBench deterministic precision **0.6667**（地板 0.65，n=12 小样本） | `skills/eval-harness/precision-baseline.json` |
 | 评测口径 | agent 侧 **20/20**；对外硬规则臂 **0.42%**；宿主评审臂 **unavailable**（n=1000 recall=0，D-053 归因）；部分口径与 blocked 单列 | [docs/PROGRESS.md](docs/PROGRESS.md)、[docs/DECISIONS.md](docs/DECISIONS.md) |
 | 最近发布 | tag `v2.101.0` 已签发；release-gate 七项全绿 | `reports/release-gate/2.101.0/release-gate.json` |
-| 许可 | **未授予开源许可**（公开可见不等于可再分发） | 见本页末节 |
+| 许可 | **Apache-2.0**（2026-11-28 总监裁定；依赖许可另见白名单口径） | [LICENSE](LICENSE)、[开源依赖与上游跟踪](docs/06-operations/开源依赖与上游跟踪.md) |
 
 > 本页只放常青口径与当前快照，不维护逐版流水、当轮踩坑和机器现场。版本沿革见
 > [docs/BASELINE-HISTORY.md](docs/BASELINE-HISTORY.md)，路线与逐轮记录见
@@ -284,7 +284,7 @@ ReviewBench、SWRBench、CVEfixes、精度与成本归一）；所有结论都�
 | 公开语料缺失时跳过并标注 | 外部前提 | 评测脚本 code=2 + `blocked_source` 保留样本 |
 | 真实 LLM 端点行为靠实跑观察 | 外部前提 | 白名单校验不能替代模型评测 |
 | Windows 大段中文宿主编辑可能静默失效 | 真实缺陷/绕行 | 脚本补丁 + 锚点 count==1 + 读回验证（坑 daf1a5fc2f9f） |
-| 公开可见但未授予开源许可 | 真实边界 | 见末节，不把可见性当授权 |
+| Apache-2.0 授权 | 真实边界 | 见末节；依赖各自许可证与使用范围见白名单文档 |
 
 ---
 
@@ -360,8 +360,8 @@ ReviewBench、SWRBench、CVEfixes、精度与成本归一）；所有结论都�
 [SECURITY.md](SECURITY.md)。提交使用 Conventional Commits；提交前按「我要改代码」一节跑门禁与反向验证；
 结构性改动先立 ADR，新依赖先批准再登记 `pyproject.toml` 与许可证跟踪。
 
-本项目当前为**内部项目公开可见，但未授予任何使用、修改或分发许可**。公开可见不等于获得授权；
-未经所有者书面许可，不得将本项目代码用于再分发或商业用途。运行时依赖的许可证与使用范围见
+本项目以 **Apache-2.0** 授权发布（全文见 [LICENSE](LICENSE)）：任何人均可在遵守许可证条款的前提下
+使用、修改与分发；为项目贡献的代码默认按 Apache-2.0 提交（见 LICENSE 附录说明）。运行时依赖的许可证与使用范围见
 [开源依赖与上游跟踪](docs/06-operations/开源依赖与上游跟踪.md)，依赖声明以 `pyproject.toml` 为准，
 解析版本以 `uv.lock` 与 `requirements-lock.txt` 为准。
 

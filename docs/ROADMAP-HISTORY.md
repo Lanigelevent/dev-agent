@@ -2133,3 +2133,8 @@
 - astgrep×3 problem-hit（Practice/Quality/Security）runner 特有稳定失败：签名跨四次 run 一致；本地/克隆/双锁版本三假设全排除；按手册 §6.2 移植任务口径将 coverage-gate 步移出阻断面（continue-on-error，断言本体未删，本地照常跑），astgrep 诊断登记 next-round 条目 204①。
 - 内部/公开两仓 self-check.yml 同步修补；公开仓 nightly 至此六矩阵无阻断红（CVE/mcp-scan/interop/coverage 四修闭环）。
 - **light 单跑全绿 300.83 秒**（`logs/suite-r241-run1.log`，892 passed + 2 skip）。台账 274 / open 7 / closed 243 / archived 24。
+### 5.205 round-242（v2.105.0 不增版本）：Apache-2.0 授权落地（零代码 light）
+- 总监裁定 Apache-2.0：LICENSE 全文入仓（附录 Copyright 2026 Lanigelevent）；pyproject 增 `license = "Apache-2.0"`；README 四处口径切换（badge/状态表「许可」行/边界表/贡献许可节），「未授予」引用清零。
+- 贡献默认口径：为项目贡献的代码按 Apache-2.0 提交（LICENSE 附录说明）；依赖白名单口径不变（AGENTS 硬约束 1）。
+- 历史记录（ROADMAP-HISTORY §5.203「留总监裁定」行）不回改，本条为裁定承接。
+- **light 单跑全绿 306.38 秒**（`logs/suite-r242-run1.log`，892 passed + 2 skip）。台账 274 / open 7 / closed 243 / archived 24。
