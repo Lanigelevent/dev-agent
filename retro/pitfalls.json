@@ -2035,6 +2035,15 @@
       "status": "open"
     },
     {
+      "id": "3fdf00e1fd6b",
+      "category": "correction",
+      "description": "test_runner_e2e runner 差异根因闭环：CI 采证显示断言失败在「账本 $REPO 令牌化」——GitHub runner TEMP 以 8.3 短名（RUNNER~1）给定，记录侧 argv 持短名而 Path.resolve() 展开长名，_path_pattern 长名正则不命中短名记录",
+      "root_cause": "event-ledger.tokenize 的路径形态变体缺失（8.3 短名）；本地 TEMP 无短名别名故不可复现",
+      "countermeasure": "_path_variants()（ctypes GetShort/GetLongPathNameW 双向互转，nt 守卫）+ _path_pattern 组合正则；本地双形态验证全过 + TestLedgerTokenize 三测回归",
+      "source": "round-246 runner_e2e 根因修复",
+      "status": "open"
+    },
+    {
       "id": "414a3d5f26f0",
       "category": "correction",
       "description": "收官套件首跑红于 PROGRESS 坑台账行未刷新（266 vs 台账真值 267）→ test_real_repo_freshness_green 1 failed——仓面一致性必须先于套件",

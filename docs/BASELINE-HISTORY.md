@@ -2421,3 +2421,4 @@ v2.4.0）：version 升 **2.4.0**（bump-version 单命令），测试 **609
 2026-11-28 round-238 收尾（v2.105.0）：version 升 **2.105.0**（bump-version 单命令 + sync-counts），契约 **893→894**（+1 规范哈希回归）、脚本 **93 不变**、工具 **16 不变**。公开仓同步触发 CI 全红→规范哈希修复（见 events-round-238）。
 2026-11-28 round-243 收尾（v2.106.0）：version 升 **2.106.0**（bump-version 单命令），契约 **894 不变**、脚本 **93 不变**、工具 **16 不变**；新增 Dockerfile/.dockerignore（非脚本面）。
 2026-11-28 round-244 收尾（v2.107.0）：version 升 **2.107.0**（bump-version 单命令），契约 **894 不变**、脚本 **93 不变**、工具 **16 不变**；astgrep×3 runner 根因修复（子进程编码三层钉死）+ coverage-gate 阻断面恢复。
+2026-11-28 round-246 收尾（v2.108.0）：version 升 **2.108.0**（bump-version 单命令），契约 **894→897**（+3：TestLedgerTokenize 短名令牌化回归）、脚本 **93 不变**、工具 **16 不变**；test_runner_e2e runner 根因修复（8.3 短名令牌化 _path_variants）。

@@ -448,3 +448,59 @@ class TestOptimizations(unittest.TestCase):
         self.assertTrue(any(g["situation"] == "budget_both_exceeded" for g in data["gates"]))
 
 
+
+
+class TestLedgerTokenize(unittest.TestCase):
+    """r246 回归：$REPO 令牌化必须命中 Windows 8.3 短名形态（GitHub runner
+    TEMP=RUNNER~1 场景，test_runner_e2e 曾因此 runner 独有红）。"""
+
+    def _load_el(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "el_t", ROOT / "skills" / "production-guardrails" / "scripts" / "event-ledger.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod
+
+    def _short_variant(self, path):
+        if os.name != "nt":
+            self.skipTest("8.3 短名仅 Windows")
+        import ctypes
+        k32 = ctypes.windll.kernel32
+        size = k32.GetShortPathNameW(str(path), None, 0)
+        if not size:
+            self.skipTest("卷未启用 8.3 短名")
+        buf = ctypes.create_unicode_buffer(int(size) + 1)
+        k32.GetShortPathNameW(str(path), buf, int(size) + 1)
+        return buf.value
+
+    def test_short_form_tokenizes(self):
+        mod = self._load_el()
+        with tempfile.TemporaryDirectory() as td:
+            repo = Path(td) / "repo"
+            repo.mkdir()
+            short = self._short_variant(repo)
+            tokens = {"$REPO": repo}
+            argv_val = str(Path(short) / "src.py")
+            out = mod.tokenize(argv_val, tokens)
+            self.assertIn("$REPO", out)
+            self.assertNotIn("repo", out.replace("$REPO", ""))
+
+    def test_long_form_still_tokenizes(self):
+        mod = self._load_el()
+        with tempfile.TemporaryDirectory() as td:
+            repo = Path(td) / "repo"
+            repo.mkdir()
+            tokens = {"$REPO": repo}
+            out = mod.tokenize(str(repo / "src.py"), tokens)
+            self.assertIn("$REPO", out)
+
+    def test_replay_repo_token_accepts_short_form(self):
+        mod = self._load_el()
+        with tempfile.TemporaryDirectory() as td:
+            repo = Path(td) / "repo"
+            repo.mkdir()
+            short = self._short_variant(repo)
+            variants = mod._path_variants(repo)
+            self.assertIn(str(repo.resolve()), [str(v) for v in variants])
+            self.assertIn(short, [str(v) for v in variants])

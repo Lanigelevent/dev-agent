@@ -2155,3 +2155,8 @@
 - coverage-gate 恢复阻断后剥出第二层：test_runner_e2e runner 差异（runner.py 全链 e2e；夹具 git 身份已排除、runner 自身编码已钉）。诊断步扩展采证（e2e 全文输出），coverage 退回 continue-on-error 至收口完成。
 - 策略：诊断步模式固化为 CI 常设（采证→定位→修复→恢复阻断循环）；runner 子进程编码纪律（r244）已入册。
 - **light 单跑全绿 295.29 秒**（`logs/suite-r245-run1.log`，892 passed + 2 skip）。台账 276 / open 9 / closed 243 / archived 24。
+### 5.209 round-246（v2.108.0）：test_runner_e2e runner 根因修复——8.3 短名令牌化
+- CI 采证定位：断言失败在账本 $REPO 令牌化——GitHub runner TEMP 以 8.3 短名（RUNNER~1）给定，记录侧 argv 持短名，Path.resolve() 展开长名，_path_pattern 长名正则不命中短名记录（本地 TEMP 无短名别名，不可复现）。
+- 修复：event-ledger.py 新增 _path_variants()（ctypes GetShort/GetLongPathNameW 双向互转，nt 守卫）+ _path_pattern 组合正则；本地短名/长名双形态令牌化验证全过；TestLedgerTokenize 三测回归（+1 文件类，契约 894→897）。
+- 承接链：r244 astgrep 修复（runner 实证）→ r245 本测剥出 → r246 根因闭环；coverage-gate 阻断面恢复待本轮 CI 实证后下轮执行。
+- **full 双跑 300.23/289.13 秒**（`logs/suite-r246-run1/2.log`，895 passed + 2 skip ×2 双绿；二轮 3 红于死代码 unused_import wintypes——清除后双绿）。台账 277 / open 10 / closed 243 / archived 24。

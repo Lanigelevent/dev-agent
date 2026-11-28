@@ -37,6 +37,7 @@ import argparse
 import datetime
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -122,11 +123,39 @@ def parse_tokens(pairs):
     return tokens
 
 
+def _path_variants(path):
+    """令牌路径的形态变体：本体 + Windows 8.3 短名互转（r246）。
+
+    GitHub runner 的 TEMP 以短名给定（如 RUNNER~1），记录侧 argv 持短名而
+    Path.resolve() 展开长名——两种形态都必须能命中，否则 $REPO 令牌漏替换。
+    非 Windows 或 ctypes 不可用时不产生变体。"""
+    variants = [str(path)]
+    try:
+        import ctypes
+    except ImportError:
+        return variants
+    if os.name != "nt":
+        return variants
+    k32 = ctypes.windll.kernel32
+    for getter in (k32.GetShortPathNameW, k32.GetLongPathNameW):
+        size = getter(str(path), None, 0)
+        if not size:
+            continue
+        buf = ctypes.create_unicode_buffer(int(size) + 1)
+        if getter(str(path), buf, int(size) + 1):
+            v = buf.value
+            if v and v not in variants:
+                variants.append(v)
+    return variants
+
+
 def _path_pattern(path):
-    """令牌路径 → 匹配正/反斜杠双形态的正则（Windows 记录、POSIX 记录都能命中）。"""
-    parts = _norm_path(path).split("/")
-    return re.compile(r"[/\\]".join(re.escape(p) for p in parts) + r"(?=[/\\]|$)",
-                      re.IGNORECASE)
+    """令牌路径（含短名变体）→ 匹配正/反斜杠双形态、大小写不敏感的正则。"""
+    alts = []
+    for v in _path_variants(path):
+        parts = _norm_path(v).split("/")
+        alts.append(r"[/\\]".join(re.escape(p) for p in parts) + r"(?=[/\\]|$)")
+    return re.compile("|".join("(?:" + a + ")" for a in alts), re.IGNORECASE)
 
 
 def tokenize(value, tokens):
