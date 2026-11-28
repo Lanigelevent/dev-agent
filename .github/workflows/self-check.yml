@@ -108,6 +108,7 @@ jobs:
         # mcp/tools-pin.json 对账；漂移即红（清单演进须与 pin 同 commit）。
         run: python skills/production-guardrails/scripts/mcp-selfscan.py --root . check
       - name: MCP 工具面投毒扫描（mcp-scan，nightly 每次；r196 AB-08，复用 Invariant mcp-scan v2.3.0）
+        shell: bash  # r239：windows 默认 pwsh 下 rm -f 的 -f 参数歧义报错，步骤钉 bash
         # 生成指向本仓 MCP 服务器的标准 .mcp.json（治理壳 stdlib 可直接运行），
         # mcp-scan 动态枚举 16 工具并扫描描述投毒/阴影动作；critical/high 即
         # nightly 红。注意：mcp-scan 2.3.0 在本地 Windows 无法动态枚举（spawn
