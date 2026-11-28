@@ -2045,6 +2045,15 @@
       "closure_note": "r233 全程按「先齐真值行（PROGRESS/README 台账行+版本+计数）再起套件」执行；bump-version 后 doc-freshness 即绿，双跑前无预置漂移"
     },
     {
+      "id": "45dcae869182",
+      "category": "correction",
+      "description": "coverage-gate 恢复阻断后剥出第二层环境敏感测：test_runner_e2e（runner.py 全链 e2e）runner 差异——astgrep×3 修复经 runner 实证有效（不再出现）；诊断步扩展采证（e2e 全文 pytest 输出），coverage 退回 continue-on-error 至逐个收口完成",
+      "root_cause": "coverage 测量面（test_scripts_*.py 全量集成）在 CI runner 上有未逐一定位的环境敏感测；runner 自身子进程编码已钉（utf-8 两处），e2e 具体断点待采证",
+      "countermeasure": "诊断步模式固化为 CI 常设（采证→定位→修复→恢复阻断的循环）；runner 子进程编码纪律已在 r244 修复并入册",
+      "source": "round-245 CI 收口",
+      "status": "open"
+    },
+    {
       "id": "58aca3522aad",
       "category": "correction",
       "description": "传输损坏继续（mt1 数据件 6 处自注标记）——清洗后零残留；选择器顶层包名碎片跨模块碰撞（test_other 误选）由契约测试双向断言抓住，改后缀链匹配",

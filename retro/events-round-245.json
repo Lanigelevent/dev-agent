@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "category": "correction",
+      "description": "coverage-gate 恢复阻断后剥出第二层环境敏感测：test_runner_e2e（runner.py 全链 e2e）runner 差异——astgrep×3 修复经 runner 实证有效（不再出现）；诊断步扩展采证（e2e 全文 pytest 输出），coverage 退回 continue-on-error 至逐个收口完成",
+      "root_cause": "coverage 测量面（test_scripts_*.py 全量集成）在 CI runner 上有未逐一定位的环境敏感测；runner 自身子进程编码已钉（utf-8 两处），e2e 具体断点待采证",
+      "countermeasure": "诊断步模式固化为 CI 常设（采证→定位→修复→恢复阻断的循环）；runner 子进程编码纪律已在 r244 修复并入册",
+      "source": "round-245 CI 收口",
+      "type": "correction"
+    }
+  ]
+}

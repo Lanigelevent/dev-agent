@@ -91,7 +91,7 @@ Primary documentation is Chinese; this section is the maintained English entry p
 | 治理壳 | **13 个技能 × 93 个脚本** | `skills/`，计数由 `doc-freshness.py` 对账 |
 | MCP 服务器 | **16 个工具**（含异步 `submit/status/cancel/purge`） | `mcp/review_mcp.py`，stdio JSON-RPC 2.0（协议 2025-06-18） |
 | 引擎矩阵 | Ruff **973/482/250**、ast-grep **29/2/2**、LibCST **2/2/2** | `engines/*-matrix.json`，落盘产物逐项比对 |
-| 坑台账 | **275 条，open 8 / closed 243 / archived 24** | `retro/pitfalls.json`，`retro-ledger.py` 机械维护 |
+| 坑台账 | **276 条，open 9 / closed 243 / archived 24** | `retro/pitfalls.json`，`retro-ledger.py` 机械维护 |
 | 评审精度基线 | ReviewBench deterministic precision **0.6667**（地板 0.65，n=12 小样本） | `skills/eval-harness/precision-baseline.json` |
 | 评测口径 | agent 侧 **20/20**；对外硬规则臂 **0.42%**；宿主评审臂 **unavailable**（n=1000 recall=0，D-053 归因）；部分口径与 blocked 单列 | [docs/PROGRESS.md](docs/PROGRESS.md)、[docs/DECISIONS.md](docs/DECISIONS.md) |
 | 最近发布 | tag `v2.101.0` 已签发；release-gate 七项全绿 | `reports/release-gate/2.101.0/release-gate.json` |

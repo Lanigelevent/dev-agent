@@ -2150,3 +2150,8 @@
 - 三层修复：子脚本 reconfigure(encoding=utf-8)（S10 自防御惯例）+ 子环境 PYTHONIOENCODING=utf-8 + os 局部名别名（修复过程踩 UnboundLocalError 一次——finally import os 使 os 函数局部化的教训入册）。
 - 本地引擎测 14/14 全绿；coverage-gate 步恢复阻断面（继续验证 r244 根因修复的 CI 实证由本轮 CI run 给出）。
 - **full 双跑 334.19/316.36 秒**（`logs/suite-r244-run1/2.log`，892 passed + 2 skip ×2 双绿）。台账 275 / open 8 / closed 243 / archived 24。
+### 5.208 round-245（v2.107.0 不增版本）：CI 收口策略调整与诊断采证扩展（零代码 light）
+- astgrep×3 编码修复经 runner 实证有效（r244 CI 失败清单不再出现）——真 bug 修复坐实。
+- coverage-gate 恢复阻断后剥出第二层：test_runner_e2e runner 差异（runner.py 全链 e2e；夹具 git 身份已排除、runner 自身编码已钉）。诊断步扩展采证（e2e 全文输出），coverage 退回 continue-on-error 至收口完成。
+- 策略：诊断步模式固化为 CI 常设（采证→定位→修复→恢复阻断循环）；runner 子进程编码纪律（r244）已入册。
+- **light 单跑全绿 295.29 秒**（`logs/suite-r245-run1.log`，892 passed + 2 skip）。台账 276 / open 9 / closed 243 / archived 24。
